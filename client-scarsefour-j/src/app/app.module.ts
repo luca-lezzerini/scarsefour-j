@@ -5,11 +5,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AnagraficaProdottiComponent } from './anagrafica-prodotti/anagrafica-prodotti.component';
 import { FormsModule } from '@angular/forms';
+import { AnagraficaCassiereComponent } from './anagrafica-cassiere/anagrafica-cassiere.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AnagraficaProdottiComponent
+    AnagraficaProdottiComponent,
+    AnagraficaCassiereComponent
   ],
   imports: [
     BrowserModule,
