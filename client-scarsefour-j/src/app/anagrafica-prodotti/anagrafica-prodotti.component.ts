@@ -11,6 +11,15 @@ export class AnagraficaProdottiComponent implements OnInit {
   descrizione:string="";
   searchCriterion:string="";
   prodotti:string="";
+  ean:string="";
+   prezzo:number=0;
+   scortaScaffale:number=0;
+   scortaMagazzino:number=0;
+   lottoRiordino:number=0;
+
+
+      
+        
 
   constructor() { }
 
