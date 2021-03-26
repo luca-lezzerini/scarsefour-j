@@ -7,9 +7,44 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AnagraficaProdottiComponent implements OnInit {
 
+  codice:string="";
+  descrizione:string="";
+  searchCriterion:string="";
+  prodotti:string="";
+
   constructor() { }
 
   ngOnInit(): void {
   }
+
+  nuova(){
+
+  }
+
+  tornaHome(){
+
+  }
+
+  cerca(){
+
+  }
+
+  modifica(){
+
+  }
+
+  conferma(){
+
+  }
+
+  annulla(){
+
+  }
+
+  rimuovi(){
+
+  }
+
+
 
 }
