@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import java.util.List;
 
 @Entity
 public class Prodotto {
@@ -28,8 +29,7 @@ public class Prodotto {
     @Column
     private int lottoRiordino;
 
-    /* @ManyToMany(MappedBy = "Prodotto")
-    private List<Sconto> listaSconti; */
+    private List<Sconto> listaSconti;
     public Prodotto() {
     }
 
@@ -98,4 +98,36 @@ public class Prodotto {
     public void setLottoRiordino(int lottoRiordino) {
         this.lottoRiordino = lottoRiordino;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public List<Sconto> getListaSconti() {
+        return listaSconti;
+    }
+
+    public void setListaSconti(List<Sconto> listaSconti) {
+        this.listaSconti = listaSconti;
+    }
+
+    @Override
+    public String toString() {
+        return "Prodotto{" +
+                "id=" + id +
+                ", ean='" + ean + '\'' +
+                ", codice='" + codice + '\'' +
+                ", descrizione='" + descrizione + '\'' +
+                ", prezzo=" + prezzo +
+                ", scortaMinScaffaleDefault=" + scortaMinScaffaleDefault +
+                ", scortaMinMagazzinoDefault=" + scortaMinMagazzinoDefault +
+                ", lottoRiordino=" + lottoRiordino +
+                ", listaSconti=" + listaSconti +
+                '}';
+    }
 }
+

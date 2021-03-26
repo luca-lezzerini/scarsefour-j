@@ -14,10 +14,8 @@ public class Scontrino {
 
     @Column
     private LocalDateTime timeStamp;
-
     @Column
     private Integer numero;
-
     @Column
     private Double totale;
 
