@@ -1,5 +1,6 @@
 package it.iad2.scarsefourserver.controller;
 
+<<<<<<< Updated upstream
 import it.iad2.scarsefourserver.dto.ListaProdottiDto;
 import it.iad2.scarsefourserver.dto.ProdottoDto;
 import it.iad2.scarsefourserver.service.ProdottoService;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @CrossOrigin("*")
 
+=======
+>>>>>>> Stashed changes
 public class AnagraficaProdottiController {
 
     @Autowired
