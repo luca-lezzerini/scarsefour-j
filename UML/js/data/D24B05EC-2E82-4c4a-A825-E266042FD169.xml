@@ -1,0 +1,7 @@
+tocTab[tocTab.length] = new Array("0.3.4:1", "", "Gestione casse", "EARoot/EA3/EA4/EA116.htm", "180.png", "33", "0", "", "Use Case diagram0","{460E2728-6418-4387-94E7-C93A203EF122}");
+tocTab[tocTab.length] = new Array("0.3.4:2", "", "Annulla scontrino", "EARoot/EA3/EA4/EA119.htm", "7.png", "E296", "0", "", "UseCase0","{DD84C855-9245-40b7-AABB-0E8BDEFFA4DB}");
+tocTab[tocTab.length] = new Array("0.3.4:3", "", "Chiudi scontrino", "EARoot/EA3/EA4/EA120.htm", "7.png", "E301", "0", "", "UseCase0","{973C14A5-E1AC-434f-A9EB-8152DBD55CD5}");
+tocTab[tocTab.length] = new Array("0.3.4:4", "", "Dashboard cassa", "EARoot/EA3/EA4/EA121.htm", "7.png", "E300", "0", "", "UseCase0","{864A2512-491C-4ffc-9A31-E4B7C347CAAA}");
+tocTab[tocTab.length] = new Array("0.3.4:5", "", "Storna ultimo", "EARoot/EA3/EA4/EA122.htm", "7.png", "E299", "0", "", "UseCase0","{B80F9981-2630-4923-A570-750B17DF19C0}");
+tocTab[tocTab.length] = new Array("0.3.4:6", "", "Vedi prezzo", "EARoot/EA3/EA4/EA123.htm", "7.png", "E298", "0", "", "UseCase0","{2CCCD24A-5017-4a81-A77D-542FC01F0E9C}");
+tocTab[tocTab.length] = new Array("0.3.4:7", "", "Vendi un pezzo", "EARoot/EA3/EA4/EA124.htm", "7.png", "E297", "0", "", "UseCase0","{72F59C62-230D-4645-8D4F-233674CDB380}");

@@ -1,0 +1,5 @@
+tocTab[tocTab.length] = new Array("0.2:1", "", "Pianificazione", "EARoot/EA2/EA76.htm", "175.png", "22", "0", "", "Logical diagram0","{B6CBC247-DCDC-4f05-B032-CF7B867957B5}");
+tocTab[tocTab.length] = new Array("0.2:2", "", "Team &quot;Anglia&quot;", "EARoot/EA2/EA79.htm", "5.png", "E171", "0", "", "Class0","{C4D3D2D1-C70D-4b72-A9E1-1AA6113B396F}");
+tocTab[tocTab.length] = new Array("0.2:3", "", "Team &quot;Gallia&quot;", "EARoot/EA2/EA80.htm", "5.png", "E169", "0", "", "Class0","{B56868BA-5582-4585-92F5-C3675788ABEA}");
+tocTab[tocTab.length] = new Array("0.2:4", "", "Team &quot;Hispania&quot;", "EARoot/EA2/EA81.htm", "5.png", "E172", "0", "", "Class0","{84DD79E8-C845-43dd-9AF8-61D95AF44A3A}");
+tocTab[tocTab.length] = new Array("0.2:5", "", "Team &quot;Numidia&quot;", "EARoot/EA2/EA82.htm", "5.png", "E170", "0", "", "Class0","{73F14248-79D3-4db7-86B0-7CD1A8A1DA21}");

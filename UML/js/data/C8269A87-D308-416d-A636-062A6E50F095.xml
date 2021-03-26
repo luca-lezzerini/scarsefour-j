@@ -1,0 +1,5 @@
+tocTab[tocTab.length] = new Array("0.4.2:1", "", "Gestione scaffali vendita", "EARoot/EA4/EA2/EA155.htm", "175.png", "27", "0", "", "Logical diagram0","{825989CD-7CD8-4bec-8B35-C96759F4614A}");
+tocTab[tocTab.length] = new Array("0.4.2:2", "", "MovimentiScaffale", "EARoot/EA4/EA2/EA158.htm", "5.png", "E252", "0", "", "Class0","{13E5C7D2-632B-4699-835C-94A8D9878CBA}");
+tocTab[tocTab.length] = new Array("0.4.2:3", "", "PosizioneScaffale", "EARoot/EA4/EA2/EA159.htm", "5.png", "E247", "0", "", "Class0","{E2AADFA7-E213-423f-904C-759296921ACA}");
+tocTab[tocTab.length] = new Array("0.4.2:4", "", "Prodotto", "EARoot/EA4/EA2/EA160.htm", "5.png", "E246", "0", "", "Class0","{C51880D9-1B92-49d7-91F9-4C2564ACBDFC}");
+tocTab[tocTab.length] = new Array("0.4.2:5", "", "SkuScaffale", "EARoot/EA4/EA2/EA161.htm", "5.png", "E248", "0", "", "Class0","{12E9A75A-09D2-4e05-9292-8195127230E0}");

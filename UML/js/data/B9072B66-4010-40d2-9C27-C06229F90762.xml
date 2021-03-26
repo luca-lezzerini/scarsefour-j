@@ -1,0 +1,5 @@
+tocTab[tocTab.length] = new Array("0.4.1:1", "", "Gestione casse", "EARoot/EA4/EA1/EA148.htm", "175.png", "36", "0", "", "Logical diagram0","{248DEF0F-DB9A-4181-8267-97060B62ED5C}");
+tocTab[tocTab.length] = new Array("0.4.1:2", "", "Cassa", "EARoot/EA4/EA1/EA151.htm", "5.png", "E324", "0", "", "Class0","{AD14EC1F-32C9-4614-8B84-08403CB891C8}");
+tocTab[tocTab.length] = new Array("0.4.1:3", "", "Cassiera", "EARoot/EA4/EA1/EA152.htm", "5.png", "E320", "0", "", "Class0","{497ED27B-6570-4844-AFEF-1B5713AAD27C}");
+tocTab[tocTab.length] = new Array("0.4.1:4", "", "RigaScontrino", "EARoot/EA4/EA1/EA153.htm", "5.png", "E318", "0", "", "Class0","{47250A21-9A69-4106-8BB4-E9A134C25EBB}");
+tocTab[tocTab.length] = new Array("0.4.1:5", "", "Scontrino", "EARoot/EA4/EA1/EA154.htm", "5.png", "E317", "0", "", "Class0","{AD7E1228-E882-49f1-8ED5-BF9BA285B62B}");
