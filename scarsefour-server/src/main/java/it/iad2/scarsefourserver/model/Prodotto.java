@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import java.util.List;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Prodotto {
@@ -30,7 +31,10 @@ public class Prodotto {
     private int lottoRiordino;
     @ManyToMany
     private List<Sconto> listaSconti;
-
+    
+    @OneToOne //fare MappedBy
+    private PosizioneScaffale posizioneScaffale;
+    
     public Prodotto() {
     }
 
