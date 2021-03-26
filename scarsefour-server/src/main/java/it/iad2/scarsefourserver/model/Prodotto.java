@@ -98,4 +98,9 @@ public class Prodotto {
     public void setLottoRiordino(int lottoRiordino) {
         this.lottoRiordino = lottoRiordino;
     }
+
+    @Override
+    public String toString() {
+        return "Prodotto{" + "id=" + id + ", ean=" + ean + ", codice=" + codice + ", descrizione=" + descrizione + ", prezzo=" + prezzo + ", scortaMinScaffaleDefault=" + scortaMinScaffaleDefault + ", scortaMinMagazzinoDefault=" + scortaMinMagazzinoDefault + ", lottoRiordino=" + lottoRiordino + '}';
+    }
 }
