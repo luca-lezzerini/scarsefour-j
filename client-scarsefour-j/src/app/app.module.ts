@@ -8,6 +8,8 @@ import { FormsModule } from '@angular/forms';
 import { AnagraficaCassiereComponent } from './anagrafica-cassiere/anagrafica-cassiere.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { AnagraficaScontiComponent } from './anagrafica-sconti/anagrafica-sconti.component';
+import { AnagraficaPosizioniComponent } from './anagrafica-posizioni/anagrafica-posizioni.component';
+import { DashboardGruppoTreComponent } from './dashboard-gruppo-tre/dashboard-gruppo-tre.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +17,9 @@ import { AnagraficaScontiComponent } from './anagrafica-sconti/anagrafica-sconti
     AnagraficaProdottiComponent,
     AnagraficaCassiereComponent,
     HomePageComponent,
-    AnagraficaScontiComponent
+    AnagraficaScontiComponent,
+    AnagraficaPosizioniComponent,
+    DashboardGruppoTreComponent
   ],
   imports: [
     BrowserModule,
