@@ -1,6 +1,5 @@
 package it.iad2.scarsefourserver.controller;
 
-<<<<<<< Updated upstream
 import it.iad2.scarsefourserver.dto.ListaProdottiDto;
 import it.iad2.scarsefourserver.dto.ProdottoDto;
 import it.iad2.scarsefourserver.service.ProdottoService;
@@ -14,40 +13,32 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @CrossOrigin("*")
 
-=======
->>>>>>> Stashed changes
 public class AnagraficaProdottiController {
 
     @Autowired
     ProdottoService prodottoService;
-    
+
     @ResponseBody
     @RequestMapping("/modifica-prodotto-quattro")
-    public ListaProdottiDto modifica(@RequestBody ProdottoDto dto){
-        return prodottoService.modifica(dto.getProdotto());
+    public ListaProdottiDto modificaProdotto(@RequestBody ProdottoDto dto) {
+        return prodottoService.modificaProdotto(dto.getProdotto());
     }
-    
+
     @ResponseBody
     @RequestMapping("/conferma-prodotto-quattro")
-    public ListaProdottiDto confermaProdotto(@RequestBody ProdottoDto dto){
+    public ListaProdottiDto confermaProdotto(@RequestBody ProdottoDto dto) {
         return prodottoService.confermaProdotto(dto.getProdotto());
     }
-    
-    @ResponseBody
-    @RequestMapping("/annulla-prodotto-quattro")
-    public ListaProdottiDto annullaProdotto(@RequestBody ProdottoDto dto){
-        return prodottoService.annullaProdotto(dto.getProdotto());
-    }
-    
+
     @ResponseBody
     @RequestMapping("/rimuovi-prodotto-quattro")
-    public ListaProdottiDto rimuoviProdotto(@RequestBody ProdottoDto dto){
+    public ListaProdottiDto rimuoviProdotto(@RequestBody ProdottoDto dto) {
         return prodottoService.rimuoviProdotto(dto.getProdotto());
     }
-    
+
     @ResponseBody
     @RequestMapping("/aggiorna-prodotto-quattro")
-    public ListaProdottiDto aggiornaProdotto(@RequestBody ProdottoDto dto){
-        return prodottoService.aggiornaProdotto(dto.getProdotto());
+    public ListaProdottiDto aggiornaProdotto() {
+        return prodottoService.aggiornaProdotto();
     }
 }
