@@ -7,15 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AnagraficaScontiComponent implements OnInit {
 
-  codice:string="";
-  descrizione:string="";
-  searchCriterion:string="";
-  prodotti:string="";
-  ean:string="";
-   prezzo:number=0;
-   scortaScaffale:number=0;
-   scortaMagazzino:number=0;
-   lottoRiordino:number=0;
+  codice: string = "";
+  descrizione: string = "";
+  searchCriterion: string = "";
+  dallaData: string ="";
+  allaData: string="";
+  sconto:number=0;
+  sconti:string="";
+  
 
 
   constructor() { }
@@ -23,31 +22,31 @@ export class AnagraficaScontiComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  nuova(){
+  nuova() {
 
   }
 
-  tornaHome(){
+  tornaHome() {
 
   }
 
-  cerca(){
+  cerca() {
 
   }
 
-  modifica(){
+  modifica() {
 
   }
 
-  conferma(){
+  conferma() {
 
   }
 
-  annulla(){
+  annulla() {
 
   }
 
-  rimuovi(){
+  rimuovi() {
 
   }
 
