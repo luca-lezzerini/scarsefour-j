@@ -16,19 +16,19 @@ import javax.persistence.OneToOne;
  * @author matte
  */
 @Entity
-public class PosizioneScaffale{
-   
+public class PosizioneScaffale {
+
     @Id
     @GeneratedValue
-    Long id;
-    
+    private Long id;
+
     @Column
-    String codice;
+    private String codice;
     @Column
-    String descizione;
-    
-    //@OneToOne(mappedBy ="posizioneScaffale")
-    //private Prodotto prodotto;
+    private String descizione;
+
+    @OneToOne
+    private Prodotto prodotto;
 
     public PosizioneScaffale() {
     }
@@ -66,10 +66,5 @@ public class PosizioneScaffale{
     public String toString() {
         return "PosizioneScaffale{" + "id=" + id + ", codice=" + codice + ", descizione=" + descizione + '}';
     }
-    
-    
-    
-    
-    
-    
+
 }
