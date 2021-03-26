@@ -28,8 +28,9 @@ public class Prodotto {
     private int scortaMinMagazzinoDefault;
     @Column
     private int lottoRiordino;
-
+    @ManyToMany
     private List<Sconto> listaSconti;
+
     public Prodotto() {
     }
 
