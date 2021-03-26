@@ -7,13 +7,15 @@ import { AnagraficaProdottiComponent } from './anagrafica-prodotti/anagrafica-pr
 import { FormsModule } from '@angular/forms';
 import { AnagraficaCassiereComponent } from './anagrafica-cassiere/anagrafica-cassiere.component';
 import { HomePageComponent } from './home-page/home-page.component';
+import { AnagraficaScontiComponent } from './anagrafica-sconti/anagrafica-sconti.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AnagraficaProdottiComponent,
     AnagraficaCassiereComponent,
-    HomePageComponent
+    HomePageComponent,
+    AnagraficaScontiComponent
   ],
   imports: [
     BrowserModule,
