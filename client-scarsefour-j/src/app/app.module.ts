@@ -6,12 +6,14 @@ import { AppComponent } from './app.component';
 import { AnagraficaProdottiComponent } from './anagrafica-prodotti/anagrafica-prodotti.component';
 import { FormsModule } from '@angular/forms';
 import { AnagraficaCassiereComponent } from './anagrafica-cassiere/anagrafica-cassiere.component';
+import { HomePageComponent } from './home-page/home-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AnagraficaProdottiComponent,
-    AnagraficaCassiereComponent
+    AnagraficaCassiereComponent,
+    HomePageComponent
   ],
   imports: [
     BrowserModule,
