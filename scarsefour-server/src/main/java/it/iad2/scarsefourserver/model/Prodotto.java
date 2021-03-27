@@ -1,5 +1,6 @@
 package it.iad2.scarsefourserver.model;
 
+import java.util.ArrayList;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,8 +32,6 @@ public class Prodotto {
     private int scortaMinMagazzinoDefault;
     @Column
     private int lottoRiordino;
-    @ManyToMany
-    private List<Sconto> listaSconti;
 
     @OneToOne
     @JoinColumn(referencedColumnName = "id")
@@ -55,6 +54,9 @@ public class Prodotto {
     }
 
     public List<Sconto> getSconti() {
+        if (sconti == null){
+            sconti = new ArrayList();
+        }
         return sconti;
     }
 
@@ -77,6 +79,9 @@ public class Prodotto {
     }
 
     public List<RigaScontrino> getRighe() {
+        if (righe == null){
+            righe = new ArrayList();
+        }
         return righe;
     }
 
@@ -148,14 +153,6 @@ public class Prodotto {
         this.id = id;
     }
 
-    public List<Sconto> getListaSconti() {
-        return listaSconti;
-    }
-
-    public void setListaSconti(List<Sconto> listaSconti) {
-        this.listaSconti = listaSconti;
-    }
-
     @Override
     public String toString() {
         return "Prodotto{"
@@ -167,7 +164,7 @@ public class Prodotto {
                 + ", scortaMinScaffaleDefault=" + scortaMinScaffaleDefault
                 + ", scortaMinMagazzinoDefault=" + scortaMinMagazzinoDefault
                 + ", lottoRiordino=" + lottoRiordino
-                + ", listaSconti=" + listaSconti
+                + ", listaSconti=" + sconti
                 + '}';
     }
 }

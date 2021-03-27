@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
@@ -42,6 +43,9 @@ public class Sconto {
     }
 
     public List<Prodotto> getProdotti() {
+        if(prodotti == null){
+            prodotti = new ArrayList();
+        }
         return prodotti;
     }
 

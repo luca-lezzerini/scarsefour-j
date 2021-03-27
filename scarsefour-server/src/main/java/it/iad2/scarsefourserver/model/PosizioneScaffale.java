@@ -9,7 +9,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 /**
@@ -28,8 +27,8 @@ public class PosizioneScaffale {
     @Column
     private String descrizione;
 
-    @OneToOne
-    @JoinColumn(referencedColumnName = "id")
+    @OneToOne(mappedBy="posizioneScaffale")
+    //@JoinColumn(referencedColumnName = "id")
     private Prodotto prodotto;
 
     public PosizioneScaffale() {
