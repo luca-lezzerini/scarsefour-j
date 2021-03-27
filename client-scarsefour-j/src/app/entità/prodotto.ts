@@ -1,4 +1,5 @@
 export class Prodotto {
+  id:number;
   sconto: number;
   ean: string;
   codice: string;
