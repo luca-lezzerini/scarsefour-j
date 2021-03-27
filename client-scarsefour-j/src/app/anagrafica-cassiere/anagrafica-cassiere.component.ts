@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 import { ListaCassieriDto } from '../dto/lista-cassieri-dto';
 import { CassiereRicercaDto } from '../dto/cassiere-ricerca-dto';
 import { CriterioCercaDto } from '../dto/criterio-certca-dto';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-anagrafica-cassiere',
@@ -36,7 +37,7 @@ export class AnagraficaCassiereComponent implements OnInit, Automabile {
   cognomeC: boolean;
   codiceC: boolean;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private router: Router) {
     this.automa = new Automa(this);
     //this.aggiorna();
   }
@@ -207,5 +208,9 @@ export class AnagraficaCassiereComponent implements OnInit, Automabile {
       "http://localhost:8080/visualizza-lista-cassieri",
     );
     oss.subscribe(c => this.cassieri = c.listaCassieri);
+  }
+
+  vaiAHome(){
+    this.router.navigateByUrl("home-page")
   }
 }
