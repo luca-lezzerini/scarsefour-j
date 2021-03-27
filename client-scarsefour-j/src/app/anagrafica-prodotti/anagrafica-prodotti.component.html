@@ -1,8 +1,9 @@
-ciao<button (click)="nuova()">Nuova</button>
+<button (click)="nuova()" *ngIf="buttonNuovaVisible">Nuova</button>
 <br>
 
 <button (click)="vaiA('')">Torna alla home page</button>
-<div>
+
+<div *ngIf = "formDivVisible" [disabled]="campiNonEditabili">
   <input type="text" placeholder="codice" [(ngModel)]="prodotto.codice">
   <input type="text" placeholder="descrizione" [(ngModel)]="prodotto.descrizione">
   <input type="text" placeholder="ean" [(ngModel)]="prodotto.ean">
@@ -13,18 +14,18 @@ ciao<button (click)="nuova()">Nuova</button>
 </div>
 <br>
 <div>
-  <button (click)="modifica()">Modifica</button>
-  <button (click)="conferma()">Conferma</button>
-  <button (click)="annulla()">Annulla</button>
-  <button (click)="rimuovi()">Rimuovi</button>
+  <button (click)="modifica()" *ngIf="modRimVisible">Modifica</button>
+  <button (click)="conferma()"*ngIf="confAnnVisible">Conferma</button>
+  <button (click)="annulla()"*ngIf="confAnnVisible">Annulla</button>
+  <button (click)="rimuovi()" *ngIf="modRimVisible">Rimuovi</button>
 </div>
 <br>
 <hr>
-<div>
+<div *ngIf="searchVisible">
   <input type="text" placeholder="Cerca per codice" [(ngModel)]="searchCriterion">
   <button (click)="cercaPerCodice()">Cerca</button>
 </div>
-<table>
+<table *ngIf="tabellaProdottiVisibile">
   <tr>
     <th>Codice</th>
     <th>Descrizione</th>
