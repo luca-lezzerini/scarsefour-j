@@ -1,4 +1,11 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { CriterioCercaDto } from '../dto/criterio-certca-dto';
+import { ListaProdottiDto } from '../dto/lista-prodotti-dto';
+import { ProdottoDto } from '../dto/prodotto-dto';
+import { Prodotto } from '../entità/prodotto';
 
 @Component({
   selector: 'app-anagrafica-prodotti',
@@ -7,53 +14,74 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AnagraficaProdottiComponent implements OnInit {
 
-  codice:string="";
-  descrizione:string="";
-  searchCriterion:string="";
-  prodotti:string="";
-  ean:string="";
-   prezzo:number=0;
-   scortaScaffale:number=0;
-   scortaMagazzino:number=0;
-   lottoRiordino:number=0;
+  prodotto: Prodotto = new Prodotto();
+  listaProdotti: Prodotto[] = [];
+  searchCriterion: string;
 
-
-      
-        
-
-  constructor() { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   ngOnInit(): void {
   }
 
-  nuova(){
+  nuova() {
 
   }
 
-  tornaHome(){
+  cercaPerCodice() {
+    let dto: CriterioCercaDto = new CriterioCercaDto();
+    dto.searchCriterion = this.searchCriterion;
+    let oss: Observable<ProdottoDto> = this.http.post<ProdottoDto>(
+      "localhost:8080/cerca-prodotto-quattro", dto);
+    oss.subscribe(c => this.prodotto = c.prodotto);
+
 
   }
 
-  cerca(){
+  modifica() {
+    let dto: ProdottoDto = new ProdottoDto();
+    dto.prodotto = this.prodotto;
+
+    let oss: Observable<ListaProdottiDto> = this.http.post<ListaProdottiDto>(
+      "localhost:8080/conferma-prodotto-quattro", dto);
+    oss.subscribe(c => this.listaProdotti = c.listaProdotti);
 
   }
 
-  modifica(){
+  conferma() {
+    let dto: ProdottoDto = new ProdottoDto();
+    dto.prodotto = this.prodotto;
 
-  }
-
-  conferma(){
-
-  }
-
-  annulla(){
-
-  }
-
-  rimuovi(){
-
+    let oss: Observable<ListaProdottiDto> = this.http.post<ListaProdottiDto>(
+      "localhost:8080/conferma-prodotto-quattro", dto);
+    oss.subscribe(c => this.listaProdotti = c.listaProdotti);
   }
 
 
+  annulla() {
+    this.prodotto.codice = "";
+    this.prodotto.descrizione = "";
+    this.prodotto.ean = "";
+    this.prodotto.prezzo = 0;
+    this.prodotto.scortaMinimaMag = 0;
+    this.prodotto.scortaMinimaScaf = 0;
+  }
 
+  rimuovi() {
+    let dto: ProdottoDto = new ProdottoDto();
+    dto.prodotto = this.prodotto;
+
+    let oss: Observable<ListaProdottiDto> = this.http.post<ListaProdottiDto>("localhost:8080/conferma-prodotto-quattro", dto);
+    oss.subscribe(c => this.listaProdotti = c.listaProdotti);
+  }
+
+  aggiorna() {
+    let oz: Observable<ListaProdottiDto> = this.http.get<ListaProdottiDto>(
+      "localhost:8080/aggiorna-prodotto-quattro");
+    oz.subscribe(a => this.listaProdotti = a.listaProdotti);
+
+  }
+  vaiA(s: string) {
+    this.router.navigateByUrl(s);
+  }
+  seleziona() { }
 }

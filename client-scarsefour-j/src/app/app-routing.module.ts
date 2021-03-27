@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AnagraficaProdottiComponent } from './anagrafica-prodotti/anagrafica-prodotti.component';
 
 const routes: Routes = [
- { path:"/anagrafica-prodotti", component:AnagraficaProdottiComponent},
+ { path:'anagrafica-prodotti', component:AnagraficaProdottiComponent},
 ];
 
 @NgModule({
