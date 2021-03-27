@@ -2,8 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Automa } from '../automa/automa';
-import { AddEvent, AnnullaEvent, ModificaEvent, RicercaEvent, RimuoviEvent } from '../automa/eventi';
+import { AddEvent, AnnullaEvent, ConfermaEvent, ModificaEvent, RicercaEvent, RimuoviEvent, SelezionaEvent } from '../automa/eventi';
 import { Sconto } from '../entità/sconto';
+import { Observable } from 'rxjs';
+import { ListaScontiDto } from '../dto/lista-sconti-dto';
+import { CriterioRicercaDto } from '../dto/criterio-ricerca-dto';
+
+import { AggiungiState, ModificaState, RimuoviState } from '../automa/stati';
+import { ScontoDto } from '../dto/sconto-dto';
 
 @Component({
   selector: 'app-anagrafica-sconti',
@@ -84,7 +90,7 @@ export class AnagraficaScontiComponent implements OnInit {
     this.edit = false;
     this.conf = false;
     this.annull = false;
-    this.search =true;
+    this.search = true;
     this.tabella = false;
     this.codiceS = false;
     this.descrizioneS = false;
@@ -127,7 +133,7 @@ export class AnagraficaScontiComponent implements OnInit {
 
   nuova() {
     this.automa.next(new AddEvent());
-    console.log("sei in nuova")
+
 
   }
 
@@ -137,18 +143,39 @@ export class AnagraficaScontiComponent implements OnInit {
 
   cerca() {
     this.automa.next(new RicercaEvent());
-    console.log("sei in cerca")
-
+    let dto: CriterioRicercaDto = new CriterioRicercaDto();
+    dto.criterio = this.searchCriterion;
+    let oss: Observable<ListaScontiDto> = this.http.post<ListaScontiDto>(
+      "http://localhost:8080/ricerca-sconto", dto);
+    oss.subscribe(c => this.sconti = c.listaSconti);
   }
 
   modifica() {
     this.automa.next(new ModificaEvent());
-    console.log("sei in modifica")
-
   }
 
   conferma() {
-
+    if (this.automa.stato instanceof AggiungiState) {
+      let dto: ScontoDto = new ScontoDto();
+      dto.sconto = this.sconto;
+      let oss: Observable<ListaScontiDto> = this.http.post<ListaScontiDto>(
+        "http://localhost:8080/aggiungi-sconto", dto);
+      oss.subscribe(c => this.sconti = c.listaSconti);
+    } else if (this.automa.stato instanceof ModificaState) {
+      let dto: ScontoDto = new ScontoDto();
+      dto.sconto = this.sconto;
+      let oss: Observable<ListaScontiDto> = this.http.post<ListaScontiDto>(
+        "http://localhost:8080/modifica-sconto", dto);
+      oss.subscribe(c => this.sconti = c.listaSconti);
+    } else if (this.automa.stato instanceof RimuoviState) {
+      let dto: ScontoDto = new ScontoDto();
+      dto.sconto = this.sconto;
+      let oss: Observable<ListaScontiDto> = this.http.post<ListaScontiDto>(
+        "http://localhost:8080/rimuovi-sconto", dto);
+      oss.subscribe(c => this.sconti = c.listaSconti);
+    }
+    this.automa.next(new ConfermaEvent());
+    this.sconto = new Sconto();
   }
 
   annulla() {
@@ -162,7 +189,31 @@ export class AnagraficaScontiComponent implements OnInit {
   }
 
   aggiorna() {
+    let oss: Observable<ListaScontiDto> = this.http.get<ListaScontiDto>("http://localhost:8080/aggiorna-lista-sconti");
+    oss.subscribe(c => this.sconti = c.listaSconti);
+  }
 
+  seleziona(s: Sconto) {
+    this.automa.next(new SelezionaEvent());
+    this.sconto.codice = s.codice;
+    this.sconto.descrizione = s.descrizione;
+    this.sconto.dallaData = s.dallaData;
+    this.sconto.allaData = s.allaData;
+    this.sconto.sconto = s.sconto;
   }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
