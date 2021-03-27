@@ -41,7 +41,7 @@ export class AnagraficaPosizioniComponent implements OnInit {
     this.formDivVisible = true;
     this.campiNonEditabili = false;
     this.confAnnVisible = true;
-    this.searchVisible = false;
+    this.searchVisible = true;
   }
 
   goToModifica() {
@@ -49,7 +49,7 @@ export class AnagraficaPosizioniComponent implements OnInit {
     this.formDivVisible = true;
     this.campiNonEditabili = false;
     this.confAnnVisible = true;
-    this.searchVisible = false;
+    this.searchVisible = true;
   }
 
   goToRicerca() {
@@ -115,8 +115,11 @@ export class AnagraficaPosizioniComponent implements OnInit {
     this.automa.next(new RicercaEvent());
   }
 
-  seleziona(posizione: PosizioneScaffale) {
+  seleziona(posiz: PosizioneScaffale) {
     this.automa.next(new SelezionaEvent());
+    this.posizione.id = posiz.id;
+    this.posizione.codice = posiz.codice;
+    this.posizione.descrizione = posiz.descrizione;
   }
 
   aggiorna() {
