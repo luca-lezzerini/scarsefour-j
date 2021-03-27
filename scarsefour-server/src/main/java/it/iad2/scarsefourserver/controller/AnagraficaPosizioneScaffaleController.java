@@ -3,20 +3,20 @@ package it.iad2.scarsefourserver.controller;
 import it.iad2.scarsefourserver.dto.CriterioRicercaDto;
 import it.iad2.scarsefourserver.dto.ListaPosizioneScaffaleDto;
 import it.iad2.scarsefourserver.dto.PosizioneScaffaleDto;
-import it.iad2.scarsefourserver.service.PosizioneScaffaleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import it.iad2.scarsefourserver.service.AnagraficaPosizioneScaffaleService;
 
 @CrossOrigin("*")
 @RestController
 public class AnagraficaPosizioneScaffaleController {
     
     @Autowired
-    PosizioneScaffaleService posizioneService;
+    AnagraficaPosizioneScaffaleService posizioneService;
     
     @RequestMapping("/ricerca-posizioni")
     @ResponseBody

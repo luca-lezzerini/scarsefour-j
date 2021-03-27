@@ -3,7 +3,7 @@ package it.iad2.scarsefourserver.service;
 import it.iad2.scarsefourserver.model.PosizioneScaffale;
 import java.util.List;
 
-public interface PosizioneScaffaleService {
+public interface AnagraficaPosizioneScaffaleService {
 
     List<PosizioneScaffale> ricerca(String s);
 
