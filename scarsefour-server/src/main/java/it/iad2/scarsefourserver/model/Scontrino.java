@@ -37,7 +37,7 @@ public class Scontrino {
     private Cassiere cassiere;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "quantita")
+    @OneToMany(mappedBy = "scontrino")
     private List<RigaScontrino> righe;
 
     public Scontrino() {
