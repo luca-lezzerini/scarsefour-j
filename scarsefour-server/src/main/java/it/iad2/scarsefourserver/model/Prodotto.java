@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import java.util.List;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -37,6 +38,14 @@ public class Prodotto {
     @JoinColumn(referencedColumnName = "id")
     private PosizioneScaffale posizioneScaffale;
 
+    @OneToMany
+    @JoinColumn(referencedColumnName = "id")
+    private List<RigaScontrino> righe;
+
+    @ManyToMany
+    @JoinColumn(referencedColumnName = "id")
+    private List<Sconto> sconti;
+
     public PosizioneScaffale getPosizioneScaffale() {
         return posizioneScaffale;
     }
@@ -44,6 +53,15 @@ public class Prodotto {
     public void setPosizioneScaffale(PosizioneScaffale posizioneScaffale) {
         this.posizioneScaffale = posizioneScaffale;
     }
+
+    public List<Sconto> getSconti() {
+        return sconti;
+    }
+
+    public void setSconti(List<Sconto> sconti) {
+        this.sconti = sconti;
+    }
+    
 
     public Prodotto() {
     }
@@ -56,6 +74,14 @@ public class Prodotto {
         this.scortaMinScaffaleDefault = scortaMinScaffaleDefault;
         this.scortaMinMagazzinoDefault = scortaMinMagazzinoDefault;
         this.lottoRiordino = lottoRiordino;
+    }
+
+    public List<RigaScontrino> getRighe() {
+        return righe;
+    }
+
+    public void setRighe(List<RigaScontrino> righe) {
+        this.righe = righe;
     }
 
     public String getEan() {

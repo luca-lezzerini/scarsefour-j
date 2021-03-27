@@ -34,6 +34,7 @@ public class Cassiera {
         this.codiceFiscale = codiceFiscale;
     }
 
+    
     public Scontrino getScontrino() {
         return scontrino;
     }

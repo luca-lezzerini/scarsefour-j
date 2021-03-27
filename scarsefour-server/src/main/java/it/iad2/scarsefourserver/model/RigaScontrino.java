@@ -6,6 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class RigaScontrino {
@@ -21,7 +23,31 @@ public class RigaScontrino {
     @JoinColumn(referencedColumnName = "id")
     private Scontrino scontrino;
 
+    @OneToOne
+    @JoinColumn(referencedColumnName = "id")
+    private MovimentiScaffale movimentiScaffale;
+
+    @ManyToOne
+    @JoinColumn(referencedColumnName = "id")
+    private Prodotto prodotto;
+
     public RigaScontrino() {
+    }
+
+    public MovimentiScaffale getMovimentiScaffale() {
+        return movimentiScaffale;
+    }
+
+    public void setMovimentiScaffale(MovimentiScaffale movimentiScaffale) {
+        this.movimentiScaffale = movimentiScaffale;
+    }
+
+    public Prodotto getProdotto() {
+        return prodotto;
+    }
+
+    public void setProdotto(Prodotto prodotto) {
+        this.prodotto = prodotto;
     }
 
     public Scontrino getScontrino() {

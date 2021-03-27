@@ -5,6 +5,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.time.LocalDateTime;
+import java.util.List;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class Sconto {
@@ -22,6 +25,10 @@ public class Sconto {
     private String descrizione;
     @Column
     private String codice;
+    
+    @ManyToMany
+    @JoinColumn(referencedColumnName = "id")
+    private List<Prodotto> prodotti;
 
     public Sconto() {
     }
@@ -33,6 +40,15 @@ public class Sconto {
         this.descrizione = descrizione;
         this.codice = codice;
     }
+
+    public List<Prodotto> getProdotti() {
+        return prodotti;
+    }
+
+    public void setProdotti(List<Prodotto> prodotti) {
+        this.prodotti = prodotti;
+    }
+    
 
     public Long getId() {
         return id;

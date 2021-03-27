@@ -10,6 +10,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -32,8 +34,19 @@ public class MovimentiScaffale {
         this.quantita = quantita;
         this.timestamp = timestamp;
     }
+    @OneToOne
+    @JoinColumn(referencedColumnName = "id")
+    private RigaScontrino rigaScontrino;
 
     public MovimentiScaffale() {
+    }
+
+    public RigaScontrino getRigaScontrino() {
+        return rigaScontrino;
+    }
+
+    public void setRigaScontrino(RigaScontrino rigaScontrino) {
+        this.rigaScontrino = rigaScontrino;
     }
 
     public Long getId() {
