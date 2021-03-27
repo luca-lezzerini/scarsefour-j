@@ -1,1 +1,44 @@
-<p>anagrafica-cassiere works!</p>
+<body>
+    <div class="titolo">
+        <h2>Anagrafica Cassiere</h2>
+    </div>
+
+    <div *ngIf="form">
+        <input type="text" placeholder="Nome" [(ngModel)]="cassiere.nome" [disabled]="nomeC">
+        <input type="text" placeholder="Cognome" [(ngModel)]="cassiere.cognome" [disabled]="cognomeC">
+        <input type="text" placeholder="Codice Fiscale" [(ngModel)]="cassiere.codiceFiscale" [disabled]="codiceC">
+        <br>
+        <br>
+        <br>
+        <button (click)="modifica()" *ngIf="edit">Modifica</button>
+        <button (click)="annulla()" *ngIf="annull">Annulla</button>
+        <button (click)="conferma()" *ngIf="conf">Conferma</button>
+        <button (click)="rimuovi()" *ngIf="remove">Rimuovi</button>
+    </div>
+    <br>
+    <br>
+    <button (click)="nuova()" *ngIf="aggiungi">Nuova</button>
+    <br>
+    <br>
+    <div *ngIf="search">
+        <input type="text" [(ngModel)]="strRicerca" placeholder="Criterio Ricerca">
+        <button (click)="cerca()">Cerca</button>
+    </div>
+    <br>
+    <br>
+    <div class="tabella">
+    <table *ngIf="tabella">
+        <tr>
+            <th>Nome</th>
+            <th>Cognome</th>
+            <th>Codice Fiscale</th>
+        </tr>
+        <tr *ngFor="let c of cassiere">
+            <td>{{c.nome}}</td>
+            <td>{{c.cognome}}</td>
+            <td>{{c.codiceFiscale}}</td>
+            <td><button (click)="seleziona(c)">Seleziona</button></td>
+        </tr>
+    </table>
+</div>
+</body>
