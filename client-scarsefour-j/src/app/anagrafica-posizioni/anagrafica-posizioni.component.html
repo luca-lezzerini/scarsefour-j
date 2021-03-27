@@ -1,1 +1,26 @@
-<p>anagrafica-posizioni works!</p>
+<button (click)="nuova()" *ngIf="buttonNuovaVisible">Nuova</button>
+<div *ngIf="formDivVisible">
+  <input type="text" [(ngModel)]="posizione.codice" [disabled]="campiNonEditabili">
+  <input type="text" [(ngModel)]="posizione.descrizione" [disabled]="campiNonEditabili">
+  <br>
+  <button (click)="modifica()" *ngIf="!confAnnVisible">Modifica</button>
+  <button (click)="conferma()" *ngIf="confAnnVisible">Conferma</button>
+  <button (click)="annulla()" *ngIf="confAnnVisible">Annulla</button>
+  <button (click)="rimuovi()" *ngIf="!confAnnVisible">Rimuovi</button>
+</div>
+<br>
+<input type="text" [(ngModel)]="criterio" *ngIf="searchVisible">
+<button (click)="cerca()" *ngIf="searchVisible">Cerca</button>
+<table *ngIf="searchVisible">
+  <tr *ngFor="let p of posizioni">
+    <td>
+      {{p.codice}}
+    </td>
+    <td>
+      {{p.descrizione}}
+    </td>
+    <td>
+      <button (click)="seleziona(p)">Seleziona</button>
+    </td>
+  </tr>
+</table>
