@@ -16,37 +16,36 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class AnagraficaCassiereController {
 
-//    @Autowired
-//    AnagraficaCassiereService anagraficaCassiereService;
+    @Autowired
+    AnagraficaCassiereService anagraficaCassiereService;
 
     @RequestMapping("/aggiungi-cassiere")
     @ResponseBody
     public ListaCassieriDto aggiungiCassiere(@RequestBody CassiereDto dto) {
-        throw new UnsupportedOperationException();
+        return new ListaCassieriDto(anagraficaCassiereService.aggiungiCassiere(dto.getCassiere()));
     }
 
     @RequestMapping("/modifica-cassiere")
     @ResponseBody
     public ListaCassieriDto modificaCassiere(@RequestBody CassiereRicercaDto dto) {
-        throw new UnsupportedOperationException();
+        return new ListaCassieriDto(anagraficaCassiereService.modificaCassiere(dto.getCassiere(), dto.getCriterio()));
     }
 
     @RequestMapping("/rimuovi-cassiere")
     @ResponseBody
     public ListaCassieriDto rimuoviCassiere(@RequestBody CassiereRicercaDto dto) {
-        throw new UnsupportedOperationException();
+        return new ListaCassieriDto(anagraficaCassiereService.rimuoviCassiere(dto.getCassiere(), dto.getCriterio()));
     }
 
     @RequestMapping("/ricerca-cassiere")
     @ResponseBody
     public ListaCassieriDto ricercaCassiere(@RequestBody CriterioRicercaDto dto) {
-        throw new UnsupportedOperationException();
+        return new ListaCassieriDto(anagraficaCassiereService.ricercaCassiere(dto.getCriterio()));
     }
 
     @RequestMapping("/visualizza-lista-cassieri")
     @ResponseBody
     public ListaCassieriDto visualizzaListaCassieri() {
-        throw new UnsupportedOperationException();
+        return new ListaCassieriDto(anagraficaCassiereService.visualizzaListaCassieri());
     }
-
 }

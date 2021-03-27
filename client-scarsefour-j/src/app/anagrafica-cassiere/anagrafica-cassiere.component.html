@@ -1,4 +1,8 @@
 <body>
+    <div>
+        <button (click)="vaiAHome()">Home Page</button>
+    </div>
+    
     <div class="titolo">
         <h2>Anagrafica Cassiere</h2>
     </div>
@@ -33,15 +37,13 @@
             <th>Cognome</th>
             <th>Codice Fiscale</th>
         </tr>
-        <tr *ngFor="let c of cassiere">
+        <tr *ngFor="let c of cassieri">
             <td>{{c.nome}}</td>
             <td>{{c.cognome}}</td>
             <td>{{c.codiceFiscale}}</td>
             <td><button (click)="seleziona(c)">Seleziona</button></td>
         </tr>
     </table>
-    <div>
-        <button (click)="vaiAHome()">Home Page</button>
-    </div>
+    
 </div>
 </body>

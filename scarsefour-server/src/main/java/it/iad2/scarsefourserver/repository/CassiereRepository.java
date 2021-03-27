@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface CassiereRepository extends JpaRepository<Cassiere, Long> {
-    
-    @Query("select c from Cassiere c where c.cognome like 'criterio%'")
-    List<Cassiere> cercaLikeCognome(@Param ("criterio") String criterio); 
+
+    @Query("select c from Cassiere c where c.cognome like :criterio%")
+    List<Cassiere> cercaLikeCognome(@Param("criterio") String criterio);
 }
