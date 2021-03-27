@@ -20,7 +20,7 @@ public class Cassiera {
     private String cognome;
     @Column
     private String codiceFiscale;
-    
+
     @OneToOne
     @JoinColumn(referencedColumnName = "id")
     private Scontrino scontrino;
@@ -32,6 +32,14 @@ public class Cassiera {
         this.nome = nome;
         this.cognome = cognome;
         this.codiceFiscale = codiceFiscale;
+    }
+
+    public Scontrino getScontrino() {
+        return scontrino;
+    }
+
+    public void setScontrino(Scontrino scontrino) {
+        this.scontrino = scontrino;
     }
 
     public Long getId() {

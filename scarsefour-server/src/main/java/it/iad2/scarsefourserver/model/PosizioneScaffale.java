@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 /**
@@ -28,6 +29,7 @@ public class PosizioneScaffale {
     private String descizione;
 
     @OneToOne
+    @JoinColumn(referencedColumnName = "id")
     private Prodotto prodotto;
 
     public PosizioneScaffale() {
@@ -40,6 +42,14 @@ public class PosizioneScaffale {
 
     public Long getId() {
         return id;
+    }
+
+    public Prodotto getProdotto() {
+        return prodotto;
+    }
+
+    public void setProdotto(Prodotto prodotto) {
+        this.prodotto = prodotto;
     }
 
     public void setId(Long id) {

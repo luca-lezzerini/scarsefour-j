@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import java.util.List;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -31,10 +32,19 @@ public class Prodotto {
     private int lottoRiordino;
     @ManyToMany
     private List<Sconto> listaSconti;
-    
-    @OneToOne //fare MappedBy
+
+    @OneToOne
+    @JoinColumn(referencedColumnName = "id")
     private PosizioneScaffale posizioneScaffale;
-    
+
+    public PosizioneScaffale getPosizioneScaffale() {
+        return posizioneScaffale;
+    }
+
+    public void setPosizioneScaffale(PosizioneScaffale posizioneScaffale) {
+        this.posizioneScaffale = posizioneScaffale;
+    }
+
     public Prodotto() {
     }
 
@@ -122,17 +132,16 @@ public class Prodotto {
 
     @Override
     public String toString() {
-        return "Prodotto{" +
-                "id=" + id +
-                ", ean='" + ean + '\'' +
-                ", codice='" + codice + '\'' +
-                ", descrizione='" + descrizione + '\'' +
-                ", prezzo=" + prezzo +
-                ", scortaMinScaffaleDefault=" + scortaMinScaffaleDefault +
-                ", scortaMinMagazzinoDefault=" + scortaMinMagazzinoDefault +
-                ", lottoRiordino=" + lottoRiordino +
-                ", listaSconti=" + listaSconti +
-                '}';
+        return "Prodotto{"
+                + "id=" + id
+                + ", ean='" + ean + '\''
+                + ", codice='" + codice + '\''
+                + ", descrizione='" + descrizione + '\''
+                + ", prezzo=" + prezzo
+                + ", scortaMinScaffaleDefault=" + scortaMinScaffaleDefault
+                + ", scortaMinMagazzinoDefault=" + scortaMinMagazzinoDefault
+                + ", lottoRiordino=" + lottoRiordino
+                + ", listaSconti=" + listaSconti
+                + '}';
     }
 }
-

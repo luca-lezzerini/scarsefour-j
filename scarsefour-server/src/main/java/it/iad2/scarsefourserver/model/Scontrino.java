@@ -31,8 +31,8 @@ public class Scontrino {
     @OneToOne
     @JoinColumn(referencedColumnName = "id")
     private Cassiera cassiera;
-    
-    @OneToMany(mappedBy="quantita")
+
+    @OneToMany(mappedBy = "quantita")
     private List<RigaScontrino> righe;
 
     public Scontrino() {
@@ -42,6 +42,30 @@ public class Scontrino {
         this.timeStamp = timeStamp;
         this.numero = numero;
         this.totale = totale;
+    }
+
+    public Cassa getCassa() {
+        return cassa;
+    }
+
+    public void setCassa(Cassa cassa) {
+        this.cassa = cassa;
+    }
+
+    public Cassiera getCassiera() {
+        return cassiera;
+    }
+
+    public void setCassiera(Cassiera cassiera) {
+        this.cassiera = cassiera;
+    }
+
+    public List<RigaScontrino> getRighe() {
+        return righe;
+    }
+
+    public void setRighe(List<RigaScontrino> righe) {
+        this.righe = righe;
     }
 
     public Long getId() {

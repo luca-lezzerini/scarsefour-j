@@ -9,12 +9,13 @@ import javax.persistence.OneToOne;
 
 @Entity
 public class Cassa {
+
     @Id
     @GeneratedValue
     private Long id;
     @Column
     private String codice;
-    
+
     @OneToOne
     @JoinColumn(referencedColumnName = "id")
     private Scontrino scontrino;
@@ -24,6 +25,14 @@ public class Cassa {
 
     public Cassa(String codice) {
         this.codice = codice;
+    }
+
+    public Scontrino getScontrino() {
+        return scontrino;
+    }
+
+    public void setScontrino(Scontrino scontrino) {
+        this.scontrino = scontrino;
     }
 
     public Long getId() {
@@ -44,9 +53,9 @@ public class Cassa {
 
     @Override
     public String toString() {
-        return "Cassa{" +
-                "id=" + id +
-                ", codice='" + codice + '\'' +
-                '}';
+        return "Cassa{"
+                + "id=" + id
+                + ", codice='" + codice + '\''
+                + '}';
     }
 }
