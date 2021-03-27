@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ProdottoServiceImpl implements ProdottoService {
+public class ProdottoServiceImp implements ProdottoService {
 
     @Autowired
     ProdottoRepository prodottoRepository;
