@@ -1,1 +1,31 @@
 <p>dashboard-gruppo-tre works!</p>
+<input type="text" placeholder="barcode" [(ngModel)]="barcode">
+<br>
+<button (click)="vediPrezzo()">Vedi prezzo</button>
+<br>
+<button (click)="chiudiScontrino()">Chiudi Scontrino</button>
+<br>
+Prezzo: {{prezzoProdotto}}
+<br>
+<button (click)="stornaUltimo()">Storna ultimo</button>
+<br>
+<button (click)="annullaScontrino()">Annulla Scontrino</button>
+<br>
+<button (click)=annulla()>Annulla</button>
+<br>
+<button (click)=conferma()>Conferma</button>
+<br>
+<h2>{{ultimoElemento}}</h2>
+<table>
+    <tr>
+        <th>Quantità</th>
+        <th>Descrizione</th>
+        <th>Prezzo</th>
+    </tr>
+<!-- //tabella di prodotto o rigascontrino? -->
+    <tr *ngFor="let p of prodotti">
+        <!-- <td>{{p.quantità}}</td> -->
+        <td>{{p.descrizione}}</td>
+        <td>{{p.prezzo}}</td>
+    </tr>
+</table>
