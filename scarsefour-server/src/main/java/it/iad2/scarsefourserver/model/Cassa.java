@@ -4,6 +4,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Cassa {
@@ -12,6 +14,10 @@ public class Cassa {
     private Long id;
     @Column
     private String codice;
+    
+    @OneToOne
+    @JoinColumn(referencedColumnName = "id")
+    private Scontrino scontrino;
 
     public Cassa() {
     }

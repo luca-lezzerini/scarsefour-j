@@ -5,9 +5,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.time.LocalDateTime;
+import java.util.List;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Scontrino {
+
     @Id
     @GeneratedValue
     private Long id;
@@ -18,6 +23,17 @@ public class Scontrino {
     private Integer numero;
     @Column
     private Double totale;
+
+    @OneToOne
+    @JoinColumn(referencedColumnName = "id")
+    private Cassa cassa;
+
+    @OneToOne
+    @JoinColumn(referencedColumnName = "id")
+    private Cassiera cassiera;
+    
+    @OneToMany(mappedBy="quantita")
+    private List<RigaScontrino> righe;
 
     public Scontrino() {
     }
@@ -62,11 +78,11 @@ public class Scontrino {
 
     @Override
     public String toString() {
-        return "Scontrino{" +
-                "id=" + id +
-                ", timeStamp=" + timeStamp +
-                ", numero=" + numero +
-                ", totale=" + totale +
-                '}';
+        return "Scontrino{"
+                + "id=" + id
+                + ", timeStamp=" + timeStamp
+                + ", numero=" + numero
+                + ", totale=" + totale
+                + '}';
     }
 }

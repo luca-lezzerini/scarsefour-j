@@ -4,6 +4,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class RigaScontrino {
@@ -13,6 +15,11 @@ public class RigaScontrino {
 
     @Column
     private int quantita = 1;
+    
+    @ManyToOne
+    @JoinColumn(referencedColumnName = "id")
+    private Scontrino scontrino;
+    
 
     public RigaScontrino() {
     }
