@@ -23,65 +23,69 @@ export class AnagraficaProdottiComponent implements OnInit {
   listaProdotti: Prodotto[] = [];
   searchCriterion: string;
   automa: Automa;
-  stato:State;
+  stato: State;
 
   buttonNuovaVisible: boolean = true;
   formDivVisible: boolean;
   campiNonEditabili: boolean = false;
   confAnnVisible: boolean = false;
-  modRimVisible:boolean;
-  searchVisible: boolean = true;;
-  tabellaProdottiVisibile:boolean=true;
+  modRimVisible: boolean;
+  searchVisible: boolean = true;
+  tabellaProdottiVisibile: boolean = true;
+  labelNuovoProdotto: boolean;
 
-  constructor(private http: HttpClient, private router: Router){this.aggiorna()}
+  constructor(private http: HttpClient, private router: Router) { this.aggiorna() }
 
   ngOnInit(): void {
     this.aggiorna();
     this.automa = new Automa(this);
   }
-  goToRicerca(){
+  goToRicerca() {
     this.buttonNuovaVisible = true;
     this.formDivVisible = false;
     this.searchVisible = true;
 
   }
-  goToAggiungi(){
-  this.buttonNuovaVisible= true;
-  this.formDivVisible = true;
-  this.campiNonEditabili = false;
-  this.confAnnVisible = true;
-  this.modRimVisible=false;
-  this.searchVisible= false;
-  this.tabellaProdottiVisibile=false;
-
-
-  }
-  goToVisualizza(){
-  this.buttonNuovaVisible= true;
-  this.formDivVisible = true;
-  this.campiNonEditabili = false;
-  this.confAnnVisible = true;
-  this.modRimVisible=true;
-  this.searchVisible= false;
-  this.tabellaProdottiVisibile=false;
-
-
-  }
-  goToModifica(){
-  this.buttonNuovaVisible= true;
-  this.formDivVisible = true;
-  this.campiNonEditabili = false;
-  this.confAnnVisible = true;
-  this.modRimVisible=false;
-  this.searchVisible= false;
-  this.tabellaProdottiVisibile=true;
-  }
-
-  goToRimuovi(){
+  goToAggiungi() {
+    this.labelNuovoProdotto = true;
     this.buttonNuovaVisible = false;
     this.formDivVisible = true;
+    this.campiNonEditabili = false;
+    this.confAnnVisible = true;
+    this.modRimVisible = false;
+    this.searchVisible = false;
+    this.tabellaProdottiVisibile = false;
+
+
+  }
+  goToVisualizza() {
+    this.labelNuovoProdotto = false;
+    this.buttonNuovaVisible = true;
+    this.formDivVisible = true;
     this.campiNonEditabili = true;
-    this.modRimVisible=false;
+    this.confAnnVisible = false;
+    this.modRimVisible = true;
+    this.searchVisible = true;
+    this.tabellaProdottiVisibile = true;
+
+
+  }
+  goToModifica() {
+    this.buttonNuovaVisible = false;
+    this.formDivVisible = true;
+    this.campiNonEditabili = false;
+    this.confAnnVisible = true;
+    this.modRimVisible = false;
+    this.searchVisible = false;
+  }
+
+  goToRimuovi() {
+    this.tabellaProdottiVisibile = true;
+    this.campiNonEditabili = false;
+    this.buttonNuovaVisible = true;
+    this.formDivVisible = false;
+    this.campiNonEditabili = true;
+    this.modRimVisible = false;
     this.confAnnVisible = true;
     this.searchVisible = false;
 
@@ -96,7 +100,6 @@ export class AnagraficaProdottiComponent implements OnInit {
     let dto: CriterioRicercaDto = new CriterioRicercaDto();
     dto.criterio = this.searchCriterion;
     let oss: Observable<ProdottoDto> = this.http.post<ProdottoDto>("http://localhost:8080/cerca-prodotto-quattro", dto);
-      
     oss.subscribe(c => this.prodotto = c.prodotto);
 
 
@@ -104,12 +107,12 @@ export class AnagraficaProdottiComponent implements OnInit {
 
   modifica() {
     this.stato = this.automa.next(new ModificaEvent());
-  
+
     let dto: ProdottoDto = new ProdottoDto();
     dto.prodotto = this.prodotto;
 
-    let oss: Observable<ListaProdottiDto> = this.http.post<ListaProdottiDto>( "http://localhost:8080/modifica-prodotto-quattro", dto);
-     
+    let oss: Observable<ListaProdottiDto> = this.http.post<ListaProdottiDto>("http://localhost:8080/modifica-prodotto-quattro", dto);
+
     oss.subscribe(c => this.listaProdotti = c.listaProdotti);
 
     this.stato = this.automa.next(new ModificaEvent());
@@ -124,13 +127,13 @@ export class AnagraficaProdottiComponent implements OnInit {
     if (this.stato instanceof AggiungiState) {
       let oss: Observable<ListaProdottiDto> = this.http.post<ListaProdottiDto>('http://localhost:8080/conferma-prodotto-quattro', dto);
       oss.subscribe(c => this.listaProdotti = c.listaProdotti);
-      this.tabellaProdottiVisibile=true;
+      this.tabellaProdottiVisibile = true;
 
-    } 
+    }
     else if (this.stato instanceof ModificaState) {
       let ox: Observable<ListaProdottiDto> = this.http.post<ListaProdottiDto>('http://localhost:8080/modifica-prodotto-quattro', dto);
-      ox.subscribe(r => this.listaProdotti= r.listaProdotti);
-    } 
+      ox.subscribe(r => this.listaProdotti = r.listaProdotti);
+    }
     else if (this.stato instanceof RimuoviState) {
       let oss: Observable<ListaProdottiDto> = this.http.post<ListaProdottiDto>('http://localhost:8080/rimuovi-prodotto-quattroi', dto);
       oss.subscribe(r => this.listaProdotti = r.listaProdotti);
@@ -138,27 +141,28 @@ export class AnagraficaProdottiComponent implements OnInit {
     this.automa.next(new ConfermaEvent());
     this.prodotto = new Prodotto();
 
-/*
-    let oss: Observable<ListaProdottiDto> = this.http.post<ListaProdottiDto>("http://localhost:8080/conferma-prodotto-quattro", dto);
-      
-    oss.subscribe(c => this.listaProdotti = c.listaProdotti);
-    this.prodotto = new Prodotto();
-    */
+    /*
+        let oss: Observable<ListaProdottiDto> = this.http.post<ListaProdottiDto>("http://localhost:8080/conferma-prodotto-quattro", dto);
+          
+        oss.subscribe(c => this.listaProdotti = c.listaProdotti);
+        this.prodotto = new Prodotto();
+        */
   }
 
 
   annulla() {
-    this.automa.next(new AnnullaEvent());
-    /*
-    this.prodotto.codice = "";
-    this.prodotto.descrizione = "";
-    this.prodotto.ean = "";
-    this.prodotto.prezzo = 0;
-    this.prodotto.scortaMinimaMag = 0;
-    this.prodotto.scortaMinimaScaf = 0;
-    */
+    if (this.stato instanceof AggiungiState) {
+      this.automa.next(new AnnullaEvent());
+      /*
+      this.prodotto.codice = "";
+      this.prodotto.descrizione = "";
+      this.prodotto.ean = "";
+      this.prodotto.prezzo = 0;
+      this.prodotto.scortaMinimaMag = 0;
+      this.prodotto.scortaMinimaScaf = 0;
+      */
+    }
   }
-
   rimuovi() {
     let dto: ProdottoDto = new ProdottoDto();
     dto.prodotto = this.prodotto;
@@ -176,24 +180,24 @@ export class AnagraficaProdottiComponent implements OnInit {
   vaiA(s: string) {
     this.router.navigateByUrl(s);
   }
-  seleziona(p:Prodotto) {
+  seleziona(p: Prodotto) {
 
     this.buttonNuovaVisible = true;
     this.formDivVisible = true;
     this.campiNonEditabili = true;
-    this.modRimVisible=true;
+    this.modRimVisible = true;
     this.confAnnVisible = true;
     this.searchVisible = true;
-    this.tabellaProdottiVisibile=true;
+    this.tabellaProdottiVisibile = true;
 
     this.automa.next(new SelezionaEvent());
-  
+
     this.prodotto.codice = p.codice;
     this.prodotto.descrizione = p.descrizione;
     this.prodotto.ean = p.ean;
     this.prodotto.prezzo = p.prezzo;
     this.prodotto.scortaMinimaMag = p.scortaMinimaMag;
     this.prodotto.scortaMinimaScaf = p.scortaMinimaScaf;
-    
-   }
+
+  }
 }

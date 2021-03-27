@@ -1,6 +1,7 @@
 package it.iad2.scarsefourserver.serviceimpl;
 
 import it.iad2.scarsefourserver.dto.ListaProdottiDto;
+import it.iad2.scarsefourserver.dto.ProdottoDto;
 import it.iad2.scarsefourserver.model.Prodotto;
 import it.iad2.scarsefourserver.repository.ProdottoRepository;
 import it.iad2.scarsefourserver.service.ProdottoService;
@@ -18,7 +19,7 @@ public class ProdottoServiceImp implements ProdottoService {
     public ListaProdottiDto modificaProdotto(Prodotto prodotto) {
         prodottoRepository.save(prodotto);
         return aggiornaProdotto();
-        
+
     }
 
     @Override
@@ -40,4 +41,13 @@ public class ProdottoServiceImp implements ProdottoService {
 
     }
 
+    @Override
+    public ProdottoDto cercaProdotto(String cerca) {
+
+        Prodotto p = prodottoRepository.findByCodiceEquals(cerca);
+        if (p == null) {
+            p = new Prodotto();
+        }
+        return new ProdottoDto(p);
+    }
 }

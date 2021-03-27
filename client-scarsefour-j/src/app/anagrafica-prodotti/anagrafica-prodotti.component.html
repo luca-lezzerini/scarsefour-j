@@ -1,16 +1,19 @@
-<button (click)="nuova()" *ngIf="buttonNuovaVisible">Nuova</button>
+
+<h3 *ngIf = "labelNuovoProdotto">
+  Inserire prodotto
+</h3><button (click)="nuova()" *ngIf="buttonNuovaVisible">Nuova</button>
 <br>
 
 <button (click)="vaiA('')">Torna alla home page</button>
 
-<div *ngIf = "formDivVisible" [disabled]="campiNonEditabili">
-  <input type="text" placeholder="codice" [(ngModel)]="prodotto.codice">
-  <input type="text" placeholder="descrizione" [(ngModel)]="prodotto.descrizione">
-  <input type="text" placeholder="ean" [(ngModel)]="prodotto.ean">
-  <input type="text" placeholder="prezzo" [(ngModel)]="prodotto.prezzo">
-  <input type="text" placeholder="Scorta minima scaffale" [(ngModel)]="prodotto.scortaMinimaScaf">
-  <input type="text" placeholder="Scorta minima magazzino" [(ngModel)]="prodotto.scortaMinimaMag">
-  <input type="text" placeholder="Lotto riordino" [(ngModel)]="prodotto.lottoRiordino">
+<div *ngIf = "formDivVisible">
+  <input type="text" placeholder="codice" [(ngModel)]="prodotto.codice" [disabled]="campiNonEditabili">
+  <input type="text" placeholder="descrizione" [(ngModel)]="prodotto.descrizione" [disabled]="campiNonEditabili">
+  <input type="text" placeholder="ean" [(ngModel)]="prodotto.ean" [disabled]="campiNonEditabili">
+  <input type="text" placeholder="prezzo" [(ngModel)]="prodotto.prezzo" [disabled]="campiNonEditabili">
+  <input type="text" placeholder="Scorta minima scaffale" [(ngModel)]="prodotto.scortaMinimaScaf" [disabled]="campiNonEditabili">
+  <input type="text" placeholder="Scorta minima magazzino" [(ngModel)]="prodotto.scortaMinimaMag" [disabled]="campiNonEditabili">
+  <input type="text" placeholder="Lotto riordino" [(ngModel)]="prodotto.lottoRiordino" [disabled]="campiNonEditabili">
 </div>
 <br>
 <div>
@@ -37,9 +40,9 @@
     <th>Seleziona</th>
   </tr>
   <tr *ngFor="let p of listaProdotti">
-    <td>{{p.ean}}</td>
     <td>{{p.codice}}</td>
     <td>{{p.descrizione}}</td>
+    <td>{{p.ean}}</td>
     <td>{{p.prezzo}}</td>
     <td>{{p.scortaMinimaScaf}}</td>
     <td>{{p.scortaMinimaMag}}</td>

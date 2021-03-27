@@ -1,5 +1,6 @@
 package it.iad2.scarsefourserver.controller;
 
+import it.iad2.scarsefourserver.dto.CriterioRicercaDto;
 import it.iad2.scarsefourserver.dto.ListaProdottiDto;
 import it.iad2.scarsefourserver.dto.ProdottoDto;
 import it.iad2.scarsefourserver.service.ProdottoService;
@@ -40,5 +41,11 @@ public class AnagraficaProdottiController {
     @RequestMapping("/aggiorna-prodotto-quattro")
     public ListaProdottiDto aggiornaProdotto() {
         return prodottoService.aggiornaProdotto();
+    }
+
+    @ResponseBody
+    @RequestMapping("/cerca-prodotto-quattro")
+    public ProdottoDto cercaProdotto(@RequestBody CriterioRicercaDto dto) {
+        return prodottoService.cercaProdotto(dto.getCriterio());
     }
 }
