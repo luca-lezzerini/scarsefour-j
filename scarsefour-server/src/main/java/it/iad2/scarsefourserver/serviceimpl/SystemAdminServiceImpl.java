@@ -55,9 +55,13 @@ public class SystemAdminServiceImpl implements SystemAdminService {
         //##Gestione Cassa##
 
         //Cancellazione dati dei db
-        prodottoRepository.deleteAllInBatch();
+        scontoRepository.deleteAllInBatch();
+        posizioneScaffaleRepository.deleteAllInBatch();
+        rigaScontrinoRepository.deleteAllInBatch();
         cassaRepository.deleteAllInBatch();
         cassieraRepository.deleteAllInBatch();
+        scontrinoRepository.deleteAllInBatch();
+        prodottoRepository.deleteAllInBatch();
 
         //Popolamento dati prodotto
         Prodotto prodotto;
@@ -80,7 +84,7 @@ public class SystemAdminServiceImpl implements SystemAdminService {
         //Popolamento dati scontrino
         Scontrino scontrino;
         for (int i = 0; i < 20; i++) {
-            scontrino = new Scontrino(LocalDateTime.MAX, i, Double.NaN);
+            scontrino = new Scontrino(LocalDateTime.now(), i, 1.0 * i);
             scontrinoRepository.save(scontrino);
         }
         //Popolamento dati PosizioneScaffale
