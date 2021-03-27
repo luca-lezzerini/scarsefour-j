@@ -9,6 +9,7 @@ import it.iad2.scarsefourserver.model.RigaScontrino;
 import it.iad2.scarsefourserver.model.Sconto;
 import it.iad2.scarsefourserver.model.Scontrino;
 import it.iad2.scarsefourserver.repository.CassaRepository;
+import it.iad2.scarsefourserver.repository.CassiereRepository;
 import it.iad2.scarsefourserver.repository.MovimentiScaffaleRepository;
 import it.iad2.scarsefourserver.repository.PosizioneScaffaleRepository;
 import it.iad2.scarsefourserver.repository.ProdottoRepository;
@@ -17,10 +18,10 @@ import it.iad2.scarsefourserver.repository.ScontoRepository;
 import it.iad2.scarsefourserver.repository.ScontrinoRepository;
 import it.iad2.scarsefourserver.service.SystemAdminService;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import it.iad2.scarsefourserver.repository.CassiereRepository;
 
 @Service
 public class SystemAdminServiceImpl implements SystemAdminService {
@@ -32,7 +33,7 @@ public class SystemAdminServiceImpl implements SystemAdminService {
     CassaRepository cassaRepository;
 
     @Autowired
-    CassiereRepository cassiereRepository;
+    CassiereRepository cassieraRepository;
 
     @Autowired
     ScontrinoRepository scontrinoRepository;
@@ -56,7 +57,7 @@ public class SystemAdminServiceImpl implements SystemAdminService {
         //Cancellazione dati dei db
         prodottoRepository.deleteAllInBatch();
         cassaRepository.deleteAllInBatch();
-        cassiereRepository.deleteAllInBatch();
+        cassieraRepository.deleteAllInBatch();
 
         //Popolamento dati prodotto
         Prodotto prodotto;
@@ -66,7 +67,7 @@ public class SystemAdminServiceImpl implements SystemAdminService {
         }
         //Popolamento dati cassa
         Cassa cassa;
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 20; i++) {
             cassa = new Cassa("codice" + i);
             cassaRepository.save(cassa);
         }
@@ -74,7 +75,7 @@ public class SystemAdminServiceImpl implements SystemAdminService {
         Cassiere cassiera;
         for (int i = 0; i < 10; i++) {
             cassiera = new Cassiere("nome" + i, "cognome" + i, "codiceFiscale" + i);
-            cassiereRepository.save(cassiera);
+            cassieraRepository.save(cassiera);
         }
         //Popolamento dati scontrino
         Scontrino scontrino;
@@ -98,21 +99,28 @@ public class SystemAdminServiceImpl implements SystemAdminService {
 
         // Popolamento RigaScontrino
         RigaScontrino rigaScontrino;
-        for (int i = 0; i < 40; i++) {
+        for (int i = 0; i < 60; i++) {
             rigaScontrino = new RigaScontrino();
             rigaScontrino.setQuantita(i);
             rigaScontrinoRepository.save(rigaScontrino);
         }
-
+        
         //Associa Prodotto con PosizioneScaffale
         AssociaProdottoPosizioneScaffale();
         
         //Associa Prodotto con Sconto
+        AssociaProdottoSconto();
+        
         //Associa Prodotto con RigaScontrino
+        AssociaProdottoRigaScontrino();
+        
         //Associa Cassa con Scontrino
-        //Associa Cassiere con Scontrino
-        //Associa RigaScontrino con PosizioneScaffale
-        //Associa RigaScontrino con Scontrino      
+        //AssociaCassaScontrino();
+        
+        //Associa Cassiera con Scontrino
+        
+        //Associa RigaScontrino con Scontrino 
+        AssociaRigaScontrinoScontrino();
     }
 
     void AssociaProdottoPosizioneScaffale() {
@@ -127,5 +135,73 @@ public class SystemAdminServiceImpl implements SystemAdminService {
             posizioneScaffaleRepository.save(posScaff.get(i));
         }
     }
+    
+    void AssociaProdottoSconto(){
+        List<Prodotto> prodotti = prodottoRepository.findAll();
+        List<Sconto> sconti = scontoRepository.findAll();
+        
+        for (int i = 0; i < prodotti.size(); i++) {
+            prodotti.get(i).setSconti(sconti);
+            prodottoRepository.save(prodotti.get(i));
+        }
+        for (int i = 0; i < sconti.size(); i++) {
+            sconti.get(i).setProdotti(prodotti);
+            scontoRepository.save(sconti.get(i));
+        }
+    }
+    
+    void AssociaProdottoRigaScontrino(){
+        List<Prodotto> prodotti = prodottoRepository.findAll();
+        List<RigaScontrino> rigaScontrini = rigaScontrinoRepository.findAll();
+        List<RigaScontrino> tempRighe;
+        int n = 10;
+        for (int i = 0; i < 10; i++) {
+            tempRighe = new ArrayList();
+            for (int j = i * 10; j < n; j++) {
+                rigaScontrini.get(j).setProdotto(prodotti.get(i));
+                rigaScontrinoRepository.save(rigaScontrini.get(j));
+                tempRighe.add(rigaScontrini.get(j));
+            }
+            prodotti.get(i).setRighe(tempRighe);
+            prodottoRepository.save(prodotti.get(i));
+            n += 10;
+            if (n > rigaScontrini.size()){
+                return;
+            }
+        }
+    }
+    
+    void AssociaCassaScontrino(){
+        List<Cassa> casse = cassaRepository.findAll();
+        List<Scontrino> scontrini = scontrinoRepository.findAll();
+        
+        for (int i = 0; i < casse.size(); i++) {
+            casse.get(i).setScontrino(scontrini.get(i));
+            cassaRepository.save(casse.get(i));
 
+            scontrini.get(i).setCassa(casse.get(i));
+            scontrinoRepository.save(scontrini.get(i));
+        }
+    }
+    
+    void AssociaRigaScontrinoScontrino(){
+        List<Scontrino> scontrini = scontrinoRepository.findAll();
+        List<RigaScontrino> rigaScontrini = rigaScontrinoRepository.findAll();
+        List<RigaScontrino> tempRighe;
+        int n = 10;
+        for (int i = 0; i < 10; i++) {
+            tempRighe = new ArrayList();
+            for (int j = i * 10; j < n; j++) {
+                rigaScontrini.get(j).setScontrino(scontrini.get(i));
+                rigaScontrinoRepository.save(rigaScontrini.get(j));
+                tempRighe.add(rigaScontrini.get(j));
+            }
+            scontrini.get(i).setRighe(tempRighe);
+            scontrinoRepository.save(scontrini.get(i));
+            n += 10;
+            if (n > rigaScontrini.size()){
+                return;
+            }
+        }
+    }
 }
