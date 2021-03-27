@@ -26,7 +26,7 @@ public class PosizioneScaffale {
     @Column
     private String codice;
     @Column
-    private String descizione;
+    private String descrizione;
 
     @OneToOne
     @JoinColumn(referencedColumnName = "id")
@@ -37,7 +37,7 @@ public class PosizioneScaffale {
 
     public PosizioneScaffale(String codice, String descizione) {
         this.codice = codice;
-        this.descizione = descizione;
+        this.descrizione = descizione;
     }
 
     public Long getId() {
@@ -64,17 +64,17 @@ public class PosizioneScaffale {
         this.codice = codice;
     }
 
-    public String getDescizione() {
-        return descizione;
+    public String getDescrizione() {
+        return descrizione;
     }
 
-    public void setDescizione(String descizione) {
-        this.descizione = descizione;
+    public void setDescrizione(String descrizione) {
+        this.descrizione = descrizione;
     }
 
     @Override
     public String toString() {
-        return "PosizioneScaffale{" + "id=" + id + ", codice=" + codice + ", descizione=" + descizione + '}';
+        return "PosizioneScaffale{" + "id=" + id + ", codice=" + codice + ", descizione=" + descrizione + '}';
     }
 
 }

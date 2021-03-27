@@ -8,7 +8,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 @Entity
-public class Cassiera {
+public class Cassiere {
 
     @Id
     @GeneratedValue
@@ -25,10 +25,10 @@ public class Cassiera {
     @JoinColumn(referencedColumnName = "id")
     private Scontrino scontrino;
 
-    public Cassiera() {
+    public Cassiere() {
     }
 
-    public Cassiera(String nome, String cognome, String codiceFiscale) {
+    public Cassiere(String nome, String cognome, String codiceFiscale) {
         this.nome = nome;
         this.cognome = cognome;
         this.codiceFiscale = codiceFiscale;

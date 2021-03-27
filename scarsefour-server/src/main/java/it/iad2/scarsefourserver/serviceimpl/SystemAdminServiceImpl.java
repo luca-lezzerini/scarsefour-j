@@ -1,7 +1,7 @@
 package it.iad2.scarsefourserver.serviceimpl;
 
 import it.iad2.scarsefourserver.model.Cassa;
-import it.iad2.scarsefourserver.model.Cassiera;
+import it.iad2.scarsefourserver.model.Cassiere;
 import it.iad2.scarsefourserver.model.MovimentiScaffale;
 import it.iad2.scarsefourserver.model.PosizioneScaffale;
 import it.iad2.scarsefourserver.model.Prodotto;
@@ -9,7 +9,6 @@ import it.iad2.scarsefourserver.model.RigaScontrino;
 import it.iad2.scarsefourserver.model.Sconto;
 import it.iad2.scarsefourserver.model.Scontrino;
 import it.iad2.scarsefourserver.repository.CassaRepository;
-import it.iad2.scarsefourserver.repository.CassieraRepository;
 import it.iad2.scarsefourserver.repository.MovimentiScaffaleRepository;
 import it.iad2.scarsefourserver.repository.PosizioneScaffaleRepository;
 import it.iad2.scarsefourserver.repository.ProdottoRepository;
@@ -21,6 +20,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import it.iad2.scarsefourserver.repository.CassiereRepository;
 
 @Service
 public class SystemAdminServiceImpl implements SystemAdminService {
@@ -32,7 +32,7 @@ public class SystemAdminServiceImpl implements SystemAdminService {
     CassaRepository cassaRepository;
 
     @Autowired
-    CassieraRepository cassieraRepository;
+    CassiereRepository cassiereRepository;
 
     @Autowired
     ScontrinoRepository scontrinoRepository;
@@ -56,7 +56,7 @@ public class SystemAdminServiceImpl implements SystemAdminService {
         //Cancellazione dati dei db
         prodottoRepository.deleteAllInBatch();
         cassaRepository.deleteAllInBatch();
-        cassieraRepository.deleteAllInBatch();
+        cassiereRepository.deleteAllInBatch();
 
         //Popolamento dati prodotto
         Prodotto prodotto;
@@ -71,10 +71,10 @@ public class SystemAdminServiceImpl implements SystemAdminService {
             cassaRepository.save(cassa);
         }
         //Popolamento dati cassiera
-        Cassiera cassiera;
+        Cassiere cassiera;
         for (int i = 0; i < 10; i++) {
-            cassiera = new Cassiera("nome" + i, "cognome" + i, "codiceFiscale" + i);
-            cassieraRepository.save(cassiera);
+            cassiera = new Cassiere("nome" + i, "cognome" + i, "codiceFiscale" + i);
+            cassiereRepository.save(cassiera);
         }
         //Popolamento dati scontrino
         Scontrino scontrino;
@@ -110,7 +110,7 @@ public class SystemAdminServiceImpl implements SystemAdminService {
         //Associa Prodotto con Sconto
         //Associa Prodotto con RigaScontrino
         //Associa Cassa con Scontrino
-        //Associa Cassiera con Scontrino
+        //Associa Cassiere con Scontrino
         //Associa RigaScontrino con PosizioneScaffale
         //Associa RigaScontrino con Scontrino      
     }

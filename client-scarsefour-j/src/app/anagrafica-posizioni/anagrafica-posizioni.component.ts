@@ -5,6 +5,9 @@ import { Automa } from '../automa/automa';
 import { AddEvent, AnnullaEvent, ConfermaEvent, ModificaEvent, RicercaEvent, RimuoviEvent, SelezionaEvent } from '../automa/eventi';
 import { State } from '../automa/state';
 import { AggiungiState, ModificaState, RimuoviState } from '../automa/stati';
+import { CriterioRicercaDto } from '../dto/criterio-ricerca-dto';
+import { ListaPosizioneScaffaleDto } from '../dto/lista-posizione-scaffale-dto';
+import { PosizioneScaffaleDto } from '../dto/posizione-scaffale-dto';
 import { PosizioneScaffale } from '../entità/posizione-scaffale';
 
 @Component({
@@ -15,7 +18,7 @@ import { PosizioneScaffale } from '../entità/posizione-scaffale';
 export class AnagraficaPosizioniComponent implements OnInit {
 
   posizione: PosizioneScaffale = new PosizioneScaffale();
-  posizioni: PosizioneScaffale [] = [];
+  posizioni: PosizioneScaffale[] = [];
   criterio: string = "";
   automa: Automa;
   stato: State;
@@ -80,7 +83,20 @@ export class AnagraficaPosizioniComponent implements OnInit {
   }
 
   conferma() {
-   
+    let dto: PosizioneScaffaleDto = new PosizioneScaffaleDto();
+    dto.posizione = this.posizione;
+    if (this.stato instanceof AggiungiState) {
+      let oss: Observable<ListaPosizioneScaffaleDto> = this.http.post<ListaPosizioneScaffaleDto>('http://localhost:8080/aggiungi-posizioni', dto);
+      oss.subscribe(r => this.posizioni = r.listaPosizioni);
+    } else if (this.stato instanceof ModificaState) {
+      let oss: Observable<ListaPosizioneScaffaleDto> = this.http.post<ListaPosizioneScaffaleDto>('http://localhost:8080/modifica-posizioni', dto);
+      oss.subscribe(r => this.posizioni = r.listaPosizioni);
+    } else if (this.stato instanceof RimuoviState) {
+      let oss: Observable<ListaPosizioneScaffaleDto> = this.http.post<ListaPosizioneScaffaleDto>('http://localhost:8080/rimuovi-posizioni', dto);
+      oss.subscribe(r => this.posizioni = r.listaPosizioni);
+    }
+    this.automa.next(new ConfermaEvent());
+    this.posizione = new PosizioneScaffale();
   }
 
   annulla() {
@@ -92,15 +108,19 @@ export class AnagraficaPosizioniComponent implements OnInit {
   }
 
   cerca() {
-    
+    let dto: CriterioRicercaDto = new CriterioRicercaDto();
+    dto.criterio = this.criterio;
+    let oss: Observable<ListaPosizioneScaffaleDto> = this.http.post<ListaPosizioneScaffaleDto>('http://localhost:8080/ricerca-posizioni', dto);
+    oss.subscribe(r => this.posizioni = r.listaPosizioni);
+    this.automa.next(new RicercaEvent());
   }
 
-  seleziona() {
+  seleziona(posizione: PosizioneScaffale) {
     this.automa.next(new SelezionaEvent());
   }
 
   aggiorna() {
-    
+    let oss: Observable<ListaPosizioneScaffaleDto> = this.http.get<ListaPosizioneScaffaleDto>('http://localhost:8080/aggiorna-posizioni');
+    oss.subscribe(r => this.posizioni = r.listaPosizioni);
   }
-
 }
