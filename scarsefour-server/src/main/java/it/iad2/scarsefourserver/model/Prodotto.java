@@ -1,5 +1,7 @@
 package it.iad2.scarsefourserver.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.ArrayList;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -33,14 +35,17 @@ public class Prodotto {
     @Column
     private int lottoRiordino;
 
+    @JsonIgnore
     @OneToOne
     @JoinColumn(referencedColumnName = "id")
     private PosizioneScaffale posizioneScaffale;
 
+    @JsonIgnoreProperties(value = "prodotto", allowGetters = true, allowSetters = true)
     @OneToMany
     @JoinColumn(referencedColumnName = "id")
     private List<RigaScontrino> righe;
 
+    @JsonIgnoreProperties(value = "prodotto", allowGetters = true, allowSetters = true)
     @ManyToMany
     @JoinColumn(referencedColumnName = "id")
     private List<Sconto> sconti;
@@ -54,7 +59,7 @@ public class Prodotto {
     }
 
     public List<Sconto> getSconti() {
-        if (sconti == null){
+        if (sconti == null) {
             sconti = new ArrayList();
         }
         return sconti;
@@ -63,7 +68,6 @@ public class Prodotto {
     public void setSconti(List<Sconto> sconti) {
         this.sconti = sconti;
     }
-    
 
     public Prodotto() {
     }
@@ -79,7 +83,7 @@ public class Prodotto {
     }
 
     public List<RigaScontrino> getRighe() {
-        if (righe == null){
+        if (righe == null) {
             righe = new ArrayList();
         }
         return righe;

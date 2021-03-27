@@ -5,6 +5,8 @@
  */
 package it.iad2.scarsefourserver.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -34,6 +36,7 @@ public class MovimentiScaffale {
         this.quantita = quantita;
         this.timestamp = timestamp;
     }
+    @JsonIgnoreProperties(value = "movimentiScaffale", allowGetters = true, allowSetters = true)
     @OneToOne
     @JoinColumn(referencedColumnName = "id")
     private RigaScontrino rigaScontrino;

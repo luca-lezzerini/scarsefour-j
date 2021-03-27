@@ -5,6 +5,7 @@
  */
 package it.iad2.scarsefourserver.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,7 +28,8 @@ public class PosizioneScaffale {
     @Column
     private String descrizione;
 
-    @OneToOne(mappedBy="posizioneScaffale")
+    @JsonIgnoreProperties(value = "posizioneScaffale", allowGetters = true, allowSetters = true)
+    @OneToOne(mappedBy = "posizioneScaffale")
     //@JoinColumn(referencedColumnName = "id")
     private Prodotto prodotto;
 

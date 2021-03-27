@@ -1,5 +1,6 @@
 package it.iad2.scarsefourserver.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,6 +17,7 @@ public class Cassa {
     @Column
     private String codice;
 
+    @JsonIgnoreProperties(value = "cassa", allowGetters = true,allowSetters = true)
     @OneToOne
     @JoinColumn(referencedColumnName = "id")
     private Scontrino scontrino;

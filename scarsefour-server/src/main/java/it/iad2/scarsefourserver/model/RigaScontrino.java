@@ -1,5 +1,7 @@
 package it.iad2.scarsefourserver.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,14 +21,17 @@ public class RigaScontrino {
     @Column
     private int quantita = 1;
 
+    @JsonIgnoreProperties(value = "rigaScontrino",allowGetters = true,allowSetters = true)
     @ManyToOne
     @JoinColumn(referencedColumnName = "id")
     private Scontrino scontrino;
 
+    @JsonIgnore
     @OneToOne
     @JoinColumn(referencedColumnName = "id")
     private MovimentiScaffale movimentiScaffale;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(referencedColumnName = "id")
     private Prodotto prodotto;

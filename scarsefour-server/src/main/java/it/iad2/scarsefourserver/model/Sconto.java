@@ -1,5 +1,6 @@
 package it.iad2.scarsefourserver.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,6 +13,7 @@ import javax.persistence.ManyToMany;
 
 @Entity
 public class Sconto {
+
     @Id
     @GeneratedValue
     private Long id;
@@ -26,7 +28,8 @@ public class Sconto {
     private String descrizione;
     @Column
     private String codice;
-    
+
+    @JsonIgnore
     @ManyToMany
     @JoinColumn(referencedColumnName = "id")
     private List<Prodotto> prodotti;
@@ -43,7 +46,7 @@ public class Sconto {
     }
 
     public List<Prodotto> getProdotti() {
-        if(prodotti == null){
+        if (prodotti == null) {
             prodotti = new ArrayList();
         }
         return prodotti;
@@ -52,7 +55,6 @@ public class Sconto {
     public void setProdotti(List<Prodotto> prodotti) {
         this.prodotti = prodotti;
     }
-    
 
     public Long getId() {
         return id;
@@ -104,13 +106,13 @@ public class Sconto {
 
     @Override
     public String toString() {
-        return "Sconto{" +
-                "id=" + id +
-                ", dallaData=" + dallaData +
-                ", allaData=" + allaData +
-                ", sconto=" + sconto +
-                ", descrizione='" + descrizione + '\'' +
-                ", codice='" + codice + '\'' +
-                '}';
+        return "Sconto{"
+                + "id=" + id
+                + ", dallaData=" + dallaData
+                + ", allaData=" + allaData
+                + ", sconto=" + sconto
+                + ", descrizione='" + descrizione + '\''
+                + ", codice='" + codice + '\''
+                + '}';
     }
 }

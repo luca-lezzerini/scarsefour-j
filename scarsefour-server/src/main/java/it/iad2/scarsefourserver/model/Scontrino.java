@@ -1,5 +1,6 @@
 package it.iad2.scarsefourserver.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,14 +26,17 @@ public class Scontrino {
     @Column
     private Double totale;
 
+    @JsonIgnore
     @OneToOne
     @JoinColumn(referencedColumnName = "id")
     private Cassa cassa;
 
+    @JsonIgnore
     @OneToOne
     @JoinColumn(referencedColumnName = "id")
     private Cassiere cassiere;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "quantita")
     private List<RigaScontrino> righe;
 
@@ -62,7 +66,7 @@ public class Scontrino {
     }
 
     public List<RigaScontrino> getRighe() {
-        if(righe == null){
+        if (righe == null) {
             righe = new ArrayList();
         }
         return righe;
