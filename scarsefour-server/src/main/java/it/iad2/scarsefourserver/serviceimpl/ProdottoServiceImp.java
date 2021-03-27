@@ -18,6 +18,7 @@ public class ProdottoServiceImp implements ProdottoService {
     public ListaProdottiDto modificaProdotto(Prodotto prodotto) {
         prodottoRepository.save(prodotto);
         return aggiornaProdotto();
+        
     }
 
     @Override
@@ -28,7 +29,7 @@ public class ProdottoServiceImp implements ProdottoService {
 
     @Override
     public ListaProdottiDto rimuoviProdotto(Prodotto prodotto) {
-        prodottoRepository.delete(prodotto);
+        prodottoRepository.deleteById(prodotto.getId());
         return aggiornaProdotto();
     }
 

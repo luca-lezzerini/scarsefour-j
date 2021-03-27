@@ -9,8 +9,9 @@ import { CassiereDto } from '../dto/cassiere-dto';
 import { Observable } from 'rxjs';
 import { ListaCassieriDto } from '../dto/lista-cassieri-dto';
 import { CassiereRicercaDto } from '../dto/cassiere-ricerca-dto';
-import { CriterioCercaDto } from '../dto/criterio-certca-dto';
+
 import { Router } from '@angular/router';
+import { CriterioRicercaDto } from '../dto/criterio-ricerca-dto';
 
 @Component({
   selector: 'app-anagrafica-cassiere',
@@ -194,8 +195,8 @@ export class AnagraficaCassiereComponent implements OnInit, Automabile {
 
   cerca(){
     this.automa.next(new RicercaEvent());
-    let dto : CriterioCercaDto = new CriterioCercaDto();
-    dto.searchCriterion = this.strRicerca;
+    let dto : CriterioRicercaDto = new CriterioRicercaDto();
+    dto.criterio = this.strRicerca;
     let oss : Observable<ListaCassieriDto> = this.http.post<ListaCassieriDto>(
       "http://localhost:8080/ricerca-cassiere",
       dto

@@ -2,10 +2,12 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { CriterioCercaDto } from '../dto/criterio-certca-dto';
+import { Automa } from '../automa/automa';
+import { CriterioRicercaDto } from '../dto/criterio-ricerca-dto';
 import { ListaProdottiDto } from '../dto/lista-prodotti-dto';
 import { ProdottoDto } from '../dto/prodotto-dto';
 import { Prodotto } from '../entità/prodotto';
+
 
 @Component({
   selector: 'app-anagrafica-prodotti',
@@ -17,8 +19,9 @@ export class AnagraficaProdottiComponent implements OnInit {
   prodotto: Prodotto = new Prodotto();
   listaProdotti: Prodotto[] = [];
   searchCriterion: string;
+  automa: Automa;
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router){this.aggiorna()}
 
   ngOnInit(): void {
   }
@@ -28,10 +31,10 @@ export class AnagraficaProdottiComponent implements OnInit {
   }
 
   cercaPerCodice() {
-    let dto: CriterioCercaDto = new CriterioCercaDto();
-    dto.searchCriterion = this.searchCriterion;
-    let oss: Observable<ProdottoDto> = this.http.post<ProdottoDto>(
-      "localhost:8080/cerca-prodotto-quattro", dto);
+    let dto: CriterioRicercaDto = new CriterioRicercaDto();
+    dto.criterio = this.searchCriterion;
+    let oss: Observable<ProdottoDto> = this.http.post<ProdottoDto>("http://localhost:8080/cerca-prodotto-quattro", dto);
+      
     oss.subscribe(c => this.prodotto = c.prodotto);
 
 
@@ -41,8 +44,8 @@ export class AnagraficaProdottiComponent implements OnInit {
     let dto: ProdottoDto = new ProdottoDto();
     dto.prodotto = this.prodotto;
 
-    let oss: Observable<ListaProdottiDto> = this.http.post<ListaProdottiDto>(
-      "localhost:8080/conferma-prodotto-quattro", dto);
+    let oss: Observable<ListaProdottiDto> = this.http.post<ListaProdottiDto>( "http://localhost:8080/conferma-prodotto-quattro", dto);
+     
     oss.subscribe(c => this.listaProdotti = c.listaProdotti);
 
   }
@@ -51,9 +54,10 @@ export class AnagraficaProdottiComponent implements OnInit {
     let dto: ProdottoDto = new ProdottoDto();
     dto.prodotto = this.prodotto;
 
-    let oss: Observable<ListaProdottiDto> = this.http.post<ListaProdottiDto>(
-      "localhost:8080/conferma-prodotto-quattro", dto);
+    let oss: Observable<ListaProdottiDto> = this.http.post<ListaProdottiDto>("http://localhost:8080/conferma-prodotto-quattro", dto);
+      
     oss.subscribe(c => this.listaProdotti = c.listaProdotti);
+    this.prodotto = new Prodotto();
   }
 
 
@@ -70,18 +74,25 @@ export class AnagraficaProdottiComponent implements OnInit {
     let dto: ProdottoDto = new ProdottoDto();
     dto.prodotto = this.prodotto;
 
-    let oss: Observable<ListaProdottiDto> = this.http.post<ListaProdottiDto>("localhost:8080/conferma-prodotto-quattro", dto);
+    let oss: Observable<ListaProdottiDto> = this.http.post<ListaProdottiDto>("http://localhost:8080/conferma-prodotto-quattro", dto);
     oss.subscribe(c => this.listaProdotti = c.listaProdotti);
   }
 
   aggiorna() {
     let oz: Observable<ListaProdottiDto> = this.http.get<ListaProdottiDto>(
-      "localhost:8080/aggiorna-prodotto-quattro");
+      "http://localhost:8080/aggiorna-prodotto-quattro");
     oz.subscribe(a => this.listaProdotti = a.listaProdotti);
 
   }
   vaiA(s: string) {
     this.router.navigateByUrl(s);
   }
-  seleziona() { }
+  seleziona(p:Prodotto) {
+    this.prodotto.codice = p.codice;
+    this.prodotto.descrizione = p.descrizione;
+    this.prodotto.ean = p.ean;
+    this.prodotto.prezzo = p.prezzo;
+    this.prodotto.scortaMinimaMag = p.scortaMinimaMag;
+    this.prodotto.scortaMinimaScaf = p.scortaMinimaScaf;
+   }
 }
