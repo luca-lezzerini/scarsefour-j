@@ -77,6 +77,6 @@ public class Cassiere {
 
     @Override
     public String toString() {
-        return "Cassiera{" + "id=" + id + ", nome=" + nome + ", cognome=" + cognome + ", codiceFiscale=" + codiceFiscale + '}';
+        return "Cassiere{" + "id=" + id + ", nome=" + nome + ", cognome=" + cognome + ", codiceFiscale=" + codiceFiscale + '}';
     }
 }

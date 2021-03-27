@@ -30,7 +30,7 @@ public class Scontrino {
 
     @OneToOne
     @JoinColumn(referencedColumnName = "id")
-    private Cassiere cassiera;
+    private Cassiere cassiere;
 
     @OneToMany(mappedBy = "quantita")
     private List<RigaScontrino> righe;
@@ -52,12 +52,12 @@ public class Scontrino {
         this.cassa = cassa;
     }
 
-    public Cassiere getCassiera() {
-        return cassiera;
+    public Cassiere getCassiere() {
+        return cassiere;
     }
 
-    public void setCassiera(Cassiere cassiera) {
-        this.cassiera = cassiera;
+    public void setCassiere(Cassiere cassiere) {
+        this.cassiere = cassiere;
     }
 
     public List<RigaScontrino> getRighe() {
