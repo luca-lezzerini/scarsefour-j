@@ -6,7 +6,18 @@ import { StateDashboardUno } from "./state-dashboard-uno";
 export class ScontrinoVuotoState implements StateDashboardUno {
 
     constructor(public automa: AutomaDashboardUno) {
-        automa.gui.goToScontrinoVuoto();
+        if (automa.stato instanceof ScontrinoVuotoState) {
+            automa.gui.goToScontrinoVuotoPrimoEan();
+        } else if (automa.stato instanceof ScontrinoNonVuotoState) {
+            automa.gui.goToScontrinoVuotoFromAll();
+        } else if (automa.stato instanceof VediPrezzoState) {
+            automa.gui.goToScontrinoVuotoFromAll();
+        } else if (automa.stato instanceof AnnullamentoScontrinoState) {
+            automa.gui.goToScontrinoVuotoFromAnnulla();
+        }
+        else {
+            automa.gui.goToScontrinoVuotoInitial();
+        }
     }
 
     next(e: EventDashboardUno): StateDashboardUno {
@@ -27,6 +38,7 @@ export class ScontrinoVuotoState implements StateDashboardUno {
     }
 }
 
+
 export class ScontrinoNonVuotoState implements StateDashboardUno {
 
     constructor(public automa: AutomaDashboardUno) {
@@ -41,22 +53,22 @@ export class ScontrinoNonVuotoState implements StateDashboardUno {
             if (e.numElem == 1) {
                 return new ScontrinoVuotoState(this.automa);
             }
-            else if (e.numElem > 1){
+            else if (e.numElem > 1) {
                 return new ScontrinoNonVuotoState(this.automa);
             }
         }
-        else if (e instanceof EanEvent){ 
-            if (!e.codiceEan){
+        else if (e instanceof EanEvent) {
+            if (!e.codiceEan) {
                 return new ScontrinoNonVuotoState(this.automa);
             }
-            else if (e.codiceEan){
+            else if (e.codiceEan) {
                 return new ScontrinoNonVuotoState(this.automa);
             }
         }
-        else if (e instanceof AnnullaScontrinoEvent){
+        else if (e instanceof AnnullaScontrinoEvent) {
             return new AnnullamentoScontrinoState(this.automa);
         }
-        else if (e instanceof VediPrezzoEvent){
+        else if (e instanceof VediPrezzoEvent) {
             return new VediPrezzoState(this.automa);
         }
         else {
@@ -73,16 +85,16 @@ export class VediPrezzoState implements StateDashboardUno {
 
     next(e: EventDashboardUno): StateDashboardUno {
         if (e instanceof EanEvent) {
-            if (e.scontrino && e.codiceEan){
+            if (e.scontrino && e.codiceEan) {
                 return new ScontrinoNonVuotoState(this.automa);
             }
-            else if (e.scontrino && !e.codiceEan){
+            else if (e.scontrino && !e.codiceEan) {
                 return new ScontrinoNonVuotoState(this.automa);
             }
-            else if (!e.scontrino && !e.codiceEan){
+            else if (!e.scontrino && !e.codiceEan) {
                 return new ScontrinoVuotoState(this.automa);
             }
-            else if (!e.scontrino && e.codiceEan){
+            else if (!e.scontrino && e.codiceEan) {
                 return new ScontrinoVuotoState(this.automa);
             }
         }
@@ -101,9 +113,9 @@ export class AnnullamentoScontrinoState implements StateDashboardUno {
 
     next(e: EventDashboardUno): StateDashboardUno {
         if (e instanceof AnnullaEvent) {
-           return new ScontrinoNonVuotoState(this.automa);
+            return new ScontrinoNonVuotoState(this.automa);
         }
-        else if (e instanceof ConfermaEvent){
+        else if (e instanceof ConfermaEvent) {
             return new ScontrinoVuotoState(this.automa);
         }
         else {

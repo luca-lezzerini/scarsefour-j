@@ -6,7 +6,10 @@ export interface StateDashboardUno{
 
 export interface AutomabileDashboardUno{
 
-    goToScontrinoVuoto();
+    goToScontrinoVuotoInitial();
+    goToScontrinoVuotoPrimoEan();
+    goToScontrinoVuotoFromAnnulla();
+    goToScontrinoVuotoFromAll();
     goToVediPrezzo();
     goToScontrinoNonVuoto();
     goToAnnullamentoScontrino();

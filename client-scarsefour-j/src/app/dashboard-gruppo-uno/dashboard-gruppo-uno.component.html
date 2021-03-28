@@ -1,1 +1,42 @@
-<p>dashboard-gruppo-uno works!</p>
+<body>
+    <div>
+        <button (click)="vaiAHome()">Home Page</button>
+    </div>
+    <div class="titolo">
+        <h2>Dashboard Gruppo Uno</h2>
+    </div>
+    <div>
+        <input type="text" [(ngModel)]="barcode" (blur)="cercaEan($event)" placeholder="Barcode" *ngIf="eanEdit">
+        <br><br>
+        <button (click)="vediPrezzo()" *ngIf="vediPrezzoVis">Vedi Prezzo</button>&nbsp;
+        <button (click)="chiudiScontrino()" *ngIf="chiudiVis" [disabled]="!chiudiAble">Chiudi Scontrino</button>&nbsp;
+        <button (click)="stornaUltimo()" *ngIf="stornaVis">Storna Ultimo</button>&nbsp;
+        <button (click)="annullaScontrino()" *ngIf="annullaScontrinoVis" [disabled]="!annullaScontrinoAble">Annulla
+            Scontrino</button>&nbsp;
+    </div>
+    <br>
+    <br>
+    <div>
+        <button (click)="annulla()" *ngIf="confermaVis" [disabled]="!confermaAble">Annulla</button>&nbsp;
+        <button (click)="conferma()" *ngIf="annullaVis" [disabled]="!annullaAble">Conferma</button>&nbsp;
+    </div>
+    <p *ngIf="prezzoVis"> Prezzo : {{prezzoTot}} &euro;</p>
+    <br><br> <br> Ultimo elemento : {{descrizioneE}} {{prezzoE}} &euro;
+    <br>
+    <br>
+    <br>
+    <div class="tabella">
+        <table *ngIf="listaVis">
+            <tr>
+                <th>Quantità</th>
+                <th>Descrizione</th>
+                <th>Prezzo</th>
+            </tr>
+            <tr *ngFor="let l of listaScontrino">
+                <td>{{l.quantita}}</td>
+                <td>{{l.descrizione}}</td>
+                <td>{{l.prezzo}} &euro;</td>
+            </tr>
+        </table>
+    </div>
+</body>
