@@ -1,26 +1,43 @@
-<button (click)="nuova()" *ngIf="buttonNuovaVisible">Nuova</button>
-<div *ngIf="formDivVisible">
-  <input type="text" [(ngModel)]="posizione.codice" [disabled]="campiNonEditabili">
-  <input type="text" [(ngModel)]="posizione.descrizione" [disabled]="campiNonEditabili">
+<body>
+  <div id="tabs">
+    <ul>
+      <li><a href="http://www.free-css.com/"><span>CSS Templates</span></a></li>
+      <li><a href="http://www.free-css.com/"><span>CSS Layouts</span></a></li>
+      <li><a href="http://www.free-css.com/"><span>CSS Books</span></a></li>
+      <li><a href="http://www.free-css.com/"><span>CSS Menus</span></a></li>
+      <li><a href="http://www.free-css.com/"><span>CSS Tutorials</span></a></li>
+      <li><a href="http://www.free-css.com/"><span>CSS Reference</span></a></li>
+      <li><a rel="nofollow" target="_blank" href="http://www.exploding-boy.com/"
+          title="explodingboy"><span>explodingboy</span></a></li>
+    </ul>
+  </div>
+  <div>
+    <h1>GESTIONE ANAGRAFICA POSIZIONI SCAFFALE</h1>
+  </div>
+  <button (click)="nuova()" *ngIf="buttonNuovaVisible" class="button1">Nuova</button>
+  <div *ngIf="formDivVisible">
+    <input type="text" [(ngModel)]="posizione.codice" [disabled]="campiNonEditabili">
+    <input type="text" [(ngModel)]="posizione.descrizione" [disabled]="campiNonEditabili">
+    <br>
+    <button (click)="modifica()" *ngIf="!confAnnVisible">Modifica</button>
+    <button (click)="conferma()" *ngIf="confAnnVisible">Conferma</button>
+    <button (click)="annulla()" *ngIf="confAnnVisible">Annulla</button>
+    <button (click)="rimuovi()" *ngIf="!confAnnVisible">Rimuovi</button>
+  </div>
   <br>
-  <button (click)="modifica()" *ngIf="!confAnnVisible">Modifica</button>
-  <button (click)="conferma()" *ngIf="confAnnVisible">Conferma</button>
-  <button (click)="annulla()" *ngIf="confAnnVisible">Annulla</button>
-  <button (click)="rimuovi()" *ngIf="!confAnnVisible">Rimuovi</button>
-</div>
-<br>
-<input type="text" [(ngModel)]="criterio" *ngIf="searchVisible">
-<button (click)="cerca()" *ngIf="searchVisible">Cerca</button>
-<table *ngIf="searchVisible">
-  <tr *ngFor="let p of posizioni">
-    <td>
-      {{p.codice}}
-    </td>
-    <td>
-      {{p.descrizione}}
-    </td>
-    <td>
-      <button (click)="seleziona(p)">Seleziona</button>
-    </td>
-  </tr>
-</table>
+  <input type="text" [(ngModel)]="criterio" *ngIf="searchVisible">
+  <button (click)="cerca()" *ngIf="searchVisible">Cerca</button>
+  <table *ngIf="searchVisible">
+    <tr *ngFor="let p of posizioni">
+      <td>
+        {{p.codice}}
+      </td>
+      <td>
+        {{p.descrizione}}
+      </td>
+      <td>
+        <button (click)="seleziona(p)">Seleziona</button>
+      </td>
+    </tr>
+  </table>
+</body>
