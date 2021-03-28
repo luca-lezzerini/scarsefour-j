@@ -13,6 +13,7 @@ import { DashboardGruppoTreComponent } from './dashboard-gruppo-tre/dashboard-gr
 import { HttpClientModule } from '@angular/common/http';
 import { DashboardGruppoUnoComponent } from './dashboard-gruppo-uno/dashboard-gruppo-uno.component';
 import { DashboardGruppoQuattroComponent } from './dashboard-gruppo-quattro/dashboard-gruppo-quattro.component';
+import { DashboardGruppoDueComponent } from './dashboard-gruppo-due/dashboard-gruppo-due.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { DashboardGruppoQuattroComponent } from './dashboard-gruppo-quattro/dash
     AnagraficaPosizioniComponent,
     DashboardGruppoTreComponent,
     DashboardGruppoUnoComponent,
-    DashboardGruppoQuattroComponent
+    DashboardGruppoQuattroComponent,
+    DashboardGruppoDueComponent
   ],
   imports: [
     BrowserModule,
