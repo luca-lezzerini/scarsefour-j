@@ -1,4 +1,4 @@
-import { Scontrino } from "../entità/scontrino";
+import { Scontrino } from "../../entità/scontrino";
 import { EventGruppoQuattro } from "./event-gruppo-quattro";
 
 export class VediPrezzoEvent implements EventGruppoQuattro{}
