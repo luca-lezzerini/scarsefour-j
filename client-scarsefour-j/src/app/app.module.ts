@@ -12,6 +12,7 @@ import { AnagraficaPosizioniComponent } from './anagrafica-posizioni/anagrafica-
 import { DashboardGruppoTreComponent } from './dashboard-gruppo-tre/dashboard-gruppo-tre.component';
 import { HttpClientModule } from '@angular/common/http';
 import { DashboardGruppoUnoComponent } from './dashboard-gruppo-uno/dashboard-gruppo-uno.component';
+import { DashboardGruppoQuattroComponent } from './dashboard-gruppo-quattro/dashboard-gruppo-quattro.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { DashboardGruppoUnoComponent } from './dashboard-gruppo-uno/dashboard-gr
     AnagraficaScontiComponent,
     AnagraficaPosizioniComponent,
     DashboardGruppoTreComponent,
-    DashboardGruppoUnoComponent
+    DashboardGruppoUnoComponent,
+    DashboardGruppoQuattroComponent
   ],
   imports: [
     BrowserModule,

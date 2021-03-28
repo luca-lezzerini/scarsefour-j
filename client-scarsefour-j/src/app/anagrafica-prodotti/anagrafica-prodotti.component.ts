@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Automa } from '../automa/automa';
-import { AddEvent, AnnullaEvent, ConfermaEvent, ModificaEvent, SelezionaEvent } from '../automa/eventi';
+import { AddEvent, AnnullaEvent, ConfermaEvent, ModificaEvent, RimuoviEvent, SelezionaEvent } from '../automa/eventi';
 import { State } from '../automa/state';
 import { AggiungiState, ModificaState, RimuoviState } from '../automa/stati';
 import { CriterioRicercaDto } from '../dto/criterio-ricerca-dto';
@@ -106,7 +106,8 @@ export class AnagraficaProdottiComponent implements OnInit {
     dto.criterio = this.searchCriterion;
     let oss: Observable<ProdottoDto> = this.http.post<ProdottoDto>("http://localhost:8080/cerca-prodotto-quattro", dto);
     oss.subscribe(c => this.prodotto = c.prodotto);
-
+    this.automa.next(new SelezionaEvent());
+    
 
   }
 
@@ -144,7 +145,7 @@ export class AnagraficaProdottiComponent implements OnInit {
 
     }
     else if (this.stato instanceof RimuoviState) {
-      let oss: Observable<ListaProdottiDto> = this.http.post<ListaProdottiDto>('http://localhost:8080/rimuovi-prodotto-quattroi', dto);
+      let oss: Observable<ListaProdottiDto> = this.http.post<ListaProdottiDto>('http://localhost:8080/rimuovi-prodotto-quattro', dto);
       oss.subscribe(r => this.listaProdotti = r.listaProdotti);
     }
     this.automa.next(new ConfermaEvent());
@@ -154,17 +155,18 @@ export class AnagraficaProdottiComponent implements OnInit {
 
 
   annulla() {
-    if (this.stato instanceof AggiungiState) {
+   
       this.automa.next(new AnnullaEvent());
 
-    }
+    
   }
   rimuovi() {
-    let dto: ProdottoDto = new ProdottoDto();
+    this.stato = this.automa.next(new RimuoviEvent());
+    /*let dto: ProdottoDto = new ProdottoDto();
     dto.prodotto = this.prodotto;
 
     let oss: Observable<ListaProdottiDto> = this.http.post<ListaProdottiDto>("http://localhost:8080/conferma-prodotto-quattro", dto);
-    oss.subscribe(c => this.listaProdotti = c.listaProdotti);
+    oss.subscribe(c => this.listaProdotti = c.listaProdotti);*/
   }
 
   aggiorna() {

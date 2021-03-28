@@ -44,7 +44,7 @@ public class ProdottoServiceImp implements ProdottoService {
     @Override
     public ProdottoDto cercaProdotto(String cerca) {
 
-        Prodotto p = prodottoRepository.findByEanEquals(cerca);
+        Prodotto p = prodottoRepository.findByCodiceEquals(cerca);
         if (p == null) {
             p = new Prodotto();
         }

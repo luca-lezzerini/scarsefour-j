@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 public interface ProdottoRepository extends JpaRepository<Prodotto, Long>{
-    Prodotto findByEanEquals(String c);
+    Prodotto findByCodiceEquals(String c);
     
 }
