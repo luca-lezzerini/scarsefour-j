@@ -1,1 +1,30 @@
-<p>dashboard-gruppo-quattro works!</p>
+<input type="text" [(ngModel)] = barcode placeholder="barcode">
+<br>
+<button (click)="vediPrezzo()">Vedi prezzo</button>
+<button (click)="chiudiScontrino()">Chiudi scontrino</button>
+<br>
+<p>Prezzo: {{prezzo}}</p>
+<br>
+<button (click)="stornaUltimo()">Storna ultimo</button>
+<button (click)="annullaScontrino">Annulla scontrino</button>
+<br>
+<button (click)="Annulla()">Annulla</button>
+<button (click)="Conferma()">Conferma</button>
+<br>
+<p>Ultimo elemento {{Descrizione}} {{prezzo}} €  </p>
+<p>Totale </p>
+<br>
+<table>
+    <tr>
+<th> Quantità</th>
+<th> Descrizione</th>
+<th> Prezzo </th>
+</tr>
+<tr *ngFor="let s of scontrini">
+<td> quantità</td>
+<td> descrizione</td>
+<td>prezzo </td>
+</tr>
+</table>
+Totale:{{totale}}
+

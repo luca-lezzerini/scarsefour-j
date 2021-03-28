@@ -7,9 +7,44 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardGruppoQuattroComponent implements OnInit {
 
+  barcode:string;
+  Descrizione:string;
+  prezzo:string;
+  totale:string;
+  scontrini:string;
+
+
+
   constructor() { }
 
   ngOnInit(): void {
   }
+
+
+  vediPrezzo(){
+
+  }
+
+  chiudiScontrino(){
+
+  }
+
+  stornaUltimo(){
+
+  }
+
+  annullaScontrino(){
+
+  }
+
+  Annulla(){
+
+  }
+
+  Conferma(){
+
+  }
+
+
 
 }
