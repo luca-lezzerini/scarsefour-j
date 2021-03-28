@@ -16,27 +16,30 @@ public class AnagraficaScontiServiceImpl implements AnagraficaScontiService {
 
     @Override
     public List<Sconto> aggiornaListaSconti() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return scontoRepository.findAll();
     }
 
     @Override
     public List<Sconto> aggiungiSconto(Sconto sconto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       scontoRepository.save(sconto);
+       return aggiornaListaSconti();
     }
 
     @Override
     public List<Sconto> modificaSconto(Sconto sconto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        scontoRepository.save(sconto);
+        return aggiornaListaSconti();
     }
 
     @Override
     public List<Sconto> rimuoviSconto(Sconto sconto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       scontoRepository.delete(sconto);
+       return aggiornaListaSconti();
     }
 
     @Override
-    public List<Sconto> ricercaSconto(String criterio) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<Sconto> ricercaSconto(String s) {
+       return scontoRepository.findByCodiceContains(s);
     }
     
 }

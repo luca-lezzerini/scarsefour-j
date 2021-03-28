@@ -22,6 +22,14 @@ public class ListaScontiDto {
         return listaSconti;
     }
 
+    public void setListaSconti(List<Sconto> listaSconti) {
+        this.listaSconti = listaSconti;
+    }
+
+    
+
+    
+    
     @Override
     public String toString() {
         return "ListaScontiDto{" + "listaSconti=" + listaSconti + '}';

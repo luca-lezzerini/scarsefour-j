@@ -14,7 +14,7 @@ import { ScontoDto } from '../dto/sconto-dto';
 @Component({
   selector: 'app-anagrafica-sconti',
   templateUrl: './anagrafica-sconti.component.html',
-  styleUrls: ['./anagrafica-sconti.component.css']
+  styleUrls: ['../theme.css']
 })
 export class AnagraficaScontiComponent implements OnInit {
 
@@ -42,13 +42,13 @@ export class AnagraficaScontiComponent implements OnInit {
 
 
   constructor(private http: HttpClient, private router: Router) {
-    this.aggiorna();
+    
     this.automa = new Automa(this);
 
   }
 
   ngOnInit(): void {
-
+this.aggiorna();
   }
 
   goToAggiungi() {
@@ -91,7 +91,7 @@ export class AnagraficaScontiComponent implements OnInit {
     this.conf = false;
     this.annull = false;
     this.search = true;
-    this.tabella = false;
+    this.tabella = true;
     this.codiceS = false;
     this.descrizioneS = false;
     this.dallaDataS = false;
@@ -189,7 +189,8 @@ export class AnagraficaScontiComponent implements OnInit {
   }
 
   aggiorna() {
-    let oss: Observable<ListaScontiDto> = this.http.get<ListaScontiDto>("http://localhost:8080/aggiorna-lista-sconti");
+    let oss: Observable<ListaScontiDto> = this.http.get<ListaScontiDto>(
+      'http://localhost:8080/aggiorna-lista-sconti');
     oss.subscribe(c => this.sconti = c.listaSconti);
   }
 
