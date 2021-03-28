@@ -22,10 +22,9 @@ Prezzo: {{prezzoProdotto}}
         <th>Descrizione</th>
         <th>Prezzo</th>
     </tr>
-<!-- //tabella di prodotto o rigascontrino? -->
-    <tr *ngFor="let p of prodotti">
-        <!-- <td>{{p.quantità}}</td> -->
-        <td>{{p.descrizione}}</td>
-        <td>{{p.prezzo}}</td>
+    <tr *ngFor="let r of righe">
+        <td>{{r.quantita}}</td>
+        <td>{{r.prodotto.descrizione}}</td>
+        <td>{{r.prodotto.prezzo}}</td>
     </tr>
 </table>
