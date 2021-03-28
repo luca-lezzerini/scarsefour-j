@@ -33,17 +33,12 @@ export class AnagraficaCassiereComponent implements OnInit, Automabile {
   strRicerca: string;
 
   //variabili visualizzazione campi e pulsanti
-  form: boolean;
-  aggiungi: boolean;
-  remove: boolean;
-  edit: boolean;
-  conf: boolean = true;
-  annull: boolean = true;
-  search: boolean;
-  tabella: boolean;
-  nomeC: boolean;
-  cognomeC: boolean;
-  codiceC: boolean;
+  buttonNuovaVisible: boolean = false;
+  formDivVisible: boolean = false;
+  campiNonEditabili: boolean = false;
+  confAnnVisible: boolean = false;
+  searchVisible: boolean = false;
+
 
   constructor(private http: HttpClient, private router: Router) {
     this.automa = new Automa(this);
@@ -54,73 +49,43 @@ export class AnagraficaCassiereComponent implements OnInit, Automabile {
 
   //metodi Automabile
   goToAggiungi() {
-    this.form = true;
-    this.aggiungi = false;
-    this.remove = false;
-    this.edit = false;
-    this.conf = true;
-    this.annull = true;
-    this.search = false;
-    this.tabella = false;
-    this.nomeC = false;
-    this.codiceC = false;
-    this.cognomeC = false;
+    this.buttonNuovaVisible = false;
+    this.formDivVisible = true;
+    this.campiNonEditabili = false;
+    this.confAnnVisible = true;
+    this.searchVisible = false;
   }
 
   goToModifica() {
-    this.form = true;
-    this.aggiungi = false;
-    this.remove = false;
-    this.edit = false;
-    this.conf = true;
-    this.annull = true;
-    this.search = false;
-    this.tabella = false;
-    this.nomeC = false;
-    this.cognomeC = false;
-    this.codiceC = false;
+    this.buttonNuovaVisible = false;
+    this.formDivVisible = true;
+    this.campiNonEditabili = false;
+    this.confAnnVisible = true;
+    this.searchVisible = false;
   }
 
   goToRicerca() {
-    this.form = false;
-    this.aggiungi = true;
-    this.search = true;
-    this.tabella = true;
-    this.nomeC = false;
-    this.cognomeC = false;
-    this.codiceC = false;
-    this.remove = false;
-    this.edit = false;
-    this.conf = false;
-    this.annull = false;
+    this.buttonNuovaVisible = true;
+    this.formDivVisible = false;
+    // this.campiNonEditabili = true;
+    // this.confAnnVisible = true;
+    this.searchVisible = true;
   }
 
   goToRimuovi() {
-    this.form = true;
-    this.aggiungi = false;
-    this.remove = false;
-    this.edit = false;
-    this.conf = true;
-    this.annull = true;
-    this.search = false;
-    this.tabella = false;
-    this.nomeC = true;
-    this.cognomeC = true;
-    this.codiceC = true;
+    this.buttonNuovaVisible = false;
+    this.formDivVisible = true;
+    this.campiNonEditabili = true;
+    this.confAnnVisible = true;
+    this.searchVisible = false;
   }
 
   goToVisualizza() {
-    this.form = true;
-    this.aggiungi = true;
-    this.remove = true;
-    this.edit = true;
-    this.conf = false;
-    this.annull = false;
-    this.search = true;
-    this.tabella = true;
-    this.nomeC = true;
-    this.cognomeC = true;
-    this.codiceC = true;
+    this.buttonNuovaVisible = true;
+    this.formDivVisible = true;
+    this.campiNonEditabili = true;
+    this.confAnnVisible = false;
+    this.searchVisible = true;
   }
 
   //Metodi UI
