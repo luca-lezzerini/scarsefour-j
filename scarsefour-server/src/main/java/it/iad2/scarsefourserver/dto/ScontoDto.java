@@ -24,10 +24,7 @@ public class ScontoDto {
         this.sconto = sconto;
     }
 
-    @Override
-    public String toString() {
-        return "ScontoDto{" + "sconto=" + sconto + '}';
-    }
+    
     
     
     

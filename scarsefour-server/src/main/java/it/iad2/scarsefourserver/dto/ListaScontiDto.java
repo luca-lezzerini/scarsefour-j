@@ -30,10 +30,7 @@ public class ListaScontiDto {
 
     
     
-    @Override
-    public String toString() {
-        return "ListaScontiDto{" + "listaSconti=" + listaSconti + '}';
-    }
+    
     
     
     
