@@ -1,20 +1,20 @@
-<input type="text" [(ngModel)] = barcode placeholder="barcode">
+<input type="text" placeholder="barcode"[(ngModel)] = "ean" [disabled]= "eanNonEditabile">
 <br>
-<button (click)="vediPrezzo()">Vedi prezzo</button>
-<button (click)="chiudiScontrino()">Chiudi scontrino</button>
+<button (click)="vediPrezzo()"*ngIf = "vediPrezzoVisibleB">Vedi prezzo</button>
+<button (click)="chiudiScontrino()"*ngIf="chiudiB">Chiudi scontrino</button>
 <br>
 <p>Prezzo: {{prezzo}}</p>
 <br>
-<button (click)="stornaUltimo()">Storna ultimo</button>
-<button (click)="annullaScontrino">Annulla scontrino</button>
+<button (click)="stornaUltimo()"*ngIf="stornaB">Storna ultimo</button>
+<button (click)="annullaScontrino()"*ngIf="annullaScontrinoB">Annulla scontrino</button>
 <br>
-<button (click)="Annulla()">Annulla</button>
-<button (click)="Conferma()">Conferma</button>
+<button (click)="Annulla()"*ngIf="annullaB">Annulla</button>
+<button (click)="Conferma()"*ngIf="confermaB">Conferma</button>
 <br>
-<p>Ultimo elemento {{Descrizione}} {{prezzo}} €  </p>
+<p>Ultimo elemento {{Descrizione}}</p> <p *ngIf="prezzoB">{{prezzo}}   </p>
 <p>Totale </p>
 <br>
-<table>
+<table *ngIf="lista">
     <tr>
 <th> Quantità</th>
 <th> Descrizione</th>

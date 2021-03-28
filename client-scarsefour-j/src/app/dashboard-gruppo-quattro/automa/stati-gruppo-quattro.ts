@@ -12,10 +12,12 @@ export class ScontrinoVuotoState implements StateGruppoQuattro {
             return new VediPrezzoState(this.automa);
         }
         if (e instanceof EanEvent) {
-            return new ScontrinoNonVuotoState(this.automa);
-        }
-        if (e instanceof EanEvent) {
-            return new ScontrinoVuotoState(this.automa);
+            if (e.codiceEan) {
+                return new ScontrinoNonVuotoState(this.automa);
+            }
+            else {
+                return new ScontrinoVuotoState(this.automa);
+            }
         }
         else {
             console.log('Ricevuto evento inatteso');
