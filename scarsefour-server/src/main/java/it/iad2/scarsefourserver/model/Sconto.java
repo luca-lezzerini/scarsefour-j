@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 
@@ -30,8 +31,7 @@ public class Sconto {
     private String codice;
 
     @JsonIgnore
-    @ManyToMany
-    @JoinColumn(referencedColumnName = "id")
+    @ManyToMany(cascade = CascadeType.REMOVE, mappedBy = "sconti")
     private List<Prodotto> prodotti;
 
     public Sconto() {

@@ -2,6 +2,7 @@ package it.iad2.scarsefourserver.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,12 +27,11 @@ public class RigaScontrino {
     @JoinColumn(referencedColumnName = "id")
     private Scontrino scontrino;
 
-    @JsonIgnore
-    @OneToOne
-    @JoinColumn(referencedColumnName = "id")
-    private MovimentiScaffale movimentiScaffale;
+    /*@JsonIgnore
+    @OneToOne(cascade =CascadeType.REMOVE,mappedBy = "rigaScontrino" )
+    private MovimentiScaffale movimentiScaffale;*/
 
-    @JsonIgnore
+    @JsonIgnoreProperties(value = "rigaScontrino", allowGetters = true, allowSetters = true)
     @ManyToOne
     @JoinColumn(referencedColumnName = "id")
     private Prodotto prodotto;
@@ -39,13 +39,13 @@ public class RigaScontrino {
     public RigaScontrino() {
     }
 
-    public MovimentiScaffale getMovimentiScaffale() {
+    /*public MovimentiScaffale getMovimentiScaffale() {
         return movimentiScaffale;
     }
 
     public void setMovimentiScaffale(MovimentiScaffale movimentiScaffale) {
         this.movimentiScaffale = movimentiScaffale;
-    }
+    }*/
 
     public Prodotto getProdotto() {
         return prodotto;

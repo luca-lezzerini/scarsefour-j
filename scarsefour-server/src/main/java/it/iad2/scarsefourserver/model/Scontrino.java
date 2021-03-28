@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -27,13 +28,11 @@ public class Scontrino {
     private Double totale;
 
     @JsonIgnore
-    @OneToOne
-    @JoinColumn(referencedColumnName = "id")
+    @OneToOne(cascade = CascadeType.REMOVE, mappedBy = "scontrino")
     private Cassa cassa;
 
     @JsonIgnore
-    @OneToOne
-    @JoinColumn(referencedColumnName = "id")
+    @OneToOne(cascade = CascadeType.REMOVE, mappedBy = "scontrino")
     private Cassiere cassiere;
 
     @JsonIgnore

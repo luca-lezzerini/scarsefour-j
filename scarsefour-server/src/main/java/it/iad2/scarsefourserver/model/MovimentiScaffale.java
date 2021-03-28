@@ -36,21 +36,22 @@ public class MovimentiScaffale {
         this.quantita = quantita;
         this.timestamp = timestamp;
     }
-    @JsonIgnoreProperties(value = "movimentiScaffale", allowGetters = true, allowSetters = true)
+    
+    /*@JsonIgnoreProperties(value = "movimentiScaffale", allowGetters = true, allowSetters = true)
     @OneToOne
     @JoinColumn(referencedColumnName = "id")
-    private RigaScontrino rigaScontrino;
+    private RigaScontrino rigaScontrino;*/
 
     public MovimentiScaffale() {
     }
 
-    public RigaScontrino getRigaScontrino() {
+    /*public RigaScontrino getRigaScontrino() {
         return rigaScontrino;
     }
 
     public void setRigaScontrino(RigaScontrino rigaScontrino) {
         this.rigaScontrino = rigaScontrino;
-    }
+    }*/
 
     public Long getId() {
         return id;

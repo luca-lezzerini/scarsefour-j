@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -36,13 +37,11 @@ public class Prodotto {
     private int lottoRiordino;
 
     @JsonIgnore
-    @OneToOne
-    @JoinColumn(referencedColumnName = "id")
+    @OneToOne(cascade= CascadeType.REMOVE, mappedBy="prodotto")
     private PosizioneScaffale posizioneScaffale;
 
-    @JsonIgnoreProperties(value = "prodotto", allowGetters = true, allowSetters = true)
-    @OneToMany
-    @JoinColumn(referencedColumnName = "id")
+    @JsonIgnore
+    @OneToMany(cascade= CascadeType.REMOVE, mappedBy="prodotto")
     private List<RigaScontrino> righe;
 
     @JsonIgnoreProperties(value = "prodotto", allowGetters = true, allowSetters = true)
