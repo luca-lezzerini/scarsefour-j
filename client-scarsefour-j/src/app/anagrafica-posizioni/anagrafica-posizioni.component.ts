@@ -13,7 +13,7 @@ import { PosizioneScaffale } from '../entità/posizione-scaffale';
 @Component({
   selector: 'app-anagrafica-posizioni',
   templateUrl: './anagrafica-posizioni.component.html',
-  styleUrls: ['./anagrafica-posizioni.component.css']
+  styleUrls: ['../theme.css']
 })
 export class AnagraficaPosizioniComponent implements OnInit {
 

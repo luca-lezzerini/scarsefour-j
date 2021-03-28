@@ -30,7 +30,7 @@ public class ProdottoServiceImp implements ProdottoService {
 
     @Override
     public ListaProdottiDto rimuoviProdotto(Prodotto prodotto) {
-        prodottoRepository.deleteById(prodotto.getId());
+        prodottoRepository.delete(prodotto);
         return aggiornaProdotto();
     }
 

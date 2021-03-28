@@ -15,7 +15,7 @@ import { Prodotto } from '../entità/prodotto';
 @Component({
   selector: 'app-anagrafica-prodotti',
   templateUrl: './anagrafica-prodotti.component.html',
-  styleUrls: ['./anagrafica-prodotti.component.css']
+  styleUrls: ['../theme.css']
 })
 export class AnagraficaProdottiComponent implements OnInit {
 
@@ -32,6 +32,8 @@ export class AnagraficaProdottiComponent implements OnInit {
   searchVisible: boolean = true;
   tabellaProdottiVisibile: boolean = true;
   labelNuovoProdotto: boolean;
+  labelMessaggioErrore: boolean = false;
+  errore: string = "Errore, inserire dati validi";
 
   constructor(private http: HttpClient, private router: Router) { this.aggiorna() }
 
@@ -56,6 +58,7 @@ export class AnagraficaProdottiComponent implements OnInit {
     this.modRimVisible = false;
     this.searchVisible = false;
     this.tabellaProdottiVisibile = false;
+    this.labelMessaggioErrore = false;
 
 
   }
@@ -68,6 +71,7 @@ export class AnagraficaProdottiComponent implements OnInit {
     this.modRimVisible = true;
     this.searchVisible = true;
     this.tabellaProdottiVisibile = true;
+    this.labelMessaggioErrore = false;
 
 
   }
@@ -116,14 +120,28 @@ export class AnagraficaProdottiComponent implements OnInit {
     dto.prodotto = this.prodotto;
 
     if (this.stato instanceof AggiungiState) {
-      let oss: Observable<ListaProdottiDto> = this.http.post<ListaProdottiDto>('http://localhost:8080/conferma-prodotto-quattro', dto);
-      oss.subscribe(c => this.listaProdotti = c.listaProdotti);
-      this.tabellaProdottiVisibile = true;
+      if (this.prodotto.codice == "" ||
+        this.prodotto.descrizione == "" ||
+        this.prodotto.ean == "" ||
+        this.prodotto.prezzo == null ||
+        this.prodotto.scortaMinMagazzinoDefault == null ||
+        this.prodotto.scortaMinScaffaleDefault == null) {
+        this.labelMessaggioErrore = true;
 
+      }
+
+
+      else {
+
+        let oss: Observable<ListaProdottiDto> = this.http.post<ListaProdottiDto>('http://localhost:8080/conferma-prodotto-quattro', dto);
+        oss.subscribe(c => this.listaProdotti = c.listaProdotti);
+        this.tabellaProdottiVisibile = true;
+      }
     }
     else if (this.stato instanceof ModificaState) {
       let ox: Observable<ListaProdottiDto> = this.http.post<ListaProdottiDto>('http://localhost:8080/modifica-prodotto-quattro', dto);
       ox.subscribe(r => this.listaProdotti = r.listaProdotti);
+
     }
     else if (this.stato instanceof RimuoviState) {
       let oss: Observable<ListaProdottiDto> = this.http.post<ListaProdottiDto>('http://localhost:8080/rimuovi-prodotto-quattroi', dto);
@@ -138,14 +156,7 @@ export class AnagraficaProdottiComponent implements OnInit {
   annulla() {
     if (this.stato instanceof AggiungiState) {
       this.automa.next(new AnnullaEvent());
-      /*
-      this.prodotto.codice = "";
-      this.prodotto.descrizione = "";
-      this.prodotto.ean = "";
-      this.prodotto.prezzo = 0;
-      this.prodotto.scortaMinimaMag = 0;
-      this.prodotto.scortaMinimaScaf = 0;
-      */
+
     }
   }
   rimuovi() {
@@ -175,14 +186,13 @@ export class AnagraficaProdottiComponent implements OnInit {
     this.searchVisible = true;
     this.tabellaProdottiVisibile = true;
 
-    this.automa.next(new SelezionaEvent());
-
     this.prodotto.codice = p.codice;
     this.prodotto.descrizione = p.descrizione;
     this.prodotto.ean = p.ean;
     this.prodotto.prezzo = p.prezzo;
-    this.prodotto.scortaMinimaMag = p.scortaMinimaMag;
-    this.prodotto.scortaMinimaScaf = p.scortaMinimaScaf;
+    this.prodotto.scortaMinMagazzinoDefault = p.scortaMinMagazzinoDefault;
+    this.prodotto.scortaMinMagazzinoDefault = p.scortaMinMagazzinoDefault;
+    this.automa.next(new SelezionaEvent());
 
   }
 }

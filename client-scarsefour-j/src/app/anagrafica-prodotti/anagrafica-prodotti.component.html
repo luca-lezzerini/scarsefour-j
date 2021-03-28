@@ -15,6 +15,7 @@
   <input type="text" placeholder="Scorta minima magazzino" [(ngModel)]="prodotto.scortaMinimaMag" [disabled]="campiNonEditabili">
   <input type="text" placeholder="Lotto riordino" [(ngModel)]="prodotto.lottoRiordino" [disabled]="campiNonEditabili">
 </div>
+<p *ngIf ="labelMessaggioErrore">{{errore}}</p>
 <br>
 <div>
   <button (click)="modifica()" *ngIf="modRimVisible">Modifica</button>
@@ -44,8 +45,8 @@
     <td>{{p.descrizione}}</td>
     <td>{{p.ean}}</td>
     <td>{{p.prezzo}}</td>
-    <td>{{p.scortaMinimaScaf}}</td>
-    <td>{{p.scortaMinimaMag}}</td>
+    <td>{{p.scortaMinScaffaleDefault}}</td>
+    <td>{{p.scortaMinMagazzinoDefault}}</td>
     <td>{{p.lottoRiordino}}</td>
     <td><button (click)="seleziona(p)">Seleziona</button></td>
   </tr>
