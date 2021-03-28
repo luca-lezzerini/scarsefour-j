@@ -1,4 +1,5 @@
 import { AutomaTre } from "./automa-tre";
+import { EventTre } from "./event-tre";
 import { AnnullaEvent, AnnullaScontrinoEvent, ChiudiEvent, ConfermaEvent, EanEvent, StornaPiuEvent, StornaUnoEvent, VediPrezzoEvent } from "./eventi-tre";
 import { StateTre } from "./state-tre";
 
@@ -6,7 +7,7 @@ export class ScontrinoVuotoState implements StateTre {
     constructor(public automa: AutomaTre) {
         automa.gui.goToScontrinoVuoto();
     }
-    next(e: Event): StateTre {
+    next(e: EventTre): StateTre {
         if (e instanceof EanEvent) {
             if (e.codiceEan) {
                 return new ScontrinoNonVuotoState(this.automa);
@@ -23,7 +24,7 @@ export class ScontrinoNonVuotoState implements StateTre {
     constructor(public automa: AutomaTre) {
         automa.gui.goToScontrinoNonVuoto();
     }
-    next(e: Event): StateTre {
+    next(e: EventTre): StateTre {
         if (e instanceof ChiudiEvent) {
             return new ScontrinoVuotoState(this.automa);
         } else if (e instanceof StornaUnoEvent) {
@@ -50,7 +51,7 @@ export class AnnullamentoScontrinoState implements StateTre {
     constructor(public automa: AutomaTre) {
         automa.gui.goToAnnullamentoScontrino();
     }
-    next(e: Event): StateTre {
+    next(e: EventTre): StateTre {
         if (e instanceof AnnullaEvent) {
             return new ScontrinoNonVuotoState(this.automa);
         } else if (e instanceof ConfermaEvent) {
@@ -65,7 +66,7 @@ export class VediPrezzoState implements StateTre {
     constructor(public automa: AutomaTre) {
         automa.gui.goToVediPrezzo();
     }
-    next(e: Event): StateTre {
+    next(e: EventTre): StateTre {
         if (e instanceof EanEvent) {
             if (!e.scontrino && e.codiceEan) {
                 // caso scontrino vuoto e ean conosciuto

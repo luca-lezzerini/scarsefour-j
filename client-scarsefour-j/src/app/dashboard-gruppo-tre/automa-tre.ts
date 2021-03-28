@@ -1,3 +1,4 @@
+import { EventTre } from "./event-tre";
 import { Automabile, StateTre } from "./state-tre";
 import { ScontrinoVuotoState } from "./stati";
 
@@ -10,7 +11,7 @@ export class AutomaTre implements StateTre {
         this.stato = new ScontrinoVuotoState(this);
     }
 
-    next(e: Event): StateTre {
+    next(e: EventTre): StateTre {
         console.log('Siamo nello stato ', this.stato);
         console.log('Ricevuto evento', e);
         this.stato = this.stato.next(e);

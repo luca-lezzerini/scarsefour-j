@@ -1,5 +1,7 @@
+import { EventTre } from "./event-tre";
+
 export interface StateTre{
-    next(e : Event) : StateTre;
+    next(e : EventTre) : StateTre;
 }
 
 export interface Automabile{
