@@ -1,11 +1,11 @@
 export class Prodotto {
   id:number;
-  sconto: number;
-  ean: string;
   codice: string;
   descrizione: string;
+  ean: string;
   prezzo: number;
   scortaMinimaScaf: number;
   scortaMinimaMag: number;
   lottoRiordino: number;
+  sconto: number;
 }

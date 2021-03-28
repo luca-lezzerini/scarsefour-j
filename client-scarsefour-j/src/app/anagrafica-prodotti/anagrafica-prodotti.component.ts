@@ -24,7 +24,6 @@ export class AnagraficaProdottiComponent implements OnInit {
   searchCriterion: string;
   automa: Automa;
   stato: State;
-
   buttonNuovaVisible: boolean = true;
   formDivVisible: boolean;
   campiNonEditabili: boolean = false;
@@ -41,6 +40,8 @@ export class AnagraficaProdottiComponent implements OnInit {
     this.automa = new Automa(this);
   }
   goToRicerca() {
+    this.labelNuovoProdotto = false;
+    this.confAnnVisible = false;
     this.buttonNuovaVisible = true;
     this.formDivVisible = false;
     this.searchVisible = true;
@@ -107,20 +108,10 @@ export class AnagraficaProdottiComponent implements OnInit {
 
   modifica() {
     this.stato = this.automa.next(new ModificaEvent());
-
-    let dto: ProdottoDto = new ProdottoDto();
-    dto.prodotto = this.prodotto;
-
-    let oss: Observable<ListaProdottiDto> = this.http.post<ListaProdottiDto>("http://localhost:8080/modifica-prodotto-quattro", dto);
-
-    oss.subscribe(c => this.listaProdotti = c.listaProdotti);
-
-    this.stato = this.automa.next(new ModificaEvent());
-    this.prodotto = new Prodotto();
-
   }
 
   conferma() {
+
     let dto: ProdottoDto = new ProdottoDto();
     dto.prodotto = this.prodotto;
 
@@ -141,12 +132,6 @@ export class AnagraficaProdottiComponent implements OnInit {
     this.automa.next(new ConfermaEvent());
     this.prodotto = new Prodotto();
 
-    /*
-        let oss: Observable<ListaProdottiDto> = this.http.post<ListaProdottiDto>("http://localhost:8080/conferma-prodotto-quattro", dto);
-          
-        oss.subscribe(c => this.listaProdotti = c.listaProdotti);
-        this.prodotto = new Prodotto();
-        */
   }
 
 
