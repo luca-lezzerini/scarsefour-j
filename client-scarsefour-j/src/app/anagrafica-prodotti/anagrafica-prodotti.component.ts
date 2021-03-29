@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Automa } from '../automa/automa';
 import { AddEvent, AnnullaEvent, ConfermaEvent, ModificaEvent, RimuoviEvent, SelezionaEvent } from '../automa/eventi';
-import { State } from '../automa/state';
+import { AutomabileCrud, State } from '../automa/state';
 import { AggiungiState, ModificaState, RimuoviState } from '../automa/stati';
 import { CriterioRicercaDto } from '../dto/criterio-ricerca-dto';
 import { ListaProdottiDto } from '../dto/lista-prodotti-dto';
@@ -17,7 +17,7 @@ import { Prodotto } from '../entità/prodotto';
   templateUrl: './anagrafica-prodotti.component.html',
   styleUrls: ['../theme.css']
 })
-export class AnagraficaProdottiComponent implements OnInit {
+export class AnagraficaProdottiComponent implements OnInit, AutomabileCrud {
 
   prodotto: Prodotto = new Prodotto();
   listaProdotti: Prodotto[] = [];
@@ -96,6 +96,15 @@ export class AnagraficaProdottiComponent implements OnInit {
 
   }
 
+  rimuoviAction() {
+    console.log("Siamo in rimuoviAction");
+    let dto: ProdottoDto = new ProdottoDto();
+    dto.prodotto = this.prodotto;
+    console.log("Stiamo per rimuovere " + dto);
+    let oss: Observable<ListaProdottiDto> = this.http.post<ListaProdottiDto>('http://localhost:8080/rimuovi-prodotto-quattro', dto);
+    oss.subscribe(r => this.listaProdotti = r.listaProdotti);
+  }
+
   nuova() {
     this.stato = this.automa.next(new AddEvent());
 
@@ -107,7 +116,7 @@ export class AnagraficaProdottiComponent implements OnInit {
     let oss: Observable<ProdottoDto> = this.http.post<ProdottoDto>("http://localhost:8080/cerca-prodotto-quattro", dto);
     oss.subscribe(c => this.prodotto = c.prodotto);
     this.automa.next(new SelezionaEvent());
-    
+
 
   }
 
@@ -155,10 +164,10 @@ export class AnagraficaProdottiComponent implements OnInit {
 
 
   annulla() {
-   
-      this.automa.next(new AnnullaEvent());
 
-    
+    this.automa.next(new AnnullaEvent());
+
+
   }
   rimuovi() {
     this.stato = this.automa.next(new RimuoviEvent());

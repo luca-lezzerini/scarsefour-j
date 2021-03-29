@@ -10,13 +10,14 @@ import { CriterioRicercaDto } from '../dto/criterio-ricerca-dto';
 
 import { AggiungiState, ModificaState, RimuoviState } from '../automa/stati';
 import { ScontoDto } from '../dto/sconto-dto';
+import { AutomabileCrud } from '../automa/state';
 
 @Component({
   selector: 'app-anagrafica-sconti',
   templateUrl: './anagrafica-sconti.component.html',
   styleUrls: ['../theme.css']
 })
-export class AnagraficaScontiComponent implements OnInit {
+export class AnagraficaScontiComponent implements OnInit, AutomabileCrud {
 
   sconto: Sconto = new Sconto();
   sconti: Sconto[] = [];
@@ -44,11 +45,11 @@ export class AnagraficaScontiComponent implements OnInit {
   constructor(private http: HttpClient, private router: Router) {
 
     this.automa = new Automa(this);
-this.aggiorna();
+    this.aggiorna();
   }
 
   ngOnInit(): void {
-    
+
   }
 
   goToAggiungi() {
@@ -130,6 +131,8 @@ this.aggiorna();
     this.allaDataS = true;
     this.scontoS = true;
   }
+
+  rimuoviAction() { }
 
   nuova() {
     this.automa.next(new AddEvent());

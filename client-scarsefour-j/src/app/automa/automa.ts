@@ -1,12 +1,12 @@
 import { RicercaState } from './stati';
-import { State, Automabile } from './state';
+import { State, AutomabileCrud } from './state';
 import { Event } from './event';
 
 export class Automa implements State {
     stato: State;
-    gui: Automabile;
+    gui: AutomabileCrud;
 
-    constructor(autom: Automabile) {
+    constructor(autom: AutomabileCrud) {
         this.gui = autom;
         this.stato = new RicercaState(this);
     }

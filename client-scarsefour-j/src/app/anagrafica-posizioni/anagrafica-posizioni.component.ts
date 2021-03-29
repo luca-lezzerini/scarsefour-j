@@ -1,9 +1,10 @@
+import { Automabile } from './../dashboard-gruppo-tre/state-tre';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Automa } from '../automa/automa';
 import { AddEvent, AnnullaEvent, ConfermaEvent, ModificaEvent, RicercaEvent, RimuoviEvent, SelezionaEvent } from '../automa/eventi';
-import { State } from '../automa/state';
+import { AutomabileCrud, State } from '../automa/state';
 import { AggiungiState, ModificaState, RimuoviState } from '../automa/stati';
 import { CriterioRicercaDto } from '../dto/criterio-ricerca-dto';
 import { ListaPosizioneScaffaleDto } from '../dto/lista-posizione-scaffale-dto';
@@ -15,7 +16,7 @@ import { PosizioneScaffale } from '../entità/posizione-scaffale';
   templateUrl: './anagrafica-posizioni.component.html',
   styleUrls: ['../theme.css']
 })
-export class AnagraficaPosizioniComponent implements OnInit {
+export class AnagraficaPosizioniComponent implements OnInit, AutomabileCrud {
 
   posizione: PosizioneScaffale = new PosizioneScaffale();
   posizioni: PosizioneScaffale[] = [];
@@ -72,6 +73,10 @@ export class AnagraficaPosizioniComponent implements OnInit {
     this.campiNonEditabili = true;
     this.confAnnVisible = false;
     this.searchVisible = true;
+  }
+  
+  rimuoviAction() {
+    console.log("Siamo in rimuoviAction");
   }
 
   nuova() {

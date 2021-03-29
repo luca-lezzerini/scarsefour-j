@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Automa } from './automa/automa';
-import { Automabile } from './automa/state';
+import { AutomabileCrud } from './automa/state';
 
 @Component({
   selector: 'app-root',
@@ -8,31 +8,13 @@ import { Automabile } from './automa/state';
   styleUrls: ['./app.component.css']
 })
 
-export class AppComponent implements Automabile, OnInit{
+export class AppComponent implements OnInit {
   title = 'client-scarsefour-j';
   automa: Automa;
 
-  ngOnInit(){
-    
-  }
-
-  goToAggiungi(){
+  ngOnInit() {
 
   }
 
-  goToModifica(){
-
-  }
-
-  goToRicerca(){
-
-  }
-
-  goToRimuovi(){
-
-  }
-
-  goToVisualizza(){
-
-  }
+  
 }

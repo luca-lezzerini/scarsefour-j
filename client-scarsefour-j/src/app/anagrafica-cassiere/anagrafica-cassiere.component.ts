@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Automa } from '../automa/automa';
-import { Automabile } from '../automa/state';
+import { AutomabileCrud } from '../automa/state';
 import { Cassiere } from '../entità/cassiere';
 import { HttpClient } from '@angular/common/http';
 import {
@@ -26,7 +26,7 @@ import { CriterioRicercaDto } from '../dto/criterio-ricerca-dto';
   templateUrl: './anagrafica-cassiere.component.html',
   styleUrls: ['../theme.css'],
 })
-export class AnagraficaCassiereComponent implements OnInit, Automabile {
+export class AnagraficaCassiereComponent implements OnInit, AutomabileCrud {
   automa: Automa;
   cassiere: Cassiere = new Cassiere();
   cassieri: Cassiere[] = [];
@@ -86,6 +86,10 @@ export class AnagraficaCassiereComponent implements OnInit, Automabile {
     this.campiNonEditabili = true;
     this.confAnnVisible = false;
     this.searchVisible = true;
+  }
+
+  rimuoviAction() {
+    console.log("Siamo in rimuoviAction");
   }
 
   //Metodi UI

@@ -88,6 +88,7 @@ export class RimuoviState implements State {
         if (e instanceof AnnullaEvent) {
             return new VisualizzaState(this.automa);
         } else if (e instanceof ConfermaEvent) {
+            this.automa.gui.rimuoviAction();
             return new RicercaState(this.automa);
         } else {
             console.log('Ricevuto evento inatteso');
