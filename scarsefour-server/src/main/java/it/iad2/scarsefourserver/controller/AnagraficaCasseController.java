@@ -1,6 +1,7 @@
 package it.iad2.scarsefourserver.controller;
 
 import it.iad2.scarsefourserver.dto.CassaDto;
+import it.iad2.scarsefourserver.dto.CriterioRicercaDto;
 import it.iad2.scarsefourserver.dto.ListaCasseDto;
 import it.iad2.scarsefourserver.dto.ModificaCassaDto;
 import it.iad2.scarsefourserver.service.AnagraficaCasseService;
@@ -30,8 +31,8 @@ public class AnagraficaCasseController {
 
     @RequestMapping("/cerca-cassa")
     @ResponseBody
-    public ListaCasseDto CercaCassa(@RequestBody CodiceCassaDto dto) {
-        ListaCasseDto dtoR = new ListaCasseDto(anagraficaCasseService.cercaCassa(dto.getCodice()));
+    public ListaCasseDto CercaCassa(@RequestBody CriterioRicercaDto dto) {
+        ListaCasseDto dtoR = new ListaCasseDto(anagraficaCasseService.cercaCassa(dto.getCriterio()));
         return dtoR;
     }
 

@@ -1,29 +1,28 @@
-<h2>Anagrafica Casse</h2>
-<button id="rightfloat" (click)="nuova()" *ngIf="buttonNuovaVisible"
-        Title="inserisci nuova cassa">Nuova</button>
-<div>
-  <input type="text" [(ngModel)]="cassa.codice">
+Anagrafica casse
+<br>
+<button (click)="nuova()" *ngIf="buttonNuovaVisible">Nuova</button>
+<br>
+<div *ngIf="formDivVisible">
+  Codice cassa: <input type="text" [(ngModel)]="cassa.codice" [disabled]="campiNonEditabili">
+  <br>
+  <div>
+    <button (click)="modifica()" *ngIf="!confAnnVisible">Modifica</button>
+    <button (click)="conferma()" *ngIf="confAnnVisible">Conferma</button>
+    <button (click)="annulla()" *ngIf="confAnnVisible">Annulla</button>
+    <button (click)="rimuovi()" *ngIf="!confAnnVisible">Rimuovi</button>
+  </div>
 </div>
-<div class="margine">
-  <button class="marginiLaterali" (click)="modifica()" *ngIf="!confAnnVisible">Modifica</button>
-  <button class="marginiLaterali" (click)="conferma()" *ngIf="confAnnVisible">Conferma</button>
-  <button class="marginiLaterali" (click)="annulla()" *ngIf="confAnnVisible">Annulla</button>
-  <button class="marginiLaterali" (click)="rimuovi()" *ngIf="!confAnnVisible">Rimuovi</button>
-</div>
-<div class="margine">
-  <input class="marginiLaterali" type="text" [(ngModel)]="searchCriterion" *ngIf="searchVisible">
-  <button class="marginiLaterali" (click)="cerca()" *ngIf="searchVisible">Cerca</button>
-</div>
-<div class="scrodiv center margine">
-  <table class="center" *ngIf="searchVisible">
-    <th class="td1">Codice</th>
+<div *ngIf="searchVisible">
+  <input type="text" [(ngModel)]="searchCriterion">
+  <button (click)="cerca()">Cerca</button>
+  <br>
+  <table>
+    <tr>
+      <th>Codice</th>
+    </tr>
     <tr *ngFor="let c of listaCasse">
-      <td>
-        {{c.codice}}
-      </td>
-      <td>
-        <button (click)="seleziona(c)">Seleziona</button>
-      </td>
+      <td>{{c.codice}}</td>
+      <td> <button (click)="seleziona(c)">Seleziona</button> </td>
     </tr>
   </table>
 </div>

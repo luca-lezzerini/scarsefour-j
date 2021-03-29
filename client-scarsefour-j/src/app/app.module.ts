@@ -15,6 +15,7 @@ import { DashboardGruppoUnoComponent } from './dashboard-gruppo-uno/dashboard-gr
 import { DashboardGruppoQuattroComponent } from './dashboard-gruppo-quattro/dashboard-gruppo-quattro.component';
 import { DashboardGruppoDueComponent } from './dashboard-gruppo-due/dashboard-gruppo-due.component';
 import { ToolbarMenuComponent } from './toolbar-menu/toolbar-menu.component';
+import {AnagraficaCasseComponent} from './anagrafica-casse/anagrafica-casse.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { ToolbarMenuComponent } from './toolbar-menu/toolbar-menu.component';
     DashboardGruppoUnoComponent,
     DashboardGruppoQuattroComponent,
     DashboardGruppoDueComponent,
-    ToolbarMenuComponent
+    ToolbarMenuComponent,
+    AnagraficaCasseComponent,
   ],
   imports: [
     BrowserModule,
