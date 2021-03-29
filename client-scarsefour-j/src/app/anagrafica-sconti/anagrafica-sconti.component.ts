@@ -47,6 +47,12 @@ export class AnagraficaScontiComponent implements OnInit, AutomabileCrud {
     this.automa = new Automa(this);
     this.aggiorna();
   }
+  aggiungiAction() {
+    throw new Error('Method not implemented.');
+  }
+  modificaAction() {
+    throw new Error('Method not implemented.');
+  }
 
   ngOnInit(): void {
 

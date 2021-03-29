@@ -14,6 +14,6 @@ export interface AutomabileCrud{
 
     // metodi esecuzione azioni
     rimuoviAction();
-
-
+    aggiungiAction();
+    modificaAction();
 }
