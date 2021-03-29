@@ -1,4 +1,4 @@
-package it.iad2.scarsefourserver.dashboardtre;
+package it.iad2.scarsefourserver.service;
 
 import it.iad2.scarsefourserver.model.Prodotto;
 import it.iad2.scarsefourserver.model.RigaScontrino;

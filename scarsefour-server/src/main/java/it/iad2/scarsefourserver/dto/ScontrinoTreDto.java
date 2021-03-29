@@ -1,4 +1,4 @@
-package it.iad2.scarsefourserver.dashboardtre;
+package it.iad2.scarsefourserver.dto;
 
 import it.iad2.scarsefourserver.model.Scontrino;
 
