@@ -7,23 +7,6 @@ export class ScontrinoVuotoState implements StateDashboardUno {
 
     constructor(public automa: AutomaDashboardUno) {
         automa.gui.goToScontrinoVuotoInitial();
-        // if (automa.stato instanceof ScontrinoVuotoState) {
-        //     automa.gui.goToScontrinoVuotoPrimoEan();
-        //     console.log("goToScontrinoVuotoPrimoEan()");
-        // } else if (automa.stato instanceof ScontrinoNonVuotoState) {
-        //     automa.gui.goToScontrinoVuotoFromAll();
-        //     console.log("goToScontrinoVuotoFromAll()");
-        // } else if (automa.stato instanceof VediPrezzoState) {
-        //     automa.gui.goToScontrinoVuotoFromAll();
-        //     console.log("goToScontrinoVuotoFromAll()");
-        // } else if (automa.stato instanceof AnnullamentoScontrinoState) {
-        //     automa.gui.goToScontrinoVuotoFromAnnulla();
-        //     console.log("goToScontrinoVuotoFromAnnulla()");
-        // }
-        // else {
-        //     automa.gui.goToScontrinoVuotoInitial();
-        //     console.log("goToScontrinoVuotoInitial()");
-        // }
     }
 
     next(e: EventDashboardUno): StateDashboardUno {
@@ -56,13 +39,17 @@ export class ScontrinoNonVuotoState implements StateDashboardUno {
 
     next(e: EventDashboardUno): StateDashboardUno {
         if (e instanceof ChiudiEvent) {
-            //this.automa.gui.goToScontrinoVuotoFromAll();
-            return new ScontrinoVuotoState(this.automa);
+            let st = new ScontrinoVuotoState(this.automa);
+            this.automa.gui.goToScontrinoVuotoFromAll();
+            console.log("sono in goToScontrinoVuotoFromAll()")
+            return st;
         }
         else if (e instanceof StornaEvent) {
             if (e.numElem == 1) {
-                //this.automa.gui.goToScontrinoVuotoFromAll();
-                return new ScontrinoVuotoState(this.automa);
+                let st = new ScontrinoVuotoState(this.automa);
+                this.automa.gui.goToScontrinoVuotoFromAll();
+                console.log("sono in goToScontrinoVuotoFromAll()")
+                return st;
             }
             else if (e.numElem > 1) {
                 return new ScontrinoNonVuotoState(this.automa);
@@ -103,12 +90,16 @@ export class VediPrezzoState implements StateDashboardUno {
                 return new ScontrinoNonVuotoState(this.automa);
             }
             else if (!e.scontrino && !e.codiceEan) {
-                //this.automa.gui.goToScontrinoVuotoFromAll();
-                return new ScontrinoVuotoState(this.automa);
+                let st = new ScontrinoVuotoState(this.automa);
+                this.automa.gui.goToScontrinoVuotoFromAll();
+                console.log("sono in goToScontrinoVuotoFromAll()")
+                return st;
             }
             else if (!e.scontrino && e.codiceEan) {
-                //this.automa.gui.goToScontrinoVuotoFromAll();
-                return new ScontrinoVuotoState(this.automa);
+                let st = new ScontrinoVuotoState(this.automa);
+                this.automa.gui.goToScontrinoVuotoFromAll();
+                console.log("sono in goToScontrinoVuotoFromAll()")
+                return st;
             }
         }
         else {
@@ -129,8 +120,10 @@ export class AnnullamentoScontrinoState implements StateDashboardUno {
             return new ScontrinoNonVuotoState(this.automa);
         }
         else if (e instanceof ConfermaEvent) {
-            //this.automa.gui.goToScontrinoVuotoFromAnnulla();
-            return new ScontrinoVuotoState(this.automa);
+            let st = new ScontrinoVuotoState(this.automa);
+            this.automa.gui.goToScontrinoVuotoFromAnnulla();
+            console.log("sono in goToScontrinoVuotoFromAnnulla()")
+            return st;
         }
         else {
             console.log("evento inaspettato!");

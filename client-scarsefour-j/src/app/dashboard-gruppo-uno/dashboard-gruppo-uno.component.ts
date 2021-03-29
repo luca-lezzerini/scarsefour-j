@@ -9,7 +9,10 @@ import { AutomaDashboardUno } from './automa-dashboard-uno/automa-dashboard-uno'
 import { AnnullaEvent, AnnullaScontrinoEvent, ChiudiEvent, ConfermaEvent, EanEvent, StornaEvent, VediPrezzoEvent } from './automa-dashboard-uno/eventi-dashboard-uno';
 import { AutomabileDashboardUno } from './automa-dashboard-uno/state-dashboard-uno';
 import { RispostaEanDto } from './dto-dashboard-uno/risposta-ean-dto';
-import { RispostaPrezzoDto } from './dto-dashboard-uno/risposta-prezzo-dto';
+import { PrezzoDto } from './dto-dashboard-uno/prezzo-dto';
+import { ScontrinoDto } from './dto-dashboard-uno/scontrino-dto';
+import { EanDto } from './dto-dashboard-uno/ean-dto';
+import { ScontrinoRigheDto } from './dto-dashboard-uno/scontrino-righe-dto';
 
 @Component({
   selector: 'app-dashboard-gruppo-uno',
@@ -35,13 +38,15 @@ export class DashboardGruppoUnoComponent implements OnInit, AutomabileDashboardU
   chiudiAble: boolean = false;
   chiudiVis: boolean = false;
   prezzoVis: boolean = false;
+  prezzoRVis: boolean = false;
 
   //variabili
   barcode: string = "";
+  prezzoR: number;
   prezzoE: number;
   descrizioneE: string;
   prezzoTot: number;
-  righeScontrino : RigaScontrino[];
+  righeScontrino: RigaScontrino[];
   scontrino = new Scontrino();
 
 
@@ -66,6 +71,7 @@ export class DashboardGruppoUnoComponent implements OnInit, AutomabileDashboardU
     this.chiudiAble = false;
     this.chiudiVis = true;
     this.prezzoVis = false;
+    this.prezzoRVis = false;
   }
 
   goToScontrinoVuotoPrimoEan() {
@@ -73,46 +79,46 @@ export class DashboardGruppoUnoComponent implements OnInit, AutomabileDashboardU
     // this.vediPrezzoVis = true;
     // this.listaVis = false;
     // this.stornaVis = false;
-    this.annullaScontrinoAble = false;
+    //this.annullaScontrinoAble = false;
     this.annullaScontrinoVis = false;
     // this.confermaAble = false;
-    // this.confermaVis = false;
+    this.confermaVis = false;
     // this.annullaAble = false;
-    // this.annullaVis = false;
+    this.annullaVis = false;
     // this.chiudiAble = false;
-    // this.chiudiVis = false;
-    // this.prezzoVis = true;
+    this.chiudiVis = false;
+    this.prezzoVis = true;
   }
 
   goToScontrinoVuotoFromAnnulla() {
-    this.eanEdit = true;
-    this.vediPrezzoVis = true;
-    this.listaVis = false;
-    this.stornaVis = false;
-    this.annullaScontrinoAble = false;
+    //this.eanEdit = true;
+    //this.vediPrezzoVis = true;
+    //this.listaVis = false;
+    //this.stornaVis = false;
+    //this.annullaScontrinoAble = false;
     this.annullaScontrinoVis = false;
-    this.confermaAble = false;
+    //this.confermaAble = false;
     this.confermaVis = false;
-    this.annullaAble = false;
+    //this.annullaAble = false;
     this.annullaVis = false;
-    this.chiudiAble = false;
+    //this.chiudiAble = false;
     this.chiudiVis = false;
-    this.prezzoVis = false;
+    //this.prezzoVis = false;
   }
 
   goToScontrinoVuotoFromAll() {
-    this.eanEdit = true;
-    this.vediPrezzoVis = true;
+    //this.eanEdit = true;
+    //this.vediPrezzoVis = true;
     this.listaVis = true;
     this.stornaVis = false;
     this.annullaScontrinoAble = false;
-    this.annullaScontrinoVis = true;
-    this.confermaAble = false;
+    //this.annullaScontrinoVis = true;
+    //this.confermaAble = false;
     this.confermaVis = false;
-    this.annullaAble = false;
+    //this.annullaAble = false;
     this.annullaVis = false;
     this.chiudiAble = false;
-    this.chiudiVis = true;
+    //this.chiudiVis = true;
     this.prezzoVis = true;
   }
 
@@ -130,6 +136,7 @@ export class DashboardGruppoUnoComponent implements OnInit, AutomabileDashboardU
     this.chiudiAble = false;
     this.chiudiVis = false;
     this.prezzoVis = false;
+    this.prezzoRVis = true;
   }
 
   goToScontrinoNonVuoto() {
@@ -146,6 +153,7 @@ export class DashboardGruppoUnoComponent implements OnInit, AutomabileDashboardU
     this.chiudiAble = true;
     this.chiudiVis = true;
     this.prezzoVis = true;
+    this.prezzoRVis = false;
   }
 
   goToAnnullamentoScontrino() {
@@ -162,67 +170,110 @@ export class DashboardGruppoUnoComponent implements OnInit, AutomabileDashboardU
     this.chiudiAble = false;
     this.chiudiVis = false;
     this.prezzoVis = false;
+    this.prezzoRVis = false;
   }
 
   ngOnInit(): void {
   }
 
-  vaiAHome() { 
+  vaiAHome() {
     this.router.navigateByUrl('home-page');
   }
 
   cercaEan() {
-    let dto : RichiestaEanDto = new RichiestaEanDto();
+    let dto: RichiestaEanDto = new RichiestaEanDto();
     dto.barcode = this.barcode;
     dto.scontrino = this.scontrino;
     let oss: Observable<RispostaEanDto> = this.http.post<RispostaEanDto>(
-      'http://localhost:8080/ricerca-cassiere',
+      'http://localhost:8080/cerca-ean-1',
       dto
     );
-    oss.subscribe( r => {this.scontrino = r.scontrino;
-                        this.righeScontrino = r.righeScontrino;
-                        this.barcode = r.barcode;
-                        this.automaD.next(new EanEvent(this.barcode,this.scontrino));
+    oss.subscribe(r => {
+      this.scontrino = r.scontrino;
+      this.righeScontrino = r.righeScontrino;
+      this.barcode = r.barcode;
+      this.prezzoTot = r.scontrino.totale;
+      this.prezzoE = r.righeScontrino[-1].prodotto.prezzo; //da provare
+      this.descrizioneE = r.righeScontrino[-1].prodotto.descrizione;
+      this.automaD.next(new EanEvent(this.barcode, this.scontrino));
     });
   }
 
   chiudiScontrino() {
-    console.log("timestamp :" , this.scontrino.timeStamp);
+    console.log("timestamp :", this.scontrino.timeStamp);
     console.log("numero scontrino : ", this.scontrino.numero);
     console.log("righe scontrino : ", this.righeScontrino);
     console.log("totale : ", this.scontrino.totale);
+    let dto: ScontrinoDto = new ScontrinoDto();
+    dto.scontrino = this.scontrino;
+    let oss: Observable<ScontrinoDto> = this.http.post<ScontrinoDto>(
+      'http://localhost:8080/chiudi-scontrino-1',
+      dto
+    );
+    oss.subscribe(c => {
+      this.scontrino = c.scontrino;
+      this.righeScontrino = [];
+      this.prezzoTot = null;
+      this.prezzoE = null;
+      this.descrizioneE = null;
+    });
     this.automaD.next(new ChiudiEvent());
-    //this.scontrino = new Scontrino();
   }
 
   vediPrezzo() {
-    /*let dto : RichiestaEanDto = new RichiestaEanDto();
+    let dto: EanDto = new EanDto();
     dto.barcode = this.barcode;
-    dto.scontrino = this.scontrino;
-    let oss: Observable<RispostaPrezzoDto> = this.http.post<RispostaPrezzoDto>(
+    let oss: Observable<PrezzoDto> = this.http.post<PrezzoDto>(
       'http://localhost:8080/vedi-prezzo-1',
       dto
     );
-    oss.subscribe( p => this.prezzoE = p.prezzo);*/
+    oss.subscribe(p => this.prezzoR = p.prezzo);
     this.automaD.next(new VediPrezzoEvent());
   }
 
-  stornaUltimo() { 
-    //aggiungere chiamata Rest
-    this.automaD.next(new StornaEvent(1));
+  stornaUltimo() {
+    let dto: ScontrinoRigheDto = new ScontrinoRigheDto();
+    dto.scontrino = this.scontrino;
+    dto.righeScontrino = this.righeScontrino;
+    let oss: Observable<ScontrinoRigheDto> = this.http.post<ScontrinoRigheDto>(
+      'http://localhost:8080/storna-ultimo-1',
+      dto
+    )
+    oss.subscribe(s => {
+      this.scontrino = s.scontrino;
+      this.righeScontrino = s.righeScontrino;
+      this.prezzoTot = s.scontrino.totale;
+      this.prezzoE = s.righeScontrino[-1].prodotto.prezzo; //da provare
+      this.descrizioneE = s.righeScontrino[-1].prodotto.descrizione;
+    });
+    this.automaD.next(new StornaEvent(this.righeScontrino.length));
   }
 
-  annullaScontrino() { 
+  annullaScontrino() {
     this.automaD.next(new AnnullaScontrinoEvent());
   }
 
-  conferma() { 
+  conferma() {
     //conferma AnnullaScontrino
+    let dto: ScontrinoRigheDto = new ScontrinoRigheDto();
+    dto.scontrino = this.scontrino;
+    dto.righeScontrino = this.righeScontrino;
+    let oss: Observable<ScontrinoDto> = this.http.post<ScontrinoDto>(
+      'http://localhost:8080/annulla-scontrino-1',
+      dto
+    );
+    oss.subscribe(s => {
+      this.scontrino = s.scontrino
+      this.righeScontrino = [];
+      this.prezzoTot = null;
+      this.prezzoE = null;
+      this.descrizioneE = null;
+    });
     this.automaD.next(new ConfermaEvent());
 
   }
 
   annulla() {
     this.automaD.next(new AnnullaEvent());
-   }
+  }
 }

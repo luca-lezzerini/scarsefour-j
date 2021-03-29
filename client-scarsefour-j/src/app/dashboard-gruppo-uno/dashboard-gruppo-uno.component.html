@@ -7,6 +7,7 @@
     </div>
     <div>
         <input type="text" [(ngModel)]="barcode" (blur)="cercaEan($event)" placeholder="Barcode" *ngIf="eanEdit">
+        <p *ngIf="prezzoRVis"> Prezzo : {{prezzoR}} &euro;</p>
         <br><br>
         <button (click)="vediPrezzo()" *ngIf="vediPrezzoVis">Vedi Prezzo</button>&nbsp;
         <button (click)="chiudiScontrino()" *ngIf="chiudiVis" [disabled]="!chiudiAble">Chiudi Scontrino</button>&nbsp;
