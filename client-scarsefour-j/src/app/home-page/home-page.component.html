@@ -1,20 +1,35 @@
 <body>
-    <h1>Benvenuto in</h1>
-    <img src="../../assets/Logo Scarsefour.jpg" width="300" height="150">
+    <div class="logo">
+        <img src="../../assets/Logo Scarsefour.jpg" width="250" height="150">
+    </div>
     <br>
     <br>
-    <button (click)="vaiA('anagrafica-posizioni')">Anagrafica posizioni</button>
-    <button (click)="vaiA('anagrafica-prodotti')">Anagrafica prodotti</button>
-    <button (click)="vaiA('anagrafica-cassiere')" >Anagrafica cassiere</button>
-    <button (click)="vaiA('anagrafica-casse')">Anagrafica casse</button>
-    <button (click)="vaiA('anagrafica-sconti')">Anagrafica sconti</button>
-    <br>
-    <br>
-    <button (click)="vaiA('dashboard-gruppo-uno')">Dashboard Cassa Gruppo UNO</button>
-    <button (click)="vaiA('dashboard-gruppo-tre')">Dashboard Cassa Gruppo TRE</button>
-    <button (click)="vaiA('dashboard-gruppo-quattro')">Dashboard Cassa Gruppo QUATTRO</button>
-    </body>
+    <div class="wrapper">
+        <div class="rotateObj">
+            <h2 class="active"><span>ANAGRAFICHE</span></h2>
+            <div class="content">
+                <a routerLink="/anagrafica-posizioni">Anagrafica Posizioni</a>
+                <br>
+                <a routerLink="/anagrafica-prodotti">Anagrafica Prodotti</a>
+                <br>
+                <a routerLink="/anagrafica-cassiere">Anagrafica Cassiere</a>
+                <br>
+                <a routerLink="/anagrafica-casse">Anagrafica Casse</a>
+                <br>
+                <a routerLink="/anagrafica-sconti">Anagrafica Sconti</a>
+            </div>
+            <h2><span>DASHBOARD</span></h2>
+            <div class="content">
+                <a routerLink="/dashboard-gruppo-uno">Dashboard Cassa 1</a>
+                <br>
+                <a routerLink="">Dashboard Cassa 2</a>
+                <br>
+                <a routerLink="/dashboard-gruppo-tre">Dashboard Cassa 3</a>
+                <br>
+                <a routerLink="/dashboard-gruppo-quattro">Dashboard Cassa 4</a>
+            </div>
+        </div>
+    </div>
+</body>
 
 <!--/<button (click)="vaiA('')"></button> -->
-
-

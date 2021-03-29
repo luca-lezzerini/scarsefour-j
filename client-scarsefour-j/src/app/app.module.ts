@@ -14,6 +14,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { DashboardGruppoUnoComponent } from './dashboard-gruppo-uno/dashboard-gruppo-uno.component';
 import { DashboardGruppoQuattroComponent } from './dashboard-gruppo-quattro/dashboard-gruppo-quattro.component';
 import { DashboardGruppoDueComponent } from './dashboard-gruppo-due/dashboard-gruppo-due.component';
+import { ToolbarMenuComponent } from './toolbar-menu/toolbar-menu.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { DashboardGruppoDueComponent } from './dashboard-gruppo-due/dashboard-gr
     DashboardGruppoTreComponent,
     DashboardGruppoUnoComponent,
     DashboardGruppoQuattroComponent,
-    DashboardGruppoDueComponent
+    DashboardGruppoDueComponent,
+    ToolbarMenuComponent
   ],
   imports: [
     BrowserModule,
