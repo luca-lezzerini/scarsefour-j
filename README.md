@@ -2,6 +2,9 @@
 
 Gruppo 1: Aulicino https://meet.google.com/oic-qtaa-wgj
 
+Gruppo 1 bis : https://meet.google.com/vyw-ppjf-ezt
+
+
 Gruppo 2: Salvatori https://meet.google.com/vfn-vogq-ktm + https://meet.google.com/yoo-xfaq-sbe
 
 Gruppo 3: Tangucci https://meet.google.com/ywa-nivu-oco
