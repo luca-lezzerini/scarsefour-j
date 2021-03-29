@@ -1,4 +1,9 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { ScontrinoDto } from '../dto/scontrino-dto';
+import { Prodotto } from '../entità/prodotto';
+import { RigaScontrino } from '../entità/riga-scontrino';
+import { Scontrino } from '../entità/scontrino';
 
 @Component({
   selector: 'app-dashboard-gruppo-due',
@@ -7,27 +12,32 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardGruppoDueComponent implements OnInit {
 
+  scontrino: Scontrino = new Scontrino();
+
   prezzo: number;
-  ultimoElemento: string; //da modificare e sistemare o come dto e lista descrizione e prezzo
+  ultimoElemento: Prodotto;
   barcode: string;
-  
-  constructor() { }
+
+  righeScontrino: Array<RigaScontrino>;
+  constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
   }
 
-  vaiAHome() {}
+  annullaScontrino() {
+    const dto: ScontrinoDto = new ScontrinoDto();
+    dto.scontrino = this.scontrino;
+    
+   }
 
-  annullaScontrino() {}
+  vediPrezzo() { }
 
-  vediPrezzo() {}
+  chiudiScontrino() { }
 
-  chiudiScontrino() {}
+  stornaUltimo() { }
 
-  stornaUltimo() {}
+  annulla() { }
 
-  annulla(){}
-
-  conferma(){}
+  conferma() { }
 
 }
