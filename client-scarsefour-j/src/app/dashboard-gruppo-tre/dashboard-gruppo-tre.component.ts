@@ -114,11 +114,15 @@ export class DashboardGruppoTreComponent implements OnInit {
   //         console.log("Ricevuto evento inatteso");
   // }
 
+  onKey(event: any) {
+    this.vediPrezzo();
+  }
+
   vediPrezzo() {
     let dto: CriterioRicercaDto = new CriterioRicercaDto();
     dto.criterio = this.barcode;
     let oss: Observable<ProdottoDto> = this.http.post<ProdottoDto>
-      ("http://localhost:8080/vedi-prezzo-tre", dto);
+      ('http://localhost:8080/vedi-prezzo-tre', dto);
     oss.subscribe(t => this.prodotto = t.prodotto);
     this.stato = this.automa.next(new VediPrezzoEvent());
     this.prezzoProdotto = this.prodotto.prezzo;
@@ -128,24 +132,19 @@ export class DashboardGruppoTreComponent implements OnInit {
     let dto: DtoScontrinoTre = new DtoScontrinoTre();
     dto.scontrino = this.scontrino;
     let oss: Observable<DtoScontrinoTre> = this.http.post<DtoScontrinoTre>
-      ("http://localhost:8080/chiudi-scontrino-tre", dto);
+      ('http://localhost:8080/chiudi-scontrino-tre', dto);
     oss.subscribe(t => this.scontrino = t.scontrino);
     this.stato = this.automa.next(new ChiudiEvent());
   }
 
   stornaUltimo() {
-    let dto: DtoScontrinoTre = new DtoScontrinoTre();
-    dto.scontrino = this.scontrino;
-    let oss: Observable<DtoListaRigaScontrinoTre> = this.http.post<DtoListaRigaScontrinoTre>
-      ("http://localhost:8080/storna-ultimo-tre", dto);
-    oss.subscribe(t => this.righe = t.righeScontrino);
-    this.stato = this.automa.next(new StornaUnoEvent());
+    this.stato = this.automa.next(new ConfermaEvent());
   }
   annullaScontrino() {
     let dto: DtoScontrinoTre = new DtoScontrinoTre();
     dto.scontrino = this.scontrino;
     let oss: Observable<DtoScontrinoTre> = this.http.post<DtoScontrinoTre>
-      ("http://localhost:8080/annulla-scontrino-tre", dto);
+      ('http://localhost:8080/annulla-scontrino-tre', dto);
     oss.subscribe(t => this.scontrino = t.scontrino);
     this.stato = this.automa.next(new AnnullaScontrinoEvent());
   }
@@ -153,6 +152,12 @@ export class DashboardGruppoTreComponent implements OnInit {
     this.stato = this.automa.next(new AnnullaEvent());
   }
   conferma() {
+    let dto: DtoScontrinoTre = new DtoScontrinoTre();
+    dto.scontrino = this.scontrino;
+    let oss: Observable<DtoListaRigaScontrinoTre> = this.http.post<DtoListaRigaScontrinoTre>
+      ('http://localhost:8080/storna-ultimo-tre', dto);
+    oss.subscribe(t => this.righe = t.righeScontrino);
+    this.stato = this.automa.next(new StornaUnoEvent());
   }
 
 
