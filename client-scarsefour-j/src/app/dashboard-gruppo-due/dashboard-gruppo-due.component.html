@@ -1,1 +1,17 @@
-<p>dashboard-gruppo-due works!</p>
+<body>
+    <div>
+        <button (click)="vaiAHome()">Home Page</button>
+    </div>
+</body>
+<input type="text" placeholder="barcode" [(ngModel)]="barcode">
+Prezzo:€ {{prezzo}}
+<button (click)="annullaScontrino()">Annulla scontrino</button>
+<br>
+<button (click)="vediPrezzo()">Vedi prezzo</button>
+<button (click)="chiudiScontrino()">Chiudi scontrino</button>
+<button (click)="stornaUltimo()">Storna ultimo</button>
+<button (click)="annulla()">Annulla</button>
+<button (click)="conferma()">Conferma</button>
+<br>
+<h2>Ultimo elemento {{ultimoElemento}}</h2>
+<br>
