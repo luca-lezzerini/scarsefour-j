@@ -1,5 +1,6 @@
-package it.iad2.scarsefourserver.dashboard2;
+package it.iad2.scarsefourserver.controller;
 
+import it.iad2.scarsefourserver.service.DashboardDueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,8 +12,7 @@ import it.iad2.scarsefourserver.dto.ScontrinoDto;
 
 @CrossOrigin("*")
 @RestController
-public class DashboardDueController
-{
+public class DashboardDueController {
 	@Autowired
 	DashboardDueService dashboardDueService;
 	

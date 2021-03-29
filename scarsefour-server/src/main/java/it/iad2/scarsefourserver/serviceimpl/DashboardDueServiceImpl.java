@@ -1,5 +1,6 @@
-package it.iad2.scarsefourserver.dashboard2;
+package it.iad2.scarsefourserver.serviceimpl;
 
+import it.iad2.scarsefourserver.service.DashboardDueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,8 +14,7 @@ public class DashboardDueServiceImpl implements DashboardDueService
 	ScontrinoRepository scontrinoRepository;
 
 	@Override
-	public Scontrino annullaScontrino(Scontrino scontrino)
-	{
+	public Scontrino annullaScontrino(Scontrino scontrino) {
 		scontrinoRepository.delete(scontrino);
 		return new Scontrino();
 	}
