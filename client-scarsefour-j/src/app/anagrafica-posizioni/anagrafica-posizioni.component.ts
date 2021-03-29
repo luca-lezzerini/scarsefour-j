@@ -30,6 +30,12 @@ export class AnagraficaPosizioniComponent implements OnInit, AutomabileCrud {
   searchVisible: boolean = false;
 
   constructor(private http: HttpClient) { }
+  aggiungiAction() {
+    throw new Error('Method not implemented.');
+  }
+  modificaAction() {
+    throw new Error('Method not implemented.');
+  }
 
   ngOnInit(): void {
     this.aggiorna();

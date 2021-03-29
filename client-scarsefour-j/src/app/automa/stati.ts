@@ -31,6 +31,7 @@ export class AggiungiState implements State {
         if (e instanceof AnnullaEvent) {
             return new RicercaState(this.automa);
         } else if (e instanceof ConfermaEvent) {
+            this.automa.gui.aggiungiAction();
             return new VisualizzaState(this.automa);
         } else {
             console.log('Ricevuto evento inatteso');
@@ -71,6 +72,7 @@ export class ModificaState implements State {
         if (e instanceof AnnullaEvent) {
             return new VisualizzaState(this.automa);
         } else if (e instanceof ConfermaEvent) {
+            this.automa.gui.modificaAction();
             return new VisualizzaState(this.automa);
         } else {
             console.log('Ricevuto evento inatteso');

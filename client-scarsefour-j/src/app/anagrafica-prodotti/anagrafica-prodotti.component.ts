@@ -36,6 +36,12 @@ export class AnagraficaProdottiComponent implements OnInit, AutomabileCrud {
   errore: string = "Errore, inserire dati validi";
 
   constructor(private http: HttpClient, private router: Router) { this.aggiorna() }
+  aggiungiAction() {
+    throw new Error('Method not implemented.');
+  }
+  modificaAction() {
+    throw new Error('Method not implemented.');
+  }
 
   ngOnInit(): void {
     this.aggiorna();

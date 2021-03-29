@@ -1,10 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { RichiestaEanDto } from './dto-dashboard-uno/richiesta-ean-dto';
+import { RigaScontrino } from '../entità/riga-scontrino';
+import { Scontrino } from '../entità/scontrino';
 import { AutomaDashboardUno } from './automa-dashboard-uno/automa-dashboard-uno';
-import { EanEvent } from './automa-dashboard-uno/eventi-dashboard-uno';
+import { AnnullaEvent, AnnullaScontrinoEvent, ChiudiEvent, ConfermaEvent, EanEvent, StornaEvent, VediPrezzoEvent } from './automa-dashboard-uno/eventi-dashboard-uno';
 import { AutomabileDashboardUno } from './automa-dashboard-uno/state-dashboard-uno';
-import { ScontrinoNonVuotoState } from './automa-dashboard-uno/stati-dashboard-uno';
+import { RispostaEanDto } from './dto-dashboard-uno/risposta-ean-dto';
+import { RispostaPrezzoDto } from './dto-dashboard-uno/risposta-prezzo-dto';
 
 @Component({
   selector: 'app-dashboard-gruppo-uno',
@@ -36,6 +41,8 @@ export class DashboardGruppoUnoComponent implements OnInit, AutomabileDashboardU
   prezzoE: number;
   descrizioneE: string;
   prezzoTot: number;
+  righeScontrino : RigaScontrino[];
+  scontrino = new Scontrino();
 
 
 
@@ -62,19 +69,19 @@ export class DashboardGruppoUnoComponent implements OnInit, AutomabileDashboardU
   }
 
   goToScontrinoVuotoPrimoEan() {
-    this.eanEdit = true;
-    this.vediPrezzoVis = true;
-    this.listaVis = false;
-    this.stornaVis = false;
+    // this.eanEdit = true;
+    // this.vediPrezzoVis = true;
+    // this.listaVis = false;
+    // this.stornaVis = false;
     this.annullaScontrinoAble = false;
     this.annullaScontrinoVis = false;
-    this.confermaAble = false;
-    this.confermaVis = false;
-    this.annullaAble = false;
-    this.annullaVis = false;
-    this.chiudiAble = false;
-    this.chiudiVis = false;
-    this.prezzoVis = true;
+    // this.confermaAble = false;
+    // this.confermaVis = false;
+    // this.annullaAble = false;
+    // this.annullaVis = false;
+    // this.chiudiAble = false;
+    // this.chiudiVis = false;
+    // this.prezzoVis = true;
   }
 
   goToScontrinoVuotoFromAnnulla() {
@@ -97,14 +104,14 @@ export class DashboardGruppoUnoComponent implements OnInit, AutomabileDashboardU
     this.eanEdit = true;
     this.vediPrezzoVis = true;
     this.listaVis = true;
-    this.stornaVis = true;
-    this.annullaScontrinoAble = true;
+    this.stornaVis = false;
+    this.annullaScontrinoAble = false;
     this.annullaScontrinoVis = true;
     this.confermaAble = false;
     this.confermaVis = false;
     this.annullaAble = false;
     this.annullaVis = false;
-    this.chiudiAble = true;
+    this.chiudiAble = false;
     this.chiudiVis = true;
     this.prezzoVis = true;
   }
@@ -160,20 +167,62 @@ export class DashboardGruppoUnoComponent implements OnInit, AutomabileDashboardU
   ngOnInit(): void {
   }
 
-  vaiAHome() { }
-
-  cercaEan() {
+  vaiAHome() { 
+    this.router.navigateByUrl('home-page');
   }
 
-  chiudiScontrino() { }
+  cercaEan() {
+    let dto : RichiestaEanDto = new RichiestaEanDto();
+    dto.barcode = this.barcode;
+    dto.scontrino = this.scontrino;
+    let oss: Observable<RispostaEanDto> = this.http.post<RispostaEanDto>(
+      'http://localhost:8080/ricerca-cassiere',
+      dto
+    );
+    oss.subscribe( r => {this.scontrino = r.scontrino;
+                        this.righeScontrino = r.righeScontrino;
+                        this.barcode = r.barcode;
+                        this.automaD.next(new EanEvent(this.barcode,this.scontrino));
+    });
+  }
 
-  vediPrezzo() { }
+  chiudiScontrino() {
+    console.log("timestamp :" , this.scontrino.timeStamp);
+    console.log("numero scontrino : ", this.scontrino.numero);
+    console.log("righe scontrino : ", this.righeScontrino);
+    console.log("totale : ", this.scontrino.totale);
+    this.automaD.next(new ChiudiEvent());
+    //this.scontrino = new Scontrino();
+  }
 
-  stornaUltimo() { }
+  vediPrezzo() {
+    /*let dto : RichiestaEanDto = new RichiestaEanDto();
+    dto.barcode = this.barcode;
+    dto.scontrino = this.scontrino;
+    let oss: Observable<RispostaPrezzoDto> = this.http.post<RispostaPrezzoDto>(
+      'http://localhost:8080/vedi-prezzo-1',
+      dto
+    );
+    oss.subscribe( p => this.prezzoE = p.prezzo);*/
+    this.automaD.next(new VediPrezzoEvent());
+  }
 
-  annullaScontrino() { }
+  stornaUltimo() { 
+    //aggiungere chiamata Rest
+    this.automaD.next(new StornaEvent(1));
+  }
 
-  conferma() { }
+  annullaScontrino() { 
+    this.automaD.next(new AnnullaScontrinoEvent());
+  }
 
-  annulla() { }
+  conferma() { 
+    //conferma AnnullaScontrino
+    this.automaD.next(new ConfermaEvent());
+
+  }
+
+  annulla() {
+    this.automaD.next(new AnnullaEvent());
+   }
 }
