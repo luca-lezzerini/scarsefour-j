@@ -1,12 +1,12 @@
 import { EventTre } from "./event-tre";
-import { Automabile, StateTre } from "./state-tre";
-import { ScontrinoVuotoState } from "./stati";
+import { AutomabileTre, StateTre } from "./state-tre";
+import { ScontrinoVuotoState } from "./stati-tre";
 
 export class AutomaTre implements StateTre {
     stato: StateTre;
-    gui: Automabile;
+    gui: AutomabileTre;
 
-    constructor(autom: Automabile) {
+    constructor(autom: AutomabileTre) {
         this.gui = autom;
         this.stato = new ScontrinoVuotoState(this);
     }

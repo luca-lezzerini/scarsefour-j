@@ -1,4 +1,4 @@
-package it.iad2.scarsefour.dashboardtre;
+package it.iad2.scarsefourserver.repository;
 
 import it.iad2.scarsefourserver.model.Prodotto;
 import java.util.List;

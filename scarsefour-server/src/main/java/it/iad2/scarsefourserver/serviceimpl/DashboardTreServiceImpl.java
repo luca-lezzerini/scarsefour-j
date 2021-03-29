@@ -1,5 +1,9 @@
-package it.iad2.scarsefour.dashboardtre;
+package it.iad2.scarsefourserver.serviceimpl;
 
+import it.iad2.scarsefourserver.repository.ProdottoRepositoryTre;
+import it.iad2.scarsefourserver.repository.RigaScontrinoRepositoryTre;
+import it.iad2.scarsefourserver.repository.ScontrinoRepositoryTre;
+import it.iad2.scarsefourserver.service.DashboardTreService;
 import it.iad2.scarsefourserver.model.Prodotto;
 import it.iad2.scarsefourserver.model.RigaScontrino;
 import it.iad2.scarsefourserver.model.Scontrino;

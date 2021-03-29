@@ -1,5 +1,8 @@
-package it.iad2.scarsefour.dashboardtre;
+package it.iad2.scarsefourserver.controller;
 
+import it.iad2.scarsefourserver.service.DashboardTreService;
+import it.iad2.scarsefourserver.dto.ListaRigaScontrinoTreDto;
+import it.iad2.scarsefourserver.dto.ScontrinoTreDto;
 import it.iad2.scarsefourserver.dto.CriterioRicercaDto;
 import it.iad2.scarsefourserver.dto.ProdottoDto;
 import org.springframework.beans.factory.annotation.Autowired;
