@@ -1,10 +1,12 @@
 
+<button (click)="vaiA('home-page')">Torna alla home page</button>
+<h2>Anagrafica Prodotti</h2>
+
 <h3 *ngIf = "labelNuovoProdotto">
   Inserire prodotto
 </h3><button (click)="nuova()" *ngIf="buttonNuovaVisible">Nuova</button>
 <br>
 
-<button (click)="vaiA('')">Torna alla home page</button>
 
 <div *ngIf = "formDivVisible">
   <input type="text" placeholder="codice" [(ngModel)]="prodotto.codice" [disabled]="campiNonEditabili">
@@ -18,10 +20,10 @@
 <p *ngIf ="labelMessaggioErrore">{{errore}}</p>
 <br>
 <div>
-  <button (click)="modifica()" *ngIf="modRimVisible">Modifica</button>
-  <button (click)="conferma()"*ngIf="confAnnVisible">Conferma</button>
+  <button (click)="modificaAction()" *ngIf="modRimVisible">Modifica</button>
+  <button (click)="aggiungiAction()"*ngIf="confAnnVisible">Conferma</button>
   <button (click)="annulla()"*ngIf="confAnnVisible">Annulla</button>
-  <button (click)="rimuovi()" *ngIf="modRimVisible">Rimuovi</button>
+  <button (click)="rimuoviAction()" *ngIf="modRimVisible">Rimuovi</button>
 </div>
 <br>
 <hr>

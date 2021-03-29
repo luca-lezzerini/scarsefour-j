@@ -31,11 +31,15 @@ export class AggiungiState implements State {
         if (e instanceof AnnullaEvent) {
             return new RicercaState(this.automa);
         } else if (e instanceof ConfermaEvent) {
+            console.log("siamo nel Loop?");
             this.automa.gui.aggiungiAction();
             return new VisualizzaState(this.automa);
+
+
         } else {
             console.log('Ricevuto evento inatteso');
         }
+        console.log("siamo fuori Loop");
     }
 }
 

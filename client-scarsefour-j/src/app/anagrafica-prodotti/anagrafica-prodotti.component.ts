@@ -5,7 +5,6 @@ import { Observable } from 'rxjs';
 import { Automa } from '../automa/automa';
 import { AddEvent, AnnullaEvent, ConfermaEvent, ModificaEvent, RimuoviEvent, SelezionaEvent } from '../automa/eventi';
 import { AutomabileCrud, State } from '../automa/state';
-import { AggiungiState, ModificaState, RimuoviState } from '../automa/stati';
 import { CriterioRicercaDto } from '../dto/criterio-ricerca-dto';
 import { ListaProdottiDto } from '../dto/lista-prodotti-dto';
 import { ProdottoDto } from '../dto/prodotto-dto';
@@ -36,13 +35,7 @@ export class AnagraficaProdottiComponent implements OnInit, AutomabileCrud {
   errore: string = "Errore, inserire dati validi";
 
   constructor(private http: HttpClient, private router: Router) { this.aggiorna() }
-  aggiungiAction() {
-    throw new Error('Method not implemented.');
-  }
-  modificaAction() {
-    throw new Error('Method not implemented.');
-  }
-
+  
   ngOnInit(): void {
     this.aggiorna();
     this.automa = new Automa(this);
@@ -53,7 +46,7 @@ export class AnagraficaProdottiComponent implements OnInit, AutomabileCrud {
     this.buttonNuovaVisible = true;
     this.formDivVisible = false;
     this.searchVisible = true;
-
+    
   }
   goToAggiungi() {
     this.labelNuovoProdotto = true;
@@ -65,7 +58,7 @@ export class AnagraficaProdottiComponent implements OnInit, AutomabileCrud {
     this.searchVisible = false;
     this.tabellaProdottiVisibile = false;
     this.labelMessaggioErrore = false;
-
+    
 
   }
   goToVisualizza() {
@@ -78,8 +71,8 @@ export class AnagraficaProdottiComponent implements OnInit, AutomabileCrud {
     this.searchVisible = true;
     this.tabellaProdottiVisibile = true;
     this.labelMessaggioErrore = false;
-
-
+    
+    
   }
   goToModifica() {
     this.buttonNuovaVisible = false;
@@ -99,9 +92,32 @@ export class AnagraficaProdottiComponent implements OnInit, AutomabileCrud {
     this.modRimVisible = false;
     this.confAnnVisible = true;
     this.searchVisible = false;
-
+    
+  }
+  aggiungiAction() {
+    let dto: ProdottoDto = new ProdottoDto();
+    dto.prodotto = this.prodotto;
+    let oss: Observable<ListaProdottiDto> = this.http.post<ListaProdottiDto>('http://localhost:8080/conferma-prodotto-quattro', dto);
+    oss.subscribe(c => this.listaProdotti = c.listaProdotti);
+    this.tabellaProdottiVisibile = true;
+    
+    this.prodotto = new Prodotto();
+    //Errore , se passato il metodo next genera loop
+    //this.automa.next(new ConfermaEvent());
+   
   }
 
+  modificaAction() {
+    console.log("Siamo in ModificaAction");
+    let dto:ProdottoDto = new ProdottoDto();
+    dto.prodotto = this.prodotto;
+    console.log("Stiamo per modificare ", + dto)
+    let ox: Observable<ListaProdottiDto> = this.http.post<ListaProdottiDto>('http://localhost:8080/modifica-prodotto-quattro', dto);
+      ox.subscribe(r => this.listaProdotti = r.listaProdotti);
+      this.stato = this.automa.next(new ModificaEvent());
+
+  }
+  
   rimuoviAction() {
     console.log("Siamo in rimuoviAction");
     let dto: ProdottoDto = new ProdottoDto();
@@ -109,6 +125,7 @@ export class AnagraficaProdottiComponent implements OnInit, AutomabileCrud {
     console.log("Stiamo per rimuovere ", + dto);
     let oss: Observable<ListaProdottiDto> = this.http.post<ListaProdottiDto>('http://localhost:8080/rimuovi-prodotto-quattro', dto);
     oss.subscribe(r => this.listaProdotti = r.listaProdotti);
+    this.stato = this.automa.next(new RimuoviEvent());
   }
 
   nuova() {
@@ -126,7 +143,7 @@ export class AnagraficaProdottiComponent implements OnInit, AutomabileCrud {
 
   }
 
-  modifica() {
+  /*modifica() {
     this.stato = this.automa.next(new ModificaEvent());
   }
 
@@ -165,8 +182,8 @@ export class AnagraficaProdottiComponent implements OnInit, AutomabileCrud {
     }
     this.automa.next(new ConfermaEvent());
     this.prodotto = new Prodotto();
-
-  }
+*/
+  
 
 
   annulla() {
@@ -175,14 +192,14 @@ export class AnagraficaProdottiComponent implements OnInit, AutomabileCrud {
 
 
   }
-  rimuovi() {
+  /*rimuovi() {
     this.stato = this.automa.next(new RimuoviEvent());
-    /*let dto: ProdottoDto = new ProdottoDto();
+    let dto: ProdottoDto = new ProdottoDto();
     dto.prodotto = this.prodotto;
 
     let oss: Observable<ListaProdottiDto> = this.http.post<ListaProdottiDto>("http://localhost:8080/conferma-prodotto-quattro", dto);
     oss.subscribe(c => this.listaProdotti = c.listaProdotti);*/
-  }
+  
 
   aggiorna() {
     let oz: Observable<ListaProdottiDto> = this.http.get<ListaProdottiDto>(
