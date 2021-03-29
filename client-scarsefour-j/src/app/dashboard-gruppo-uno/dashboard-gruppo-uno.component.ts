@@ -69,19 +69,19 @@ export class DashboardGruppoUnoComponent implements OnInit, AutomabileDashboardU
   }
 
   goToScontrinoVuotoPrimoEan() {
-    this.eanEdit = true;
-    this.vediPrezzoVis = true;
-    this.listaVis = false;
-    this.stornaVis = false;
+    // this.eanEdit = true;
+    // this.vediPrezzoVis = true;
+    // this.listaVis = false;
+    // this.stornaVis = false;
     this.annullaScontrinoAble = false;
     this.annullaScontrinoVis = false;
-    this.confermaAble = false;
-    this.confermaVis = false;
-    this.annullaAble = false;
-    this.annullaVis = false;
-    this.chiudiAble = false;
-    this.chiudiVis = false;
-    this.prezzoVis = true;
+    // this.confermaAble = false;
+    // this.confermaVis = false;
+    // this.annullaAble = false;
+    // this.annullaVis = false;
+    // this.chiudiAble = false;
+    // this.chiudiVis = false;
+    // this.prezzoVis = true;
   }
 
   goToScontrinoVuotoFromAnnulla() {

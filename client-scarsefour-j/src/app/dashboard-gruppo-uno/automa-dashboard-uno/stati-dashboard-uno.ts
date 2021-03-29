@@ -6,23 +6,24 @@ import { StateDashboardUno } from "./state-dashboard-uno";
 export class ScontrinoVuotoState implements StateDashboardUno {
 
     constructor(public automa: AutomaDashboardUno) {
-        if (automa.stato instanceof ScontrinoVuotoState) {
-            automa.gui.goToScontrinoVuotoPrimoEan();
-            console.log("goToScontrinoVuotoPrimoEan()");
-        } else if (automa.stato instanceof ScontrinoNonVuotoState) {
-            automa.gui.goToScontrinoVuotoFromAll();
-            console.log("goToScontrinoVuotoFromAll()");
-        } else if (automa.stato instanceof VediPrezzoState) {
-            automa.gui.goToScontrinoVuotoFromAll();
-            console.log("goToScontrinoVuotoFromAll()");
-        } else if (automa.stato instanceof AnnullamentoScontrinoState) {
-            automa.gui.goToScontrinoVuotoFromAnnulla();
-            console.log("goToScontrinoVuotoFromAnnulla()");
-        }
-        else {
-            automa.gui.goToScontrinoVuotoInitial();
-            console.log("goToScontrinoVuotoInitial()");
-        }
+        automa.gui.goToScontrinoVuotoInitial();
+        // if (automa.stato instanceof ScontrinoVuotoState) {
+        //     automa.gui.goToScontrinoVuotoPrimoEan();
+        //     console.log("goToScontrinoVuotoPrimoEan()");
+        // } else if (automa.stato instanceof ScontrinoNonVuotoState) {
+        //     automa.gui.goToScontrinoVuotoFromAll();
+        //     console.log("goToScontrinoVuotoFromAll()");
+        // } else if (automa.stato instanceof VediPrezzoState) {
+        //     automa.gui.goToScontrinoVuotoFromAll();
+        //     console.log("goToScontrinoVuotoFromAll()");
+        // } else if (automa.stato instanceof AnnullamentoScontrinoState) {
+        //     automa.gui.goToScontrinoVuotoFromAnnulla();
+        //     console.log("goToScontrinoVuotoFromAnnulla()");
+        // }
+        // else {
+        //     automa.gui.goToScontrinoVuotoInitial();
+        //     console.log("goToScontrinoVuotoInitial()");
+        // }
     }
 
     next(e: EventDashboardUno): StateDashboardUno {
@@ -34,9 +35,10 @@ export class ScontrinoVuotoState implements StateDashboardUno {
                 return new ScontrinoNonVuotoState(this.automa);
             }
             else {
-                //this.automa.gui.goToScontrinoVuotoPrimoEan();
-                //console.log("sono in goToScontrinoVuotoPrimoEan")
-                return new ScontrinoVuotoState(this.automa);
+                let st = new ScontrinoVuotoState(this.automa);
+                this.automa.gui.goToScontrinoVuotoPrimoEan();
+                console.log("sono in goToScontrinoVuotoPrimoEan")
+                return st;
             }
         }
         else {
