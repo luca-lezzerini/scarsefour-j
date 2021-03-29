@@ -1,3 +1,3 @@
-export class Cassa{
+export class Cassa {
   codice: string;
 }
