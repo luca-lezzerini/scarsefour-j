@@ -100,7 +100,7 @@ export class AnagraficaProdottiComponent implements OnInit, AutomabileCrud {
     console.log("Siamo in rimuoviAction");
     let dto: ProdottoDto = new ProdottoDto();
     dto.prodotto = this.prodotto;
-    console.log("Stiamo per rimuovere " + dto);
+    console.log("Stiamo per rimuovere ", + dto);
     let oss: Observable<ListaProdottiDto> = this.http.post<ListaProdottiDto>('http://localhost:8080/rimuovi-prodotto-quattro', dto);
     oss.subscribe(r => this.listaProdotti = r.listaProdotti);
   }
@@ -197,12 +197,14 @@ export class AnagraficaProdottiComponent implements OnInit, AutomabileCrud {
     this.searchVisible = true;
     this.tabellaProdottiVisibile = true;
 
-    this.prodotto.codice = p.codice;
-    this.prodotto.descrizione = p.descrizione;
-    this.prodotto.ean = p.ean;
-    this.prodotto.prezzo = p.prezzo;
-    this.prodotto.scortaMinMagazzinoDefault = p.scortaMinMagazzinoDefault;
-    this.prodotto.scortaMinMagazzinoDefault = p.scortaMinMagazzinoDefault;
+    this.prodotto = Object.assign({}, p);
+    // this.prodotto.id = p.id;
+    // this.prodotto.codice = p.codice;
+    // this.prodotto.descrizione = p.descrizione;
+    // this.prodotto.ean = p.ean;
+    // this.prodotto.prezzo = p.prezzo;
+    // this.prodotto.scortaMinMagazzinoDefault = p.scortaMinMagazzinoDefault;
+    // this.prodotto.scortaMinMagazzinoDefault = p.scortaMinMagazzinoDefault;
     this.automa.next(new SelezionaEvent());
 
   }
