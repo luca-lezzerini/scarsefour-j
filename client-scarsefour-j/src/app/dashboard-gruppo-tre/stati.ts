@@ -81,8 +81,10 @@ export class VediPrezzoState implements StateTre {
                 // caso scontrino non vuoto e ean conosciuto
                 return new ScontrinoNonVuotoState(this.automa);
             } else {
-                console.log("Ricevuto evento inatteso");
+                console.log("Ricevuto evento inatteso - A");
             }
+        } else {
+            console.log("Ricevuto evento inatteso - B");
         }
     }
 }
