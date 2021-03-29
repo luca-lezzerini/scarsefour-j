@@ -26,7 +26,7 @@
 <br>
 <hr>
 <div *ngIf="searchVisible">
-  <input type="text" placeholder="Cerca per codice ean" [(ngModel)]="searchCriterion">
+  <input type="text" placeholder="Cerca per codice" [(ngModel)]="searchCriterion">
   <button (click)="cercaPerCodice()">Cerca</button>
 </div>
 <table *ngIf="tabellaProdottiVisibile">

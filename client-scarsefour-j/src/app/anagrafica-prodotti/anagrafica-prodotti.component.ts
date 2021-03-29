@@ -94,7 +94,7 @@ export class AnagraficaProdottiComponent implements OnInit, AutomabileCrud {
     this.tabellaProdottiVisibile = true;
     this.campiNonEditabili = false;
     this.buttonNuovaVisible = true;
-    this.formDivVisible = false;
+    this.formDivVisible = true;
     this.campiNonEditabili = true;
     this.modRimVisible = false;
     this.confAnnVisible = true;

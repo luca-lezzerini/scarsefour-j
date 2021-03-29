@@ -138,6 +138,17 @@ public class SystemAdminServiceImpl implements SystemAdminService {
 
         //Associa Prodotto con Sconto
         AssociaProdottoSconto();
+        
+        //Creazione di record prodoti senza vincoli di foreign key
+        for (int i = 0; i < 50; i++) {
+            prodotto = new Prodotto("ean" + i, "codice" + i, "cancellabile" + i, i, 5, 10, i);
+            prodottoRepository.save(prodotto);
+        }
+        //Creazione di record sconti senza vincoli di foreign key
+        for (int i = 0; i < 10; i++) {
+            sconto = new Sconto(LocalDateTime.now().plusDays(i), LocalDateTime.now().plusDays(i + 5), i, "cancellabile" + i, "codice" + i);
+            scontoRepository.save(sconto);
+        }
     }
 
     void AssociaProdottoPosizioneScaffale(Prodotto p, PosizioneScaffale ps) {

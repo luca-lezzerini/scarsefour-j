@@ -30,6 +30,7 @@ public class ProdottoServiceImp implements ProdottoService {
 
     @Override
     public ListaProdottiDto rimuoviProdotto(Prodotto prodotto) {
+        System.out.println(prodotto);
         prodottoRepository.delete(prodotto);
         return aggiornaProdotto();
     }
@@ -44,7 +45,7 @@ public class ProdottoServiceImp implements ProdottoService {
     @Override
     public ProdottoDto cercaProdotto(String cerca) {
 
-        Prodotto p = prodottoRepository.findByCodiceEquals(cerca);
+        Prodotto p = prodottoRepository.findByCodice(cerca);
         if (p == null) {
             p = new Prodotto();
         }
