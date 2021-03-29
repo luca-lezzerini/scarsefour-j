@@ -1,4 +1,3 @@
-import { Automabile } from './../dashboard-gruppo-tre/state-tre';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';

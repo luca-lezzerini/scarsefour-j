@@ -1,4 +1,4 @@
-package it.iad2.scarsefour.dashboardtre;
+package it.iad2.scarsefourserver.dashboardtre;
 
 import it.iad2.scarsefourserver.model.Scontrino;
 import org.springframework.data.jpa.repository.JpaRepository;

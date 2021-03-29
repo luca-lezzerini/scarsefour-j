@@ -4,9 +4,13 @@ export interface StateTre{
     next(e : EventTre) : StateTre;
 }
 
-export interface Automabile{
+export interface AutomabileTre{
+    // metodi cambiamento stato
     goToScontrinoVuoto();
     goToScontrinoNonVuoto();
     goToVediPrezzo();
     goToAnnullamentoScontrino();
+
+    // metodi esecuzione azioni
+    aggiungiRigaScontrino();
 }

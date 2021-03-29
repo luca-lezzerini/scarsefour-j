@@ -7,8 +7,8 @@ import { RigaScontrino } from '../entità/riga-scontrino';
 import { Scontrino } from '../entità/scontrino';
 import { AutomaTre } from './automa-tre';
 import { AnnullaEvent, AnnullaScontrinoEvent, ChiudiEvent, ConfermaEvent, EanEvent, StornaUnoEvent, VediPrezzoEvent } from './eventi-tre';
-import { StateTre } from './state-tre';
-import { ScontrinoNonVuotoState, ScontrinoVuotoState, VediPrezzoState } from './stati';
+import { AutomabileTre, StateTre } from './state-tre';
+import { ScontrinoNonVuotoState, ScontrinoVuotoState, VediPrezzoState } from './stati-tre';
 import { Observable } from 'rxjs';
 import { DtoScontrinoTre } from './dto-scontrino-tre';
 import { DtoListaRigaScontrinoTre } from './dto-lista-riga-scontrino-tre';
@@ -18,7 +18,7 @@ import { DtoListaRigaScontrinoTre } from './dto-lista-riga-scontrino-tre';
   templateUrl: './dashboard-gruppo-tre.component.html',
   styleUrls: ['./dashboard-gruppo-tre.component.css']
 })
-export class DashboardGruppoTreComponent implements OnInit {
+export class DashboardGruppoTreComponent implements OnInit, AutomabileTre {
 
   barcode: string;
   // riportare l'ultimo elemento della tabella, solo descrizione e prezzo
@@ -26,10 +26,10 @@ export class DashboardGruppoTreComponent implements OnInit {
   prodotto: Prodotto = new Prodotto();
   righe: RigaScontrino[] = [];
   scontrino: Scontrino = new Scontrino();
-  rigaScontrino: RigaScontrino = new RigaScontrino();
+  rigaScontrino: RigaScontrino;
   prezzoProdotto: number;
   inputEnabled: boolean;
-  prezzoEnabled: boolean;
+  prezzoEnabled: boolean = false;
   chiudiEnabled: boolean;
   //prezzoVisible e stornaVisible vogliono false per apparire e true per sparire
   prezzoVisible: boolean;
@@ -74,7 +74,7 @@ export class DashboardGruppoTreComponent implements OnInit {
 
   goToVediPrezzo() {
     this.inputEnabled = true;
-    this.prezzoEnabled = false;
+    this.prezzoEnabled = true;
     this.chiudiEnabled = false;
     this.prezzoVisible = false;
     this.stornaVisible = true;
@@ -97,36 +97,37 @@ export class DashboardGruppoTreComponent implements OnInit {
     this.listaVisible = false;
   }
 
-  // ean(){
-  //     if (!this.scontrino && this.barcode) {
-  //         // caso scontrino vuoto e ean conosciuto
-  //         this.prezzoProdotto=this.prodotto.prezzo;
-  //     } else if (!e.scontrino && !e.codiceEan) {
-  //         // caso scontrino vuoto e ean sconosciuto
-  //         return new ScontrinoVuotoState(this.automa);
-  //     } else if (e.scontrino && !e.codiceEan) {
-  //         // caso scontrino non vuoto e ean sconosciuto
-  //         return new ScontrinoNonVuotoState(this.automa);
-  //     } else if (e.scontrino && e.codiceEan) {
-  //         // caso scontrino non vuoto e ean conosciuto
-  //         return new ScontrinoNonVuotoState(this.automa);
-  //     } else {
-  //         console.log("Ricevuto evento inatteso");
-  // }
-
   onKey(event: any) {
+    this.prezzoEnabled = false;
     this.vediPrezzo();
+    this.stato = this.automa.next(new EanEvent(this.barcode, this.scontrino));
+  }
+
+  attivaVediPrezzo(){
+    this.stato = this.automa.next(new VediPrezzoEvent());
   }
 
   vediPrezzo() {
+    //deve solo visualizzare il prezzo
     let dto: CriterioRicercaDto = new CriterioRicercaDto();
+    console.log("BARCODE: " + this.barcode);
     dto.criterio = this.barcode;
     let oss: Observable<ProdottoDto> = this.http.post<ProdottoDto>
       ('http://localhost:8080/vedi-prezzo-tre', dto);
     oss.subscribe(t => this.prodotto = t.prodotto);
-    this.stato = this.automa.next(new VediPrezzoEvent());
     this.prezzoProdotto = this.prodotto.prezzo;
   }
+    
+  aggiungiRigaScontrino(){
+    //deve visualizzare prezzo e salvare
+    //aggiungi-scontrino-tre
+    let dto: DtoScontrinoTre = new DtoScontrinoTre();
+    dto.scontrino = this.scontrino;
+    let oss: Observable<DtoScontrinoTre> = this.http.post<DtoScontrinoTre>
+      ('http://localhost:8080/aggiungi-scontrino-tre', dto);
+    oss.subscribe(t => this.scontrino = t.scontrino);
+  }
+    
 
   chiudiScontrino() {
     let dto: DtoScontrinoTre = new DtoScontrinoTre();
@@ -159,6 +160,4 @@ export class DashboardGruppoTreComponent implements OnInit {
     oss.subscribe(t => this.righe = t.righeScontrino);
     this.stato = this.automa.next(new StornaUnoEvent());
   }
-
-
 }
