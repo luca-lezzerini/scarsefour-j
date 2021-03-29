@@ -15,38 +15,38 @@ public class DashboardTreController {
     @Autowired 
     DashboardTreService dashBoardService;
     
-    @RequestMapping("vedi-prezzo-tre")
+    @RequestMapping("/vedi-prezzo-tre")
     @ResponseBody
     public ProdottoDto vediPrezzo(@RequestBody CriterioRicercaDto dto){
         return new ProdottoDto(dashBoardService.vediPrezzo(dto.getCriterio()));
     }
     
-    @RequestMapping("chiudi-scontrino-tre")
+    @RequestMapping("/chiudi-scontrino-tre")
     @ResponseBody
     public ScontrinoTreDto chiudiScontrino(@RequestBody ScontrinoTreDto dto){
         return new ScontrinoTreDto(dashBoardService.chiudiScontrino(dto.getScontrino(),
                 dto.getScontrino().getRighe()));
     }
     
-    @RequestMapping("annulla-scontrino-tre")
+    @RequestMapping("/annulla-scontrino-tre")
     @ResponseBody
     public void annullaScontrino(@RequestBody ScontrinoTreDto dto){
         dashBoardService.annullaScontrino(dto.getScontrino());
     }
     
-    @RequestMapping("storna-ultimo-tre")
+    @RequestMapping("/storna-ultimo-tre")
     @ResponseBody
     public ListaRigaScontrinoTreDto stornaUltimo(@RequestBody ScontrinoTreDto dto){
         return new ListaRigaScontrinoTreDto(dashBoardService.stornaUltimo(dto.getScontrino()));
     }
     
-    @RequestMapping("aggiungi-scontrino-tre")
+    @RequestMapping("/aggiungi-scontrino-tre")
     @ResponseBody
     public ScontrinoTreDto aggiungiScontrino(@RequestBody ScontrinoTreDto dto){
         return new ScontrinoTreDto(dashBoardService.aggiungiScontrino(dto.getScontrino()));
     }
     
-     @RequestMapping("aggiorna-righe-tre")
+     @RequestMapping("/aggiorna-righe-tre")
     @ResponseBody
     public ListaRigaScontrinoTreDto aggiornaRighe(@RequestBody ScontrinoTreDto dto){
         return new ListaRigaScontrinoTreDto(dashBoardService.aggiornaRighe(dto.getScontrino()));

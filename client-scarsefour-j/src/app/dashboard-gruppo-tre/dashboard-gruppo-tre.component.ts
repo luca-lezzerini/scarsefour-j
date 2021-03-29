@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { CriterioRicercaDto } from '../dto/criterio-ricerca-dto';
+import { ProdottoDto } from '../dto/prodotto-dto';
 import { Prodotto } from '../entità/prodotto';
 import { RigaScontrino } from '../entità/riga-scontrino';
 import { Scontrino } from '../entità/scontrino';
@@ -6,6 +9,9 @@ import { AutomaTre } from './automa-tre';
 import { AnnullaEvent, AnnullaScontrinoEvent, ChiudiEvent, ConfermaEvent, EanEvent, StornaUnoEvent, VediPrezzoEvent } from './eventi-tre';
 import { StateTre } from './state-tre';
 import { ScontrinoNonVuotoState, ScontrinoVuotoState, VediPrezzoState } from './stati';
+import { Observable } from 'rxjs';
+import { DtoScontrinoTre } from './dto-scontrino-tre';
+import { DtoListaRigaScontrinoTre } from './dto-lista-riga-scontrino-tre';
 
 @Component({
   selector: 'app-dashboard-gruppo-tre',
@@ -18,8 +24,8 @@ export class DashboardGruppoTreComponent implements OnInit {
   // riportare l'ultimo elemento della tabella, solo descrizione e prezzo
   ultimoElemento: string;
   prodotto: Prodotto = new Prodotto();
-  righe: RigaScontrino [] = [];
-  scontrino: Scontrino= new Scontrino();
+  righe: RigaScontrino[] = [];
+  scontrino: Scontrino = new Scontrino();
   rigaScontrino: RigaScontrino = new RigaScontrino();
   prezzoProdotto: number;
   inputEnabled: boolean;
@@ -35,17 +41,18 @@ export class DashboardGruppoTreComponent implements OnInit {
   automa: AutomaTre;
   stato: StateTre;
 
-  constructor() { }
+  constructor(private http: HttpClient) {
+  }
 
   ngOnInit(): void {
     this.automa = new AutomaTre(this);
   }
 
-  goToScontrinoVuoto(){
+  goToScontrinoVuoto() {
     this.inputEnabled = true;
     this.prezzoEnabled = false;
     this.chiudiEnabled = false;
-    this.prezzoVisible = false;
+    this.prezzoVisible = true;
     this.stornaVisible = true;
     this.annullaScontrinoEnabled = false;
     this.annullaEnabled = false;
@@ -53,7 +60,7 @@ export class DashboardGruppoTreComponent implements OnInit {
     this.listaVisible = false;
   }
 
-  goToScontrinoNonVuoto(){
+  goToScontrinoNonVuoto() {
     this.inputEnabled = true;
     this.prezzoEnabled = true;
     this.chiudiEnabled = true;
@@ -65,7 +72,7 @@ export class DashboardGruppoTreComponent implements OnInit {
     this.listaVisible = true;
   }
 
-  goToVediPrezzo(){
+  goToVediPrezzo() {
     this.inputEnabled = true;
     this.prezzoEnabled = false;
     this.chiudiEnabled = false;
@@ -76,9 +83,9 @@ export class DashboardGruppoTreComponent implements OnInit {
     this.confermaEnabled = false;
     this.listaVisible = false;
   }
-    
 
-  goToAnnullamentoScontrino(){
+
+  goToAnnullamentoScontrino() {
     this.inputEnabled = true;
     this.prezzoEnabled = true;
     this.chiudiEnabled = false;
@@ -90,19 +97,56 @@ export class DashboardGruppoTreComponent implements OnInit {
     this.listaVisible = false;
   }
 
-  // aggiugni il numero del gruppo alle chiamate al metodo
+  // ean(){
+  //     if (!this.scontrino && this.barcode) {
+  //         // caso scontrino vuoto e ean conosciuto
+  //         this.prezzoProdotto=this.prodotto.prezzo;
+  //     } else if (!e.scontrino && !e.codiceEan) {
+  //         // caso scontrino vuoto e ean sconosciuto
+  //         return new ScontrinoVuotoState(this.automa);
+  //     } else if (e.scontrino && !e.codiceEan) {
+  //         // caso scontrino non vuoto e ean sconosciuto
+  //         return new ScontrinoNonVuotoState(this.automa);
+  //     } else if (e.scontrino && e.codiceEan) {
+  //         // caso scontrino non vuoto e ean conosciuto
+  //         return new ScontrinoNonVuotoState(this.automa);
+  //     } else {
+  //         console.log("Ricevuto evento inatteso");
+  // }
+
   vediPrezzo() {
+    let dto: CriterioRicercaDto = new CriterioRicercaDto();
+    dto.criterio = this.barcode;
+    let oss: Observable<ProdottoDto> = this.http.post<ProdottoDto>
+      ("http://localhost:8080/vedi-prezzo-tre", dto);
+    oss.subscribe(t => this.prodotto = t.prodotto);
     this.stato = this.automa.next(new VediPrezzoEvent());
+    this.prezzoProdotto = this.prodotto.prezzo;
   }
 
   chiudiScontrino() {
+    let dto: DtoScontrinoTre = new DtoScontrinoTre();
+    dto.scontrino = this.scontrino;
+    let oss: Observable<DtoScontrinoTre> = this.http.post<DtoScontrinoTre>
+      ("http://localhost:8080/chiudi-scontrino-tre", dto);
+    oss.subscribe(t => this.scontrino = t.scontrino);
     this.stato = this.automa.next(new ChiudiEvent());
   }
 
   stornaUltimo() {
+    let dto: DtoScontrinoTre = new DtoScontrinoTre();
+    dto.scontrino = this.scontrino;
+    let oss: Observable<DtoListaRigaScontrinoTre> = this.http.post<DtoListaRigaScontrinoTre>
+      ("http://localhost:8080/storna-ultimo-tre", dto);
+    oss.subscribe(t => this.righe = t.righeScontrino);
     this.stato = this.automa.next(new StornaUnoEvent());
   }
   annullaScontrino() {
+    let dto: DtoScontrinoTre = new DtoScontrinoTre();
+    dto.scontrino = this.scontrino;
+    let oss: Observable<DtoScontrinoTre> = this.http.post<DtoScontrinoTre>
+      ("http://localhost:8080/annulla-scontrino-tre", dto);
+    oss.subscribe(t => this.scontrino = t.scontrino);
     this.stato = this.automa.next(new AnnullaScontrinoEvent());
   }
   annulla() {
