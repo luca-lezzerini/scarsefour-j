@@ -1,5 +1,5 @@
 <p>dashboard-gruppo-tre works!</p>
-<input type="text" placeholder="barcode" [(ngModel)]="barcode" [disabled]="!inputEnabled">
+<input type="text" placeholder="barcode" [(ngModel)]="barcode" (keydown.Tab)="onKey($event)" [disabled]="!inputEnabled">
 <br>
 <button (click)="vediPrezzo()" [disabled]="prezzoEnabled">Vedi prezzo</button>
 <br>
