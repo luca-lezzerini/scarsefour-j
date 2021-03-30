@@ -10,6 +10,10 @@ h1 {
 }
 
 h2 {
+    text-align: top;
+}
+
+h3 {
     font-family: Verdana, Arial, Helvetica, sans-serif;
     font-size: 30px;
     font-weight: bold;
@@ -93,7 +97,11 @@ hr {
     transition-duration: 0.5s;
 }
 
-.button:hover {
+.button:disabled {
+    opacity: 50%;
+}
+
+.button:hover:enabled {
     background-color: rgb(60, 204, 125);
     color: rgb(0, 0, 0);
 }
@@ -146,7 +154,6 @@ tbody td, thead th {
 td, th {
     text-align: center;
 }
-
 
 /* MENU COMUNE*/
 
@@ -265,8 +272,8 @@ p.titoliHome {
 /* IMMAGINI SELF SLIDE*/
 
 .fling-minislide {
-    width: 350px;
-    height: 300px;
+    width: 100%;
+    min-height: 330px;
     overflow: hidden;
     position: relative;
 }
