@@ -35,7 +35,6 @@ export class AggiungiState implements State {
             this.automa.gui.aggiungiAction();
             return new VisualizzaState(this.automa);
 
-
         } else {
             console.log('Ricevuto evento inatteso');
         }

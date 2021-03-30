@@ -1,39 +1,39 @@
 <body>
-    <div>
-        <button (click)="tornaHome()">Home Page</button>
-    </div>
+    <app-toolbar-menu></app-toolbar-menu>
+    
 
     <div class="titolo">
         <h2>Anagrafica Sconti</h2>
     </div>
 
     <div *ngIf="form">
-        <input type="text" placeholder="codice" [(ngModel)]="sconto.codice" [disabled]="codiceS">
-        <input type="text" placeholder="descrizione" [(ngModel)]="sconto.descrizione" [disabled]="descrizioneS">
-        <input type="text" placeholder="dalla Data" [(ngModel)]="sconto.dallaData" [disabled]="dallaDataS">
-        <input type="text" placeholder="alla Data" [(ngModel)]="sconto.allaData" [disabled]="allaDataS">
-        <input type="text" placeholder="sconto" [(ngModel)]="sconto.sconto" [disabled]="scontoS">
+        <input type="text" placeholder="codice" [(ngModel)]="sconto.codice" [disabled]="codiceS" class="input">
+        <input type="text" placeholder="descrizione" [(ngModel)]="sconto.descrizione" [disabled]="descrizioneS" class="input">
+        <input type="text" placeholder="dalla Data" [(ngModel)]="sconto.dallaData" [disabled]="dallaDataS" class="input">
+        <input type="text" placeholder="alla Data" [(ngModel)]="sconto.allaData" [disabled]="allaDataS" class="input">
+        <input type="text" placeholder="sconto" [(ngModel)]="sconto.sconto" [disabled]="scontoS" class="input">
         <br>
         <br>
         <br>
-        <button (click)="modificaAction()" *ngIf="edit">Modifica</button>
-        <button (click)="annulla()" *ngIf="annull">Annulla</button>
-        <button (click)="aggiungiAction()" *ngIf="conf">Conferma</button>
-        <button (click)="rimuoviAction()" *ngIf="remove">Rimuovi</button>
+        <button (click)="modifica()" *ngIf="edit" class="button">Modifica</button>
+        <button (click)="annulla()" *ngIf="annull" class="button">Annulla</button>
+        <button (click)="conferma()" *ngIf="conf" class="button">Conferma</button>
+        <button (click)="rimuovi()" *ngIf="remove" class="button">Rimuovi</button>
     </div>
     <br>
     <br>
-    <button (click)="nuova()" *ngIf="aggiungi">Nuova</button>
+    <button (click)="nuova()" *ngIf="aggiungi" class="button">Nuova</button>
     <br>
     <br>
     <div *ngIf="search">
-        <input type="text" [(ngModel)]="criterio" placeholder="Cerca per codice">
-        <button (click)="cerca()">Cerca</button>
+        <input type="text" [(ngModel)]="criterio" placeholder="Cerca per codice" class="inputSearch">
+        <button (click)="cerca()" class="button">Cerca</button>
     </div>
     <br>
     <br>
-    <div class="tabella">
+    <div class="tabella" class="scrolldown"> 
         <table *ngIf="tabella">
+            <thead>
             <tr>
                 <th>Codice</th>
                 <th>Descrizione</th>
@@ -42,14 +42,17 @@
                 <th>Sconto</th>
                 <th>Seleziona</th>
             </tr>
+            </thead>
+            <tbody>
             <tr *ngFor="let s of sconti">
                 <td>{{s.codice}}</td>
             <td>{{s.descrizione}}</td>
             <td>{{s.dallaData}}</td>
             <td>{{s.allaData}}</td>
             <td>{{s.sconto}}</td>
-                <td><button (click)="seleziona(s)">Seleziona</button></td>
+                <td><button (click)="seleziona(s)" class = "button">Seleziona</button></td>
             </tr>
+        </tbody>
         </table>
 
     </div>

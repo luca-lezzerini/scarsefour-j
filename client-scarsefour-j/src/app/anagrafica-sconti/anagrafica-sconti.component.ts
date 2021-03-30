@@ -49,6 +49,7 @@ export class AnagraficaScontiComponent implements OnInit, AutomabileCrud {
   }
 
   ngOnInit(): void {
+   
 
   }
 
@@ -151,7 +152,7 @@ export class AnagraficaScontiComponent implements OnInit, AutomabileCrud {
       'http://localhost:8080/rimuovi-sconto', dto);
     oss.subscribe(c => this.sconti = c.listaSconti);
     this.sconto = new Sconto();
-    this.automa.next(new ConfermaEvent());
+   
   }
 
   cerca() {
@@ -169,7 +170,6 @@ export class AnagraficaScontiComponent implements OnInit, AutomabileCrud {
     let oss: Observable<ListaScontiDto> = this.http.post<ListaScontiDto>(
       'http://localhost:8080/aggiungi-sconto', dto);
     oss.subscribe(c => this.sconti = c.listaSconti);
-    this.automa.next(new ConfermaEvent());
     this.sconto = new Sconto();
 
   }
@@ -179,62 +179,40 @@ export class AnagraficaScontiComponent implements OnInit, AutomabileCrud {
     let oss: Observable<ListaScontiDto> = this.http.post<ListaScontiDto>(
       'http://localhost:8080/modifica-sconto', dto);
     oss.subscribe(c => this.sconti = c.listaSconti);
-    this.automa.next(new ModificaEvent());
-
-  }
-
-  /* modifica() {
-     this.automa.next(new ModificaEvent());
-   }
- 
-   conferma() {
-       let dto: ScontoDto = new ScontoDto();
-       dto.sconto = this.sconto;
-       if (this.automa.stato instanceof AggiungiState) {
-         let oss: Observable<ListaScontiDto> = this.http.post<ListaScontiDto>(
-           'http://localhost:8080/aggiungi-sconto', dto);
-         oss.subscribe(c => this.sconti = c.listaSconti);
-       } else if (this.automa.stato instanceof ModificaState) {
-         let oss: Observable<ListaScontiDto> = this.http.post<ListaScontiDto>(
-           'http://localhost:8080/modifica-sconto', dto);
-         oss.subscribe(c => this.sconti = c.listaSconti);
-       } else if (this.automa.stato instanceof RimuoviState) {
    
-         let oss: Observable<ListaScontiDto> = this.http.post<ListaScontiDto>(
-           'http://localhost:8080/rimuovi-sconto', dto);
-         oss.subscribe(c => this.sconti = c.listaSconti);
-       }
-       this.automa.next(new ConfermaEvent());
-       this.sconto = new Sconto();
-       */
-
-
-
-
-
-
-  annulla() {
-    this.automa.next(new AnnullaEvent());
-
   }
 
-  rimuovi() {
-    this.automa.next(new RimuoviEvent());
-
+  modifica() {
+    this.automa.next(new ModificaEvent());
   }
 
-  aggiorna() {
-    let oss: Observable<ListaScontiDto> = this.http.get<ListaScontiDto>(
-      'http://localhost:8080/aggiorna-lista-sconti');
-    oss.subscribe(c => this.sconti = c.listaSconti);
+  conferma() {
+    this.automa.next(new ConfermaEvent());
+    this.sconto = new Sconto();
   }
 
-  seleziona(s: Sconto) {
-    this.sconto = Object.assign({}, s);
-    this.automa.next(new SelezionaEvent());
-  }
+    annulla() {
+      this.automa.next(new AnnullaEvent());
 
-}
+    }
+
+    rimuovi() {
+      this.automa.next(new RimuoviEvent());
+
+    }
+
+    aggiorna() {
+      let oss: Observable<ListaScontiDto> = this.http.get<ListaScontiDto>(
+        'http://localhost:8080/aggiorna-lista-sconti');
+      oss.subscribe(c => this.sconti = c.listaSconti);
+    }
+
+    seleziona(s: Sconto) {
+      this.sconto = Object.assign({}, s);
+      this.automa.next(new SelezionaEvent());
+    }
+
+  }
 
 
 

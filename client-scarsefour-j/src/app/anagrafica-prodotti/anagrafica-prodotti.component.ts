@@ -34,8 +34,8 @@ export class AnagraficaProdottiComponent implements OnInit, AutomabileCrud {
   labelMessaggioErrore: boolean = false;
   errore: string = "Errore, inserire dati validi";
 
-  constructor(private http: HttpClient, private router: Router) { this.aggiorna() }
-  
+  constructor(private http: HttpClient, private router: Router) { }
+
   ngOnInit(): void {
     this.aggiorna();
     this.automa = new Automa(this);
@@ -46,7 +46,7 @@ export class AnagraficaProdottiComponent implements OnInit, AutomabileCrud {
     this.buttonNuovaVisible = true;
     this.formDivVisible = false;
     this.searchVisible = true;
-    
+
   }
   goToAggiungi() {
     this.labelNuovoProdotto = true;
@@ -58,7 +58,7 @@ export class AnagraficaProdottiComponent implements OnInit, AutomabileCrud {
     this.searchVisible = false;
     this.tabellaProdottiVisibile = false;
     this.labelMessaggioErrore = false;
-    
+
 
   }
   goToVisualizza() {
@@ -71,8 +71,8 @@ export class AnagraficaProdottiComponent implements OnInit, AutomabileCrud {
     this.searchVisible = true;
     this.tabellaProdottiVisibile = true;
     this.labelMessaggioErrore = false;
-    
-    
+
+
   }
   goToModifica() {
     this.buttonNuovaVisible = false;
@@ -92,7 +92,7 @@ export class AnagraficaProdottiComponent implements OnInit, AutomabileCrud {
     this.modRimVisible = false;
     this.confAnnVisible = true;
     this.searchVisible = false;
-    
+
   }
   aggiungiAction() {
     let dto: ProdottoDto = new ProdottoDto();
@@ -100,24 +100,24 @@ export class AnagraficaProdottiComponent implements OnInit, AutomabileCrud {
     let oss: Observable<ListaProdottiDto> = this.http.post<ListaProdottiDto>('http://localhost:8080/conferma-prodotto-quattro', dto);
     oss.subscribe(c => this.listaProdotti = c.listaProdotti);
     this.tabellaProdottiVisibile = true;
-    
+
     this.prodotto = new Prodotto();
     //Errore , se passato il metodo next genera loop
     //this.automa.next(new ConfermaEvent());
-   
+
   }
 
   modificaAction() {
     console.log("Siamo in ModificaAction");
-    let dto:ProdottoDto = new ProdottoDto();
+    let dto: ProdottoDto = new ProdottoDto();
     dto.prodotto = this.prodotto;
     console.log("Stiamo per modificare ", + dto)
     let ox: Observable<ListaProdottiDto> = this.http.post<ListaProdottiDto>('http://localhost:8080/modifica-prodotto-quattro', dto);
-      ox.subscribe(r => this.listaProdotti = r.listaProdotti);
-      this.stato = this.automa.next(new ModificaEvent());
+    ox.subscribe(r => this.listaProdotti = r.listaProdotti);
+    //this.stato = this.automa.next(new ModificaEvent());
 
   }
-  
+
   rimuoviAction() {
     console.log("Siamo in rimuoviAction");
     let dto: ProdottoDto = new ProdottoDto();
@@ -125,7 +125,7 @@ export class AnagraficaProdottiComponent implements OnInit, AutomabileCrud {
     console.log("Stiamo per rimuovere ", + dto);
     let oss: Observable<ListaProdottiDto> = this.http.post<ListaProdottiDto>('http://localhost:8080/rimuovi-prodotto-quattro', dto);
     oss.subscribe(r => this.listaProdotti = r.listaProdotti);
-    this.stato = this.automa.next(new RimuoviEvent());
+    //this.stato = this.automa.next(new RimuoviEvent());
   }
 
   nuova() {
@@ -143,64 +143,36 @@ export class AnagraficaProdottiComponent implements OnInit, AutomabileCrud {
 
   }
 
-  /*modifica() {
+  modifica() {
     this.stato = this.automa.next(new ModificaEvent());
   }
 
   conferma() {
 
-    let dto: ProdottoDto = new ProdottoDto();
-    dto.prodotto = this.prodotto;
-
-    if (this.stato instanceof AggiungiState) {
-      if (this.prodotto.codice == "" ||
-        this.prodotto.descrizione == "" ||
-        this.prodotto.ean == "" ||
-        this.prodotto.prezzo == null ||
-        this.prodotto.scortaMinMagazzinoDefault == null ||
-        this.prodotto.scortaMinScaffaleDefault == null) {
-        this.labelMessaggioErrore = true;
-
-      }
-
-
-      else {
-
-        let oss: Observable<ListaProdottiDto> = this.http.post<ListaProdottiDto>('http://localhost:8080/conferma-prodotto-quattro', dto);
-        oss.subscribe(c => this.listaProdotti = c.listaProdotti);
-        this.tabellaProdottiVisibile = true;
-      }
-    }
-    else if (this.stato instanceof ModificaState) {
-      let ox: Observable<ListaProdottiDto> = this.http.post<ListaProdottiDto>('http://localhost:8080/modifica-prodotto-quattro', dto);
-      ox.subscribe(r => this.listaProdotti = r.listaProdotti);
-
-    }
-    else if (this.stato instanceof RimuoviState) {
-      let oss: Observable<ListaProdottiDto> = this.http.post<ListaProdottiDto>('http://localhost:8080/rimuovi-prodotto-quattro', dto);
-      oss.subscribe(r => this.listaProdotti = r.listaProdotti);
-    }
-    this.automa.next(new ConfermaEvent());
-    this.prodotto = new Prodotto();
+    /*if (this.prodotto.codice == "" ||
+      this.prodotto.descrizione == "" ||
+      this.prodotto.ean == "" ||
+      this.prodotto.prezzo == null ||
+      this.prodotto.scortaMinMagazzinoDefault == null ||
+      this.prodotto.scortaMinScaffaleDefault == null) {
+      this.labelMessaggioErrore = true;
 */
-  
+      this.automa.next(new ConfermaEvent());
+      this.prodotto = new Prodotto();
+    }
 
+  
 
   annulla() {
 
     this.automa.next(new AnnullaEvent());
 
-
   }
-  /*rimuovi() {
-    this.stato = this.automa.next(new RimuoviEvent());
+  rimuovi() {
     let dto: ProdottoDto = new ProdottoDto();
     dto.prodotto = this.prodotto;
-
-    let oss: Observable<ListaProdottiDto> = this.http.post<ListaProdottiDto>("http://localhost:8080/conferma-prodotto-quattro", dto);
-    oss.subscribe(c => this.listaProdotti = c.listaProdotti);*/
-  
-
+    this.stato = this.automa.next(new RimuoviEvent());
+  }
   aggiorna() {
     let oz: Observable<ListaProdottiDto> = this.http.get<ListaProdottiDto>(
       "http://localhost:8080/aggiorna-prodotto-quattro");
@@ -219,15 +191,9 @@ export class AnagraficaProdottiComponent implements OnInit, AutomabileCrud {
     this.confAnnVisible = true;
     this.searchVisible = true;
     this.tabellaProdottiVisibile = true;
-
+    //Valorizzazione di tutte le proprietà della classe con quelle del oggetto selezionato
     this.prodotto = Object.assign({}, p);
-    // this.prodotto.id = p.id;
-    // this.prodotto.codice = p.codice;
-    // this.prodotto.descrizione = p.descrizione;
-    // this.prodotto.ean = p.ean;
-    // this.prodotto.prezzo = p.prezzo;
-    // this.prodotto.scortaMinMagazzinoDefault = p.scortaMinMagazzinoDefault;
-    // this.prodotto.scortaMinMagazzinoDefault = p.scortaMinMagazzinoDefault;
+
     this.automa.next(new SelezionaEvent());
 
   }

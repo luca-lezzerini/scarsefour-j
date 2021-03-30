@@ -1,55 +1,64 @@
+<body>
+  <app-toolbar-menu></app-toolbar-menu>
+  <h2>Anagrafica Prodotti</h2>
 
-<button (click)="vaiA('home-page')">Torna alla home page</button>
-<h2>Anagrafica Prodotti</h2>
-
-<h3 *ngIf = "labelNuovoProdotto">
-  Inserire prodotto
-</h3><button (click)="nuova()" *ngIf="buttonNuovaVisible">Nuova</button>
-<br>
+  <h4 *ngIf="labelNuovoProdotto">
+    Inserire prodotto
+  </h4><button (click)="nuova()" *ngIf="buttonNuovaVisible" class="button">Nuova</button>
+  <br>
 
 
-<div *ngIf = "formDivVisible">
-  <input type="text" placeholder="codice" [(ngModel)]="prodotto.codice" [disabled]="campiNonEditabili">
-  <input type="text" placeholder="descrizione" [(ngModel)]="prodotto.descrizione" [disabled]="campiNonEditabili">
-  <input type="text" placeholder="ean" [(ngModel)]="prodotto.ean" [disabled]="campiNonEditabili">
-  <input type="text" placeholder="prezzo" [(ngModel)]="prodotto.prezzo" [disabled]="campiNonEditabili">
-  <input type="text" placeholder="Scorta minima scaffale" [(ngModel)]="prodotto.scortaMinimaScaf" [disabled]="campiNonEditabili">
-  <input type="text" placeholder="Scorta minima magazzino" [(ngModel)]="prodotto.scortaMinimaMag" [disabled]="campiNonEditabili">
-  <input type="text" placeholder="Lotto riordino" [(ngModel)]="prodotto.lottoRiordino" [disabled]="campiNonEditabili">
-</div>
-<p *ngIf ="labelMessaggioErrore">{{errore}}</p>
-<br>
-<div>
-  <button (click)="modificaAction()" *ngIf="modRimVisible">Modifica</button>
-  <button (click)="aggiungiAction()"*ngIf="confAnnVisible">Conferma</button>
-  <button (click)="annulla()"*ngIf="confAnnVisible">Annulla</button>
-  <button (click)="rimuoviAction()" *ngIf="modRimVisible">Rimuovi</button>
-</div>
-<br>
-<hr>
-<div *ngIf="searchVisible">
-  <input type="text" placeholder="Cerca per codice" [(ngModel)]="searchCriterion">
-  <button (click)="cercaPerCodice()">Cerca</button>
-</div>
-<table *ngIf="tabellaProdottiVisibile">
-  <tr>
-    <th>Codice</th>
-    <th>Descrizione</th>
-    <th>Ean</th>
-    <th>Prezzo</th>
-    <th>Scorta minima scaffale</th>
-    <th>Scorta minima magazzino</th>
-    <th>Lotto riordino</th>
-    <th>Seleziona</th>
-  </tr>
-  <tr *ngFor="let p of listaProdotti">
-    <td>{{p.codice}}</td>
-    <td>{{p.descrizione}}</td>
-    <td>{{p.ean}}</td>
-    <td>{{p.prezzo}}</td>
-    <td>{{p.scortaMinScaffaleDefault}}</td>
-    <td>{{p.scortaMinMagazzinoDefault}}</td>
-    <td>{{p.lottoRiordino}}</td>
-    <td><button (click)="seleziona(p)">Seleziona</button></td>
-  </tr>
-</table>
+  <div *ngIf="formDivVisible">
+    <input type="text" placeholder="codice" [(ngModel)]="prodotto.codice" [disabled]="campiNonEditabili" class="input">
+    <input type="text" placeholder="descrizione" [(ngModel)]="prodotto.descrizione" [disabled]="campiNonEditabili"
+      class="input">
+    <input type="text" placeholder="ean" [(ngModel)]="prodotto.ean" [disabled]="campiNonEditabili" class="input">
+    <input type="text" placeholder="prezzo" [(ngModel)]="prodotto.prezzo" [disabled]="campiNonEditabili" class="input">
+    <input type="text" placeholder="Scorta minima scaffale" [(ngModel)]="prodotto.scortaMinimaScaf"
+      [disabled]="campiNonEditabili" class="input">
+    <input type="text" placeholder="Scorta minima magazzino" [(ngModel)]="prodotto.scortaMinimaMag"
+      [disabled]="campiNonEditabili" class="input">
+    <input type="text" placeholder="Lotto riordino" [(ngModel)]="prodotto.lottoRiordino" [disabled]="campiNonEditabili"
+      class="input">
+  </div>
+  <p *ngIf="labelMessaggioErrore">{{errore}}</p>
+  <br>
+  <div>
+    <button (click)="modifica()" *ngIf="modRimVisible" class="button">Modifica</button>
+    <button (click)="conferma()" *ngIf="confAnnVisible" class="button">Conferma</button>
+    <button (click)="annulla()" *ngIf="confAnnVisible" class="button">Annulla</button>
+    <button (click)="rimuovi()" *ngIf="modRimVisible" class="button">Rimuovi</button>
+  </div>
+  <br>
+  <hr>
+  <div *ngIf="searchVisible">
+    <input type="text" placeholder="Cerca per codice" [(ngModel)]="searchCriterion" class="inputSearch">
+    <button (click)="cercaPerCodice()" class="button">Cerca</button>
+  </div>
+  <table *ngIf="tabellaProdottiVisibile" class="scrolldown">
+    <thead>
+      <tr>
+        <th>Codice</th>
+        <th>Descrizione</th>
+        <th>Ean</th>
+        <th>Prezzo</th>
+        <th>Scorta minima scaffale</th>
+        <th>Scorta minima magazzino</th>
+        <th>Lotto riordino</th>
+        <th>Seleziona</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of listaProdotti">
+        <td>{{p.codice}}</td>
+        <td>{{p.descrizione}}</td>
+        <td>{{p.ean}}</td>
+        <td>{{p.prezzo}}</td>
+        <td>{{p.scortaMinScaffaleDefault}}</td>
+        <td>{{p.scortaMinMagazzinoDefault}}</td>
+        <td>{{p.lottoRiordino}}</td>
+        <td><button (click)="seleziona(p)" class="button">Seleziona</button></td>
+      </tr>
+    </tbody>
+  </table>
+</body>
