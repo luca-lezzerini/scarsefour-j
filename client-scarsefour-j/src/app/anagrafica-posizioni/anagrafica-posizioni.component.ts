@@ -30,16 +30,50 @@ export class AnagraficaPosizioniComponent implements OnInit, AutomabileCrud {
   searchVisible: boolean = false;
 
   constructor(private http: HttpClient) { }
-  aggiungiAction() {
-    throw new Error('Method not implemented.');
-  }
-  modificaAction() {
-    throw new Error('Method not implemented.');
-  }
 
   ngOnInit(): void {
     this.aggiorna();
     this.automa = new Automa(this);
+  }
+
+  aggiungiAction() {
+    if (
+      this.posizione.codice != null &&
+      this.posizione.descrizione != null
+    ) {
+      let dto: PosizioneScaffaleDto = new PosizioneScaffaleDto();
+      dto.posizione = this.posizione;
+      let oss: Observable<ListaPosizioneScaffaleDto> = this.http.post<ListaPosizioneScaffaleDto>(
+        'http://localhost:8080/aggiungi-posizioni', dto);
+      oss.subscribe(r => this.posizioni = r.listaPosizioni);
+    }
+  }
+
+  modificaAction() {
+    if (
+      this.posizione.codice != null &&
+      this.posizione.descrizione != null
+    ) {
+      let dto: PosizioneScaffaleDto = new PosizioneScaffaleDto();
+      dto.posizione = this.posizione;
+      let oss: Observable<ListaPosizioneScaffaleDto> = this.http.post<ListaPosizioneScaffaleDto>(
+        'http://localhost:8080/modifica-posizioni', dto);
+      oss.subscribe(r => this.posizioni = r.listaPosizioni);
+    }
+  }
+
+  rimuoviAction() {
+    if (
+      this.posizione.codice != null &&
+      this.posizione.descrizione != null
+    ) {
+      let dto: PosizioneScaffaleDto = new PosizioneScaffaleDto();
+      dto.posizione = this.posizione;
+      let oss: Observable<ListaPosizioneScaffaleDto> = this.http.post<ListaPosizioneScaffaleDto>(
+        'http://localhost:8080/rimuovi-posizioni', dto);
+      oss.subscribe(r => this.posizioni = r.listaPosizioni);
+    }
+    console.log("Siamo in rimuoviAction");
   }
 
   goToAggiungi() {
@@ -47,7 +81,7 @@ export class AnagraficaPosizioniComponent implements OnInit, AutomabileCrud {
     this.formDivVisible = true;
     this.campiNonEditabili = false;
     this.confAnnVisible = true;
-    this.searchVisible = true;
+    this.searchVisible = false;
   }
 
   goToModifica() {
@@ -55,7 +89,7 @@ export class AnagraficaPosizioniComponent implements OnInit, AutomabileCrud {
     this.formDivVisible = true;
     this.campiNonEditabili = false;
     this.confAnnVisible = true;
-    this.searchVisible = true;
+    this.searchVisible = false;
   }
 
   goToRicerca() {
@@ -79,32 +113,22 @@ export class AnagraficaPosizioniComponent implements OnInit, AutomabileCrud {
     this.confAnnVisible = false;
     this.searchVisible = true;
   }
-  
-  rimuoviAction() {
-    console.log("Siamo in rimuoviAction");
-  }
 
   nuova() {
-    this.stato = this.automa.next(new AddEvent());
+    if (this.posizione.codice == null &&
+      this.posizione.descrizione == null) {
+      this.stato = this.automa.next(new AddEvent());
+    }
   }
 
   modifica() {
-    this.stato = this.automa.next(new ModificaEvent());
+    if (this.posizione.codice != null &&
+      this.posizione.descrizione != null) {
+      this.stato = this.automa.next(new ModificaEvent());
+    }
   }
 
   conferma() {
-    let dto: PosizioneScaffaleDto = new PosizioneScaffaleDto();
-    dto.posizione = this.posizione;
-    if (this.stato instanceof AggiungiState) {
-      let oss: Observable<ListaPosizioneScaffaleDto> = this.http.post<ListaPosizioneScaffaleDto>('http://localhost:8080/aggiungi-posizioni', dto);
-      oss.subscribe(r => this.posizioni = r.listaPosizioni);
-    } else if (this.stato instanceof ModificaState) {
-      let oss: Observable<ListaPosizioneScaffaleDto> = this.http.post<ListaPosizioneScaffaleDto>('http://localhost:8080/modifica-posizioni', dto);
-      oss.subscribe(r => this.posizioni = r.listaPosizioni);
-    } else if (this.stato instanceof RimuoviState) {
-      let oss: Observable<ListaPosizioneScaffaleDto> = this.http.post<ListaPosizioneScaffaleDto>('http://localhost:8080/rimuovi-posizioni', dto);
-      oss.subscribe(r => this.posizioni = r.listaPosizioni);
-    }
     this.automa.next(new ConfermaEvent());
     this.posizione = new PosizioneScaffale();
   }
@@ -114,7 +138,10 @@ export class AnagraficaPosizioniComponent implements OnInit, AutomabileCrud {
   }
 
   rimuovi() {
-    this.stato = this.automa.next(new RimuoviEvent());
+    if (this.posizione.codice != null &&
+      this.posizione.descrizione != null) {
+      this.stato = this.automa.next(new RimuoviEvent());
+    }
   }
 
   cerca() {
