@@ -1,5 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { CriterioRicercaDto } from '../dto/criterio-ricerca-dto';
+import { ProdottoDto } from '../dto/prodotto-dto';
 import { ScontrinoDto } from '../dto/scontrino-dto';
 import { Prodotto } from '../entità/prodotto';
 import { RigaScontrino } from '../entità/riga-scontrino';
@@ -17,6 +20,7 @@ export class DashboardGruppoDueComponent implements OnInit {
   prezzo: number;
   ultimoElemento: Prodotto;
   barcode: string;
+  prodotto: Prodotto = new Prodotto();
 
   righeScontrino: Array<RigaScontrino>;
   constructor(private http: HttpClient) {}
@@ -30,7 +34,15 @@ export class DashboardGruppoDueComponent implements OnInit {
     
    }
 
-  vediPrezzo() { }
+  vediPrezzo() {
+    let dto: CriterioRicercaDto = new CriterioRicercaDto();
+    console.log("Codice: " + this.barcode);
+    dto.criterio = this.barcode;
+    let oss: Observable<ProdottoDto> = this.http.post<ProdottoDto>
+      ('http://localhost:8080/vedi-prezzo-due', dto);
+    oss.subscribe(t => this.prodotto = t.prodotto);
+    this.prezzo = this.prodotto.prezzo;
+   }
 
   chiudiScontrino() { }
 
