@@ -6,10 +6,10 @@
         <h2>Dashboard Gruppo Uno</h2>
     </div>
     <div>
-        <input type="text" [(ngModel)]="barcode" (blur)="cercaEan($event)" placeholder="Barcode" *ngIf="eanEdit">
+        <input type="text" [(ngModel)]="barcode" (blur)="blurVar ? cercaEan($event) : vediPrezzo($event)" placeholder="Barcode" *ngIf="eanEdit">
         <p *ngIf="prezzoRVis"> Prezzo : {{prezzoR}} &euro;</p>
         <br><br>
-        <button (click)="vediPrezzo()" *ngIf="vediPrezzoVis">Vedi Prezzo</button>&nbsp;
+        <button (click)="TastoVediPrezzo()" *ngIf="vediPrezzoVis">Vedi Prezzo</button>&nbsp;
         <button (click)="chiudiScontrino()" *ngIf="chiudiVis" [disabled]="!chiudiAble">Chiudi Scontrino</button>&nbsp;
         <button (click)="stornaUltimo()" *ngIf="stornaVis">Storna Ultimo</button>&nbsp;
         <button (click)="annullaScontrino()" *ngIf="annullaScontrinoVis" [disabled]="!annullaScontrinoAble">Annulla

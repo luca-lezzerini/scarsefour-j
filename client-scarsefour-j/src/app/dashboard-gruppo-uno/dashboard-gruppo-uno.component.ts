@@ -48,7 +48,7 @@ export class DashboardGruppoUnoComponent implements OnInit, AutomabileDashboardU
   prezzoTot: number;
   righeScontrino: RigaScontrino[];
   scontrino : Scontrino;
-
+  blurVar: boolean = true;
 
 
   constructor(private http: HttpClient, private router: Router) {
@@ -71,7 +71,6 @@ export class DashboardGruppoUnoComponent implements OnInit, AutomabileDashboardU
     this.chiudiAble = false;
     this.chiudiVis = true;
     this.prezzoVis = false;
-    this.prezzoRVis = false;
   }
 
   goToScontrinoVuotoPrimoEan() {
@@ -136,7 +135,6 @@ export class DashboardGruppoUnoComponent implements OnInit, AutomabileDashboardU
     this.chiudiAble = false;
     this.chiudiVis = false;
     this.prezzoVis = false;
-    this.prezzoRVis = true;
   }
 
   goToScontrinoNonVuoto() {
@@ -153,7 +151,6 @@ export class DashboardGruppoUnoComponent implements OnInit, AutomabileDashboardU
     this.chiudiAble = true;
     this.chiudiVis = true;
     this.prezzoVis = true;
-    this.prezzoRVis = false;
   }
 
   goToAnnullamentoScontrino() {
@@ -170,7 +167,6 @@ export class DashboardGruppoUnoComponent implements OnInit, AutomabileDashboardU
     this.chiudiAble = false;
     this.chiudiVis = false;
     this.prezzoVis = false;
-    this.prezzoRVis = false;
   }
 
   ngOnInit(): void {
@@ -200,6 +196,7 @@ export class DashboardGruppoUnoComponent implements OnInit, AutomabileDashboardU
       }
       this.barcode = "";
     });
+    this.prezzoRVis = false;
   }
 
   chiudiScontrino() {
@@ -231,7 +228,15 @@ export class DashboardGruppoUnoComponent implements OnInit, AutomabileDashboardU
       dto
     );
     oss.subscribe(p => this.prezzoR = p.prezzo);
+    this.blurVar = true;
+    this.automaD.next(new EanEvent(this.barcode, this.scontrino));
+  }
+
+  TastoVediPrezzo(){
     this.automaD.next(new VediPrezzoEvent());
+    this.blurVar = false;
+    this.prezzoRVis = true;
+    this.prezzoR = null;
   }
 
   stornaUltimo() {
