@@ -16,7 +16,7 @@ import { DtoListaRigaScontrinoTre } from './dto-lista-riga-scontrino-tre';
 @Component({
   selector: 'app-dashboard-gruppo-tre',
   templateUrl: './dashboard-gruppo-tre.component.html',
-  styleUrls: ['./dashboard-gruppo-tre.component.css']
+  styleUrls: ['../theme.css']
 })
 export class DashboardGruppoTreComponent implements OnInit, AutomabileTre {
 

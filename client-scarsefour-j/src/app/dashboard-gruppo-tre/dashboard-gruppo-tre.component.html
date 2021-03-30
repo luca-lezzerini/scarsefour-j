@@ -1,31 +1,38 @@
-<p>dashboard-gruppo-tre works!</p>
-<input type="text" placeholder="barcode" [(ngModel)]="barcode" (keydown.Tab)="onKey($event)"
- [disabled]="!inputEnabled">
-<br>
-<button (click)="attivaVediPrezzo()" [disabled]="prezzoEnabled">Vedi prezzo</button>
-<br>
-<button (click)="chiudiScontrino()"[disabled]="!chiudiEnabled">Chiudi Scontrino</button>
-<br>
-<label *ngIf="!prezzoVisible">Prezzo: {{prezzoProdotto}}</label>
-<br>
-<button (click)="stornaUltimo()" *ngIf="!stornaVisible">Storna ultimo</button>
-<br>
-<button (click)="annullaScontrino()" [disabled]="!annullaScontrinoEnabled">Annulla Scontrino</button>
-<br>
-<button (click)=annulla() [disabled]="!annullaEnabled">Annulla</button>
-<br>
-<button (click)=conferma() [disabled]="!confermaEnabled">Conferma</button>
-<br>
-<h2>{{ultimoElemento}}</h2>
-<table *ngIf="listaVisible">
-    <tr>
-        <th>Quantità</th>
-        <th>Descrizione</th>
-        <th>Prezzo</th>
-    </tr>
-    <tr *ngFor="let r of righe">
-        <td>{{r.quantita}}</td>
-        <td>{{r.prodotto.descrizione}}</td>
-        <td>{{r.prodotto.prezzo}}</td>
-    </tr>
-</table>
+<body>
+    <app-toolbar-menu></app-toolbar-menu>
+    <div>
+        <h2>DASHBOARD CASSA TRE</h2>
+    </div>
+    <br>
+    <br>
+    <input type="text" placeholder="barcode" [(ngModel)]="barcode" (keydown.Tab)="onKey($event)"
+        [disabled]="!inputEnabled" class="inputBarcode">
+    <br>
+    <button (click)="attivaVediPrezzo()" [disabled]="prezzoEnabled" class="button">Vedi prezzo</button>
+    <br>
+    <button (click)="chiudiScontrino()" [disabled]="!chiudiEnabled" class="button">Chiudi Scontrino</button>
+    <br>
+    <label *ngIf="!prezzoVisible">Prezzo: {{prezzoProdotto}}</label>
+    <br>
+    <button (click)="stornaUltimo()" *ngIf="!stornaVisible" class="button">Storna ultimo</button>
+    <br>
+    <button (click)="annullaScontrino()" [disabled]="!annullaScontrinoEnabled" class="button">Annulla Scontrino</button>
+    <br>
+    <button (click)=annulla() [disabled]="!annullaEnabled" class="button">Annulla</button>
+    <br>
+    <button (click)=conferma() [disabled]="!confermaEnabled" class="button">Conferma</button>
+    <br>
+    <h2>{{ultimoElemento}}</h2>
+    <table *ngIf="listaVisible">
+        <tr>
+            <th>Quantità</th>
+            <th>Descrizione</th>
+            <th>Prezzo</th>
+        </tr>
+        <tr *ngFor="let r of righe">
+            <td>{{r.quantita}}</td>
+            <td>{{r.prodotto.descrizione}}</td>
+            <td>{{r.prodotto.prezzo}}</td>
+        </tr>
+    </table>
+</body>

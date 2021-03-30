@@ -1,57 +1,37 @@
 <body>
-  <div class="navbar">
-    <a href="#home">Home</a>
-    <div class="dropdown">
-      <button class="dropbtn">Anagrafiche
-        <i class="fa fa-caret-down"></i>
-      </button>
-      <div class="dropdown-content">
-        <a routerLink="/anagrafica-posizioni">Anagrafica Posizioni</a>
-        <a routerLink="/anagrafica-prodotti">Anagrafica Prodotti</a>
-        <a routerLink="/anagrafica-cassiere">Anagrafica Cassiere</a>
-        <a routerLink="/anagrafica-casse">Anagrafica Casse</a>
-        <a routerLink="/anagrafica-sconti">Anagrafica Sconti</a>
-      </div>
-    </div>
-    <div class="dropdown">
-      <button class="dropbtn">Dashboard
-        <i class="fa fa-caret-down"></i>
-      </button>
-      <div class="dropdown-content">
-        <a routerLink="/dashboard-gruppo-uno">Dashboard Cassa 1</a>
-        <a routerLink="">Dashboard Cassa 2</a>
-        <a routerLink="/dashboard-gruppo-tre">Dashboard Cassa 3</a>
-        <a routerLink="/dashboard-gruppo-quattro">Dashboard Cassa 4</a>
-      </div>
-    </div>
-  </div>
+  <app-toolbar-menu></app-toolbar-menu>
   <div>
     <h1>GESTIONE ANAGRAFICA POSIZIONI SCAFFALE</h1>
   </div>
-  <button (click)="nuova()" *ngIf="buttonNuovaVisible" class="button1">Nuova</button>
+  <button (click)="nuova()" *ngIf="buttonNuovaVisible" class="button">Nuova</button>
   <div *ngIf="formDivVisible">
-    <input type="text" [(ngModel)]="posizione.codice" [disabled]="campiNonEditabili">
-    <input type="text" [(ngModel)]="posizione.descrizione" [disabled]="campiNonEditabili">
+    <input type="text" [(ngModel)]="posizione.codice" [disabled]="campiNonEditabili" class="input">
+    <input type="text" [(ngModel)]="posizione.descrizione" [disabled]="campiNonEditabili" class="input">
     <br>
-    <button (click)="modifica()" *ngIf="!confAnnVisible">Modifica</button>
-    <button (click)="conferma()" *ngIf="confAnnVisible">Conferma</button>
-    <button (click)="annulla()" *ngIf="confAnnVisible">Annulla</button>
-    <button (click)="rimuovi()" *ngIf="!confAnnVisible">Rimuovi</button>
+    <button (click)="modifica()" *ngIf="!confAnnVisible" class="button">Modifica</button>
+    <button (click)="conferma()" *ngIf="confAnnVisible" class="button">Conferma</button>
+    <button (click)="annulla()" *ngIf="confAnnVisible" class="button">Annulla</button>
+    <button (click)="rimuovi()" *ngIf="!confAnnVisible" class="button">Rimuovi</button>
   </div>
   <br>
-  <input type="text" [(ngModel)]="criterio" *ngIf="searchVisible">
-  <button (click)="cerca()" *ngIf="searchVisible">Cerca</button>
-  <table *ngIf="searchVisible">
-    <tr *ngFor="let p of posizioni">
-      <td>
-        {{p.codice}}
-      </td>
-      <td>
-        {{p.descrizione}}
-      </td>
-      <td>
-        <button (click)="seleziona(p)">Seleziona</button>
-      </td>
-    </tr>
+  <input type="text" [(ngModel)]="criterio" *ngIf="searchVisible" class="inputSearch">
+  <button (click)="cerca()" *ngIf="searchVisible" class="button">Cerca</button>
+  <table *ngIf="searchVisible" class="scrolldown">
+    <thead>
+      <tr>
+        <th>Codice</th>
+        <th>Descrizione</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of posizioni">
+        <td>{{p.codice}}</td>
+        <td>{{p.descrizione}}</td>
+        <td>
+          <button (click)="seleziona(p)" class="button">Seleziona</button>
+        </td>
+      </tr>
+    </tbody>
   </table>
 </body>

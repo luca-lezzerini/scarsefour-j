@@ -5,8 +5,20 @@ h1 {
     margin: 0;
     padding-left: 70px;
     padding-right: 100px;
-    padding-top: 80px;
-    padding-bottom: 80px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+h2 {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 30px;
+    font-weight: bold;
+    margin: 0;
+    padding-left: 50px;
+    padding-right: 30px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    float: right;
 }
 
 hr {
@@ -16,20 +28,72 @@ hr {
     margin-bottom: 25px;
 }
 
-.button1 {
+.link {
+    font-size: 21px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-weight: lighter;
+    color: black;
+    text-decoration: solid;
+}
+
+.link:hover {
+    color: orangered;
+}
+
+.link:active {
+    color: yellow;
+}
+
+.inputBarcode {
+    width: 150px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    background-image: url('../assets/barcodeS.png');
+    background-size: 45px;
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 40px;
+    text-align: right;
+}
+
+.inputSearch {
+    width: 150px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    background-image: url('../assets/searchicon.png');
+    background-size: 43px;
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 40px;
+    text-align: right;
+}
+
+.input {
+    width: 150px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    padding: 12px 20px 12px 35px;
+    text-align: right;
+}
+
+.button {
     background-color: #f8f8f8;
     border: 1px solid rgb(60, 204, 125);
     color: rgb(0, 0, 0);
-    padding: 15px 32px;
+    padding: 13px 32px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    border-radius: 10px;
+    border-radius: 4px;
     transition-duration: 0.5s;
 }
 
-.button1:hover {
+.button:hover {
     background-color: rgb(60, 204, 125);
     color: rgb(0, 0, 0);
 }
@@ -37,6 +101,54 @@ hr {
 body {
     font-family: Arial, Helvetica, sans-serif;
 }
+
+table {
+    width: 100%;
+}
+
+table.scrolldown {
+    width: 100%;
+    /* border-collapse: collapse; */
+    border-spacing: 0;
+    border: 2px solid black;
+}
+
+/* To display the block as level element */
+
+table.scrolldown tbody, table.scrolldown thead {
+    display: block;
+}
+
+thead tr th {
+    height: 40px;
+    line-height: 40px;
+    width: 500px;
+}
+
+table.scrolldown tbody {
+    /* Set the height of table body */
+    height: 300px;
+    /* Set vertical scroll */
+    overflow-y: auto;
+    /* Hide the horizontal scroll */
+    overflow-x: hidden;
+}
+
+tbody {
+    border-top: 2px solid black;
+}
+
+tbody td, thead th {
+    width: 500px;
+    border-right: 2px solid black;
+}
+
+td, th {
+    text-align: center;
+}
+
+
+/* MENU COMUNE*/
 
 .navbar {
     overflow: hidden;
@@ -71,7 +183,7 @@ body {
 }
 
 .navbar a:hover, .dropdown:hover .dropbtn {
-    background-color:rgb(219, 121, 0);
+    background-color: rgb(219, 121, 0);
 }
 
 .dropdown-content {
@@ -107,44 +219,79 @@ p.titoliHome {
 /* Tabelle home page*/
 
 .wrapper {
-    margin:0 auto;
-    width:960px;
-    background:#EFEFEF;
+    margin: 0 auto;
+    width: 960px;
+    background: #EFEFEF;
 }
 
 .rotateObj {
-    height:200px;
+    height: 200px;
 }
 
 .rotateObj h2 {
-    position:relative;
-    float:left;
-    background:rgb(219, 121, 0);
-    width:100px;
-    height:300px;
-    border-radius:5px;
-    -moz-border-radius:5px;
+    position: relative;
+    float: left;
+    background: rgb(219, 121, 0);
+    width: 100px;
+    height: 300px;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
 }
 
 .rotateObj h2 span {
-    width:150px; /* same as height of .rotateObj */
-    transform-origin:120px 70px;
-    display:inline-block;
-    transform:rotate(-90deg);
-    text-align:center;
+    width: 150px;
+    /* same as height of .rotateObj */
+    transform-origin: 120px 70px;
+    display: inline-block;
+    transform: rotate(-90deg);
+    text-align: center;
 }
 
 .rotateObj h2.active {
-    background:rgb(10, 165, 49);
+    background: rgb(10, 165, 49);
 }
 
 .rotateObj .content {
-    float:left;
-    width:230px;
-    height:100%;
-    padding:20px;
+    float: left;
+    width: 230px;
+    height: 100%;
+    padding: 20px;
 }
 
-.logo{
-    float:top;
+.logo {
+    float: top;
+}
+
+/* IMMAGINI SELF SLIDE*/
+
+.fling-minislide {
+    width: 350px;
+    height: 300px;
+    overflow: hidden;
+    position: relative;
+}
+
+.fling-minislide img {
+    position: absolute;
+    animation: fling-minislide 10s infinite;
+    opacity: 0;
+    width: 100%;
+    height: auto;
+}
+
+@keyframes fling-minislide {
+    25% {
+        opacity: 1;
+    }
+    40% {
+        opacity: 0;
+    }
+}
+
+.fling-minislide img:nth-child(2) {
+    animation-delay: 5s;
+}
+
+.fling-minislide img:nth-child(1) {
+    animation-delay: 0s;
 }
