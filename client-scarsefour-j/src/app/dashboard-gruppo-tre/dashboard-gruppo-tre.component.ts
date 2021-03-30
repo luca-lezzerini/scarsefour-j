@@ -48,6 +48,7 @@ export class DashboardGruppoTreComponent implements OnInit, AutomabileTre {
     this.automa = new AutomaTre(this);
   }
 
+  //Metodi Automabile GUI
   goToScontrinoVuoto() {
     this.inputEnabled = true;
     this.prezzoEnabled = false;
@@ -84,7 +85,6 @@ export class DashboardGruppoTreComponent implements OnInit, AutomabileTre {
     this.listaVisible = false;
   }
 
-
   goToAnnullamentoScontrino() {
     this.inputEnabled = true;
     this.prezzoEnabled = true;
@@ -97,33 +97,8 @@ export class DashboardGruppoTreComponent implements OnInit, AutomabileTre {
     this.listaVisible = false;
   }
 
-  onKey(event: any) {
-    this.prezzoEnabled = false;
-    this.vediPrezzo();
-    this.stato = this.automa.next(new EanEvent(this.barcode, this.scontrino));
-  }
-
-  attivaVediPrezzo(){
-    this.stato = this.automa.next(new VediPrezzoEvent());
-  }
-
-  vediPrezzo() {
-    //deve solo visualizzare il prezzo
-    let dto: CriterioRicercaDto = new CriterioRicercaDto();
-    console.log("BARCODE: " + this.barcode);
-    dto.criterio = this.barcode;
-    let oss: Observable<ProdottoDto> = this.http.post<ProdottoDto>
-      ('http://localhost:8080/vedi-prezzo-tre', dto);
-    oss.subscribe(t => {
-      this.prodotto.prezzo = t.prodotto.prezzo;
-      this.prodotto.codice = t.prodotto.codice;
-      this.prodotto.descrizione = t.prodotto.descrizione;
-      this.prezzoProdotto = this.prodotto.prezzo;});
-  }
-    
+  // Metodi Automabile Action
   aggiungiRigaScontrinoAction(){
-    //deve visualizzare prezzo e salvare
-    //aggiungi-scontrino-tre
     let dto: DtoScontrinoTre = new DtoScontrinoTre();
     let rigaNuova: RigaScontrino = new RigaScontrino();
     rigaNuova.prodotto = this.prodotto;
@@ -144,6 +119,17 @@ export class DashboardGruppoTreComponent implements OnInit, AutomabileTre {
     oss.subscribe(t => this.scontrino = t.scontrino);
   }
 
+  // Metodi azione sui button
+  onKey(event: any) {
+    this.prezzoEnabled = false;
+    this.vediPrezzo();
+    this.stato = this.automa.next(new EanEvent(this.barcode, this.scontrino));
+  }
+
+  attivaVediPrezzo(){
+    this.stato = this.automa.next(new VediPrezzoEvent());
+  }
+
   chiudiScontrino() {
     let dto: DtoScontrinoTre = new DtoScontrinoTre();
     dto.scontrino = this.scontrino;
@@ -154,7 +140,6 @@ export class DashboardGruppoTreComponent implements OnInit, AutomabileTre {
   }
 
   stornaUltimo() {
-    
     let dto: DtoScontrinoTre = new DtoScontrinoTre();
     dto.scontrino = this.scontrino;
     let oss: Observable<DtoListaRigaScontrinoTre> = this.http.post<DtoListaRigaScontrinoTre>
@@ -163,21 +148,38 @@ export class DashboardGruppoTreComponent implements OnInit, AutomabileTre {
     this.stato = this.automa.next(new StornaUnoEvent());
   }
 
+  annullaScontrino() {
+    this.stato = this.automa.next(new AnnullaScontrinoEvent());
+  }
+
+  annulla() {
+    this.stato = this.automa.next(new AnnullaEvent());
+  }
+
+  conferma() {
+    this.stato = this.automa.next(new ConfermaEvent());
+  }
+
+  // Metodi richiamati internamente
+  vediPrezzo() {
+    //deve solo visualizzare il prezzo
+    let dto: CriterioRicercaDto = new CriterioRicercaDto();
+    console.log("BARCODE: " + this.barcode);
+    dto.criterio = this.barcode;
+    let oss: Observable<ProdottoDto> = this.http.post<ProdottoDto>
+      ('http://localhost:8080/vedi-prezzo-tre', dto);
+    oss.subscribe(t => {
+      this.prodotto.prezzo = t.prodotto.prezzo;
+      this.prodotto.codice = t.prodotto.codice;
+      this.prodotto.descrizione = t.prodotto.descrizione;
+      this.prezzoProdotto = this.prodotto.prezzo;});
+  }
+
   aggiornaRighe(){
     let dto: DtoScontrinoTre = new DtoScontrinoTre();
     dto.scontrino = this.scontrino;
     let oss: Observable<DtoListaRigaScontrinoTre> = this.http.post<DtoListaRigaScontrinoTre>
     ('http://localhost:8080/aggiorna-righe-tre', dto);
     oss.subscribe(r => this.righe = r.righeScontrino);
-  }
-
-  annullaScontrino() {
-    this.stato = this.automa.next(new AnnullaScontrinoEvent());
-  }
-  annulla() {
-    this.stato = this.automa.next(new AnnullaEvent());
-  }
-  conferma() {
-    this.stato = this.automa.next(new ConfermaEvent());
   }
 }
