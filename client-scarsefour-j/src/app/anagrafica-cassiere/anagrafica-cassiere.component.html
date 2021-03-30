@@ -1,59 +1,59 @@
-<div class="centerblue">
-    <div class="center">
-        <div>
-            <button (click)="vaiAHome()">Home Page</button>
-        </div>
-        <h2>Anagrafica Cassiere</h2>
-        <hr>
-        <button id="rightfloat" (click)="nuova()" *ngIf="buttonNuovaVisible"
-            Title="inserisci nuovo cassiere">Nuova</button>
-        <div *ngIf="formDivVisible">
-            <div class="margine">
-                <input class="marginiLaterali" type="text" [(ngModel)]="cassiere.nome" placeholder="Nome"
-                    [disabled]="campiNonEditabili">
-                <input class="marginiLaterali" type="text" [(ngModel)]="cassiere.cognome" placeholder="Cognome"
-                    [disabled]="campiNonEditabili">
-                <input class="marginiLaterali" type="text" [(ngModel)]="cassiere.codiceFiscale" placeholder="Codice Fiscale"
-                    [disabled]="campiNonEditabili">
+<app-toolbar-menu></app-toolbar-menu>
+<body>
+    <div class="centerblue">
+        <div class="center">
+            <h2>Anagrafica Cassiere</h2>
+            <hr>
+            <button id="rightfloat" (click)="nuova()" *ngIf="buttonNuovaVisible"
+                Title="inserisci nuovo cassiere">Nuova</button>
+            <div *ngIf="formDivVisible">
+                <div class="margine">
+                    <input class="marginiLaterali" type="text" [(ngModel)]="cassiere.nome" placeholder="Nome"
+                        [disabled]="campiNonEditabili">
+                    <input class="marginiLaterali" type="text" [(ngModel)]="cassiere.cognome" placeholder="Cognome"
+                        [disabled]="campiNonEditabili">
+                    <input class="marginiLaterali" type="text" [(ngModel)]="cassiere.codiceFiscale"
+                        placeholder="Codice Fiscale" [disabled]="campiNonEditabili">
+                </div>
+                <br>
+                <div class="margine">
+                    <button class="marginiLaterali" (click)="modifica()" *ngIf="!confAnnVisible">Modifica</button>
+                    <button class="marginiLaterali" (click)="conferma()" *ngIf="confAnnVisible">Conferma</button>
+                    <button class="marginiLaterali" (click)="annulla()" *ngIf="confAnnVisible">Annulla</button>
+                    <button class="marginiLaterali" (click)="rimuovi()" *ngIf="!confAnnVisible">Rimuovi</button>
+                </div>
             </div>
             <br>
             <div class="margine">
-                <button class="marginiLaterali" (click)="modifica()" *ngIf="!confAnnVisible">Modifica</button>
-                <button class="marginiLaterali" (click)="conferma()" *ngIf="confAnnVisible">Conferma</button>
-                <button class="marginiLaterali" (click)="annulla()" *ngIf="confAnnVisible">Annulla</button>
-                <button class="marginiLaterali" (click)="rimuovi()" *ngIf="!confAnnVisible">Rimuovi</button>
+                <input class="marginiLaterali" type="text" [(ngModel)]="searchCriterion" *ngIf="searchVisible">
+                <button class="marginiLaterali" (click)="cerca()" *ngIf="searchVisible">Cerca</button>
+            </div>
+            <div class="scrodiv center margine">
+                <table class="center" *ngIf="searchVisible">
+                    <th class="td1">Nome</th>
+                    <th class="td2">Cognome</th>
+                    <th class="td3">Codice Fiscale</th>
+                    <th class="td4">Selezione</th>
+                    <tr *ngFor="let c of cassieri; index as i">
+                        <td>
+                            {{c.nome}}
+                        </td>
+                        <td>
+                            {{c.cognome}}
+                        </td>
+                        <td>
+                            {{c.codiceFiscale}}
+                        </td>
+                        <td>
+                            <button (click)="seleziona(c)">Seleziona</button>
+                        </td>
+                    </tr>
+                </table>
+
             </div>
         </div>
-        <br>
-        <div class="margine">
-            <input class="marginiLaterali" type="text" [(ngModel)]="searchCriterion" *ngIf="searchVisible">
-            <button class="marginiLaterali" (click)="cerca()" *ngIf="searchVisible">Cerca</button>
-        </div>
-        <div class="scrodiv center margine">
-            <table class="center" *ngIf="searchVisible">
-                <th class="td1">Nome</th>
-                <th class="td2">Cognome</th>
-                <th class="td3">Codice Fiscale</th>
-                <th class="td4">Selezione</th>
-                <tr *ngFor="let c of cassieri; index as i">
-                    <td>
-                        {{c.nome}}
-                    </td>
-                    <td>
-                        {{c.cognome}}
-                    </td>
-                    <td>
-                        {{c.codiceFiscale}}
-                    </td>
-                    <td>
-                        <button (click)="seleziona(c)">Seleziona</button>
-                    </td>
-                </tr>
-            </table>
-
+        <div>
+            <br>
         </div>
     </div>
-    <div>
-        <br>
-    </div>
-</div>
+</body>

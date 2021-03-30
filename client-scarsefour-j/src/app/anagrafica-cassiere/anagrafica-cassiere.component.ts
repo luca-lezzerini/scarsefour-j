@@ -97,7 +97,7 @@ export class AnagraficaCassiereComponent implements OnInit, AutomabileCrud {
     }
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   //metodi Automabile
   goToAggiungi() {
@@ -193,7 +193,7 @@ export class AnagraficaCassiereComponent implements OnInit, AutomabileCrud {
   cerca() {
     this.automa.next(new RicercaEvent());
     let dto: CriterioRicercaDto = new CriterioRicercaDto();
-    dto.criterio = this.strRicerca ;
+    dto.criterio = this.strRicerca;
     let oss: Observable<ListaCassieriDto> = this.http.post<ListaCassieriDto>(
       'http://localhost:8080/ricerca-cassiere',
       dto
@@ -208,7 +208,5 @@ export class AnagraficaCassiereComponent implements OnInit, AutomabileCrud {
     oss.subscribe((c) => (this.cassieri = c.listaCassieri));
   }
 
-  vaiAHome() {
-    this.router.navigateByUrl('home-page');
-  }
+
 }
