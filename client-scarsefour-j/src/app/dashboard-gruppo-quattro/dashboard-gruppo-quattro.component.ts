@@ -1,11 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { ConfermaEvent } from '../automa/eventi';
 import { Prodotto } from '../entità/prodotto';
+import { RigaScontrino } from '../entità/riga-scontrino';
 import { Scontrino } from '../entità/scontrino';
 import { AutomaGruppoQuattro } from './automa/automa-gruppo-quattro';
 import { AnnullaEvent, AnnullaScontrinoEvent, ChiudiEvent, EanEvent, StornaEvent, VediPrezzoEvent } from './automa/eventi-gruppo-quattro';
+import { RichiestaEanDto4 } from './dto/Richiesta-Ean-dto-4';
+import { RispostaEanDto4 } from './dto/Risposta-Ean-dto-4';
 
 @Component({
   selector: 'app-dashboard-gruppo-quattro',
@@ -22,6 +26,8 @@ export class DashboardGruppoQuattroComponent implements OnInit {
   automa: AutomaGruppoQuattro;
   scontrino:Scontrino;
   prodotto:Prodotto;
+  righeScontrino:RigaScontrino[];
+
 
   eanNonEditabile: boolean;
   vediPrezzoVisibleB: boolean;
@@ -35,7 +41,7 @@ export class DashboardGruppoQuattroComponent implements OnInit {
   prezzoLabel: boolean;
   totaleScontrinoLabel:boolean;
   tastoTabMes:boolean;
-  constructor(http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient, private router: Router) {
    }
 
   ngOnInit(): void {
@@ -122,8 +128,21 @@ export class DashboardGruppoQuattroComponent implements OnInit {
   Conferma() {
     this.automa.next(new ConfermaEvent());
   }
-  inserisceEan(){
-    this.automa.next(new EanEvent(this.ean, this.scontrino));
+
+  inserisciEan(){
+    let dto: RichiestaEanDto4 = new RichiestaEanDto4();
+    dto.barcode = this.ean;
+    dto.scontrino = this.scontrino;
+    let oss:Observable<RispostaEanDto4> = this.http.post<RispostaEanDto4>('http://localhost:8080/inserisci-ean-quattro',dto);
+    oss.subscribe(e => {
+       this.scontrino = e.scontrino;
+       this.ean = e.barcode;
+       this.righeScontrino = e.righeScontrino;
+    }
+    );
+this.automa.next(new EanEvent(this.ean, this.scontrino));
   }
-  
+
 }
+
+

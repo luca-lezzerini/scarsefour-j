@@ -1,5 +1,5 @@
 
-<input type="text" placeholder="barcode" [(ngModel)]="ean" [disabled]="eanNonEditabile" (keydown.tab)="inserisceEan()">
+<input type="text" placeholder="barcode" [(ngModel)]="ean" [disabled]="eanNonEditabile" (keydown.tab)="inserisciEan()">
 <p *ngIf = "tastoTabMes"> Premere tasto tab per confermare codice prodotto</p>
 
 <br>
@@ -23,7 +23,7 @@
         <th> Descrizione</th>
         <th> Prezzo </th>
     </tr>
-    <tr *ngFor="let s of scontrini">
+    <tr *ngFor="let s of righeScontrino">
         <td> quantità</td>
         <td> descrizione</td>
         <td>prezzo </td>
