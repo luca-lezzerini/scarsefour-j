@@ -1,7 +1,7 @@
 <body>
   <app-toolbar-menu></app-toolbar-menu>
   <div>
-    <h1>GESTIONE ANAGRAFICA POSIZIONI SCAFFALE</h1>
+    <h4>GESTIONE ANAGRAFICA POSIZIONI SCAFFALE</h4>
   </div>
   <button (click)="nuova()" *ngIf="buttonNuovaVisible" class="button">Nuova</button>
   <div *ngIf="formDivVisible">
@@ -29,7 +29,7 @@
         <td>{{p.codice}}</td>
         <td>{{p.descrizione}}</td>
         <td>
-          <button (click)="seleziona(p)" class="button">Seleziona</button>
+          <button (click)="seleziona(p)" class="buttonSel">Seleziona</button>
         </td>
       </tr>
     </tbody>

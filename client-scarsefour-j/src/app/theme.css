@@ -1,6 +1,6 @@
 h1 {
     font-family: Verdana, Arial, Helvetica, sans-serif;
-    font-size: 30px;
+    font-size: 40px;
     font-weight: bold;
     margin: 0;
     padding-left: 70px;
@@ -25,6 +25,27 @@ h3 {
     float: right;
 }
 
+h4 {
+    position: relative;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-transform: uppercase;
+    font-size: 35px;
+    letter-spacing: 2px;
+    overflow: hidden;
+    background: linear-gradient(90deg, #000, rgb(0, 0, 0), #000);
+    background-repeat: no-repeat;
+    background-size: 80%;
+    animation: animate 4s linear;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: rgba(255, 255, 255, 0);
+}
+
+@keyframes animate {
+    0% {
+        background-position: -500%;
+    }
+}
+
 hr {
     border: none;
     border-top: 1px solid #CCCCCC;
@@ -45,7 +66,7 @@ hr {
 }
 
 .link:active {
-    color: yellow;
+    color: rgb(192, 54, 3);
 }
 
 .inputBarcode {
@@ -62,7 +83,7 @@ hr {
 }
 
 .inputSearch {
-    width: 150px;
+    width: 200px;
     box-sizing: border-box;
     border: 2px solid #ccc;
     border-radius: 4px;
@@ -97,12 +118,30 @@ hr {
     transition-duration: 0.5s;
 }
 
+.buttonSel:nth-child(odd) {
+    background-color: #f8f8f8;
+    border: 1px solid rgb(240, 142, 13);
+    color: rgb(0, 0, 0);
+    padding: 13px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 4px;
+    transition-duration: 0.5s;
+}
+
 .button:disabled {
     opacity: 50%;
 }
 
 .button:hover:enabled {
     background-color: rgb(60, 204, 125);
+    color: rgb(0, 0, 0);
+}
+
+.buttonSel:hover:enabled {
+    background-color: #ff9e44;
     color: rgb(0, 0, 0);
 }
 
@@ -146,7 +185,7 @@ tbody {
     border-top: 2px solid black;
 }
 
-tbody td, thead th {
+tbody td {
     width: 500px;
     border-right: 2px solid black;
 }
@@ -154,6 +193,17 @@ tbody td, thead th {
 td, th {
     text-align: center;
 }
+
+thead th {
+    background-color: #333;
+    color: white;
+}
+
+tr:nth-child(odd) {
+    background-color: #ff9e44;
+}
+
+tr:nth-child(even) {}
 
 /* MENU COMUNE*/
 
@@ -229,6 +279,7 @@ p.titoliHome {
     margin: 0 auto;
     width: 960px;
     background: #EFEFEF;
+    float: none;
 }
 
 .rotateObj {
@@ -280,7 +331,7 @@ p.titoliHome {
 
 .fling-minislide img {
     position: absolute;
-    animation: fling-minislide 10s infinite;
+    animation: fling-minislide 15s infinite;
     opacity: 0;
     width: 100%;
     height: auto;
@@ -293,6 +344,10 @@ p.titoliHome {
     40% {
         opacity: 0;
     }
+}
+
+.fling-minislide img:nth-child(3) {
+    animation-delay: 10s;
 }
 
 .fling-minislide img:nth-child(2) {
