@@ -47,7 +47,7 @@ export class DashboardGruppoUnoComponent implements OnInit, AutomabileDashboardU
   descrizioneE: string;
   prezzoTot: number;
   righeScontrino: RigaScontrino[];
-  scontrino = new Scontrino();
+  scontrino : Scontrino;
 
 
 
