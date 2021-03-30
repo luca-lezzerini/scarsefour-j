@@ -195,9 +195,10 @@ export class DashboardGruppoUnoComponent implements OnInit, AutomabileDashboardU
       this.automaD.next(new EanEvent(this.barcode, this.scontrino));
       if (r.scontrino != null) {
         this.prezzoTot = r.scontrino.totale;
-        this.prezzoE = r.righeScontrino[r.righeScontrino.length-1].prodotto.prezzo; //da provare
+        this.prezzoE = r.righeScontrino[r.righeScontrino.length-1].prodotto.prezzo;
         this.descrizioneE = r.righeScontrino[r.righeScontrino.length-1].prodotto.descrizione;        
       }
+      this.barcode = "";
     });
   }
 
@@ -245,7 +246,7 @@ export class DashboardGruppoUnoComponent implements OnInit, AutomabileDashboardU
       this.scontrino = s.scontrino;
       this.righeScontrino = s.righeScontrino;
       this.prezzoTot = s.scontrino.totale;
-      this.prezzoE = s.righeScontrino[s.righeScontrino.length-1].prodotto.prezzo; //da provare
+      this.prezzoE = s.righeScontrino[s.righeScontrino.length-1].prodotto.prezzo;
       this.descrizioneE = s.righeScontrino[s.righeScontrino.length-1].prodotto.descrizione;
     });
     this.automaD.next(new StornaEvent(this.righeScontrino.length));

@@ -92,7 +92,7 @@ export class VediPrezzoState implements StateDashboardUno {
             else if (!e.scontrino && !e.codiceEan) {
                 let st = new ScontrinoVuotoState(this.automa);
                 this.automa.gui.goToScontrinoVuotoFromAll();
-                console.log("sono in goToScontrinoVuotoFromAll()")
+                console.log("sono in goToScontrinoVuotoFromAll()");
                 return st;
             }
             else if (!e.scontrino && e.codiceEan) {

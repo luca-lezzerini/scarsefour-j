@@ -1,10 +1,11 @@
 package it.iad2.scarsefourserver.controller;
 
+import it.iad2.scarsefourserver.dto.EanDto;
+import it.iad2.scarsefourserver.dto.PrezzoDto;
 import it.iad2.scarsefourserver.dto.RichiestaEanDto;
 import it.iad2.scarsefourserver.dto.RispostaEanDto;
 import it.iad2.scarsefourserver.service.DashboardGruppoUnoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,8 +31,8 @@ public class DashboardGruppoUnoController {
     }
     @RequestMapping("/vedi-prezzo-1")
     @ResponseBody
-    public RispostaEanDto vediPrezzo1(@RequestBody RichiestaEanDto dto) {
-        return dashboardGruppoUnoService.vediPrezzo1(dto.getBarcode(), dto.getScontrino());
+    public PrezzoDto vediPrezzo1(@RequestBody EanDto dto) {
+        return new PrezzoDto(dashboardGruppoUnoService.vediPrezzo1(dto.getBarcode()));
     }
     @RequestMapping("/Storna-ultimo-1")
     @ResponseBody
