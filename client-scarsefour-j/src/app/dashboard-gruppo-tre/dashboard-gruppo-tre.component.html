@@ -6,21 +6,22 @@
     <br>
     <br>
     <input type="text" placeholder="barcode" [(ngModel)]="barcode" (keydown.Tab)="onKey($event)"
-        [disabled]="!inputEnabled" class="inputBarcode">
+        [disabled]="inputDisabled" class="inputBarcode">
     <br>
-    <button (click)="attivaVediPrezzo()" [disabled]="prezzoEnabled" class="button">Vedi prezzo</button>
+    <button (click)="attivaVediPrezzo()" [disabled]="prezzoDisabled" class="button">Vedi prezzo</button>
     <br>
-    <button (click)="chiudiScontrino()" [disabled]="!chiudiEnabled" class="button">Chiudi Scontrino</button>
+    <button (click)="chiudiScontrino()" [disabled]="chiudiDisabled" class="button">Chiudi Scontrino</button>
     <br>
     <label *ngIf="!prezzoVisible">Prezzo: {{prezzoProdotto}}</label>
+    <label *ngIf="!messErroreVisible">{{messaggioErrore}}</label>
     <br>
     <button (click)="stornaUltimo()" *ngIf="!stornaVisible" class="button">Storna ultimo</button>
     <br>
-    <button (click)="annullaScontrino()" [disabled]="!annullaScontrinoEnabled" class="button">Annulla Scontrino</button>
+    <button (click)="annullaScontrino()" [disabled]="annullaScontrinoDisabled" class="button">Annulla Scontrino</button>
     <br>
-    <button (click)=annulla() [disabled]="!annullaEnabled" class="button">Annulla</button>
+    <button (click)=annulla() [disabled]="annullaDisabled" class="button">Annulla</button>
     <br>
-    <button (click)=conferma() [disabled]="!confermaEnabled" class="button">Conferma</button>
+    <button (click)=conferma() [disabled]="confermaDisabled" class="button">Conferma</button>
     <br>
     <h2>{{ultimoElemento}}</h2>
     <table *ngIf="listaVisible">

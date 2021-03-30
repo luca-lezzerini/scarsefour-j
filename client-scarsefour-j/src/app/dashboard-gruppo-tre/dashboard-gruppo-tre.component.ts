@@ -12,6 +12,7 @@ import { ScontrinoNonVuotoState, ScontrinoVuotoState, VediPrezzoState } from './
 import { Observable } from 'rxjs';
 import { DtoScontrinoTre } from './dto-scontrino-tre';
 import { DtoListaRigaScontrinoTre } from './dto-lista-riga-scontrino-tre';
+import { isNull } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-dashboard-gruppo-tre',
@@ -28,18 +29,20 @@ export class DashboardGruppoTreComponent implements OnInit, AutomabileTre {
   scontrino: Scontrino = new Scontrino();
   rigaScontrino: RigaScontrino;
   prezzoProdotto: number;
-  inputEnabled: boolean;
-  prezzoEnabled: boolean = false;
-  chiudiEnabled: boolean;
+  inputDisabled: boolean;
+  prezzoDisabled: boolean = false;
+  chiudiDisabled: boolean;
   //prezzoVisible e stornaVisible vogliono false per apparire e true per sparire
   prezzoVisible: boolean;
   stornaVisible: boolean;
-  annullaScontrinoEnabled: boolean;
-  annullaEnabled: boolean;
-  confermaEnabled: boolean;
+  annullaScontrinoDisabled: boolean;
+  annullaDisabled: boolean;
+  confermaDisabled: boolean;
   listaVisible: boolean;
+  messErroreVisible: boolean;
   automa: AutomaTre;
   stato: StateTre;
+  messaggioErrore: string = "Ean Sconosciuto!";
 
   constructor(private http: HttpClient) {
   }
@@ -50,51 +53,55 @@ export class DashboardGruppoTreComponent implements OnInit, AutomabileTre {
 
   //Metodi Automabile GUI
   goToScontrinoVuoto() {
-    this.inputEnabled = true;
-    this.prezzoEnabled = false;
-    this.chiudiEnabled = false;
+    this.inputDisabled = false;
+    this.prezzoDisabled = false;
+    this.chiudiDisabled = true;
     this.prezzoVisible = true;
     this.stornaVisible = true;
-    this.annullaScontrinoEnabled = false;
-    this.annullaEnabled = false;
-    this.confermaEnabled = false;
-    this.listaVisible = false;
+    this.annullaScontrinoDisabled = true;
+    this.annullaDisabled = true;
+    this.confermaDisabled = true;
+    this.listaVisible = true;
+    this.messErroreVisible= true;
   }
 
   goToScontrinoNonVuoto() {
-    this.inputEnabled = true;
-    this.prezzoEnabled = true;
-    this.chiudiEnabled = true;
+    this.inputDisabled = false;
+    this.prezzoDisabled = false;
+    this.chiudiDisabled = false;
     this.prezzoVisible = false;
     this.stornaVisible = false;
-    this.annullaScontrinoEnabled = true;
-    this.annullaEnabled = false;
-    this.confermaEnabled = false;
-    this.listaVisible = true;
+    this.annullaScontrinoDisabled = false;
+    this.annullaDisabled = true;
+    this.confermaDisabled = true;
+    this.listaVisible = false;
+    this.messErroreVisible= true;
   }
 
   goToVediPrezzo() {
-    this.inputEnabled = true;
-    this.prezzoEnabled = true;
-    this.chiudiEnabled = false;
-    this.prezzoVisible = false;
+    this.inputDisabled = false;
+    this.prezzoDisabled = true;
+    this.chiudiDisabled = true;
+    this.prezzoVisible = true;
     this.stornaVisible = true;
-    this.annullaScontrinoEnabled = false;
-    this.annullaEnabled = false;
-    this.confermaEnabled = false;
-    this.listaVisible = false;
+    this.annullaScontrinoDisabled = true;
+    this.annullaDisabled = true;
+    this.confermaDisabled = true;
+    this.listaVisible = true;
+    this.messErroreVisible= true;
   }
 
   goToAnnullamentoScontrino() {
-    this.inputEnabled = true;
-    this.prezzoEnabled = true;
-    this.chiudiEnabled = false;
-    this.prezzoVisible = false;
+    this.inputDisabled = true;
+    this.prezzoDisabled = true;
+    this.chiudiDisabled = true;
+    this.prezzoVisible = true;
     this.stornaVisible = true;
-    this.annullaScontrinoEnabled = false;
-    this.annullaEnabled = false;
-    this.confermaEnabled = false;
-    this.listaVisible = false;
+    this.annullaScontrinoDisabled = false;
+    this.annullaDisabled = false;
+    this.confermaDisabled = false;
+    this.listaVisible = true;
+    this.messErroreVisible= true;
   }
 
   // Metodi Automabile Action
@@ -119,9 +126,14 @@ export class DashboardGruppoTreComponent implements OnInit, AutomabileTre {
     oss.subscribe(t => this.scontrino = t.scontrino);
   }
 
+  erroreEanAction(){
+    this.messErroreVisible=false;
+    this.prezzoVisible = true;
+  }
+
   // Metodi azione sui button
   onKey(event: any) {
-    this.prezzoEnabled = false;
+    this.prezzoDisabled = false;
     this.vediPrezzo();
     this.stato = this.automa.next(new EanEvent(this.barcode, this.scontrino));
   }
@@ -172,7 +184,13 @@ export class DashboardGruppoTreComponent implements OnInit, AutomabileTre {
       this.prodotto.prezzo = t.prodotto.prezzo;
       this.prodotto.codice = t.prodotto.codice;
       this.prodotto.descrizione = t.prodotto.descrizione;
-      this.prezzoProdotto = this.prodotto.prezzo;});
+      console.log(this.prodotto.descrizione);
+      this.prezzoProdotto = this.prodotto.prezzo;
+      if (this.prodotto.descrizione==null) {
+        this.erroreEanAction();
+        console.log("ERRORE!");
+      }
+    });
   }
 
   aggiornaRighe(){

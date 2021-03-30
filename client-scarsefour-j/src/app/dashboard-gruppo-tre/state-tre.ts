@@ -14,4 +14,5 @@ export interface AutomabileTre{
     // metodi esecuzione azioni
     aggiungiRigaScontrinoAction();
     annullaScontrinoAction();
+    erroreEanAction();
 }
