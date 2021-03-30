@@ -44,11 +44,57 @@ export class AnagraficaCassiereComponent implements OnInit, AutomabileCrud {
     this.automa = new Automa(this);
     this.aggiorna();
   }
+
+  // metodi Automabile esecuzione azioni
+
   aggiungiAction() {
-    throw new Error('Method not implemented.');
+    if (
+      this.cassiere.nome != null &&
+      this.cassiere.cognome != null &&
+      this.cassiere.codiceFiscale != null
+    ) {
+      let dto: CassiereDto = new CassiereDto();
+      dto.cassiere = this.cassiere;
+      let oss: Observable<ListaCassieriDto> = this.http.post<ListaCassieriDto>(
+        'http://localhost:8080/aggiungi-cassiere',
+        dto
+      );
+      oss.subscribe((c) => (this.cassieri = c.listaCassieri));
+    }
   }
+
   modificaAction() {
-    throw new Error('Method not implemented.');
+    if (
+      this.cassiere.nome != null &&
+      this.cassiere.cognome != null &&
+      this.cassiere.codiceFiscale != null
+    ) {
+      let dto: CassiereRicercaDto = new CassiereRicercaDto();
+      dto.cassiere = this.cassiere;
+      dto.criterio = this.strRicerca;
+      let oss: Observable<ListaCassieriDto> = this.http.post<ListaCassieriDto>(
+        'http://localhost:8080/modifica-cassiere',
+        dto
+      );
+      oss.subscribe((c) => (this.cassieri = c.listaCassieri));
+    }
+  }
+
+  rimuoviAction() {
+    if (
+      this.cassiere.nome != null &&
+      this.cassiere.cognome != null &&
+      this.cassiere.codiceFiscale != null
+    ) {
+      let dto: CassiereRicercaDto = new CassiereRicercaDto();
+      dto.cassiere = this.cassiere;
+      dto.criterio = this.strRicerca;
+      let oss: Observable<ListaCassieriDto> = this.http.post<ListaCassieriDto>(
+        'http://localhost:8080/rimuovi-cassiere',
+        dto
+      );
+      oss.subscribe((c) => (this.cassieri = c.listaCassieri));
+    }
   }
 
   ngOnInit(): void {}
@@ -94,10 +140,6 @@ export class AnagraficaCassiereComponent implements OnInit, AutomabileCrud {
     this.searchVisible = true;
   }
 
-  rimuoviAction() {
-    console.log("Siamo in rimuoviAction");
-  }
-
   //Metodi UI
 
   nuova() {
@@ -136,54 +178,6 @@ export class AnagraficaCassiereComponent implements OnInit, AutomabileCrud {
   }
 
   conferma() {
-    if (this.automa.stato instanceof AggiungiState) {
-      console.log('sono in Conferma Aggiungi');
-      if (
-        this.cassiere.nome != null &&
-        this.cassiere.cognome != null &&
-        this.cassiere.codiceFiscale != null
-      ) {
-        let dto: CassiereDto = new CassiereDto();
-        dto.cassiere = this.cassiere;
-        let oss: Observable<ListaCassieriDto> = this.http.post<ListaCassieriDto>(
-          'http://localhost:8080/aggiungi-cassiere',
-          dto
-        );
-        oss.subscribe((c) => (this.cassieri = c.listaCassieri));
-      }
-    } else if (this.automa.stato instanceof ModificaState) {
-      console.log('sono in Conferma Modifica');
-      if (
-        this.cassiere.nome != null &&
-        this.cassiere.cognome != null &&
-        this.cassiere.codiceFiscale != null
-      ) {
-        let dto: CassiereRicercaDto = new CassiereRicercaDto();
-        dto.cassiere = this.cassiere;
-        dto.criterio = this.strRicerca;
-        let oss: Observable<ListaCassieriDto> = this.http.post<ListaCassieriDto>(
-          'http://localhost:8080/modifica-cassiere',
-          dto
-        );
-        oss.subscribe((c) => (this.cassieri = c.listaCassieri));
-      }
-    } else if (this.automa.stato instanceof RimuoviState) {
-      console.log('sono in Conferma Rimuovi');
-      if (
-        this.cassiere.nome != null &&
-        this.cassiere.cognome != null &&
-        this.cassiere.codiceFiscale != null
-      ) {
-        let dto: CassiereRicercaDto = new CassiereRicercaDto();
-        dto.cassiere = this.cassiere;
-        dto.criterio = this.strRicerca;
-        let oss: Observable<ListaCassieriDto> = this.http.post<ListaCassieriDto>(
-          'http://localhost:8080/rimuovi-cassiere',
-          dto
-        );
-        oss.subscribe((c) => (this.cassieri = c.listaCassieri));
-      }
-    }
     this.automa.next(new ConfermaEvent());
     this.cassiere = new Cassiere();
   }
