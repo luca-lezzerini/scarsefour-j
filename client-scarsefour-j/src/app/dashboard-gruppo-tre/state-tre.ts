@@ -12,5 +12,6 @@ export interface AutomabileTre{
     goToAnnullamentoScontrino();
 
     // metodi esecuzione azioni
-    aggiungiRigaScontrino();
+    aggiungiRigaScontrinoAction();
+    annullaScontrinoAction();
 }

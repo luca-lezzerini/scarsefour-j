@@ -36,17 +36,22 @@ public class DashboardTreServiceImpl implements DashboardTreService {
             r.setScontrino(scontrino);
             rigaScontrinoRepository.save(r);
         });
-        return scontrinoRepository.save(scontrino);
+        Scontrino scontrinoNuovo = new Scontrino();
+        scontrinoNuovo = scontrinoRepository.save(scontrinoNuovo);
+        return scontrinoNuovo;
     }
     
     @Override
-    public void annullaScontrino(Scontrino scontrino) {
+    public Scontrino annullaScontrino(Scontrino scontrino) {
         //Cancella righeScontrino
         scontrino.getRighe().forEach(r -> {
             rigaScontrinoRepository.deleteById(r.getId());
         });
         //Cancello lo scontrino
         scontrinoRepository.deleteById(scontrino.getId());
+        Scontrino scontrinoNuovo = new Scontrino();
+        scontrinoNuovo = scontrinoRepository.save(scontrinoNuovo);
+        return scontrinoNuovo;
     }
     
     @Override
@@ -60,7 +65,7 @@ public class DashboardTreServiceImpl implements DashboardTreService {
     }
     
     @Override
-    public Scontrino aggiungiScontrino(Scontrino scontrino) {
+    public List<RigaScontrino> aggiungiRigaScontrino(Scontrino scontrino) {
         //Salva o aggiorna scontrino e le righeScontrino
         List<RigaScontrino> righe = scontrino.getRighe();
         double totale = 0;
@@ -70,7 +75,7 @@ public class DashboardTreServiceImpl implements DashboardTreService {
         }
         scontrino.setTotale(totale);
         Scontrino scontrinoSalvato = scontrinoRepository.save(scontrino);
-        return scontrinoSalvato;
+        return aggiornaRighe(scontrino);
     }
     
     @Override

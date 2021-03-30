@@ -10,8 +10,10 @@ export class ScontrinoVuotoState implements StateTre {
     next(e: EventTre): StateTre {
         if (e instanceof EanEvent) {
             if (e.codiceEan) {
-                this.automa.gui.aggiungiRigaScontrino();
+                this.automa.gui.aggiungiRigaScontrinoAction();
                 return new ScontrinoNonVuotoState(this.automa);
+            } else {
+                return new ScontrinoVuotoState(this.automa);
             }
         } else if (e instanceof VediPrezzoEvent) {
             return new VediPrezzoState(this.automa);
@@ -40,7 +42,7 @@ export class ScontrinoNonVuotoState implements StateTre {
             if (!e.codiceEan) {
                 return new ScontrinoNonVuotoState(this.automa);
             } else if (e.codiceEan) {
-                this.automa.gui.aggiungiRigaScontrino();
+                this.automa.gui.aggiungiRigaScontrinoAction();
                 return new ScontrinoNonVuotoState(this.automa);
             }
         } else {
@@ -57,6 +59,7 @@ export class AnnullamentoScontrinoState implements StateTre {
         if (e instanceof AnnullaEvent) {
             return new ScontrinoNonVuotoState(this.automa);
         } else if (e instanceof ConfermaEvent) {
+            this.automa.gui.annullaScontrinoAction();
             return new ScontrinoVuotoState(this.automa);
         } else {
             console.log("Ricevuto evento inatteso");

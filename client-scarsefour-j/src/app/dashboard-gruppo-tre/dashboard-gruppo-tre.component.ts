@@ -114,20 +114,35 @@ export class DashboardGruppoTreComponent implements OnInit, AutomabileTre {
     dto.criterio = this.barcode;
     let oss: Observable<ProdottoDto> = this.http.post<ProdottoDto>
       ('http://localhost:8080/vedi-prezzo-tre', dto);
-    oss.subscribe(t => this.prodotto = t.prodotto);
-    this.prezzoProdotto = this.prodotto.prezzo;
+    oss.subscribe(t => {
+      this.prodotto.prezzo = t.prodotto.prezzo;
+      this.prodotto.codice = t.prodotto.codice;
+      this.prodotto.descrizione = t.prodotto.descrizione;
+      this.prezzoProdotto = this.prodotto.prezzo;});
   }
     
-  aggiungiRigaScontrino(){
+  aggiungiRigaScontrinoAction(){
     //deve visualizzare prezzo e salvare
     //aggiungi-scontrino-tre
     let dto: DtoScontrinoTre = new DtoScontrinoTre();
+    let rigaNuova: RigaScontrino = new RigaScontrino();
+    rigaNuova.prodotto = this.prodotto;
+    rigaNuova.quantita = 1;
+    this.righe.push(rigaNuova);
+    this.scontrino.righe = this.righe;
+    dto.scontrino = this.scontrino;
+    let oss: Observable<DtoListaRigaScontrinoTre> = this.http.post<DtoListaRigaScontrinoTre>
+      ('http://localhost:8080/aggiungi-scontrino-tre', dto);
+    oss.subscribe(t => this.righe = t.righeScontrino);
+  }
+  
+  annullaScontrinoAction(){
+    let dto: DtoScontrinoTre = new DtoScontrinoTre();
     dto.scontrino = this.scontrino;
     let oss: Observable<DtoScontrinoTre> = this.http.post<DtoScontrinoTre>
-      ('http://localhost:8080/aggiungi-scontrino-tre', dto);
+      ('http://localhost:8080/annulla-scontrino-tre', dto);
     oss.subscribe(t => this.scontrino = t.scontrino);
   }
-    
 
   chiudiScontrino() {
     let dto: DtoScontrinoTre = new DtoScontrinoTre();
@@ -139,25 +154,30 @@ export class DashboardGruppoTreComponent implements OnInit, AutomabileTre {
   }
 
   stornaUltimo() {
-    this.stato = this.automa.next(new ConfermaEvent());
-  }
-  annullaScontrino() {
-    let dto: DtoScontrinoTre = new DtoScontrinoTre();
-    dto.scontrino = this.scontrino;
-    let oss: Observable<DtoScontrinoTre> = this.http.post<DtoScontrinoTre>
-      ('http://localhost:8080/annulla-scontrino-tre', dto);
-    oss.subscribe(t => this.scontrino = t.scontrino);
-    this.stato = this.automa.next(new AnnullaScontrinoEvent());
-  }
-  annulla() {
-    this.stato = this.automa.next(new AnnullaEvent());
-  }
-  conferma() {
+    
     let dto: DtoScontrinoTre = new DtoScontrinoTre();
     dto.scontrino = this.scontrino;
     let oss: Observable<DtoListaRigaScontrinoTre> = this.http.post<DtoListaRigaScontrinoTre>
       ('http://localhost:8080/storna-ultimo-tre', dto);
     oss.subscribe(t => this.righe = t.righeScontrino);
     this.stato = this.automa.next(new StornaUnoEvent());
+  }
+
+  aggiornaRighe(){
+    let dto: DtoScontrinoTre = new DtoScontrinoTre();
+    dto.scontrino = this.scontrino;
+    let oss: Observable<DtoListaRigaScontrinoTre> = this.http.post<DtoListaRigaScontrinoTre>
+    ('http://localhost:8080/aggiorna-righe-tre', dto);
+    oss.subscribe(r => this.righe = r.righeScontrino);
+  }
+
+  annullaScontrino() {
+    this.stato = this.automa.next(new AnnullaScontrinoEvent());
+  }
+  annulla() {
+    this.stato = this.automa.next(new AnnullaEvent());
+  }
+  conferma() {
+    this.stato = this.automa.next(new ConfermaEvent());
   }
 }

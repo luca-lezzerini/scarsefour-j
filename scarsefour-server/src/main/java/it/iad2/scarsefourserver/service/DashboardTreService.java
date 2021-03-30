@@ -9,9 +9,9 @@ public interface DashboardTreService {
 
     Prodotto vediPrezzo(String ean);
     Scontrino chiudiScontrino(Scontrino scontrino, List<RigaScontrino> righe);
-    void annullaScontrino(Scontrino scontrino);
+    Scontrino annullaScontrino(Scontrino scontrino);
     List<RigaScontrino> stornaUltimo(Scontrino scontrino);
-    Scontrino aggiungiScontrino(Scontrino scontrino);
+    List<RigaScontrino> aggiungiRigaScontrino(Scontrino scontrino);
     List<RigaScontrino> aggiornaRighe(Scontrino scontrino);
 
 }
