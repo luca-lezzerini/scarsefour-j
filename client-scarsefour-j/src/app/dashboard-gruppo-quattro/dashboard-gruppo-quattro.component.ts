@@ -28,7 +28,7 @@ export class DashboardGruppoQuattroComponent implements OnInit {
   prodotto:Prodotto;
   righeScontrino:RigaScontrino[];
 
-
+  barCodeNonVisibile:boolean;
   eanNonEditabile: boolean;
   vediPrezzoVisibleB: boolean;
   chiudiB: boolean;
@@ -41,6 +41,16 @@ export class DashboardGruppoQuattroComponent implements OnInit {
   prezzoLabel: boolean;
   totaleScontrinoLabel:boolean;
   tastoTabMes:boolean;
+
+  bottoneVediPrezzo:boolean=true;
+  bottoneStornaUltimo:boolean=true;
+  bottoneAnnullaScontrino:boolean=true;
+  bottoneAnnulla:boolean=true;
+  bottoneConferma:boolean=true;
+  bottoneChiudiScontrino:boolean=true;
+
+
+
   constructor(private http: HttpClient, private router: Router) {
    }
 
@@ -51,16 +61,24 @@ export class DashboardGruppoQuattroComponent implements OnInit {
   goToScontrinoVuoto() {
     this.eanNonEditabile = false;
     this.vediPrezzoVisibleB = true;
-    this.chiudiB = false
-    this.stornaB = false
-    this.annullaScontrinoB = false
-    this.annullaB = false;
-    this.confermaB = false;
+    this.chiudiB = true;
+    this.stornaB = false;
+    this.annullaScontrinoB = true;
+    this.annullaB = true;
+    this.confermaB = true;
     this.prezzoB = false;
     this.lista = false;
     this.prezzoLabel = false;
     this.totaleScontrinoLabel=false;
     this.tastoTabMes=true;
+
+   this.bottoneVediPrezzo=true;
+   this.bottoneStornaUltimo=true;
+   this.bottoneAnnullaScontrino=false;
+   this.bottoneAnnulla=false;
+   this.bottoneConferma=false;
+   this.bottoneChiudiScontrino=false;
+  
   }
   goToVediPrezzo() {
     this.eanNonEditabile = false;
@@ -73,6 +91,14 @@ export class DashboardGruppoQuattroComponent implements OnInit {
     this.prezzoB = false;
     this.lista = false;
     this.tastoTabMes=false;
+
+    this.bottoneVediPrezzo=true;
+   this.bottoneStornaUltimo=true;
+   this.bottoneAnnullaScontrino=true;
+   this.bottoneAnnulla=true;
+   this.bottoneConferma=true;
+   this.bottoneChiudiScontrino=true;
+  
   }
   gotoScontrinoNonVuoto() {
     this.eanNonEditabile = false;
@@ -85,8 +111,17 @@ export class DashboardGruppoQuattroComponent implements OnInit {
     this.prezzoB = true;
     this.lista = true;
     this.tastoTabMes=true;
+
+    this.bottoneVediPrezzo=true;
+   this.bottoneStornaUltimo=true;
+   this.bottoneAnnullaScontrino=true;
+   this.bottoneAnnulla=true;
+   this.bottoneConferma=true;
+   this.bottoneChiudiScontrino=true;
+  
   }
   gotoAnnullamentoScontrino() {
+    this.barCodeNonVisibile=true;
     this.eanNonEditabile = false;
     this.vediPrezzoVisibleB = false;
     this.chiudiB = false;
@@ -97,6 +132,14 @@ export class DashboardGruppoQuattroComponent implements OnInit {
     this.prezzoB = false;
     this.lista = false;
     this.tastoTabMes=false;
+
+    this.bottoneVediPrezzo=true;
+   this.bottoneStornaUltimo=true;
+   this.bottoneAnnullaScontrino=true;
+   this.bottoneAnnulla=true;
+   this.bottoneConferma=true;
+   this.bottoneChiudiScontrino=true;
+  
   }
 
   vediPrezzo() {

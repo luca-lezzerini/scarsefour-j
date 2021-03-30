@@ -1,6 +1,6 @@
 <body>
     <app-toolbar-menu></app-toolbar-menu>
-    
+
 
     <div class="titolo">
         <h2>Anagrafica Sconti</h2>
@@ -8,8 +8,10 @@
 
     <div *ngIf="form">
         <input type="text" placeholder="codice" [(ngModel)]="sconto.codice" [disabled]="codiceS" class="input">
-        <input type="text" placeholder="descrizione" [(ngModel)]="sconto.descrizione" [disabled]="descrizioneS" class="input">
-        <input type="text" placeholder="dalla Data" [(ngModel)]="sconto.dallaData" [disabled]="dallaDataS" class="input">
+        <input type="text" placeholder="descrizione" [(ngModel)]="sconto.descrizione" [disabled]="descrizioneS"
+            class="input">
+        <input type="text" placeholder="dalla Data" [(ngModel)]="sconto.dallaData" [disabled]="dallaDataS"
+            class="input">
         <input type="text" placeholder="alla Data" [(ngModel)]="sconto.allaData" [disabled]="allaDataS" class="input">
         <input type="text" placeholder="sconto" [(ngModel)]="sconto.sconto" [disabled]="scontoS" class="input">
         <br>
@@ -31,28 +33,28 @@
     </div>
     <br>
     <br>
-    <div class="tabella" class="scrolldown"> 
-        <table *ngIf="tabella">
+    <div class="tabella">
+        <table *ngIf="tabella" class="scrolldown">
             <thead>
-            <tr>
-                <th>Codice</th>
-                <th>Descrizione</th>
-                <th>Dalla data</th>
-                <th>Alla data</th>
-                <th>Sconto</th>
-                <th>Seleziona</th>
-            </tr>
+                <tr>
+                    <th>Codice</th>
+                    <th>Descrizione</th>
+                    <th>Dalla data</th>
+                    <th>Alla data</th>
+                    <th>Sconto</th>
+                    <th>Seleziona</th>
+                </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let s of sconti">
-                <td>{{s.codice}}</td>
-            <td>{{s.descrizione}}</td>
-            <td>{{s.dallaData}}</td>
-            <td>{{s.allaData}}</td>
-            <td>{{s.sconto}}</td>
-                <td><button (click)="seleziona(s)" class = "button">Seleziona</button></td>
-            </tr>
-        </tbody>
+                <tr *ngFor="let s of sconti">
+                    <td>{{s.codice}}</td>
+                    <td>{{s.descrizione}}</td>
+                    <td>{{s.dallaData}}</td>
+                    <td>{{s.allaData}}</td>
+                    <td>{{s.sconto}}</td>
+                    <td><button (click)="seleziona(s)" class="button">Seleziona</button></td>
+                </tr>
+            </tbody>
         </table>
 
     </div>
