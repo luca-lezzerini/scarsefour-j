@@ -77,6 +77,12 @@ export class DashboardGruppoQuattroComponent implements OnInit, AutomabileGruppo
     }
   }
 
+  verificaEanAction(){
+    throw new Error('Method not implemented.');
+
+  }
+
+
   ngOnInit(): void {
     this.automa = new AutomaGruppoQuattro(this);
   }

@@ -75,7 +75,7 @@ export class ScontrinoNonVuotoState implements StateGruppoQuattro {
         }
     }
 
-}
+
 export class VediPrezzoState implements StateGruppoQuattro {
 
     constructor(public automa: AutomaGruppoQuattro) {

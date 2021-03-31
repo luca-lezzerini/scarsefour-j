@@ -20,5 +20,5 @@ export interface AutomabileGruppoQuattro {
   stornaAction();
   annullaScontrinoAction();
   inserisciEanAction();
-
+  verificaEanAction();
 }
