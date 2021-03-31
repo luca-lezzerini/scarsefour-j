@@ -1,4 +1,3 @@
-import { timeStamp } from "console";
 import { EventDashboardDue } from "./event2";
 
 export class ConfermaEvent implements EventDashboardDue{}

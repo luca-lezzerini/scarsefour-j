@@ -73,10 +73,12 @@ export class VediPrezzoState implements StateDashboardDue {
     next(e: EventDashboardDue): StateDashboardDue {
         if (e instanceof EanEvent) {
             if (e.esito && e.numeroRighe == 0){
+                this.automa.gui.vediPrezzoAction();
                 return new ScontrinoVuotoState(this.automa);
             } else if (!e.esito && e.numeroRighe == 0){
                 return new ScontrinoVuotoState(this.automa);
             }else if (e.esito && e.numeroRighe > 0){
+                this.automa.gui.vediPrezzoAction();
                 return new ScontrinoNonVuotoState(this.automa);
             }else if (!e.esito && e.numeroRighe > 0){
                 return new ScontrinoNonVuotoState(this.automa);

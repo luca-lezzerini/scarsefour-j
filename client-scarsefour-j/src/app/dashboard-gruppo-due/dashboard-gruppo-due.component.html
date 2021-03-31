@@ -1,21 +1,21 @@
 <body>
     <div>
-        <button routerLink = '/home-page'>Home Page</button>
+        <button routerLink='/home-page'>Home Page</button>
     </div>
 </body>
-<input type="text" placeholder="barcode" [(ngModel)]="barcode">
+<input type="text" [disabled]="eanEditabile" placeholder="barcode" [(ngModel)]="barcode">
 Prezzo:€ {{prezzo}}
-<button (click)="annullaScontrino()">Annulla scontrino</button>
+<button (click)="annullaScontrino()" *ngIf="annullaScontrinoVisibile">Annulla scontrino</button>
 <br>
-<button (click)="vediPrezzo()">Vedi prezzo</button>
-<button (click)="chiudiScontrino()">Chiudi scontrino</button>
-<button (click)="stornaUltimo()">Storna ultimo</button>
-<button (click)="annulla()">Annulla</button>
-<button (click)="conferma()">Conferma</button>
+<button (click)="vediPrezzo()" *ngIf="vediPrezzoVisibile">Vedi prezzo</button>
+<button (click)="chiudiScontrino()" *ngIf="chiudiScontrinoVisibile">Chiudi scontrino</button>
+<button (click)="stornaUltimo()" *ngIf="stornaVisibile">Storna ultimo</button>
+<button (click)="annulla()" *ngIf="confermaVisibile">Annulla</button>
+<button (click)="conferma()" *ngIf="confermaVisibile">Conferma</button>
 <br>
 <h2>Ultimo elemento {{ultimoElemento}}</h2>
 <br>
-<table>
+<table *ngIf="listaVisibile">
     <tr>
         <th>quantita</th>
         <th>descrizione</th>

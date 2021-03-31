@@ -5,9 +5,10 @@ export interface StateDashboardDue{
 }
 
 export interface AutomabileDue{
-
     goToScontrinoVuoto();
     goToScontrinoNonVuoto();
     goToAnnullamentoScontrino();
     goToVediPrezzo();
+
+    vediPrezzoAction();
 }

@@ -7,6 +7,8 @@ import { ScontrinoDto } from '../dto/scontrino-dto';
 import { Prodotto } from '../entità/prodotto';
 import { RigaScontrino } from '../entità/riga-scontrino';
 import { Scontrino } from '../entità/scontrino';
+import { Automa2 } from './automa-gruppo-due';
+import { VediPrezzoEvent } from './eventi2';
 import { AutomabileDue } from './state2';
 
 @Component({
@@ -15,9 +17,8 @@ import { AutomabileDue } from './state2';
   styleUrls: ['../theme.css']
 })
 export class DashboardGruppoDueComponent implements OnInit, AutomabileDue {
-
+  automa: Automa2;
   scontrino: Scontrino = new Scontrino();
-
   prezzo: number;
   ultimoElemento: Prodotto;
   barcode: string;
@@ -33,7 +34,20 @@ export class DashboardGruppoDueComponent implements OnInit, AutomabileDue {
   annullaVisibile = false;
   chiudiScontrinoVisibile = false;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { 
+    this.automa = new Automa2(this);
+  }
+  vediPrezzoAction() {
+    const dto: EanDto = new EanDto();
+    console.log("Codice: " + this.barcode);
+    dto.barcode = this.barcode;
+    const oss: Observable<ProdottoDto> = this.http.post<ProdottoDto>
+      ('http://localhost:8080/vedi-prezzo-due', dto);
+    oss.subscribe(t => {
+      this.prodotto = t.prodotto;
+      this.prezzo = t.prodotto.prezzo;
+    });
+  }
   goToScontrinoVuoto() {
     this.eanEditabile = true;
     this.vediPrezzoVisibile = true;
@@ -41,7 +55,6 @@ export class DashboardGruppoDueComponent implements OnInit, AutomabileDue {
     this.stornaVisibile = false;
     this.annullaScontrinoVisibile= false;
     this.confermaVisibile = false;
-    this.annullaVisibile = false;
     this.chiudiScontrinoVisibile = false;
   }
   goToScontrinoNonVuoto() {
@@ -85,13 +98,7 @@ export class DashboardGruppoDueComponent implements OnInit, AutomabileDue {
   }
 
   vediPrezzo() {
-    let dto: EanDto = new EanDto();
-    console.log("Codice: " + this.barcode);
-    dto.barcode = this.barcode;
-    let oss: Observable<ProdottoDto> = this.http.post<ProdottoDto>
-      ('http://localhost:8080/vedi-prezzo-due', dto);
-    oss.subscribe(t => this.prodotto = t.prodotto);
-    this.prezzo = this.prodotto.prezzo;
+    this.automa.next(new VediPrezzoEvent());
   }
 
   chiudiScontrino() { }
