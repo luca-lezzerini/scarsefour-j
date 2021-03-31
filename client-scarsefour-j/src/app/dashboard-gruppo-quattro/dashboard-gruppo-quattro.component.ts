@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ConfermaEvent } from '../automa/eventi';
+import { CriterioRicercaDto } from '../dto/criterio-ricerca-dto';
+import { ProdottoDto } from '../dto/prodotto-dto';
 import { Prodotto } from '../entità/prodotto';
 import { RigaScontrino } from '../entità/riga-scontrino';
 import { Scontrino } from '../entità/scontrino';
@@ -21,15 +23,15 @@ export class DashboardGruppoQuattroComponent implements OnInit, AutomabileGruppo
 
   ean: string;
   Descrizione: string;
-  prezzo: string;
+  prezzo: number;
   totale: string;
   scontrini: string;
   automa: AutomaGruppoQuattro;
-  scontrino:Scontrino;
-  prodotto:Prodotto;
-  righeScontrino:RigaScontrino[];
+  scontrino: Scontrino;
+  prodotto: Prodotto;
+  righeScontrino: RigaScontrino[];
 
-  barCodeNonVisibile:boolean;
+  barCodeNonVisibile: boolean;
   eanNonEditabile: boolean;
   vediPrezzoVisibleB: boolean;
   chiudiB: boolean;
@@ -40,23 +42,26 @@ export class DashboardGruppoQuattroComponent implements OnInit, AutomabileGruppo
   prezzoB: boolean;
   lista: boolean;
   prezzoLabel: boolean;
-  totaleScontrinoLabel:boolean;
-  tastoTabMes:boolean;
+  totaleScontrinoLabel: boolean;
+  tastoTabMes: boolean;
 
-  bottoneVediPrezzo:boolean=true;
-  bottoneStornaUltimo:boolean=true;
-  bottoneAnnullaScontrino:boolean=true;
-  bottoneAnnulla:boolean=true;
-  bottoneConferma:boolean=true;
-  bottoneChiudiScontrino:boolean=true;
+  bottoneVediPrezzo: boolean = true;
+  bottoneStornaUltimo: boolean = true;
+  bottoneAnnullaScontrino: boolean = true;
+  bottoneAnnulla: boolean = true;
+  bottoneConferma: boolean = true;
+  bottoneChiudiScontrino: boolean = true;
 
 
 
   constructor(private http: HttpClient, private router: Router) {
-   }
-  vediPrezzoAction() {
-    throw new Error('Method not implemented.');
   }
+  vediPrezzoAction() {
+let dto:CriterioRicercaDto =new CriterioRicercaDto();
+dto.criterio=this.ean;
+let oss: Observable <ProdottoDto> = this.http.post <ProdottoDto>("http://localhost:8080/vedi-prezzo-quattro",dto);
+oss.subscribe(v=>this.prezzo=v.prodotto.prezzo);
+}
   chiudiScontrinoAction() {
     throw new Error('Method not implemented.');
   }
@@ -67,17 +72,17 @@ export class DashboardGruppoQuattroComponent implements OnInit, AutomabileGruppo
     throw new Error('Method not implemented.');
   }
 
-  inserisciEanAction(){
+  inserisciEanAction() {
     throw new Error('Method not implemented.');
   }
 
-  stornaAction(){
-    {
-      throw new Error('Method not implemented.');
-    }
+  stornaAction() {
+
+    throw new Error('Method not implemented.');
+
   }
 
-  verificaEanAction(){
+  verificaEanAction() {
     throw new Error('Method not implemented.');
 
   }
@@ -99,20 +104,20 @@ export class DashboardGruppoQuattroComponent implements OnInit, AutomabileGruppo
     this.prezzoB = false;
     this.lista = false;
     this.prezzoLabel = false;
-    this.totaleScontrinoLabel=false;
-    this.tastoTabMes=true;
+    this.totaleScontrinoLabel = false;
+    this.tastoTabMes = true;
 
-   this.bottoneVediPrezzo=true;
-   this.bottoneStornaUltimo=true;
-   this.bottoneAnnullaScontrino=false;
-   this.bottoneAnnulla=false;
-   this.bottoneConferma=false;
-   this.bottoneChiudiScontrino=false;
-  
+    this.bottoneVediPrezzo = true;
+    this.bottoneStornaUltimo = true;
+    this.bottoneAnnullaScontrino = false;
+    this.bottoneAnnulla = false;
+    this.bottoneConferma = false;
+    this.bottoneChiudiScontrino = false;
+
   }
   goToVediPrezzo() {
     this.eanNonEditabile = false;
-    this.vediPrezzoVisibleB = false;
+    this.vediPrezzoVisibleB = true;
     this.chiudiB = false;
     this.stornaB = false;
     this.annullaScontrinoB = false;
@@ -120,15 +125,15 @@ export class DashboardGruppoQuattroComponent implements OnInit, AutomabileGruppo
     this.confermaB = false;
     this.prezzoB = false;
     this.lista = false;
-    this.tastoTabMes=false;
+    this.tastoTabMes = false;
 
-    this.bottoneVediPrezzo=true;
-   this.bottoneStornaUltimo=true;
-   this.bottoneAnnullaScontrino=true;
-   this.bottoneAnnulla=true;
-   this.bottoneConferma=true;
-   this.bottoneChiudiScontrino=true;
-  
+    this.bottoneVediPrezzo = true;
+    this.bottoneStornaUltimo = true;
+    this.bottoneAnnullaScontrino = true;
+    this.bottoneAnnulla = true;
+    this.bottoneConferma = true;
+    this.bottoneChiudiScontrino = true;
+
   }
   gotoScontrinoNonVuoto() {
     this.eanNonEditabile = false;
@@ -140,18 +145,18 @@ export class DashboardGruppoQuattroComponent implements OnInit, AutomabileGruppo
     this.confermaB = false;
     this.prezzoB = true;
     this.lista = true;
-    this.tastoTabMes=true;
+    this.tastoTabMes = true;
 
-    this.bottoneVediPrezzo=true;
-   this.bottoneStornaUltimo=true;
-   this.bottoneAnnullaScontrino=true;
-   this.bottoneAnnulla=true;
-   this.bottoneConferma=true;
-   this.bottoneChiudiScontrino=true;
-  
+    this.bottoneVediPrezzo = true;
+    this.bottoneStornaUltimo = true;
+    this.bottoneAnnullaScontrino = true;
+    this.bottoneAnnulla = true;
+    this.bottoneConferma = true;
+    this.bottoneChiudiScontrino = true;
+
   }
   gotoAnnullamentoScontrino() {
-    this.barCodeNonVisibile=true;
+    this.barCodeNonVisibile = true;
     this.eanNonEditabile = false;
     this.vediPrezzoVisibleB = false;
     this.chiudiB = false;
@@ -161,15 +166,15 @@ export class DashboardGruppoQuattroComponent implements OnInit, AutomabileGruppo
     this.confermaB = true;
     this.prezzoB = false;
     this.lista = false;
-    this.tastoTabMes=false;
+    this.tastoTabMes = false;
 
-    this.bottoneVediPrezzo=true;
-   this.bottoneStornaUltimo=true;
-   this.bottoneAnnullaScontrino=true;
-   this.bottoneAnnulla=true;
-   this.bottoneConferma=true;
-   this.bottoneChiudiScontrino=true;
-  
+    this.bottoneVediPrezzo = true;
+    this.bottoneStornaUltimo = true;
+    this.bottoneAnnullaScontrino = true;
+    this.bottoneAnnulla = true;
+    this.bottoneConferma = true;
+    this.bottoneChiudiScontrino = true;
+
   }
 
   vediPrezzo() {
@@ -202,18 +207,17 @@ export class DashboardGruppoQuattroComponent implements OnInit, AutomabileGruppo
     this.automa.next(new ConfermaEvent());
   }
 
-  inserisciEan(){
+  inserisciEan() {
     let dto: RichiestaEanDto4 = new RichiestaEanDto4();
     dto.barcode = this.ean;
     dto.scontrino = this.scontrino;
-    let oss:Observable<RispostaEanDto4> = this.http.post<RispostaEanDto4>('http://localhost:8080/inserisci-ean-quattro',dto);
+    let oss: Observable<RispostaEanDto4> = this.http.post<RispostaEanDto4>('http://localhost:8080/inserisci-ean-quattro', dto);
     oss.subscribe(e => {
-       this.scontrino = e.scontrino;
-       this.ean = e.barcode;
-       this.righeScontrino = e.righeScontrino;
-    }
-    );
-this.automa.next(new EanEvent(this.ean, this.scontrino));
+      this.scontrino = e.scontrino;
+      this.ean = e.barcode;
+      this.righeScontrino = e.righeScontrino;
+    });
+    this.automa.next(new EanEvent(this.ean, this.scontrino));
   }
 
 }
