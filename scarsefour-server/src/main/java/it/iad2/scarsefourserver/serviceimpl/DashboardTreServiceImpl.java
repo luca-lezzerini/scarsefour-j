@@ -7,6 +7,7 @@ import it.iad2.scarsefourserver.service.DashboardTreService;
 import it.iad2.scarsefourserver.model.Prodotto;
 import it.iad2.scarsefourserver.model.RigaScontrino;
 import it.iad2.scarsefourserver.model.Scontrino;
+import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,39 +34,35 @@ public class DashboardTreServiceImpl implements DashboardTreService {
     }
 
     @Override
-    public Scontrino chiudiScontrino(Scontrino scontrino, List<RigaScontrino> righe
-    ) {
+    public Scontrino chiudiScontrino(Scontrino scontrino, List<RigaScontrino> righe) {
         //Associa e salva Scontrino e RigheScontrino
-        List<RigaScontrino> lriga = scontrino.getRighe();
+        List<RigaScontrino> lriga = righe;
         righe.forEach(r -> {
             lriga.add(r);
             r.setScontrino(scontrino);
             rigaScontrinoRepository.save(r);
         });
-        Scontrino scontrinoNuovo = new Scontrino();
-        scontrinoNuovo = scontrinoRepository.save(scontrinoNuovo);
-        return scontrinoNuovo;
+        //Salvo lo scontrino
+        scontrinoRepository.save(scontrino);
+
+        return creaNuovoScontrinoVuoto();
     }
 
     @Override
-    public Scontrino annullaScontrino(Scontrino scontrino
-    ) {
+    public Scontrino annullaScontrino(Scontrino scontrino) {
         //Cancella righeScontrino
         scontrino.getRighe().forEach(r -> {
             rigaScontrinoRepository.deleteById(r.getId());
         });
         //Cancello lo scontrino
         scontrinoRepository.deleteById(scontrino.getId());
-        Scontrino scontrinoNuovo = new Scontrino();
-        scontrinoNuovo = scontrinoRepository.save(scontrinoNuovo);
-        return scontrinoNuovo;
+        return creaNuovoScontrinoVuoto();
     }
 
     @Override
-    public List<RigaScontrino> stornaUltimo(Scontrino scontrino
-    ) {
+    public Scontrino stornaUltimo(Scontrino scontrino) {
         // Cancello l'ultima riga inserita
-        if (scontrino.getRighe().size() == 0) {
+        if (!scontrino.getRighe().isEmpty()) {
             RigaScontrino ultimaRiga = scontrino.getRighe().get(scontrino.getRighe().size() - 1);
             rigaScontrinoRepository.deleteById(ultimaRiga.getId());
         }
@@ -73,16 +70,17 @@ public class DashboardTreServiceImpl implements DashboardTreService {
     }
 
     @Override
-    public List<RigaScontrino> aggiungiRigaScontrino(Scontrino scontrino
-    ) {
+    public Scontrino aggiungiRigaScontrino(Scontrino scontrino) {
         //Salva o aggiorna scontrino e le righeScontrino
         List<RigaScontrino> righe = scontrino.getRighe();
         System.out.println("righe" + righe.toString());
         double totale = 0;
+        System.out.println(scontrino.getRighe().toString());
         for (RigaScontrino rigaScontrino : righe) {
             totale += rigaScontrino.getProdotto().getPrezzo();
             rigaScontrinoRepository.save(rigaScontrino);
         }
+        System.out.println("totale = " + totale);
         scontrino.setTotale(totale);
         Scontrino scontrinoSalvato = scontrinoRepository.save(scontrino);
         System.out.println("scontrino salvato" + scontrinoSalvato.getRighe().toString());
@@ -90,9 +88,16 @@ public class DashboardTreServiceImpl implements DashboardTreService {
     }
 
     @Override
-    public List<RigaScontrino> aggiornaRighe(Scontrino scontrino
-    ) {
-        return rigaScontrinoRepository.findByScontrino(scontrino);
+    public Scontrino aggiornaRighe(Scontrino scontrino) {
+        //return rigaScontrinoRepository.findByScontrino(scontrino);
+        return rigaScontrinoRepository.findById(scontrino.getId()).get().getScontrino();
+    }
+
+    private Scontrino creaNuovoScontrinoVuoto() {
+        // Creo un nuovo scontrino lo salvo e lo restituisco vuoto
+        Scontrino scontrinoNuovo = new Scontrino(LocalDateTime.now(), 0, 0.0);
+        scontrinoNuovo = scontrinoRepository.save(scontrinoNuovo);
+        return scontrinoNuovo;
     }
 
 }

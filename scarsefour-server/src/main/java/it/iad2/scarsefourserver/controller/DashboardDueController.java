@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import it.iad2.scarsefourserver.dto.EanDto;
+import it.iad2.scarsefourserver.dto.PrezzoDto;
 import it.iad2.scarsefourserver.dto.ScontrinoDto;
 
 @CrossOrigin("*")
@@ -24,4 +26,13 @@ public class DashboardDueController {
 		dtoR.setScontrino(dashboardDueService.annullaScontrino(dto.getScontrino()));
 		return dtoR;
 	}
+	
+	@RequestMapping("/vedi-prezzo-due")
+	@ResponseBody
+	public PrezzoDto vediPrezzo2(@RequestBody EanDto dto)
+	{
+		return new PrezzoDto(dashboardDueService.vediPrezzo(dto.getBarcode()));
+	}
+	
+	
 }

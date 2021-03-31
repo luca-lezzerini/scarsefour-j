@@ -10,6 +10,5 @@ public interface ProdottoRepository extends JpaRepository<Prodotto, Long> {
 
     Prodotto findByEanEquals(String c);
 
-    Prodotto findByCodice(String c);
-    
+    Prodotto findByCodice(String c);    
 }

@@ -24,7 +24,7 @@ export class DashboardGruppoTreComponent implements OnInit, AutomabileTre {
   barcode: string;
   // riportare l'ultimo elemento della tabella, solo descrizione e prezzo
   ultimoElemento: string;
-  prodotto: Prodotto = new Prodotto();
+  prodotto: Prodotto;
   righe: RigaScontrino[] = [];
   scontrino: Scontrino = new Scontrino();
   rigaScontrino: RigaScontrino;
@@ -43,6 +43,7 @@ export class DashboardGruppoTreComponent implements OnInit, AutomabileTre {
   automa: AutomaTre;
   stato: StateTre;
   messaggioErrore: string = "Ean Sconosciuto!";
+  totale: string;
 
   constructor(private http: HttpClient) {
   }
@@ -113,9 +114,13 @@ export class DashboardGruppoTreComponent implements OnInit, AutomabileTre {
     this.righe.push(rigaNuova);
     this.scontrino.righe = this.righe;
     dto.scontrino = this.scontrino;
-    let oss: Observable<DtoListaRigaScontrinoTre> = this.http.post<DtoListaRigaScontrinoTre>
+    let oss: Observable<DtoScontrinoTre> = this.http.post<DtoScontrinoTre>
       ('http://localhost:8080/aggiungi-scontrino-tre', dto);
-    oss.subscribe(t => this.righe = t.righeScontrino);
+    oss.subscribe(t => {
+      this.scontrino = t.scontrino;
+      this.righe = t.scontrino.righe;
+      console.log(this.scontrino.totale)});
+      
   }
   
   annullaScontrinoAction(){
@@ -154,9 +159,11 @@ export class DashboardGruppoTreComponent implements OnInit, AutomabileTre {
   stornaUltimo() {
     let dto: DtoScontrinoTre = new DtoScontrinoTre();
     dto.scontrino = this.scontrino;
-    let oss: Observable<DtoListaRigaScontrinoTre> = this.http.post<DtoListaRigaScontrinoTre>
+    let oss: Observable<DtoScontrinoTre> = this.http.post<DtoScontrinoTre>
       ('http://localhost:8080/storna-ultimo-tre', dto);
-    oss.subscribe(t => this.righe = t.righeScontrino);
+    oss.subscribe(t => {
+      this.scontrino = t.scontrino;
+      this.righe = t.scontrino.righe});
     this.stato = this.automa.next(new StornaUnoEvent());
   }
 
@@ -175,12 +182,14 @@ export class DashboardGruppoTreComponent implements OnInit, AutomabileTre {
   // Metodi richiamati internamente
   vediPrezzo() {
     //deve solo visualizzare il prezzo
+    this.prodotto = new Prodotto();
     let dto: CriterioRicercaDto = new CriterioRicercaDto();
     console.log("BARCODE: " + this.barcode);
     dto.criterio = this.barcode;
     let oss: Observable<ProdottoDto> = this.http.post<ProdottoDto>
       ('http://localhost:8080/vedi-prezzo-tre', dto);
     oss.subscribe(t => {
+      this.prodotto.id = t.prodotto.id;
       this.prodotto.prezzo = t.prodotto.prezzo;
       this.prodotto.codice = t.prodotto.codice;
       this.prodotto.descrizione = t.prodotto.descrizione;
@@ -196,8 +205,8 @@ export class DashboardGruppoTreComponent implements OnInit, AutomabileTre {
   aggiornaRighe(){
     let dto: DtoScontrinoTre = new DtoScontrinoTre();
     dto.scontrino = this.scontrino;
-    let oss: Observable<DtoListaRigaScontrinoTre> = this.http.post<DtoListaRigaScontrinoTre>
+    let oss: Observable<DtoScontrinoTre> = this.http.post<DtoScontrinoTre>
     ('http://localhost:8080/aggiorna-righe-tre', dto);
-    oss.subscribe(r => this.righe = r.righeScontrino);
+    oss.subscribe(r => this.righe = r.scontrino.righe);
   }
 }

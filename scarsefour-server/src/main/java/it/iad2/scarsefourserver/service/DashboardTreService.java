@@ -10,8 +10,11 @@ public interface DashboardTreService {
     Prodotto vediPrezzo(String ean);
     Scontrino chiudiScontrino(Scontrino scontrino, List<RigaScontrino> righe);
     Scontrino annullaScontrino(Scontrino scontrino);
-    List<RigaScontrino> stornaUltimo(Scontrino scontrino);
-    List<RigaScontrino> aggiungiRigaScontrino(Scontrino scontrino);
-    List<RigaScontrino> aggiornaRighe(Scontrino scontrino);
+//    List<RigaScontrino> stornaUltimo(Scontrino scontrino);
+//    List<RigaScontrino> aggiungiRigaScontrino(Scontrino scontrino);
+//    List<RigaScontrino> aggiornaRighe(Scontrino scontrino);
+    Scontrino stornaUltimo(Scontrino scontrino);
+    Scontrino aggiungiRigaScontrino(Scontrino scontrino);
+    Scontrino aggiornaRighe(Scontrino scontrino);
 
 }
