@@ -1,19 +1,20 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { CriterioRicercaDto } from '../dto/criterio-ricerca-dto';
+import { EanDto } from '../dashboard-gruppo-uno/dto-dashboard-uno/ean-dto';
 import { ProdottoDto } from '../dto/prodotto-dto';
 import { ScontrinoDto } from '../dto/scontrino-dto';
 import { Prodotto } from '../entità/prodotto';
 import { RigaScontrino } from '../entità/riga-scontrino';
 import { Scontrino } from '../entità/scontrino';
+import { AutomabileDue } from './state2';
 
 @Component({
   selector: 'app-dashboard-gruppo-due',
   templateUrl: './dashboard-gruppo-due.component.html',
   styleUrls: ['../theme.css']
 })
-export class DashboardGruppoDueComponent implements OnInit {
+export class DashboardGruppoDueComponent implements OnInit, AutomabileDue {
 
   scontrino: Scontrino = new Scontrino();
 
@@ -21,9 +22,58 @@ export class DashboardGruppoDueComponent implements OnInit {
   ultimoElemento: Prodotto;
   barcode: string;
   prodotto: Prodotto = new Prodotto();
-
   righeScontrino: Array<RigaScontrino>;
-  constructor(private http: HttpClient) {}
+  // variabili booleane
+  eanEditabile = false;
+  vediPrezzoVisibile = false;
+  listaVisibile = false;
+  stornaVisibile = false;
+  annullaScontrinoVisibile = false;
+  confermaVisibile = false;
+  annullaVisibile = false;
+  chiudiScontrinoVisibile = false;
+
+  constructor(private http: HttpClient) { }
+  goToScontrinoVuoto() {
+    this.eanEditabile = true;
+    this.vediPrezzoVisibile = true;
+    this.listaVisibile = false;
+    this.stornaVisibile = false;
+    this.annullaScontrinoVisibile= false;
+    this.confermaVisibile = false;
+    this.annullaVisibile = false;
+    this.chiudiScontrinoVisibile = false;
+  }
+  goToScontrinoNonVuoto() {
+    this.eanEditabile = true;
+    this.vediPrezzoVisibile = true;
+    this.listaVisibile = true;
+    this.stornaVisibile = true;
+    this.annullaScontrinoVisibile = true;
+    this.chiudiScontrinoVisibile = true;
+    this.confermaVisibile = false;
+    this.annullaVisibile = false;
+  }
+  goToAnnullamentoScontrino() {
+    this.confermaVisibile = true;
+    this.annullaVisibile = true;
+    this.eanEditabile = false;
+    this.vediPrezzoVisibile = false;
+    this.listaVisibile = false;
+    this.stornaVisibile = false;
+    this.annullaScontrinoVisibile =false;
+    this.chiudiScontrinoVisibile = false;
+  }
+  goToVediPrezzo() {
+    this.eanEditabile = true;
+    this.vediPrezzoVisibile = false;
+    this.listaVisibile = false;
+    this.stornaVisibile = false;
+    this.annullaScontrinoVisibile= false;
+    this.confermaVisibile = false;
+    this.annullaVisibile = false;
+    this.chiudiScontrinoVisibile = false;
+  }
 
   ngOnInit(): void {
   }
@@ -31,18 +81,18 @@ export class DashboardGruppoDueComponent implements OnInit {
   annullaScontrino() {
     const dto: ScontrinoDto = new ScontrinoDto();
     dto.scontrino = this.scontrino;
-    
-   }
+
+  }
 
   vediPrezzo() {
-    let dto: CriterioRicercaDto = new CriterioRicercaDto();
+    let dto: EanDto = new EanDto();
     console.log("Codice: " + this.barcode);
-    dto.criterio = this.barcode;
+    dto.barcode = this.barcode;
     let oss: Observable<ProdottoDto> = this.http.post<ProdottoDto>
       ('http://localhost:8080/vedi-prezzo-due', dto);
     oss.subscribe(t => this.prodotto = t.prodotto);
     this.prezzo = this.prodotto.prezzo;
-   }
+  }
 
   chiudiScontrino() { }
 

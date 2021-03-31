@@ -14,11 +14,10 @@ export class ScontrinoVuotoState implements StateDashboardDue {
             return new VediPrezzoState(this.automa);
         }
         else if (e instanceof EanEvent) {
-            if (e.codiceEan) {
+            if(e.esito){
                 return new ScontrinoNonVuotoState(this.automa);
-            }
-            else {
-                return new ScontrinoVuotoState(this.automa)
+            }else{
+                return new ScontrinoVuotoState(this.automa);
             }
         }
         else {
@@ -38,19 +37,19 @@ export class ScontrinoNonVuotoState implements StateDashboardDue {
             return new ScontrinoVuotoState(this.automa);
         }
         else if (e instanceof StornaUltimoEvent) {
-            if (e.quantita== 1) {
+            if (e.numeroRighe == 1) {
                 return new ScontrinoVuotoState(this.automa);
             }
-            else if (e.quantita > 1){
-                return new ScontrinoNonVuotoState(this.automa);
+            else if (e.numeroRighe > 1){
+                return this.automa.stato;
             }
         }
         else if (e instanceof EanEvent){ 
-            if (!e.codiceEan){
-                return new ScontrinoNonVuotoState(this.automa);
+            if (e.esito){
+                return this.automa.stato;
             }
-            else if (e.codiceEan){
-                return new ScontrinoNonVuotoState(this.automa);
+            else{
+                return this.automa.stato;
             }
         }
         else if (e instanceof AnnullaScontrinoEvent){
@@ -73,17 +72,14 @@ export class VediPrezzoState implements StateDashboardDue {
 
     next(e: EventDashboardDue): StateDashboardDue {
         if (e instanceof EanEvent) {
-            if (e.scontrino && e.codiceEan){
-                return new ScontrinoNonVuotoState(this.automa);
-            }
-            else if (e.scontrino && !e.codiceEan){
-                return new ScontrinoNonVuotoState(this.automa);
-            }
-            else if (!e.scontrino && !e.codiceEan){
+            if (e.esito && e.numeroRighe == 0){
                 return new ScontrinoVuotoState(this.automa);
-            }
-            else if (!e.scontrino && e.codiceEan){
+            } else if (!e.esito && e.numeroRighe == 0){
                 return new ScontrinoVuotoState(this.automa);
+            }else if (e.esito && e.numeroRighe > 0){
+                return new ScontrinoNonVuotoState(this.automa);
+            }else if (!e.esito && e.numeroRighe > 0){
+                return new ScontrinoNonVuotoState(this.automa);
             }
         }
         else {
