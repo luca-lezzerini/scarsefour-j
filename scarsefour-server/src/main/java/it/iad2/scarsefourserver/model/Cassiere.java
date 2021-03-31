@@ -1,6 +1,7 @@
 package it.iad2.scarsefourserver.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,7 +24,7 @@ public class Cassiere {
     private String codiceFiscale;
 
     @JsonIgnoreProperties(value = "cassiere", allowGetters = true, allowSetters = true)
-    @OneToOne
+    @OneToOne(cascade= CascadeType.REMOVE)
     @JoinColumn(referencedColumnName = "id")
     private Scontrino scontrino;
 

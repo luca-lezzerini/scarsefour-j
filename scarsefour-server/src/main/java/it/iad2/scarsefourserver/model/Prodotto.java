@@ -1,4 +1,4 @@
-package it.iad2.scarsefourserver.model;
+ package it.iad2.scarsefourserver.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -45,7 +45,7 @@ public class Prodotto {
     private List<RigaScontrino> righe;
 
     @JsonIgnoreProperties(value = "prodotto", allowGetters = true, allowSetters = true)
-    @ManyToMany
+    @ManyToMany(cascade= CascadeType.REMOVE)
     @JoinColumn(referencedColumnName = "id")
     private List<Sconto> sconti;
 

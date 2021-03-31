@@ -23,7 +23,7 @@ public class RigaScontrino {
     private int quantita = 1;
 
     @JsonIgnoreProperties(value = "rigaScontrino",allowGetters = true,allowSetters = true)
-    @ManyToOne
+    @ManyToOne(cascade= CascadeType.REMOVE)
     @JoinColumn(referencedColumnName = "id")
     private Scontrino scontrino;
 

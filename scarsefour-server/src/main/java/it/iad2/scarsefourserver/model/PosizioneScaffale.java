@@ -6,6 +6,7 @@
 package it.iad2.scarsefourserver.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -30,7 +31,7 @@ public class PosizioneScaffale {
     private String descrizione;
 
     @JsonIgnore
-    @OneToOne
+    @OneToOne(cascade= CascadeType.REMOVE)
     @JoinColumn(referencedColumnName = "id")
     private Prodotto prodotto;
 
