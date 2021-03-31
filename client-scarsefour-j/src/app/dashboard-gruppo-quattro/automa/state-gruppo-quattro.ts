@@ -14,6 +14,11 @@ export interface AutomabileGruppoQuattro {
   gotoAnnullamentoScontrino();
 
   //metodi esecuzione azioni
-  
+  vediPrezzoAction();
+  chiudiScontrinoAction();
+  stornaUltimoAction();
+  stornaAction();
+  annullaScontrinoAction();
+  inserisciEanAction();
 
 }

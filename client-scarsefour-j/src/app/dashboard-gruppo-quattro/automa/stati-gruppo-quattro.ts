@@ -9,10 +9,12 @@ export class ScontrinoVuotoState implements StateGruppoQuattro {
     }
     next(e: Event): StateGruppoQuattro {
         if (e instanceof VediPrezzoEvent) {
+            this.automa.gui.vediPrezzoAction();
             return new VediPrezzoState(this.automa);
         }
         if (e instanceof EanEvent) {
             if (e.codiceEan) {
+                this.automa.gui.inserisciEanAction();
                 return new ScontrinoNonVuotoState(this.automa);
             }
             else {
@@ -31,33 +33,41 @@ export class ScontrinoNonVuotoState implements StateGruppoQuattro {
     }
     next(e: Event): StateGruppoQuattro {
         if (e instanceof AnnullaScontrinoEvent) {
+            this.automa.gui.annullaScontrinoAction();
             return new AnnullamentoScontrinoState(this.automa);
         }
         if (e instanceof ChiudiEvent) {
+            this.automa.gui.chiudiScontrinoAction();
             return new ScontrinoVuotoState(this.automa);
         }
         if (e instanceof StornaEvent) {
             if (e.element == 1) {
+                this.automa.gui.stornaUltimoAction();
                 return new ScontrinoVuotoState(this.automa);
             }
 
 
             if (e.element > 1) {
+                this.automa.gui.stornaAction();
+
                 return new ScontrinoNonVuotoState(this.automa);
 
             }
         }
         if (e instanceof EanEvent) {
-            if (e.codiceEan == "conosciuto") {
+            //if (e.codiceEan == "conosciuto")
+            
+            // {
+                 this.automa.gui.verificaEanAction();
                 return new ScontrinoNonVuotoState(this.automa);
             }
 
-            if (e.codiceEan == "sconosciuto") {
+            /*if (e.codiceEan == "sconosciuto") {
                 return new ScontrinoNonVuotoState(this.automa);
             }
             if (e instanceof VediPrezzoEvent) {
                 return new VediPrezzoState(this.automa);
-            }
+            }*/
 
             else {
                 console.log('Ricevuto evento inatteso');
@@ -74,19 +84,23 @@ export class VediPrezzoState implements StateGruppoQuattro {
     next(e: Event): StateGruppoQuattro {
         if (e instanceof EanEvent) {
 
-            if (e.scontrino != null && e.codiceEan == "sconosciuto") {
+            if (e.scontrino != null ) {
+                this.automa.gui.verificaEanAction();
                 return new ScontrinoNonVuotoState(this.automa);
             }
-            else if (e.scontrino != null && e.codiceEan == "conosciuto") {
+           /* else if (e.scontrino != null && e.codiceEan == "conosciuto") {
                 return new ScontrinoNonVuotoState(this.automa);
-            }
+           }*/
+            
 
-            else if (e.scontrino == null && e.codiceEan == "sconosciuto") {
+            else if (e.scontrino == null)// && e.codiceEan == "sconosciuto")
+             {
+                this.automa.gui.verificaEanAction();
                 return new ScontrinoVuotoState(this.automa);
             }
-            else if (e.scontrino == null && e.codiceEan == "conosciuto") {
+           /* else if (e.scontrino == null && e.codiceEan == "conosciuto") {
                 return new ScontrinoVuotoState(this.automa);
-            }
+            }*/
         }
         else {
             console.log('Ricevuto evento inatteso');
@@ -104,6 +118,7 @@ export class AnnullamentoScontrinoState implements StateGruppoQuattro {
             return new ScontrinoNonVuotoState(this.automa);
         }
         if (e instanceof ConfermaEvent) {
+            this.automa.gui.annullaScontrinoAction();
             return new ScontrinoVuotoState(this.automa);
         }
     }

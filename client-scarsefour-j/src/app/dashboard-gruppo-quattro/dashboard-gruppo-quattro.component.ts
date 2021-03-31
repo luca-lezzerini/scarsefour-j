@@ -8,6 +8,7 @@ import { RigaScontrino } from '../entità/riga-scontrino';
 import { Scontrino } from '../entità/scontrino';
 import { AutomaGruppoQuattro } from './automa/automa-gruppo-quattro';
 import { AnnullaEvent, AnnullaScontrinoEvent, ChiudiEvent, EanEvent, StornaEvent, VediPrezzoEvent } from './automa/eventi-gruppo-quattro';
+import { AutomabileGruppoQuattro } from './automa/state-gruppo-quattro';
 import { RichiestaEanDto4 } from './dto/Richiesta-Ean-dto-4';
 import { RispostaEanDto4 } from './dto/Risposta-Ean-dto-4';
 
@@ -16,7 +17,7 @@ import { RispostaEanDto4 } from './dto/Risposta-Ean-dto-4';
   templateUrl: './dashboard-gruppo-quattro.component.html',
   styleUrls: ['../theme.css']
 })
-export class DashboardGruppoQuattroComponent implements OnInit {
+export class DashboardGruppoQuattroComponent implements OnInit, AutomabileGruppoQuattro {
 
   ean: string;
   Descrizione: string;
@@ -53,12 +54,35 @@ export class DashboardGruppoQuattroComponent implements OnInit {
 
   constructor(private http: HttpClient, private router: Router) {
    }
+  vediPrezzoAction() {
+    throw new Error('Method not implemented.');
+  }
+  chiudiScontrinoAction() {
+    throw new Error('Method not implemented.');
+  }
+  stornaUltimoAction() {
+    throw new Error('Method not implemented.');
+  }
+  annullaScontrinoAction() {
+    throw new Error('Method not implemented.');
+  }
+
+  inserisciEanAction(){
+    throw new Error('Method not implemented.');
+  }
+
+  stornaAction(){
+    {
+      throw new Error('Method not implemented.');
+    }
+  }
 
   ngOnInit(): void {
     this.automa = new AutomaGruppoQuattro(this);
   }
 
   goToScontrinoVuoto() {
+    this.barCodeNonVisibile = true;
     this.eanNonEditabile = false;
     this.vediPrezzoVisibleB = true;
     this.chiudiB = true;

@@ -1,4 +1,7 @@
 
+<body>
+    <h2>Dashboard Cassa 4</h2>
+    
 <input type="text" placeholder="barcode" [(ngModel)]="ean" [disabled]="eanNonEditabile" (keydown.tab)="inserisciEan()" *ngIf="barCodeNonVisibile">
 <p *ngIf = "tastoTabMes"> Premere tasto tab per confermare codice prodotto</p>
 
@@ -32,3 +35,4 @@
 <p *ngIf="totaleScontrinoLabel">Totale:{{totale}}</p>
 
 
+</body>
