@@ -195,8 +195,8 @@ export class DashboardGruppoUnoComponent implements OnInit, AutomabileDashboardU
       this.automaD.next(new EanEvent(this.barcode, this.scontrino));
       if (r.scontrino != null) {
         this.prezzoTot = r.scontrino.totale;
-        //this.prezzoE = r.righeScontrino[r.righeScontrino.length - 1].prodotto.prezzo;
-        //this.descrizioneE = r.righeScontrino[r.righeScontrino.length - 1].prodotto.descrizione;
+        this.prezzoE = r.righeScontrino[r.righeScontrino.length - 1].prodotto.prezzo;
+        this.descrizioneE = r.righeScontrino[r.righeScontrino.length - 1].prodotto.descrizione;
       }
       this.barcode = "";
     });
