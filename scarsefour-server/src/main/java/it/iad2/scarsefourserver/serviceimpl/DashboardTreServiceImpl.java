@@ -75,10 +75,12 @@ public class DashboardTreServiceImpl implements DashboardTreService {
         List<RigaScontrino> righe = scontrino.getRighe();
         System.out.println("righe" + righe.toString());
         double totale = 0;
+        System.out.println(scontrino.getRighe().toString());
         for (RigaScontrino rigaScontrino : righe) {
             totale += rigaScontrino.getProdotto().getPrezzo();
             rigaScontrinoRepository.save(rigaScontrino);
         }
+        System.out.println("totale = " + totale);
         scontrino.setTotale(totale);
         Scontrino scontrinoSalvato = scontrinoRepository.save(scontrino);
         System.out.println("scontrino salvato" + scontrinoSalvato.getRighe().toString());
