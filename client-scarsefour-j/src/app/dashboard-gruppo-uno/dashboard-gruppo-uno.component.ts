@@ -39,6 +39,7 @@ export class DashboardGruppoUnoComponent implements OnInit, AutomabileDashboardU
   chiudiVis: boolean = false;
   prezzoVis: boolean = false;
   prezzoRVis: boolean = false;
+  ultimoElVis: boolean = false;
 
   //variabili
   barcode: string = "";
@@ -72,6 +73,7 @@ export class DashboardGruppoUnoComponent implements OnInit, AutomabileDashboardU
     this.chiudiVis = true;
     this.prezzoVis = false;
     this.blurVar = true;
+    this.ultimoElVis = false;
   }
 
   goToScontrinoVuotoPrimoEan() {
@@ -137,6 +139,7 @@ export class DashboardGruppoUnoComponent implements OnInit, AutomabileDashboardU
     this.chiudiVis = false;
     this.prezzoVis = false;
     this.blurVar = false;
+    this.ultimoElVis = false;
   }
 
   goToScontrinoNonVuoto() {
@@ -154,6 +157,7 @@ export class DashboardGruppoUnoComponent implements OnInit, AutomabileDashboardU
     this.chiudiVis = true;
     this.prezzoVis = true;
     this.blurVar = true;
+    this.ultimoElVis = true;
   }
 
   goToAnnullamentoScontrino() {
@@ -171,6 +175,7 @@ export class DashboardGruppoUnoComponent implements OnInit, AutomabileDashboardU
     this.chiudiVis = false;
     this.prezzoVis = false;
     this.blurVar = true;
+    this.ultimoElVis = false;
   }
 
   ngOnInit(): void {
