@@ -1,35 +1,48 @@
 <body>
     <app-toolbar-menu></app-toolbar-menu>
-    <!--
-    <div id="divTL">
-        <input type="text" placeholder="barcode" [(ngModel)]="barcode" (keydown.Tab)="onKey($event)"
-            [disabled]="inputDisabled" class="inputBarcode">
-        <br>
-        <button (click)="attivaVediPrezzo()" [disabled]="prezzoDisabled" class="button">Vedi prezzo</button>
-        <br>
-        <button (click)="chiudiScontrino()" [disabled]="chiudiDisabled" class="button">Chiudi Scontrino</button>
-        <h2>{{ultimoElemento}}</h2>
-    </div>
-
-    <br>
-    <div id="divTR">
+    <div class="headDash">
         <h3>DASHBOARD CASSA TRE</h3>
-        <label *ngIf="!prezzoVisible">Prezzo: {{prezzoProdotto}}</label>
-        <label *ngIf="!messErroreVisible">{{messaggioErrore}}</label>
-        <br>
-        <button (click)="stornaUltimo()" *ngIf="!stornaVisible" class="button">Storna ultimo</button>
-        <br>
-        <button (click)="annullaScontrino()" [disabled]="annullaScontrinoDisabled" class="button">Annulla
-            Scontrino</button>
-        <br>
-        <button (click)=annulla() [disabled]="annullaDisabled" class="button">Annulla</button>
-        <br>
-        <button (click)=conferma() [disabled]="confermaDisabled" class="button">Conferma</button>
     </div>
-    <br>
-
-    <div id="divB">
-        <table *ngIf="listaVisible" class="scrolldown">
+    <div class="divvone">
+        <div class="col-3">
+            <input type="text" placeholder="barcode" [(ngModel)]="barcode" (keydown.Tab)="onKey($event)"
+                [disabled]="inputDisabled" class="inputBarcode">
+            <br>
+            <br>
+            <button (click)="attivaVediPrezzo()" [disabled]="prezzoDisabled" class="button" id="butVediPrezzo">Vedi
+                prezzo</button>
+        </div>
+        <div class="col-3">
+            <button (click)="chiudiScontrino()" [disabled]="chiudiDisabled" class="button"
+                id="butChiudiScontrino">Chiudi Scontrino</button>
+        </div>
+            <div class="col-3">
+                <label *ngIf="!prezzoVisible">Prezzo: {{prezzoProdotto}}</label>
+                <label *ngIf="!messErroreVisible">{{messaggioErrore}}</label>
+                <br>
+                <br>
+                <button (click)="stornaUltimo()" *ngIf="!stornaVisible" class="button" id="butStorna">Storna
+                    ultimo</button>
+            </div>
+            <div class="col-3">
+                <button (click)="annullaScontrino()" [disabled]="annullaScontrinoDisabled" class="button"
+                    id="butAnnScontrino">Annulla
+                    Scontrino</button>
+                <br>
+                <br>
+                <button (click)=annulla() [disabled]="annullaDisabled" class="button" id="butAnnulla">Annulla</button>
+                <br>
+                <br>
+                <button (click)=conferma() [disabled]="confermaDisabled" class="button"
+                    id="butConferma">Conferma</button>
+            </div>
+        <div class="elem">
+            <h2>{{ultimoElemento}}</h2>
+        </div>
+        <div class="tot">
+            <h2>{{totale}}</h2>
+        </div>
+        <table *ngIf="listaVisible" class="scrolldown" id="tabDash">
             <tr>
                 <th>Quantità</th>
                 <th>Descrizione</th>
@@ -42,54 +55,4 @@
             </tr>
         </table>
     </div>
-    -->
-
-    <div id="bar">
-        <input type="text" placeholder="barcode" [(ngModel)]="barcode" (keydown.Tab)="onKey($event)"
-            [disabled]="inputDisabled" class="inputBarcode">
-        <br>
-        <br>
-        <button (click)="attivaVediPrezzo()" [disabled]="prezzoDisabled" class="button" id="butVediPrezzo">Vedi prezzo</button>
-    </div>
-    <div id="butScon">
-        <button (click)="chiudiScontrino()" [disabled]="chiudiDisabled" class="button" id="butChiudiScontrino">Chiudi Scontrino</button>
-    </div>
-    <div id="elem">
-        <h2>{{ultimoElemento}}</h2>
-    </div>
-    <div id="headDash">
-        <h3>DASHBOARD CASSA TRE</h3>
-    </div>
-    <div id="butStor">
-        <label *ngIf="!prezzoVisible">Prezzo: {{prezzoProdotto}}</label>
-        <label *ngIf="!messErroreVisible">{{messaggioErrore}}</label>
-        <br>
-        <br>
-        <button (click)="stornaUltimo()" *ngIf="!stornaVisible" class="button" id="butStorna">Storna ultimo</button>
-    </div>
-    <div id="butAnn">
-        <button (click)="annullaScontrino()" [disabled]="annullaScontrinoDisabled" class="button" id="butAnnScontrino">Annulla
-            Scontrino</button>
-        <br>
-        <br>
-        <button (click)=annulla() [disabled]="annullaDisabled" class="button" id="butAnnulla">Annulla</button>
-        <br>
-        <br>
-        <button (click)=conferma() [disabled]="confermaDisabled" class="button" id="butConferma">Conferma</button>
-    </div>
-    <div id="tot">
-        {{totale}}
-    </div>
-    <table *ngIf="listaVisible" class="scrolldown" id="tabDash">
-        <tr>
-            <th>Quantità</th>
-            <th>Descrizione</th>
-            <th>Prezzo</th>
-        </tr>
-        <tr *ngFor="let r of righe">
-            <td>{{r.quantita}}</td>
-            <td>{{r.prodotto.descrizione}}</td>
-            <td>{{r.prodotto.prezzo}}</td>
-        </tr>
-    </table>
 </body>
