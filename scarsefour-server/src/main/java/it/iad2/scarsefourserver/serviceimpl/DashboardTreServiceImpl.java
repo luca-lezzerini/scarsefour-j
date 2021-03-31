@@ -72,19 +72,26 @@ public class DashboardTreServiceImpl implements DashboardTreService {
     @Override
     public Scontrino aggiungiRigaScontrino(Scontrino scontrino) {
         //Salva o aggiorna scontrino e le righeScontrino
+        double totale = 0;
+        if (scontrino == null || scontrino.getId() == null) {
+            scontrino = new Scontrino();
+            scontrino = scontrinoRepository.save(scontrino);
+            System.out.println("scontrino: " + scontrino);
+        }
         List<RigaScontrino> righe = scontrino.getRighe();
         System.out.println("righe" + righe.toString());
-        double totale = 0;
         System.out.println(scontrino.getRighe().toString());
         for (RigaScontrino rigaScontrino : righe) {
             totale += rigaScontrino.getProdotto().getPrezzo();
+            rigaScontrino.getProdotto();
+            System.out.println("righe scontrino: " + rigaScontrino);
             rigaScontrinoRepository.save(rigaScontrino);
         }
+        //prendere prodotto da scontrino e salvarlo
         System.out.println("totale = " + totale);
         scontrino.setTotale(totale);
-        Scontrino scontrinoSalvato = scontrinoRepository.save(scontrino);
-        System.out.println("scontrino salvato" + scontrinoSalvato.getRighe().toString());
-        return aggiornaRighe(scontrinoSalvato);
+        System.out.println("scontrino salvato" + scontrino.getRighe().toString());
+        return aggiornaRighe(scontrino);
     }
 
     @Override

@@ -46,6 +46,7 @@ public class DashboardTreController {
     @RequestMapping("/aggiungi-scontrino-tre")
     @ResponseBody
     public ScontrinoTreDto aggiungiRigaScontrino(@RequestBody ScontrinoTreDto dto){
+        System.out.println("Siamo in aggiungi riga scontrino " + dto);
         return new ScontrinoTreDto(dashBoardService.aggiungiRigaScontrino(dto.getScontrino()));
     }
     
