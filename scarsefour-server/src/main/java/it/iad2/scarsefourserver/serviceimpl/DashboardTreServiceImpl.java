@@ -9,6 +9,7 @@ import it.iad2.scarsefourserver.model.RigaScontrino;
 import it.iad2.scarsefourserver.model.Scontrino;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -96,8 +97,10 @@ public class DashboardTreServiceImpl implements DashboardTreService {
 
     @Override
     public Scontrino aggiornaRighe(Scontrino scontrino) {
+        System.out.println("Scontrino in aggiornaRighe " + scontrino);
         //return rigaScontrinoRepository.findByScontrino(scontrino);
-        return rigaScontrinoRepository.findById(scontrino.getId()).get().getScontrino();
+        Optional<Scontrino> op = scontrinoRepository.findById(scontrino.getId());
+        return op.get();
     }
 
     private Scontrino creaNuovoScontrinoVuoto() {

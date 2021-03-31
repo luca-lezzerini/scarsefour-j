@@ -19,6 +19,11 @@ public class ScontrinoTreDto {
     public void setScontrino(Scontrino scontrino) {
         this.scontrino = scontrino;
     }
+
+    @Override
+    public String toString() {
+        return "ScontrinoTreDto{" + "scontrino=" + scontrino + '}';
+    }
     
     
 }
