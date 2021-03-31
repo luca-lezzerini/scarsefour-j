@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Automa } from '../automa/automa';
-import { AddEvent, AnnullaEvent, ConfermaEvent, ModificaEvent, RimuoviEvent, SelezionaEvent } from '../automa/eventi';
+import { AddEvent, AnnullaEvent, ConfermaEvent, ModificaEvent, RicercaEvent, RimuoviEvent, SelezionaEvent } from '../automa/eventi';
 import { AutomabileCrud, State } from '../automa/state';
 import { CriterioRicercaDto } from '../dto/criterio-ricerca-dto';
 import { ListaProdottiDto } from '../dto/lista-prodotti-dto';
@@ -138,7 +138,7 @@ export class AnagraficaProdottiComponent implements OnInit, AutomabileCrud {
     dto.criterio = this.searchCriterion;
     let oss: Observable<ProdottoDto> = this.http.post<ProdottoDto>("http://localhost:8080/cerca-prodotto-quattro", dto);
     oss.subscribe(c => this.prodotto = c.prodotto);
-    this.automa.next(new SelezionaEvent());
+    this.automa.next(new RicercaEvent());
 
 
   }

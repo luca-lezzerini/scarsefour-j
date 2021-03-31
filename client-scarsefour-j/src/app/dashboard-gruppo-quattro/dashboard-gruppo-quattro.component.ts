@@ -45,23 +45,23 @@ export class DashboardGruppoQuattroComponent implements OnInit, AutomabileGruppo
   totaleScontrinoLabel: boolean;
   tastoTabMes: boolean;
 
-  bottoneVediPrezzo: boolean = true;
-  bottoneStornaUltimo: boolean = true;
-  bottoneAnnullaScontrino: boolean = true;
-  bottoneAnnulla: boolean = true;
-  bottoneConferma: boolean = true;
-  bottoneChiudiScontrino: boolean = true;
+  bottoneVediPrezzo: boolean;
+  bottoneStornaUltimo: boolean ;
+  bottoneAnnullaScontrino: boolean;
+  bottoneAnnulla: boolean;
+  bottoneConferma: boolean;
+  bottoneChiudiScontrino: boolean;
 
 
 
   constructor(private http: HttpClient, private router: Router) {
   }
   vediPrezzoAction() {
-let dto:CriterioRicercaDto =new CriterioRicercaDto();
-dto.criterio=this.ean;
-let oss: Observable <ProdottoDto> = this.http.post <ProdottoDto>("http://localhost:8080/vedi-prezzo-quattro",dto);
-oss.subscribe(v=>this.prezzo=v.prodotto.prezzo);
-}
+    let dto: CriterioRicercaDto = new CriterioRicercaDto();
+    dto.criterio = this.ean;
+    let oss: Observable<ProdottoDto> = this.http.post<ProdottoDto>("http://localhost:8080/vedi-prezzo-quattro", dto);
+    oss.subscribe(v => this.prezzo = v.prodotto.prezzo);
+  }
   chiudiScontrinoAction() {
     throw new Error('Method not implemented.');
   }
@@ -107,23 +107,23 @@ oss.subscribe(v=>this.prezzo=v.prodotto.prezzo);
     this.totaleScontrinoLabel = false;
     this.tastoTabMes = true;
 
-    this.bottoneVediPrezzo = true;
+    this.bottoneVediPrezzo = false;
     this.bottoneStornaUltimo = true;
-    this.bottoneAnnullaScontrino = false;
-    this.bottoneAnnulla = false;
-    this.bottoneConferma = false;
-    this.bottoneChiudiScontrino = false;
+    this.bottoneAnnullaScontrino = true;
+    this.bottoneAnnulla = true;
+    this.bottoneConferma = true;
+    this.bottoneChiudiScontrino = true;
 
   }
   goToVediPrezzo() {
     this.eanNonEditabile = false;
-    this.vediPrezzoVisibleB = true;
+    this.vediPrezzoVisibleB = false;
     this.chiudiB = false;
     this.stornaB = false;
     this.annullaScontrinoB = false;
     this.annullaB = false;
     this.confermaB = false;
-    this.prezzoB = false;
+    this.prezzoB = true;
     this.lista = false;
     this.tastoTabMes = false;
 
