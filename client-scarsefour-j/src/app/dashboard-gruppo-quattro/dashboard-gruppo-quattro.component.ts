@@ -11,6 +11,7 @@ import { Scontrino } from '../entità/scontrino';
 import { AutomaGruppoQuattro } from './automa/automa-gruppo-quattro';
 import { AnnullaEvent, AnnullaScontrinoEvent, ChiudiEvent, EanEvent, StornaEvent, VediPrezzoEvent } from './automa/eventi-gruppo-quattro';
 import { AutomabileGruppoQuattro } from './automa/state-gruppo-quattro';
+import { EsitoRicercaDto } from './dto/esito-ricerca-dto';
 import { RichiestaEanDto4 } from './dto/Richiesta-Ean-dto-4';
 import { RispostaEanDto4 } from './dto/Risposta-Ean-dto-4';
 
@@ -23,6 +24,7 @@ export class DashboardGruppoQuattroComponent implements OnInit, AutomabileGruppo
 
   ean: string;
   Descrizione: string;
+  errore: string = "";
   prezzo: number;
   totale: string;
   scontrini: string;
@@ -44,9 +46,10 @@ export class DashboardGruppoQuattroComponent implements OnInit, AutomabileGruppo
   prezzoLabel: boolean;
   totaleScontrinoLabel: boolean;
   tastoTabMes: boolean;
+  esito: boolean;
 
   bottoneVediPrezzo: boolean;
-  bottoneStornaUltimo: boolean ;
+  bottoneStornaUltimo: boolean;
   bottoneAnnullaScontrino: boolean;
   bottoneAnnulla: boolean;
   bottoneConferma: boolean;
@@ -83,8 +86,10 @@ export class DashboardGruppoQuattroComponent implements OnInit, AutomabileGruppo
   }
 
   verificaEanAction() {
-    throw new Error('Method not implemented.');
-
+    let dto: CriterioRicercaDto = new CriterioRicercaDto();
+    dto.criterio = this.ean;
+    let oss: Observable<EsitoRicercaDto> = this.http.post<EsitoRicercaDto>("http://localhost:8080/verifica-ean-quattro", dto);
+    oss.subscribe(v => this.esito = v.esito);
   }
 
 
@@ -213,13 +218,17 @@ export class DashboardGruppoQuattroComponent implements OnInit, AutomabileGruppo
     dto.scontrino = this.scontrino;
     let oss: Observable<RispostaEanDto4> = this.http.post<RispostaEanDto4>('http://localhost:8080/inserisci-ean-quattro', dto);
     oss.subscribe(e => {
-      this.scontrino = e.scontrino;
-      this.ean = e.barcode;
-      this.righeScontrino = e.righeScontrino;
+      if (e.rigaSuccesso) {
+        this.scontrino = e.scontrino;
+        this.righeScontrino = e.righeScontrino;
+        this.automa.next(new EanEvent(this.ean, this.scontrino));
+      } else {
+        // l'automa rimane nello stesso stato
+        this.errore = "ean inesistente";
+      }
     });
     this.automa.next(new EanEvent(this.ean, this.scontrino));
   }
-
 }
 
 
