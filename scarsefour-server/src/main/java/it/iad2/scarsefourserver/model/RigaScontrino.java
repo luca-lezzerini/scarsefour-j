@@ -23,12 +23,12 @@ public class RigaScontrino {
     private int quantita = 1;
 
     @JsonIgnoreProperties(value = "rigaScontrino",allowGetters = true,allowSetters = true)
-    @ManyToOne(cascade= CascadeType.REMOVE)
+    @ManyToOne
     @JoinColumn(referencedColumnName = "id")
     private Scontrino scontrino;
 
     /*@JsonIgnore
-    @OneToOne(cascade =CascadeType.REMOVE,mappedBy = "rigaScontrino" )
+    @OneToOne(mappedBy = "rigaScontrino" )
     private MovimentiScaffale movimentiScaffale;*/
 
     @JsonIgnoreProperties(value = "rigaScontrino", allowGetters = true, allowSetters = true)
