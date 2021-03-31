@@ -39,19 +39,19 @@ public class DashboardTreController {
     
     @RequestMapping("/storna-ultimo-tre")
     @ResponseBody
-    public ListaRigaScontrinoTreDto stornaUltimo(@RequestBody ScontrinoTreDto dto){
-        return new ListaRigaScontrinoTreDto(dashBoardService.stornaUltimo(dto.getScontrino()));
+    public ScontrinoTreDto stornaUltimo(@RequestBody ScontrinoTreDto dto){
+        return new ScontrinoTreDto(dashBoardService.stornaUltimo(dto.getScontrino()));
     }
     
     @RequestMapping("/aggiungi-scontrino-tre")
     @ResponseBody
-    public ListaRigaScontrinoTreDto aggiungiRigaScontrino(@RequestBody ScontrinoTreDto dto){
-        return new ListaRigaScontrinoTreDto(dashBoardService.aggiungiRigaScontrino(dto.getScontrino()));
+    public ScontrinoTreDto aggiungiRigaScontrino(@RequestBody ScontrinoTreDto dto){
+        return new ScontrinoTreDto(dashBoardService.aggiungiRigaScontrino(dto.getScontrino()));
     }
     
      @RequestMapping("/aggiorna-righe-tre")
     @ResponseBody
-    public ListaRigaScontrinoTreDto aggiornaRighe(@RequestBody ScontrinoTreDto dto){
-        return new ListaRigaScontrinoTreDto(dashBoardService.aggiornaRighe(dto.getScontrino()));
+    public ScontrinoTreDto aggiornaRighe(@RequestBody ScontrinoTreDto dto){
+        return new ScontrinoTreDto(dashBoardService.aggiornaRighe(dto.getScontrino()));
     }
 }
