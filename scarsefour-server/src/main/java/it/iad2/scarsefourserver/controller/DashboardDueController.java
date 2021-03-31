@@ -33,4 +33,6 @@ public class DashboardDueController {
 	{
 		return new PrezzoDto(dashboardDueService.vediPrezzo(dto.getBarcode()));
 	}
+	
+	
 }
