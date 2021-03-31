@@ -43,6 +43,7 @@ export class DashboardGruppoTreComponent implements OnInit, AutomabileTre {
   automa: AutomaTre;
   stato: StateTre;
   messaggioErrore: string = "Ean Sconosciuto!";
+  totale: string;
 
   constructor(private http: HttpClient) {
   }

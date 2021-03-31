@@ -1,3 +1,7 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 h1 {
     font-family: Verdana, Arial, Helvetica, sans-serif;
     font-size: 40px;
@@ -25,11 +29,52 @@ h3 {
     float: right;
 }
 
-h4 {
+/* IMPAGINAZIONE DASHBOARD */
+
+#bar{
+    position: absolute;
+    left: 120px;
+    top: 150px;
+}
+#butScon{
+    position: absolute;
+    left: 400px;
+    top: 150px;
+}
+#elem{
+    position: absolute;
+    right: 30px;
+    top: 10px;
+}
+#headDash{
+    position: absolute;
+    right: 40px;
+    top: 60px;
+}
+#butStor{
+    position: absolute;
+    left: 740px;
+    top: 150px;
+}
+#butAnn{
+    position: absolute;
+    right: 220px;
+    top: 150px;
+}
+#tot{
+    font-size: 60px;
+    position: absolute;
+    right: 120px;
+    bottom: 120px;
+}
+
+/* HEADER ANAGRAFICA */
+
+.headAnagrafica {
     position: relative;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     text-transform: uppercase;
-    font-size: 35px;
+    font-size: 40px;
     letter-spacing: 2px;
     overflow: hidden;
     background: linear-gradient(90deg, #000, rgb(0, 0, 0), #000);
@@ -53,6 +98,8 @@ hr {
     margin-bottom: 25px;
 }
 
+/* LINK HOMEPAGE */
+
 .link {
     font-size: 21px;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
@@ -69,8 +116,10 @@ hr {
     color: rgb(192, 54, 3);
 }
 
+/* CAMPI INPUT */
+
 .inputBarcode {
-    width: 150px;
+    width: 200px;
     box-sizing: border-box;
     border: 2px solid #ccc;
     border-radius: 4px;
@@ -104,6 +153,8 @@ hr {
     padding: 12px 20px 12px 35px;
     text-align: right;
 }
+
+/* BOTTONI */
 
 .button {
     background-color: #f8f8f8;
@@ -145,19 +196,46 @@ hr {
     color: rgb(0, 0, 0);
 }
 
-body {
-    font-family: Arial, Helvetica, sans-serif;
+#butVediPrezzo{
+    height: 70px;
+    width: 200px;
 }
+#butChiudiScontrino{
+    height: 135px;
+    width: 200px;
+}
+#butStorna{
+    height: 95px;
+    width: 190px;
+}
+#butAnnScontrino{
+    height: 50px;
+    width: 200px;
+}
+#butAnnulla{
+    height: 50px;
+    width: 200px;
+}
+#butConferma{
+    height: 50px;
+    width: 200px;
+}
+
+/* TODO dividere fra tabelle anagrafica e tabelle dashboard*/
 
 table {
     width: 100%;
 }
 
 table.scrolldown {
-    width: 100%;
+    width: 98%;
     /* border-collapse: collapse; */
     border-spacing: 0;
     border: 2px solid black;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    left: 10px;
 }
 
 /* To display the block as level element */
@@ -205,7 +283,11 @@ tr:nth-child(odd) {
 
 tr:nth-child(even) {}
 
-/* MENU COMUNE*/
+#tabDash {
+    width: 1000px;
+}
+
+/* TOOLBAR MENU */
 
 .navbar {
     overflow: hidden;
@@ -273,13 +355,13 @@ p.titoliHome {
     writing-mode: vertical-rl;
 }
 
-/* Tabelle home page*/
+/* TABELLE HOME PAGE */
 
 .wrapper {
     margin: 0 auto;
     width: 960px;
     background: #EFEFEF;
-    float: none;
+    float: left;
 }
 
 .rotateObj {
@@ -317,10 +399,14 @@ p.titoliHome {
 }
 
 .logo {
-    float: top;
+    position: absolute;
+    bottom: 90px;
+    left: 950px;
+    font-size: 60px;
+    color:rgb(10, 165, 49); 
 }
 
-/* IMMAGINI SELF SLIDE*/
+/* IMMAGINI SELF SLIDE */
 
 .fling-minislide {
     width: 100%;
