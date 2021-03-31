@@ -1,32 +1,31 @@
 <body>
+    <app-toolbar-menu></app-toolbar-menu>
     <div>
-        <button (click)="vaiAHome()">Home Page</button>
-    </div>
-    <div class="titolo">
-        <h2>Dashboard Gruppo Uno</h2>
+        <h4>DASHBOARD GRUPPO UNO</h4>
     </div>
     <div>
-        <input type="text" [(ngModel)]="barcode" (blur)="blurVar ? cercaEan($event) : vediPrezzo($event)" placeholder="Barcode" *ngIf="eanEdit">
+        <input class="inputBarcode" type="text" [(ngModel)]="barcode" (blur)="blurVar ? cercaEan($event) : vediPrezzo($event)"
+            placeholder="barcode" *ngIf="eanEdit">
         <p *ngIf="prezzoRVis"> Prezzo : {{prezzoR}} &euro;</p>
         <br><br>
-        <button (click)="TastoVediPrezzo()" *ngIf="vediPrezzoVis">Vedi Prezzo</button>&nbsp;
-        <button (click)="chiudiScontrino()" *ngIf="chiudiVis" [disabled]="!chiudiAble">Chiudi Scontrino</button>&nbsp;
-        <button (click)="stornaUltimo()" *ngIf="stornaVis">Storna Ultimo</button>&nbsp;
-        <button (click)="annullaScontrino()" *ngIf="annullaScontrinoVis" [disabled]="!annullaScontrinoAble">Annulla
+        <button class="button" (click)="TastoVediPrezzo()" *ngIf="vediPrezzoVis">Vedi Prezzo</button>&nbsp;
+        <button class="button" (click)="chiudiScontrino()" *ngIf="chiudiVis" [disabled]="!chiudiAble">Chiudi Scontrino</button>&nbsp;
+        <button class="button" (click)="stornaUltimo()" *ngIf="stornaVis">Storna Ultimo</button>&nbsp;
+        <button class="button" (click)="annullaScontrino()" *ngIf="annullaScontrinoVis" [disabled]="!annullaScontrinoAble">Annulla
             Scontrino</button>&nbsp;
     </div>
     <br>
     <br>
     <div>
-        <button (click)="annulla()" *ngIf="confermaVis" [disabled]="!confermaAble">Annulla</button>&nbsp;
-        <button (click)="conferma()" *ngIf="annullaVis" [disabled]="!annullaAble">Conferma</button>&nbsp;
+        <button class="button" (click)="annulla()" *ngIf="confermaVis" [disabled]="!confermaAble">Annulla</button>&nbsp;
+        <button class="button" (click)="conferma()" *ngIf="annullaVis" [disabled]="!annullaAble">Conferma</button>&nbsp;
     </div>
     <p *ngIf="prezzoVis"> Prezzo Totale : {{prezzoTot}} &euro;</p>
-    <br><br> <br> Ultimo elemento - descrizione: {{descrizioneE}}  prezzo: {{prezzoE}} &euro;
+    <br><br> <br> Ultimo elemento - descrizione: {{descrizioneE}} prezzo: {{prezzoE}} &euro;
     <br>
     <br>
     <br>
-    <div class="tabella">
+    <div>
         <table *ngIf="listaVis">
             <tr>
                 <th>Quantità</th>
