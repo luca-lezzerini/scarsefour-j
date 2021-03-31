@@ -56,8 +56,8 @@ public class SystemAdminServiceImpl implements SystemAdminService {
         cassaRepository.deleteAllInBatch();
         cassieraRepository.deleteAllInBatch();
         scontrinoRepository.deleteAllInBatch();
-        prodottoRepository.deleteAllInBatch();
         posizioneScaffaleRepository.deleteAllInBatch();
+        prodottoRepository.deleteAllInBatch();
 
         //Popolamento dati prodotto e posizioneScaffale
         Prodotto prodotto;
@@ -141,7 +141,7 @@ public class SystemAdminServiceImpl implements SystemAdminService {
         
         //Creazione di record prodoti senza vincoli di foreign key
         for (int i = 0; i < 50; i++) {
-            prodotto = new Prodotto("ean" + i, "codice" + i, "cancellabile" + i, i, 5, 10, i);
+            prodotto = new Prodotto("xean" + i, "xcodice" + i, "xcancellabile" + i, i, 5, 10, i);
             prodottoRepository.save(prodotto);
         }
         //Creazione di record sconti senza vincoli di foreign key

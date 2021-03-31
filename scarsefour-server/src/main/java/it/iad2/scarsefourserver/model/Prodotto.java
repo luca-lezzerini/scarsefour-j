@@ -21,9 +21,9 @@ public class Prodotto {
     @GeneratedValue
     private Long id;
 
-    @Column
+    @Column(unique = true)
     private String ean;
-    @Column
+    @Column(unique = true)
     private String codice;
     @Column
     private String descrizione;
