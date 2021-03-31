@@ -1,6 +1,7 @@
 package it.iad2.scarsefourserver.serviceimpl;
 
 import it.iad2.scarsefourserver.dto.RispostaEanDto;
+import it.iad2.scarsefourserver.dto.ScontrinoRigheDto;
 import it.iad2.scarsefourserver.model.Prodotto;
 import it.iad2.scarsefourserver.model.RigaScontrino;
 import it.iad2.scarsefourserver.model.Scontrino;
@@ -63,23 +64,37 @@ public class DashboardGruppoUnoServiceImpl implements DashboardGruppoUnoService 
     }
 
     @Override
-    public RispostaEanDto chiudiScontrino1(String barcode, Scontrino scontrino) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Scontrino chiudiScontrino1(Scontrino scontrino) {
+        scontrino.setNumero(scontrinoRepository.findAll().size() + 1);
+        scontrinoRepository.save(scontrino);
+        return null;
     }
 
     @Override
     public double vediPrezzo1(String barcode) {
-        return prodottoRepository.findByEanEquals(barcode).getPrezzo();
+        Prodotto prodotto = prodottoRepository.findByEanEquals(barcode);
+        if (prodotto != null){
+            return prodotto.getPrezzo();
+        }
+        return 0;
     }
 
     @Override
-    public RispostaEanDto stornaUltimo1(String barcode, Scontrino scontrino) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ScontrinoRigheDto stornaUltimo1(Scontrino scontrino) {
+        List<RigaScontrino> listaRighe = scontrinoRepository.findById(scontrino.getId()).get().getRighe();
+        RigaScontrino ultimaRiga = listaRighe.get(listaRighe.size() - 1);
+        rigaScontrinoRepository.delete(ultimaRiga);
+        scontrino.setTotale(scontrino.getTotale()-ultimaRiga.getProdotto().getPrezzo());
+        scontrinoRepository.findById(scontrino.getId()).get().getRighe().remove(ultimaRiga);
+        listaRighe = scontrinoRepository.findById(scontrino.getId()).get().getRighe();
+        scontrinoRepository.save(scontrino);
+        return new ScontrinoRigheDto(scontrino, listaRighe);
     }
 
     @Override
-    public RispostaEanDto annullaScontrino1(String barcode, Scontrino scontrino) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Scontrino annullaScontrino1(Scontrino scontrino) {
+        scontrinoRepository.delete(scontrino);
+        return null;
     }
 
 }

@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
     font-family: Arial, Helvetica, sans-serif;
 }
@@ -16,7 +20,7 @@ h1 {
 h2 {
     text-align: top;
 }
-
+/*
 h3 {
     font-family: Verdana, Arial, Helvetica, sans-serif;
     font-size: 30px;
@@ -27,45 +31,81 @@ h3 {
     padding-top: 15px;
     padding-bottom: 15px;
     float: right;
-}
+}*/
 
 /* IMPAGINAZIONE DASHBOARD */
 
-#bar{
-    position: absolute;
-    left: 120px;
-    top: 150px;
+.headDash {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 25px;
+    font-weight: bold;
+    text-align: right;
+    width: 97%;
 }
-#butScon{
-    position: absolute;
-    left: 400px;
-    top: 150px;
+
+.divvone::after {
+    content: "";
+    clear: both;
+    display: table;
 }
-#elem{
-    position: absolute;
-    right: 30px;
-    top: 10px;
+
+.elem::after {
+    content: "";
+    clear: both;
+    display: table;
 }
-#headDash{
-    position: absolute;
-    right: 40px;
-    top: 60px;
+
+[class*="col-"] {
+    float: left;
+    padding: 15px;
 }
-#butStor{
-    position: absolute;
-    left: 740px;
-    top: 150px;
+
+.col-1 {
+    width: 8.33%;
 }
-#butAnn{
-    position: absolute;
-    right: 220px;
-    top: 150px;
+
+.col-2 {
+    width: 16.66%;
 }
-#tot{
-    font-size: 60px;
-    position: absolute;
-    right: 120px;
-    bottom: 120px;
+
+.col-3 {
+    width: 25%;
+}
+
+.col-4 {
+    width: 33.33%;
+}
+
+.col-5 {
+    width: 41.66%;
+}
+
+.col-6 {
+    width: 50%;
+}
+
+.col-7 {
+    width: 58.33%;
+}
+
+.col-8 {
+    width: 66.66%;
+}
+
+.col-9 {
+    width: 75%;
+}
+
+.col-10 {
+    width: 83.33%;
+}
+
+.col-11 {
+    width: 91.66%;
+}
+
+.col-12 {
+    width: 100%;
 }
 
 /* HEADER ANAGRAFICA */
@@ -74,7 +114,7 @@ h3 {
     position: relative;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     text-transform: uppercase;
-    font-size: 40px;
+    font-size: 35px;
     letter-spacing: 2px;
     overflow: hidden;
     background: linear-gradient(90deg, #000, rgb(0, 0, 0), #000);
@@ -196,27 +236,32 @@ hr {
     color: rgb(0, 0, 0);
 }
 
-#butVediPrezzo{
+#butVediPrezzo {
     height: 70px;
     width: 200px;
 }
-#butChiudiScontrino{
+
+#butChiudiScontrino {
     height: 135px;
     width: 200px;
 }
-#butStorna{
+
+#butStorna {
     height: 95px;
     width: 190px;
 }
-#butAnnScontrino{
+
+#butAnnScontrino {
     height: 50px;
     width: 200px;
 }
-#butAnnulla{
+
+#butAnnulla {
     height: 50px;
     width: 200px;
 }
-#butConferma{
+
+#butConferma {
     height: 50px;
     width: 200px;
 }
@@ -403,7 +448,7 @@ p.titoliHome {
     bottom: 90px;
     left: 950px;
     font-size: 60px;
-    color:rgb(10, 165, 49); 
+    color: rgb(10, 165, 49);
 }
 
 /* IMMAGINI SELF SLIDE */

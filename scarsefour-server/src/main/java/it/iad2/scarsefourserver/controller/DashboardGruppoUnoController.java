@@ -4,6 +4,8 @@ import it.iad2.scarsefourserver.dto.EanDto;
 import it.iad2.scarsefourserver.dto.PrezzoDto;
 import it.iad2.scarsefourserver.dto.RichiestaEanDto;
 import it.iad2.scarsefourserver.dto.RispostaEanDto;
+import it.iad2.scarsefourserver.dto.ScontrinoDto;
+import it.iad2.scarsefourserver.dto.ScontrinoRigheDto;
 import it.iad2.scarsefourserver.service.DashboardGruppoUnoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -26,24 +28,24 @@ public class DashboardGruppoUnoController {
     }
     @RequestMapping("/chiudi-scontrino-1")
     @ResponseBody
-    public RispostaEanDto chiudiScontrino1(@RequestBody RichiestaEanDto dto) {
-        return dashboardGruppoUnoService.chiudiScontrino1(dto.getBarcode(), dto.getScontrino());
+    public ScontrinoDto chiudiScontrino1(@RequestBody ScontrinoDto dto) {
+        return new ScontrinoDto(dashboardGruppoUnoService.chiudiScontrino1(dto.getScontrino()));
     }
     @RequestMapping("/vedi-prezzo-1")
     @ResponseBody
     public PrezzoDto vediPrezzo1(@RequestBody EanDto dto) {
         return new PrezzoDto(dashboardGruppoUnoService.vediPrezzo1(dto.getBarcode()));
     }
-    @RequestMapping("/Storna-ultimo-1")
+    @RequestMapping("/storna-ultimo-1")
     @ResponseBody
-    public RispostaEanDto stornaUltimo1(@RequestBody RichiestaEanDto dto) {
-        return dashboardGruppoUnoService.stornaUltimo1(dto.getBarcode(), dto.getScontrino());
+    public ScontrinoRigheDto stornaUltimo1(@RequestBody ScontrinoDto dto) {
+        return dashboardGruppoUnoService.stornaUltimo1(dto.getScontrino());
     }
     
-    @RequestMapping("/Annulla-Scontrino-1")
+    @RequestMapping("/annulla-scontrino-1")
     @ResponseBody
-    public RispostaEanDto annullaScontrino1(@RequestBody RichiestaEanDto dto) {
-        return dashboardGruppoUnoService.annullaScontrino1(dto.getBarcode(), dto.getScontrino());
+    public ScontrinoDto annullaScontrino1(@RequestBody ScontrinoDto dto) {
+        return new ScontrinoDto(dashboardGruppoUnoService.annullaScontrino1(dto.getScontrino()));
     }
     
 
