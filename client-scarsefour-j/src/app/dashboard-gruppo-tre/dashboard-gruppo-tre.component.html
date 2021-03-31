@@ -61,11 +61,11 @@
         <h3>DASHBOARD CASSA TRE</h3>
     </div>
     <div id="butStor">
-        <label *ngIf="prezzoVisible">Prezzo: {{prezzoProdotto}}</label>
-        <label *ngIf="messErroreVisible">{{messaggioErrore}}</label>
+        <label *ngIf="!prezzoVisible">Prezzo: {{prezzoProdotto}}</label>
+        <label *ngIf="!messErroreVisible">{{messaggioErrore}}</label>
         <br>
         <br>
-        <button (click)="stornaUltimo()" *ngIf="stornaVisible" class="button" id="butStorna">Storna ultimo</button>
+        <button (click)="stornaUltimo()" *ngIf="!stornaVisible" class="button" id="butStorna">Storna ultimo</button>
     </div>
     <div id="butAnn">
         <button (click)="annullaScontrino()" [disabled]="annullaScontrinoDisabled" class="button" id="butAnnScontrino">Annulla
