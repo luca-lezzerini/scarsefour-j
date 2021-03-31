@@ -73,7 +73,7 @@ public class DashboardGruppoUnoServiceImpl implements DashboardGruppoUnoService 
     @Override
     public double vediPrezzo1(String barcode) {
         Prodotto prodotto = prodottoRepository.findByEanEquals(barcode);
-        if (prodotto != null){
+        if (prodotto != null) {
             return prodotto.getPrezzo();
         }
         return 0;
@@ -84,7 +84,7 @@ public class DashboardGruppoUnoServiceImpl implements DashboardGruppoUnoService 
         List<RigaScontrino> listaRighe = scontrinoRepository.findById(scontrino.getId()).get().getRighe();
         RigaScontrino ultimaRiga = listaRighe.get(listaRighe.size() - 1);
         rigaScontrinoRepository.delete(ultimaRiga);
-        scontrino.setTotale(scontrino.getTotale()-ultimaRiga.getProdotto().getPrezzo());
+        scontrino.setTotale(scontrino.getTotale() - ultimaRiga.getProdotto().getPrezzo());
         scontrinoRepository.findById(scontrino.getId()).get().getRighe().remove(ultimaRiga);
         listaRighe = scontrinoRepository.findById(scontrino.getId()).get().getRighe();
         scontrinoRepository.save(scontrino);
@@ -93,6 +93,10 @@ public class DashboardGruppoUnoServiceImpl implements DashboardGruppoUnoService 
 
     @Override
     public Scontrino annullaScontrino1(Scontrino scontrino) {
+        List<RigaScontrino> listaRighe = scontrinoRepository.findById(scontrino.getId()).get().getRighe();
+        listaRighe.forEach(x -> {
+            rigaScontrinoRepository.delete(x);
+        });
         scontrinoRepository.delete(scontrino);
         return null;
     }
