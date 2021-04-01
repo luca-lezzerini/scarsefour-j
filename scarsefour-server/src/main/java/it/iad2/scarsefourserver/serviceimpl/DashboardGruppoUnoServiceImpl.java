@@ -28,9 +28,8 @@ public class DashboardGruppoUnoServiceImpl implements DashboardGruppoUnoService 
     public RispostaEanDto cercaEan1(String barcode, Scontrino scontrino) {
         RispostaEanDto rispostaEanDto = new RispostaEanDto();
         System.out.println("barcode: " + barcode);
-        //System.out.println("scontrino: " + scontrino.toString());
-
-        Prodotto prodotto = prodottoRepository.findByEanEquals(barcode); //cerco se esiste un prodotto nel repository con il barcode passato in input
+        //cerco se esiste un prodotto nel repository con il barcode passato in input
+        Prodotto prodotto = prodottoRepository.findByEanEquals(barcode);
         if (prodotto == null) {
             //prodotto non trovato
             System.out.println("Errore EAN sconosciuto");
@@ -42,23 +41,58 @@ public class DashboardGruppoUnoServiceImpl implements DashboardGruppoUnoService 
         } else {
             //prodotto trovato
             if (scontrino == null) {
-                //se lo scontrino che arriva dal client è vuoto, creo nuovo scontrino e lo salvo nel repository 
+                //se lo scontrino che arriva dal client è null, creo nuovo scontrino e lo salvo nel repository 
                 scontrino = new Scontrino(LocalDateTime.now(), 0, 0.);
                 scontrinoRepository.save(scontrino);
+                // salvo nel repository una nuova rigaScontrino
+                RigaScontrino riga = new RigaScontrino();
+                riga.setScontrino(scontrino);
+                riga.setProdotto(prodotto);
+                rigaScontrinoRepository.save(riga);
+                // Aggiorno il totale dello scontrino e la lista righe scotrino con il prodotto in esame
+                scontrino.setTotale(scontrino.getTotale() + prodotto.getPrezzo());
+                scontrino.getRighe().add(riga);
+                scontrinoRepository.save(scontrino);
+                // preparo la risposta
+                rispostaEanDto.setBarcode(barcode);
+                rispostaEanDto.setScontrino(scontrino);
+                rispostaEanDto.setRigheScontrino(scontrinoRepository.findById(scontrino.getId()).get().getRighe());
+            } else {
+                List<RigaScontrino> listaRighe = scontrinoRepository.findById(scontrino.getId()).get().getRighe();
+                boolean trovato = false;
+                for (RigaScontrino riga : listaRighe) {
+                    if (riga.getProdotto().getEan().equals(barcode)) {
+                        riga.setQuantita(riga.getQuantita() + 1);
+                        scontrino.setTotale(scontrino.getTotale() + prodotto.getPrezzo());
+                        scontrino.setRighe(listaRighe);
+                        rigaScontrinoRepository.save(riga);
+                        scontrinoRepository.save(scontrino);
+                        trovato = true;
+                        rispostaEanDto.setBarcode(barcode);
+                        rispostaEanDto.setScontrino(scontrino);
+                        rispostaEanDto.setRigheScontrino(listaRighe);
+                        break;
+                    }
+                }
+                if (!trovato) {
+                    listaRighe = scontrinoRepository.findById(scontrino.getId()).get().getRighe();
+                    // salvo nel repository una nuova rigaScontrino
+                    RigaScontrino riga = new RigaScontrino();
+                    riga.setScontrino(scontrino);
+                    riga.setProdotto(prodotto);
+                    rigaScontrinoRepository.save(riga);
+                    listaRighe.add(riga);
+                    // Aggiorno il totale dello scontrino e la lista righe scotrino con il prodotto in esame
+                    scontrino.setTotale(scontrino.getTotale() + prodotto.getPrezzo());
+                    scontrino.setRighe(listaRighe);
+                    scontrinoRepository.save(scontrino);
+                    // preparo la risposta
+                    rispostaEanDto.setBarcode(barcode);
+                    rispostaEanDto.setScontrino(scontrino);
+                    rispostaEanDto.setRigheScontrino(listaRighe);
+                }
             }
-            // salvo nel repository una nuova rigaScontrino
-            RigaScontrino riga = new RigaScontrino();
-            riga.setScontrino(scontrino);
-            riga.setProdotto(prodotto);
-            rigaScontrinoRepository.save(riga);
-            // Aggiorno il totale dello scontrino e la lista righe scotrino con il prodotto in esame
-            scontrino.setTotale(scontrino.getTotale() + (riga.getProdotto().getPrezzo() * riga.getQuantita()));
-            scontrino.getRighe().add(riga);
-            scontrinoRepository.save(scontrino);
-            // preparo la risposta
-            rispostaEanDto.setBarcode(barcode);
-            rispostaEanDto.setScontrino(scontrino);
-            rispostaEanDto.setRigheScontrino(scontrinoRepository.findById(scontrino.getId()).get().getRighe());
+
         }
         return rispostaEanDto;
     }
