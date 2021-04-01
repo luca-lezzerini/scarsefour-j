@@ -22,5 +22,7 @@ public interface DashboardTreService {
     AggiungiEanRispostaDto aggiungiRigaScontrino(Scontrino scontrino, String ean);
 
     Scontrino aggiornaRighe(Scontrino scontrino);
+    
+    Scontrino creaNuovoScontrinoVuoto();
 
 }

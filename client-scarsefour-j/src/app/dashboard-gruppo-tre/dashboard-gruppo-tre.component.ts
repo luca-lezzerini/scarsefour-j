@@ -13,6 +13,8 @@ import { Observable } from 'rxjs';
 import { DtoScontrinoTre } from './dto-scontrino-tre';
 import { DtoListaRigaScontrinoTre } from './dto-lista-riga-scontrino-tre';
 import { isNull } from '@angular/compiler/src/output/output_ast';
+import { DtoAggiungiEanTre } from './dto-aggiungi-ean-tre';
+import { DtoAggiungiEanRispostaTre } from './dto-aggiungi-ean-risposta-tre';
 
 @Component({
   selector: 'app-dashboard-gruppo-tre',
@@ -43,7 +45,7 @@ export class DashboardGruppoTreComponent implements OnInit, AutomabileTre {
   automa: AutomaTre;
   stato: StateTre;
   messaggioErrore: string = "Ean Sconosciuto!";
-  totale: string;
+  totale: number;
 
   constructor(private http: HttpClient) {
   }
@@ -107,28 +109,19 @@ export class DashboardGruppoTreComponent implements OnInit, AutomabileTre {
 
   // Metodi Automabile Action
   aggiungiRigaScontrinoAction(){
-    let dto: DtoScontrinoTre = new DtoScontrinoTre();
-    let rigaNuova: RigaScontrino = new RigaScontrino();
-    rigaNuova.prodotto = this.prodotto;
-    rigaNuova.quantita = 1;
-    console.log(this.prodotto.id);
-    console.log(rigaNuova);
-    let righeNuove: RigaScontrino[] = [];
-    righeNuove.push(rigaNuova);
-    console.log(righeNuove);
-    this.scontrino.righe = righeNuove;
-    console.log(this.scontrino.righe);
+    // Creiamo DtoAggiungiEan da inviare al server
+    let dto: DtoAggiungiEanTre = new DtoAggiungiEanTre();
     dto.scontrino = this.scontrino;
-    console.log(this.prodotto);
-    console.log(this.scontrino)
-    let oss: Observable<DtoScontrinoTre> = this.http.post<DtoScontrinoTre>
+    dto.barcode = this.barcode;
+    dto.righeScontrino = this.righe;
+
+    let oss: Observable<DtoAggiungiEanRispostaTre> = this.http.post<DtoAggiungiEanRispostaTre>
       ('http://localhost:8080/aggiungi-scontrino-tre', dto);
     oss.subscribe(t => {
-      this.scontrino.timeStamp = t.scontrino.timeStamp;
+      console.log("Esito: " + t.esito);
       this.scontrino = t.scontrino;
-      this.righe = t.scontrino.righe;
-      console.log(this.scontrino.totale)});
-      
+      this.righe = t.righe
+      this.totale = t.scontrino.totale});
   }
   
   annullaScontrinoAction(){
@@ -139,6 +132,27 @@ export class DashboardGruppoTreComponent implements OnInit, AutomabileTre {
     oss.subscribe(t => this.scontrino = t.scontrino);
   }
 
+  vediPrezzoAction() {
+    //deve solo visualizzare il prezzo
+    let dto: CriterioRicercaDto = new CriterioRicercaDto();
+    console.log("BARCODE: " + this.barcode);
+    dto.criterio = this.barcode;
+    let oss: Observable<ProdottoDto> = this.http.post<ProdottoDto>
+      ('http://localhost:8080/vedi-prezzo-tre', dto);
+    oss.subscribe(t => {
+      this.prodotto.id = t.prodotto.id;
+      this.prodotto.prezzo = t.prodotto.prezzo;
+      this.prodotto.codice = t.prodotto.codice;
+      this.prodotto.descrizione = t.prodotto.descrizione;
+      console.log(this.prodotto.descrizione);
+      this.prezzoProdotto = this.prodotto.prezzo;
+      if (this.prodotto.descrizione==null) {
+        this.erroreEanAction();
+        console.log("ERRORE!");
+      }
+    });
+  }
+
   erroreEanAction(){
     this.messErroreVisible=false;
     this.prezzoVisible = true;
@@ -147,7 +161,6 @@ export class DashboardGruppoTreComponent implements OnInit, AutomabileTre {
   // Metodi azione sui button
   onKey(event: any) {
     this.prezzoDisabled = false;
-    this.vediPrezzo();
     this.stato = this.automa.next(new EanEvent(this.barcode, this.scontrino));
   }
 
@@ -188,27 +201,6 @@ export class DashboardGruppoTreComponent implements OnInit, AutomabileTre {
   }
 
   // Metodi richiamati internamente
-  vediPrezzo() {
-    //deve solo visualizzare il prezzo
-    let dto: CriterioRicercaDto = new CriterioRicercaDto();
-    console.log("BARCODE: " + this.barcode);
-    dto.criterio = this.barcode;
-    let oss: Observable<ProdottoDto> = this.http.post<ProdottoDto>
-      ('http://localhost:8080/vedi-prezzo-tre', dto);
-    oss.subscribe(t => {
-      this.prodotto.id = t.prodotto.id;
-      this.prodotto.prezzo = t.prodotto.prezzo;
-      this.prodotto.codice = t.prodotto.codice;
-      this.prodotto.descrizione = t.prodotto.descrizione;
-      console.log(this.prodotto.descrizione);
-      this.prezzoProdotto = this.prodotto.prezzo;
-      if (this.prodotto.descrizione==null) {
-        this.erroreEanAction();
-        console.log("ERRORE!");
-      }
-    });
-  }
-
   aggiornaRighe(){
     let dto: DtoScontrinoTre = new DtoScontrinoTre();
     dto.scontrino = this.scontrino;
