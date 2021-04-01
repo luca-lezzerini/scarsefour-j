@@ -2,14 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { EanDto } from '../dashboard-gruppo-uno/dto-dashboard-uno/ean-dto';
-import { ProdottoDto } from '../dto/prodotto-dto';
 import { ScontrinoDto } from '../dto/scontrino-dto';
 import { Prodotto } from '../entità/prodotto';
 import { RigaScontrino } from '../entità/riga-scontrino';
 import { Scontrino } from '../entità/scontrino';
 import { Automa2 } from './automa-gruppo-due';
-import { VediPrezzoEvent } from './eventi2';
+import {EanEvent, VediPrezzoEvent} from './eventi2';
 import { AutomabileDue } from './state2';
+import {PrezzoDto} from '../dashboard-gruppo-uno/dto-dashboard-uno/prezzo-dto';
 
 @Component({
   selector: 'app-dashboard-gruppo-due',
@@ -34,30 +34,27 @@ export class DashboardGruppoDueComponent implements OnInit, AutomabileDue {
   annullaVisibile = false;
   chiudiScontrinoVisibile = false;
 
-  constructor(private http: HttpClient) { 
+  constructor(private http: HttpClient) {
     this.automa = new Automa2(this);
   }
-  vediPrezzoAction() {
+  vediPrezzoAction(): void {
     const dto: EanDto = new EanDto();
-    console.log("Codice: " + this.barcode);
+    console.log('Codice: ' + this.barcode);
     dto.barcode = this.barcode;
-    const oss: Observable<ProdottoDto> = this.http.post<ProdottoDto>
-      ('http://localhost:8080/vedi-prezzo-due', dto);
-    oss.subscribe(t => {
-      this.prodotto = t.prodotto;
-      this.prezzo = t.prodotto.prezzo;
-    });
+    const oss: Observable<PrezzoDto> = this.http
+      .post<PrezzoDto>('http://localhost:8080/vedi-prezzo-due', dto);
+    oss.subscribe(t => this.prezzo = t.prezzo);
   }
-  goToScontrinoVuoto() {
+  goToScontrinoVuoto(): void {
     this.eanEditabile = true;
     this.vediPrezzoVisibile = true;
     this.listaVisibile = false;
     this.stornaVisibile = false;
-    this.annullaScontrinoVisibile= false;
+    this.annullaScontrinoVisibile = false;
     this.confermaVisibile = false;
     this.chiudiScontrinoVisibile = false;
   }
-  goToScontrinoNonVuoto() {
+  goToScontrinoNonVuoto(): void {
     this.eanEditabile = true;
     this.vediPrezzoVisibile = true;
     this.listaVisibile = true;
@@ -67,22 +64,22 @@ export class DashboardGruppoDueComponent implements OnInit, AutomabileDue {
     this.confermaVisibile = false;
     this.annullaVisibile = false;
   }
-  goToAnnullamentoScontrino() {
+  goToAnnullamentoScontrino(): void {
     this.confermaVisibile = true;
     this.annullaVisibile = true;
     this.eanEditabile = false;
     this.vediPrezzoVisibile = false;
     this.listaVisibile = false;
     this.stornaVisibile = false;
-    this.annullaScontrinoVisibile =false;
+    this.annullaScontrinoVisibile = false;
     this.chiudiScontrinoVisibile = false;
   }
-  goToVediPrezzo() {
+  goToVediPrezzo(): void {
     this.eanEditabile = true;
     this.vediPrezzoVisibile = false;
     this.listaVisibile = false;
     this.stornaVisibile = false;
-    this.annullaScontrinoVisibile= false;
+    this.annullaScontrinoVisibile = false;
     this.confermaVisibile = false;
     this.annullaVisibile = false;
     this.chiudiScontrinoVisibile = false;
@@ -91,22 +88,31 @@ export class DashboardGruppoDueComponent implements OnInit, AutomabileDue {
   ngOnInit(): void {
   }
 
-  annullaScontrino() {
+  annullaScontrino(): void {
     const dto: ScontrinoDto = new ScontrinoDto();
     dto.scontrino = this.scontrino;
 
   }
 
-  vediPrezzo() {
+  vediPrezzo(): void {
     this.automa.next(new VediPrezzoEvent());
   }
 
-  chiudiScontrino() { }
+  chiudiScontrino(): void { }
 
-  stornaUltimo() { }
+  stornaUltimo(): void { }
 
-  annulla() { }
+  annulla(): void { }
 
-  conferma() { }
+  conferma(): void { }
 
+  EventoEan(): void{
+    this.automa.next(new EanEvent());
+  }
+
+  aggiungiProdottoAction(): void {
+  }
+
+  annullaScontrinoAction(): void {
+  }
 }

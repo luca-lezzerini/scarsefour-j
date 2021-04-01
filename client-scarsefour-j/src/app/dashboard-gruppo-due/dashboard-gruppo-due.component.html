@@ -3,7 +3,7 @@
         <button routerLink='/home-page'>Home Page</button>
     </div>
 </body>
-<input type="text" [disabled]="eanEditabile" placeholder="barcode" [(ngModel)]="barcode">
+<input type="text" [disabled]="eanEditabile" placeholder="barcode" [(ngModel)]="barcode" (blur)="EventoEan()">
 Prezzo:€ {{prezzo}}
 <button (click)="annullaScontrino()" *ngIf="annullaScontrinoVisibile">Annulla scontrino</button>
 <br>

@@ -1,14 +1,16 @@
-import { EventDashboardDue } from "./event2";
+import { EventDashboardDue } from './event2';
 
 export interface StateDashboardDue{
     next(event: EventDashboardDue): StateDashboardDue;
 }
 
-export interface AutomabileDue{
-    goToScontrinoVuoto();
-    goToScontrinoNonVuoto();
-    goToAnnullamentoScontrino();
-    goToVediPrezzo();
+export interface AutomabileDue {
+    goToScontrinoVuoto(): void;
+    goToScontrinoNonVuoto(): void;
+    goToAnnullamentoScontrino(): void;
+    goToVediPrezzo(): void;
 
-    vediPrezzoAction();
+    vediPrezzoAction(): void;
+    aggiungiProdottoAction(): void;
+    annullaScontrinoAction(): void;
 }

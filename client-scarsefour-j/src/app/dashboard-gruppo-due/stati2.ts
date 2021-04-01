@@ -1,7 +1,7 @@
-import { Automa2 } from "./automa-gruppo-due";
-import { EventDashboardDue } from "./event2";
-import { AnnullaEvent, AnnullaScontrinoEvent, ChiudiEvent, ConfermaEvent, EanEvent, StornaUltimoEvent, VediPrezzoEvent } from "./eventi2";
-import { StateDashboardDue } from "./state2";
+import { Automa2 } from './automa-gruppo-due';
+import { EventDashboardDue } from './event2';
+import { AnnullaEvent, AnnullaScontrinoEvent, ChiudiEvent, ConfermaEvent, EanEvent, StornaUltimoEvent, VediPrezzoEvent } from './eventi2';
+import { StateDashboardDue } from './state2';
 
 export class ScontrinoVuotoState implements StateDashboardDue {
 
@@ -14,14 +14,15 @@ export class ScontrinoVuotoState implements StateDashboardDue {
             return new VediPrezzoState(this.automa);
         }
         else if (e instanceof EanEvent) {
-            if(e.esito){
+            if (e.esito){
+                this.automa.gui.aggiungiProdottoAction();
                 return new ScontrinoNonVuotoState(this.automa);
             }else{
-                return new ScontrinoVuotoState(this.automa);
+                return this.automa.stato;
             }
         }
         else {
-            console.log("evento inaspettato!");
+            console.log('evento inaspettato!');
         }
     }
 }
@@ -37,15 +38,16 @@ export class ScontrinoNonVuotoState implements StateDashboardDue {
             return new ScontrinoVuotoState(this.automa);
         }
         else if (e instanceof StornaUltimoEvent) {
-            if (e.numeroRighe == 1) {
+            if (e.numeroRighe === 1) {
                 return new ScontrinoVuotoState(this.automa);
             }
             else if (e.numeroRighe > 1){
                 return this.automa.stato;
             }
         }
-        else if (e instanceof EanEvent){ 
+        else if (e instanceof EanEvent){
             if (e.esito){
+                this.automa.gui.aggiungiProdottoAction();
                 return this.automa.stato;
             }
             else{
@@ -59,7 +61,7 @@ export class ScontrinoNonVuotoState implements StateDashboardDue {
             return new VediPrezzoState(this.automa);
         }
         else {
-            console.log("evento inaspettato!");
+            console.log('evento inaspettato!');
         }
     }
 }
@@ -72,10 +74,10 @@ export class VediPrezzoState implements StateDashboardDue {
 
     next(e: EventDashboardDue): StateDashboardDue {
         if (e instanceof EanEvent) {
-            if (e.esito && e.numeroRighe == 0){
+            if (e.esito && e.numeroRighe === 0){
                 this.automa.gui.vediPrezzoAction();
                 return new ScontrinoVuotoState(this.automa);
-            } else if (!e.esito && e.numeroRighe == 0){
+            } else if (!e.esito && e.numeroRighe === 0){
                 return new ScontrinoVuotoState(this.automa);
             }else if (e.esito && e.numeroRighe > 0){
                 this.automa.gui.vediPrezzoAction();
@@ -85,7 +87,7 @@ export class VediPrezzoState implements StateDashboardDue {
             }
         }
         else {
-            console.log("evento inaspettato!");
+            console.log('evento inaspettato!');
         }
     }
 }
@@ -102,10 +104,11 @@ export class AnnullamentoScontrinoState implements StateDashboardDue {
            return new ScontrinoNonVuotoState(this.automa);
         }
         else if (e instanceof ConfermaEvent){
+            this.automa.gui.annullaScontrinoAction();
             return new ScontrinoVuotoState(this.automa);
         }
         else {
-            console.log("evento inaspettato!");
+            console.log('evento inaspettato!');
         }
     }
 }
