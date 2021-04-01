@@ -9,7 +9,8 @@ import {CriterioRicercaDto} from '../dto/criterio-ricerca-dto';
 import {Observable} from 'rxjs';
 import {ListaCasseDto} from '../dto/lista-casse-dto';
 import {CassaDto} from '../dto/cassa-dto';
-import {ModificaCassaDto} from "../dto/modifica-cassa-dto";
+import {ModificaCassaDto} from '../dto/modifica-cassa-dto';
+import {CodiceCassaDto} from "../dto/codice-cassa-dto";
 
 
 @Component({
@@ -38,6 +39,11 @@ export class AnagraficaCasseComponent implements OnInit, AutomabileCrud {
   }
 
   aggiungiAction(): void {
+    const dto: CodiceCassaDto = new CodiceCassaDto();
+    dto.codice = this.cassa.codice;
+    const oss: Observable<ListaCasseDto> = this.http
+      .post<ListaCasseDto>('http://localhost:8080/crea-nuova-cassa', dto);
+    oss.subscribe(l => this.listaCasse = l.listaCasse);
   }
 
   goToAggiungi(): void {
