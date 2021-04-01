@@ -11,7 +11,7 @@ public interface DashboardDueService {
 
     double vediPrezzo(String barcode);
 
-    Scontrino chiudiScontrino(Scontrino scontrino, List<RigaScontrino> righeScontrino);
+    Scontrino chiudiScontrino(Scontrino scontrino);
 
     Scontrino stornaUltimo(Scontrino scontrino);
 

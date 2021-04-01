@@ -36,7 +36,7 @@ public class DashboardDueServiceImpl implements DashboardDueService {
     }
 
     @Override
-    public Scontrino chiudiScontrino(Scontrino scontrino, List<RigaScontrino> righeScontrino) {
+    public Scontrino chiudiScontrino(Scontrino scontrino) {
         scontrinoRepository.save(scontrino);
         //stampato
         return new Scontrino();

@@ -1,5 +1,7 @@
 package it.iad2.scarsefourserver.controller;
 
+import it.iad2.scarsefourserver.dto.AggiungiDto;
+import it.iad2.scarsefourserver.dto.BarcodeDto;
 import it.iad2.scarsefourserver.service.DashboardDueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -34,5 +36,23 @@ public class DashboardDueController {
 		return new PrezzoDto(dashboardDueService.vediPrezzo(dto.getBarcode()));
 	}
 	
-	
+	/*@RequestMapping("/aggiungi-due")
+        @ResponseBody
+        public AggiungiDto aggiungi(@RequestBody BarcodeDto dto) {
+            boolean esito = 
+            return dashboardDueService.aggiungi(dto.getBarcode(), dto.getScontrino().);
+        }*/
+        
+        @RequestMapping("/chiudi-scontrino-due")
+        @ResponseBody
+        public ScontrinoDto chiudiScontrino(@RequestBody ScontrinoDto dto) {
+            return new ScontrinoDto(dashboardDueService.chiudiScontrino(dto.getScontrino()));
+        }
+        
+        @RequestMapping("/storna-ultimo-due")
+        @ResponseBody
+        public ScontrinoDto stornaUltimo(@RequestBody ScontrinoDto dto) {
+            return new ScontrinoDto(dashboardDueService.stornaUltimo(dto.getScontrino()));
+        }
+         
 }
