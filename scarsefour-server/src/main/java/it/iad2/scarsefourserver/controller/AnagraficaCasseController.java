@@ -1,9 +1,6 @@
 package it.iad2.scarsefourserver.controller;
 
-import it.iad2.scarsefourserver.dto.CassaDto;
-import it.iad2.scarsefourserver.dto.CriterioRicercaDto;
-import it.iad2.scarsefourserver.dto.ListaCasseDto;
-import it.iad2.scarsefourserver.dto.ModificaCassaDto;
+import it.iad2.scarsefourserver.dto.*;
 import it.iad2.scarsefourserver.service.AnagraficaCasseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

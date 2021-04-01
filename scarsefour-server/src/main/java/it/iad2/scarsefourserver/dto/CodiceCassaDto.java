@@ -1,4 +1,4 @@
-package it.iad2.scarsefourserver.controller;
+package it.iad2.scarsefourserver.dto;
 
 public class CodiceCassaDto {
     private String codice;

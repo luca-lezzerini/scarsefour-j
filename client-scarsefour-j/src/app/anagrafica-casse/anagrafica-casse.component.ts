@@ -9,6 +9,7 @@ import {CriterioRicercaDto} from '../dto/criterio-ricerca-dto';
 import {Observable} from 'rxjs';
 import {ListaCasseDto} from '../dto/lista-casse-dto';
 import {CassaDto} from '../dto/cassa-dto';
+import {ModificaCassaDto} from "../dto/modifica-cassa-dto";
 
 
 @Component({
@@ -80,9 +81,20 @@ export class AnagraficaCasseComponent implements OnInit, AutomabileCrud {
   }
 
   modificaAction(): void {
+    const dto: ModificaCassaDto = new ModificaCassaDto();
+    dto.cassa = this.cassa;
+    dto.nuovoCodice = this.cassa.codice;
+    const oss: Observable<ListaCasseDto> = this.http
+      .post<ListaCasseDto>('http://localhost:8080/modifica-cassa', dto);
+    oss.subscribe(l => this.listaCasse = l.listaCasse);
   }
 
   rimuoviAction(): void {
+    const dto: CassaDto = new CassaDto();
+    dto.cassa = this.cassa;
+    const oss: Observable<ListaCasseDto> = this.http
+      .post<ListaCasseDto>('http://localhost:8080/elimina-cassa', dto);
+    oss.subscribe(l => this.listaCasse = l.listaCasse);
   }
 
   nuova(): void {
