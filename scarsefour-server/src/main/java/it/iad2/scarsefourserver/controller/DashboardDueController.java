@@ -20,7 +20,7 @@ public class DashboardDueController {
 	@Autowired
 	DashboardDueService dashboardDueService;
 	
-	@RequestMapping("/annulla-scontrino-2")
+	@RequestMapping("/annulla-scontrino-due")
 	@ResponseBody
 	public ScontrinoDto annullaScontrino2(@RequestBody ScontrinoDto dto)
 	{
