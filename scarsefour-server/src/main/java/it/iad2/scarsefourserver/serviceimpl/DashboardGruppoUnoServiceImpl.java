@@ -114,15 +114,33 @@ public class DashboardGruppoUnoServiceImpl implements DashboardGruppoUnoService 
     }
 
     @Override
-    public ScontrinoRigheDto stornaUltimo1(Scontrino scontrino) {
+    public ScontrinoRigheDto stornaUltimo1(Scontrino scontrino, String lastBarcode) {
         List<RigaScontrino> listaRighe = scontrinoRepository.findById(scontrino.getId()).get().getRighe();
-        RigaScontrino ultimaRiga = listaRighe.get(listaRighe.size() - 1);
-        rigaScontrinoRepository.delete(ultimaRiga);
-        scontrino.setTotale(scontrino.getTotale() - ultimaRiga.getProdotto().getPrezzo());
-        scontrinoRepository.findById(scontrino.getId()).get().getRighe().remove(ultimaRiga);
-        listaRighe = scontrinoRepository.findById(scontrino.getId()).get().getRighe();
-        scontrinoRepository.save(scontrino);
+
+        for (RigaScontrino riga : listaRighe) {
+            if (riga.getProdotto().getEan().equals(lastBarcode)) {
+                scontrino.setTotale(scontrino.getTotale() - riga.getProdotto().getPrezzo());
+                if (riga.getQuantita() > 1) {
+                    riga.setQuantita(riga.getQuantita() - 1);
+                    rigaScontrinoRepository.save(riga);
+                } else {
+                    rigaScontrinoRepository.delete(riga);
+                    listaRighe.remove(riga);
+                    scontrino.setRighe(listaRighe);
+                }
+                scontrinoRepository.save(scontrino);
+                break;
+            }
+        }
         return new ScontrinoRigheDto(scontrino, listaRighe);
+//        List<RigaScontrino> listaRighe = scontrinoRepository.findById(scontrino.getId()).get().getRighe();
+//        RigaScontrino ultimaRiga = listaRighe.get(listaRighe.size() - 1);
+//        rigaScontrinoRepository.delete(ultimaRiga);
+//        scontrino.setTotale(scontrino.getTotale() - ultimaRiga.getProdotto().getPrezzo());
+//        scontrinoRepository.findById(scontrino.getId()).get().getRighe().remove(ultimaRiga);
+//        listaRighe = scontrinoRepository.findById(scontrino.getId()).get().getRighe();
+//        scontrinoRepository.save(scontrino);
+//        return new ScontrinoRigheDto(scontrino, listaRighe);
     }
 
     @Override

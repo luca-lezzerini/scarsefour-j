@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ProdottoRepositoryTre extends JpaRepository<Prodotto, Long>{
     
-    List<Prodotto> findByEan(String ean);
+    Prodotto findByEan(String ean);
 
 }

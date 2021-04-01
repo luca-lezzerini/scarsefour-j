@@ -1,15 +1,14 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { EanDto } from '../dashboard-gruppo-uno/dto-dashboard-uno/ean-dto';
-import { ScontrinoDto } from '../dto/scontrino-dto';
-import { Prodotto } from '../entità/prodotto';
-import { RigaScontrino } from '../entità/riga-scontrino';
-import { Scontrino } from '../entità/scontrino';
-import { Automa2 } from './automa-gruppo-due';
-import { AnnullaEvent, AnnullaScontrinoEvent, ChiudiEvent, ConfermaEvent, EanEvent, VediPrezzoEvent } from './eventi2';
-import { AutomabileDue } from './state2';
-import { PrezzoDto } from '../dashboard-gruppo-uno/dto-dashboard-uno/prezzo-dto';
+import {HttpClient} from '@angular/common/http';
+import {Component, OnInit} from '@angular/core';
+import {Observable} from 'rxjs';
+import {EanDto} from '../dashboard-gruppo-uno/dto-dashboard-uno/ean-dto';
+import {Prodotto} from '../entità/prodotto';
+import {RigaScontrino} from '../entità/riga-scontrino';
+import {Scontrino} from '../entità/scontrino';
+import {Automa2} from './automa-gruppo-due';
+import {AnnullaEvent, AnnullaScontrinoEvent, ChiudiEvent, ConfermaEvent, EanEvent, VediPrezzoEvent} from './eventi2';
+import {AutomabileDue} from './state2';
+import {PrezzoDto} from '../dashboard-gruppo-uno/dto-dashboard-uno/prezzo-dto';
 
 @Component({
   selector: 'app-dashboard-gruppo-due',
@@ -33,6 +32,8 @@ export class DashboardGruppoDueComponent implements OnInit, AutomabileDue {
   confermaVisibile = false;
   annullaVisibile = false;
   chiudiScontrinoVisibile = false;
+  annullaConfermaDisabled = false;
+  annullaScontrinoDisabled = false;
 
   constructor(private http: HttpClient) {
     this.automa = new Automa2(this);
@@ -43,20 +44,25 @@ export class DashboardGruppoDueComponent implements OnInit, AutomabileDue {
     this.vediPrezzoVisibile = true;
     this.listaVisibile = false;
     this.stornaVisibile = false;
-    this.annullaScontrinoVisibile = false;
-    this.confermaVisibile = false;
+    this.annullaScontrinoVisibile = true;
+    this.annullaScontrinoDisabled = true;
+    this.confermaVisibile = true;
+    this.annullaConfermaDisabled = true;
     this.chiudiScontrinoVisibile = false;
   }
+
   goToScontrinoNonVuoto(): void {
     this.eanEditabile = true;
     this.vediPrezzoVisibile = true;
     this.listaVisibile = true;
     this.stornaVisibile = true;
     this.annullaScontrinoVisibile = true;
+    this.annullaScontrinoDisabled = false;
     this.chiudiScontrinoVisibile = true;
     this.confermaVisibile = false;
     this.annullaVisibile = false;
   }
+
   goToAnnullamentoScontrino(): void {
     this.confermaVisibile = true;
     this.annullaVisibile = true;
@@ -66,7 +72,9 @@ export class DashboardGruppoDueComponent implements OnInit, AutomabileDue {
     this.stornaVisibile = false;
     this.annullaScontrinoVisibile = false;
     this.chiudiScontrinoVisibile = false;
+    this.annullaConfermaDisabled = false;
   }
+
   goToVediPrezzo(): void {
     this.eanEditabile = true;
     this.vediPrezzoVisibile = false;
@@ -93,7 +101,8 @@ export class DashboardGruppoDueComponent implements OnInit, AutomabileDue {
     this.automa.next(new ChiudiEvent());
   }
 
-  stornaUltimoAction(): void { }
+  stornaUltimoAction(): void {
+  }
 
   annulla(): void {
     this.automa.next(new AnnullaEvent());
@@ -112,7 +121,7 @@ export class DashboardGruppoDueComponent implements OnInit, AutomabileDue {
 
   annullaScontrinoAction(): void {
   }
-  
+
   chiudiScontrinoAction(): void {
   }
 
