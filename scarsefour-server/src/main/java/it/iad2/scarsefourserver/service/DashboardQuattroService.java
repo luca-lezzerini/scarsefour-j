@@ -24,6 +24,12 @@ public interface DashboardQuattroService {
 
     RispostaEanDto stornaAction(String ean, Scontrino scontrino);
 
-    RispostaEanDtoQuattro verificaEanAction(String ean);
+    /**
+     * Dato il codice a barre e lo scontrino, cerca il prodotto e lo aggiunge, se esiste, nello scontrino
+     * @param ean il codice a barre da cercare
+     * @param scontrino lo scontrino (al limite null o con id null se nuovo)
+     * @return un DTO con lo scontrino aggiornato (righe incluse) o indicazione di problemi nella ricerca dell'EAN
+     */
+    RispostaEanDtoQuattro verificaEanAction(String ean, Scontrino scontrino);
 
 }
