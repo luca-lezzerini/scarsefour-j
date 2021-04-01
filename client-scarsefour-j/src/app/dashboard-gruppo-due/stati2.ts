@@ -98,7 +98,6 @@ export class VediPrezzoState implements StateDashboardDue {
     }
 }
 
-
 export class AnnullamentoScontrinoState implements StateDashboardDue {
 
     constructor(public automa: Automa2) {
