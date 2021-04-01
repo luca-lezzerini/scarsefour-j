@@ -1,37 +1,35 @@
 <body>
-<app-toolbar-menu></app-toolbar-menu>
-<div class="headDash">
-  <h3>DASHBOARD CASSA DUE</h3>
-</div>
-<input class="inputBarcode" type="text" [disabled]="!eanEditabile" placeholder="barcode" [(ngModel)]="barcode"
-       (blur)="EventoEan()">
-Prezzo:€ {{prezzo}}
-<button class="button" (click)="annullaScontrino()" *ngIf="annullaScontrinoVisibile"
-        [disabled]="annullaScontrinoDisabled">Annulla scontrino
+    <app-toolbar-menu></app-toolbar-menu>
+    <div class="headDash">
+        <h3>DASHBOARD CASSA DUE</h3>
+    </div>
+    <input class="inputBarcode" type="text" [disabled]="!eanEditabile" placeholder="barcode" [(ngModel)]="barcode" (blur)="EventoEan()">
+    <br> <br>Prezzo:€ {{prezzo}}
+    <button class="button" (click)="annullaScontrino()" *ngIf="annullaScontrinoVisibile" [disabled]="annullaScontrinoDisabled">Annulla scontrino
 </button>
-<br>
-<button class="button" (click)="vediPrezzo()" *ngIf="vediPrezzoVisibile">Vedi prezzo</button>
-<button class="button" (click)="chiudiScontrino()" *ngIf="chiudiScontrinoVisibile">Chiudi scontrino</button>
-<button class="button" (click)="stornaUltimoAction()" *ngIf="stornaVisibile">Storna ultimo</button>
-<button class="button" (click)="annulla()" *ngIf="confermaVisibile" [disabled]="annullaConfermaDisabled">Annulla
+    <br><br>
+    <button class="button" (click)="vediPrezzo()" *ngIf="vediPrezzoVisibile">Vedi prezzo</button>
+    <button class="button" (click)="chiudiScontrino()" *ngIf="chiudiScontrinoVisibile">Chiudi scontrino</button>&nbsp;
+    <button class="button" (click)="stornaUltimoAction()" *ngIf="stornaVisibile">Storna ultimo</button>
+    <button class="button" (click)="annulla()" *ngIf="confermaVisibile" [disabled]="annullaConfermaDisabled">Annulla
+</button>&nbsp;
+    <button class="button" (click)="conferma()" *ngIf="confermaVisibile" [disabled]="annullaConfermaDisabled">Conferma
 </button>
-<button class="button" (click)="conferma()" *ngIf="confermaVisibile" [disabled]="annullaConfermaDisabled">Conferma
-</button>
-<br>
-<div *ngIf="listaVisibile">
-  <h2>Ultimo elemento {{ultimoElemento}}</h2>
-</div>
-<br>
-<table *ngIf="listaVisibile">
-  <tr>
-    <th>quantita</th>
-    <th>descrizione</th>
-    <th>prezzo</th>
-  </tr>
-  <tr *ngFor="let r of righeScontrino">
-    <td>{{r.quantita}}</td>
-    <td>{{r.prodotto.descrizione}}</td>
-    <td>{{r.prodotto.prezzo}}</td>
-  </tr>
-</table>
+    <br>
+    <div *ngIf="listaVisibile">
+        <h2>Ultimo elemento {{ultimoElemento}}</h2>
+    </div>
+    <br>
+    <table *ngIf="listaVisibile">
+        <tr>
+            <th>quantita</th>
+            <th>descrizione</th>
+            <th>prezzo</th>
+        </tr>
+        <tr *ngFor="let r of righeScontrino">
+            <td>{{r.quantita}}</td>
+            <td>{{r.prodotto.descrizione}}</td>
+            <td>{{r.prodotto.prezzo}}</td>
+        </tr>
+    </table>
 </body>
