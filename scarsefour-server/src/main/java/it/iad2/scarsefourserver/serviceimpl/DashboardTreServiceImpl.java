@@ -1,5 +1,6 @@
 package it.iad2.scarsefourserver.serviceimpl;
 
+import it.iad2.scarsefourserver.dto.AggiungiEanRispostaDto;
 import it.iad2.scarsefourserver.repository.ProdottoRepositoryTre;
 import it.iad2.scarsefourserver.repository.RigaScontrinoRepositoryTre;
 import it.iad2.scarsefourserver.repository.ScontrinoRepositoryTre;
@@ -71,26 +72,73 @@ public class DashboardTreServiceImpl implements DashboardTreService {
     }
 
     @Override
-    public Scontrino aggiungiRigaScontrino(Scontrino scontrino) {
-        //Salva o aggiorna scontrino e le righeScontrino
-        double totale = 0;
-        if (scontrino.getId() == null) {
-            scontrino = new Scontrino(LocalDateTime.now(), scontrino.getNumero(), scontrino.getTotale());
+    public AggiungiEanRispostaDto aggiungiRigaScontrino(Scontrino scontrino, String ean) {
+        // definisco la variabile per l'esito
+        boolean esito;
+
+        // vedo se il client mi ha mandato uno scontrino vuoto
+        if (scontrino == null || scontrino.getId() == null) {
+            // scontrino vuoto da client, creo nuovo scontrino
+            scontrino = new Scontrino();
             scontrino = scontrinoRepository.save(scontrino);
-            System.out.println("scontrino: " + scontrino);
+        } else {
+            // recupero scontrino aggiornato da DB
+            var sco = scontrinoRepository.findById(scontrino.getId());
+            if (sco.isEmpty()) {
+                System.out.println("ERRORE: id scontrino non trovata. Creato scontrino vuoto");
+                scontrino = new Scontrino();
+                scontrino = scontrinoRepository.save(scontrino);
+            } else {
+                scontrino = sco.get();
+            }
         }
+
+        // cerco l'ean
+        var prod = prodottoRepository.findByEan(ean);
+        // verifico se l'ho trovato
+        if (prod == null) {
+            // non trovato
+            esito = false;
+        } else {
+            // trovato
+            esito = true;
+            // aggiungo una riga ...
+            var riga = new RigaScontrino();
+            riga.setProdotto(prod);
+            riga.setQuantita(1);
+            riga.setScontrino(scontrino);
+            riga = rigaScontrinoRepository.save(riga);
+            // ... la collego allo scontrino ...
+            scontrino.getRighe().add(riga);
+            scontrino = scontrinoRepository.save(scontrino);
+
+            // ... e al prodotto ...
+            prod.getRighe().add(riga);
+            prod = prodottoRepository.save(prod);
+        }
+
+        // Calcolo del totale
+        double totale = 0;
         List<RigaScontrino> righe = scontrino.getRighe();
         System.out.println("righe" + righe.toString());
         System.out.println(scontrino.getRighe().toString());
-        for (RigaScontrino rigaScontrino : righe) {
-            totale += rigaScontrino.getProdotto().getPrezzo();
-            rigaScontrino.getProdotto();
-            System.out.println("righe scontrino: " + rigaScontrino);
-            rigaScontrinoRepository.save(rigaScontrino);
-        }
+        // Metodo 1 "Pigorini"
+//        for (RigaScontrino rigaScontrino : righe) {
+//            totale += rigaScontrino.getProdotto().getPrezzo();
+//            rigaScontrino.getProdotto();
+//            System.out.println("righe scontrino: " + rigaScontrino);
+//            rigaScontrinoRepository.save(rigaScontrino);
+//        }
+
+        // Metodo 2 "The Martian"
+        totale = righe.stream()
+                .mapToDouble(r -> r.getProdotto().getPrezzo())
+                .sum();
+
         //prendere prodotto da scontrino e salvarlo
         System.out.println("totale = " + totale);
         scontrino.setTotale(totale);
+        scontrino = scontrinoRepository.save(scontrino);
         System.out.println("scontrino salvato" + scontrino.getRighe().toString());
         return aggiornaRighe(scontrino);
     }

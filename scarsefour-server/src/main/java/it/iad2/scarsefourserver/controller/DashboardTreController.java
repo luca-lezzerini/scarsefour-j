@@ -1,7 +1,8 @@
 package it.iad2.scarsefourserver.controller;
 
+import it.iad2.scarsefourserver.dto.AggiungiEanDto;
+import it.iad2.scarsefourserver.dto.AggiungiEanRispostaDto;
 import it.iad2.scarsefourserver.service.DashboardTreService;
-import it.iad2.scarsefourserver.dto.ListaRigaScontrinoTreDto;
 import it.iad2.scarsefourserver.dto.ScontrinoTreDto;
 import it.iad2.scarsefourserver.dto.CriterioRicercaDto;
 import it.iad2.scarsefourserver.dto.ProdottoDto;
@@ -45,9 +46,10 @@ public class DashboardTreController {
     
     @RequestMapping("/aggiungi-scontrino-tre")
     @ResponseBody
-    public ScontrinoTreDto aggiungiRigaScontrino(@RequestBody ScontrinoTreDto dto){
+    public AggiungiEanRispostaDto aggiungiRigaScontrino(@RequestBody AggiungiEanDto dto){
         System.out.println("Siamo in aggiungi riga scontrino " + dto);
-        return new ScontrinoTreDto(dashBoardService.aggiungiRigaScontrino(dto.getScontrino()));
+        var r = dashBoardService.aggiungiRigaScontrino(dto.getScontrino(), dto.getBarcode());
+        return r;
     }
     
      @RequestMapping("/aggiorna-righe-tre")

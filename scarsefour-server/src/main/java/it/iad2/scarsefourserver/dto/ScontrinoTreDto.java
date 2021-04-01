@@ -3,7 +3,8 @@ package it.iad2.scarsefourserver.dto;
 import it.iad2.scarsefourserver.model.Scontrino;
 
 public class ScontrinoTreDto {
-    private Scontrino scontrino;
+
+    protected Scontrino scontrino;
 
     public ScontrinoTreDto() {
     }
@@ -24,6 +25,5 @@ public class ScontrinoTreDto {
     public String toString() {
         return "ScontrinoTreDto{" + "scontrino=" + scontrino + '}';
     }
-    
-    
+
 }
