@@ -1,20 +1,21 @@
-Anagrafica casse
-<br>
-<button (click)="nuova()" *ngIf="buttonNuovaVisible">Nuova</button>
-<br>
+<body>
+<app-toolbar-menu></app-toolbar-menu>
+<div>
+  <h4>ANAGRAFICA CASSE</h4>
+</div>
+<button class="button" (click)="nuova()" *ngIf="buttonNuovaVisible">Nuova</button>
 <div *ngIf="formDivVisible">
   Codice cassa: <input type="text" [(ngModel)]="cassa.codice" [disabled]="campiNonEditabili">
   <br>
-  <div>
-    <button (click)="modifica()" *ngIf="!confAnnVisible">Modifica</button>
-    <button (click)="conferma()" *ngIf="confAnnVisible">Conferma</button>
-    <button (click)="annulla()" *ngIf="confAnnVisible">Annulla</button>
-    <button (click)="rimuovi()" *ngIf="!confAnnVisible">Rimuovi</button>
-  </div>
+  <button class="button" (click)="modifica()" *ngIf="!confAnnVisible">Modifica</button>
+  <button class="button" (click)="conferma()" *ngIf="confAnnVisible">Conferma</button>
+  <button class="button" (click)="annulla()" *ngIf="confAnnVisible">Annulla</button>
+  <button class="button" (click)="rimuovi()" *ngIf="!confAnnVisible">Rimuovi</button>
 </div>
+<br>
 <div *ngIf="searchVisible">
   <input type="text" [(ngModel)]="searchCriterion">
-  <button (click)="cerca()">Cerca</button>
+  <button class="button" (click)="cerca()">Cerca</button>
   <br>
   <table>
     <tr>
@@ -22,7 +23,10 @@ Anagrafica casse
     </tr>
     <tr *ngFor="let c of listaCasse">
       <td>{{c.codice}}</td>
-      <td> <button (click)="seleziona(c)">Seleziona</button> </td>
+      <td>
+        <button class="buttonSel" (click)="seleziona(c)">Seleziona</button>
+      </td>
     </tr>
   </table>
 </div>
+</body>

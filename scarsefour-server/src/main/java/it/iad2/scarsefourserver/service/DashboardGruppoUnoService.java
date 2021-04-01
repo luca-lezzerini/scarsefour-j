@@ -12,8 +12,10 @@ public interface DashboardGruppoUnoService {
     
     double vediPrezzo1(String barcode);
     
-    ScontrinoRigheDto stornaUltimo1(Scontrino scontrino);
+    ScontrinoRigheDto stornaUltimo1(Scontrino scontrino, String lastBarcode);
     
     Scontrino annullaScontrino1(Scontrino scontrino);
+    
+    
 
 }
