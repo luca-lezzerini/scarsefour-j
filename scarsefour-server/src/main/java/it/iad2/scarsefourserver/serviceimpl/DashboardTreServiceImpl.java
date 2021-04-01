@@ -26,11 +26,11 @@ public class DashboardTreServiceImpl implements DashboardTreService {
 
     @Override
     public Prodotto vediPrezzo(String ean) {
-        List<Prodotto> lista = prodottoRepository.findByEan(ean);
-        if (!lista.isEmpty()) {
-            return lista.get(0);
+        Prodotto prod = prodottoRepository.findByEan(ean);
+        if (prod != null) {
+            return prod;
         } else {
-            Prodotto prod = new Prodotto();
+            prod = new Prodotto();
             return prod;
         }
     }
@@ -140,7 +140,8 @@ public class DashboardTreServiceImpl implements DashboardTreService {
         scontrino.setTotale(totale);
         scontrino = scontrinoRepository.save(scontrino);
         System.out.println("scontrino salvato" + scontrino.getRighe().toString());
-        return aggiornaRighe(scontrino);
+        AggiungiEanRispostaDto aggiungiEanRispostaDto = new AggiungiEanRispostaDto(scontrino, esito, righe);
+        return aggiungiEanRispostaDto;
     }
 
     @Override
