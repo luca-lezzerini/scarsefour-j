@@ -20,6 +20,7 @@ h1 {
 h2 {
     text-align: top;
 }
+
 /*
 h3 {
     font-family: Verdana, Arial, Helvetica, sans-serif;
@@ -49,10 +50,14 @@ h3 {
     display: table;
 }
 
+[class*="elem"] {
+    float: left;
+    padding: 0px;
+}
+
 .elem::after {
-    content: "";
-    clear: both;
-    display: table;
+    width: 50%;
+    text-align: start;   
 }
 
 [class*="col-"] {
@@ -60,53 +65,13 @@ h3 {
     padding: 15px;
 }
 
-.col-1 {
-    width: 8.33%;
-}
-
-.col-2 {
-    width: 16.66%;
-}
-
 .col-3 {
     width: 25%;
 }
 
-.col-4 {
-    width: 33.33%;
-}
-
-.col-5 {
-    width: 41.66%;
-}
-
-.col-6 {
-    width: 50%;
-}
-
-.col-7 {
-    width: 58.33%;
-}
-
-.col-8 {
-    width: 66.66%;
-}
-
-.col-9 {
-    width: 75%;
-}
-
-.col-10 {
-    width: 83.33%;
-}
-
-.col-11 {
-    width: 91.66%;
-}
-
-.col-12 {
-    width: 100%;
-}
+/* col 1-12 -> width: 8.33%; 16.66%; 25%;
+33.33%; 41.66%; 50%; 58.33%; 66.66%;
+75%; 83.33%; 91.66%; 100%; */
 
 /* HEADER ANAGRAFICA */
 
@@ -159,7 +124,7 @@ hr {
 /* CAMPI INPUT */
 
 .inputBarcode {
-    width: 200px;
+    width: 70%;
     box-sizing: border-box;
     border: 2px solid #ccc;
     border-radius: 4px;
@@ -238,35 +203,40 @@ hr {
 
 #butVediPrezzo {
     height: 70px;
-    width: 200px;
+    /* width: 200px; */
+    width: 75%;
+    text-align: center;
 }
 
 #butChiudiScontrino {
     height: 135px;
-    width: 200px;
+    /*width: 200px;*/
+    width: 75%;
 }
 
 #butStorna {
     height: 95px;
-    width: 190px;
+    /*width: 190px;*/
+    width: 75%;
 }
 
 #butAnnScontrino {
     height: 50px;
-    width: 200px;
+    /* width: 200px; */
+    width: 75%;
 }
 
 #butAnnulla {
     height: 50px;
-    width: 200px;
+    /* width: 200px; */
+    width: 75%;
 }
 
 #butConferma {
     height: 50px;
-    width: 200px;
+    /* width: 200px; */
+    width: 75%;
 }
-
-/* TODO dividere fra tabelle anagrafica e tabelle dashboard*/
 
 table {
     width: 100%;
@@ -328,8 +298,31 @@ tr:nth-child(odd) {
 
 tr:nth-child(even) {}
 
+[class*="tab-"] {
+    float: left;
+    padding: 15px;
+}
+
+.tab-1::after{
+    width: 65%;
+}
+
+.tab-2::after {
+    width: 35%;
+}
+
 #tabDash {
-    width: 1000px;
+    position: absolute;
+    padding-bottom: 240px;
+    width: 65%;
+}
+
+.tot {
+    position: absolute;
+    font-size: 35px;
+    width: 65%;
+    height: 80%;
+    text-align: right;
 }
 
 /* TOOLBAR MENU */
@@ -445,10 +438,11 @@ p.titoliHome {
 
 .logo {
     position: absolute;
-    bottom: 90px;
-    left: 950px;
-    font-size: 60px;
-    color: rgb(10, 165, 49);
+    float: right;
+    /* bottom: 25px;
+    right: 15px; */
+    /* font-size: 60px;
+    color: rgb(10, 165, 49); */
 }
 
 /* IMMAGINI SELF SLIDE */

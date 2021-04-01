@@ -1,7 +1,7 @@
 <body>
   <app-toolbar-menu></app-toolbar-menu>
   <div>
-    <h1 class="headAnagrafica">GESTIONE ANAGRAFICA POSIZIONI SCAFFALE</h1>
+    <h1 class="headAnagrafica">ANAGRAFICA POSIZIONI</h1>
   </div>
   <button (click)="nuova()" *ngIf="buttonNuovaVisible" class="button">Nuova</button>
   <div *ngIf="formDivVisible">
@@ -16,6 +16,7 @@
   <br>
   <input type="text" [(ngModel)]="criterio" *ngIf="searchVisible" class="inputSearch">
   <button (click)="cerca()" *ngIf="searchVisible" class="button">Cerca</button>
+  <br>
   <table *ngIf="searchVisible" class="scrolldown">
     <thead>
       <tr>
