@@ -18,6 +18,7 @@ export class ScontrinoVuotoState implements StateDashboardDue {
                 this.automa.gui.aggiungiProdottoAction();
                 return new ScontrinoNonVuotoState(this.automa);
             }else{
+                console.log('EAN sconosciuto!');
                 return this.automa.stato;
             }
         }
@@ -35,13 +36,15 @@ export class ScontrinoNonVuotoState implements StateDashboardDue {
 
     next(e: EventDashboardDue): StateDashboardDue {
         if (e instanceof ChiudiEvent) {
+            this.automa.gui.chiudiScontrinoAction();
             return new ScontrinoVuotoState(this.automa);
         }
         else if (e instanceof StornaUltimoEvent) {
-            if (e.numeroRighe === 1) {
+            this.automa.gui.stornaUltimoAction();
+            if (e.numeroRighe === 0) {
                 return new ScontrinoVuotoState(this.automa);
             }
-            else if (e.numeroRighe > 1){
+            else if (e.numeroRighe >= 1){
                 return this.automa.stato;
             }
         }
@@ -51,6 +54,7 @@ export class ScontrinoNonVuotoState implements StateDashboardDue {
                 return this.automa.stato;
             }
             else{
+                console.log('EAN sconosciuto!')
                 return this.automa.stato;
             }
         }
@@ -78,11 +82,13 @@ export class VediPrezzoState implements StateDashboardDue {
                 this.automa.gui.vediPrezzoAction();
                 return new ScontrinoVuotoState(this.automa);
             } else if (!e.esito && e.numeroRighe === 0){
+                console.log('EAN sconosciuto!')
                 return new ScontrinoVuotoState(this.automa);
             }else if (e.esito && e.numeroRighe > 0){
                 this.automa.gui.vediPrezzoAction();
                 return new ScontrinoNonVuotoState(this.automa);
             }else if (!e.esito && e.numeroRighe > 0){
+                console.log('EAN sconosciuto!')
                 return new ScontrinoNonVuotoState(this.automa);
             }
         }

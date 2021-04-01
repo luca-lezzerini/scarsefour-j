@@ -37,6 +37,9 @@ export class DashboardGruppoDueComponent implements OnInit, AutomabileDue {
   constructor(private http: HttpClient) {
     this.automa = new Automa2(this);
   }
+  chiudiScontrinoAction(): void {
+    throw new Error('Method not implemented.');
+  }
   vediPrezzoAction(): void {
     const dto: EanDto = new EanDto();
     console.log('Codice: ' + this.barcode);
@@ -100,7 +103,7 @@ export class DashboardGruppoDueComponent implements OnInit, AutomabileDue {
 
   chiudiScontrino(): void { }
 
-  stornaUltimo(): void { }
+  stornaUltimoAction(): void { }
 
   annulla(): void { }
 
