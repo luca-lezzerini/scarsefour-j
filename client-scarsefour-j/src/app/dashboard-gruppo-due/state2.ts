@@ -13,4 +13,6 @@ export interface AutomabileDue {
     vediPrezzoAction(): void;
     aggiungiProdottoAction(): void;
     annullaScontrinoAction(): void;
+    chiudiScontrinoAction(): void;
+    stornaUltimoAction(): void;
 }
