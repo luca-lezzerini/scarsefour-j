@@ -6,23 +6,31 @@ import { RichiestaEanDto } from './dto-dashboard-uno/richiesta-ean-dto';
 import { RigaScontrino } from '../entità/riga-scontrino';
 import { Scontrino } from '../entità/scontrino';
 import { AutomaDashboardUno } from './automa-dashboard-uno/automa-dashboard-uno';
-import { AnnullaEvent, AnnullaScontrinoEvent, ChiudiEvent, ConfermaEvent, EanEvent, StornaEvent, VediPrezzoEvent } from './automa-dashboard-uno/eventi-dashboard-uno';
+import {
+  AnnullaEvent,
+  AnnullaScontrinoEvent,
+  ChiudiEvent,
+  ConfermaEvent,
+  EanEvent,
+  StornaEvent,
+  VediPrezzoEvent,
+} from './automa-dashboard-uno/eventi-dashboard-uno';
 import { AutomabileDashboardUno } from './automa-dashboard-uno/state-dashboard-uno';
 import { RispostaEanDto } from './dto-dashboard-uno/risposta-ean-dto';
 import { PrezzoDto } from './dto-dashboard-uno/prezzo-dto';
 import { ScontrinoDto } from './dto-dashboard-uno/scontrino-dto';
 import { EanDto } from './dto-dashboard-uno/ean-dto';
 import { ScontrinoRigheDto } from './dto-dashboard-uno/scontrino-righe-dto';
+import { StornaUltimoDto } from './dto-dashboard-uno/storna-ultimo-dto';
 
 @Component({
   selector: 'app-dashboard-gruppo-uno',
   templateUrl: './dashboard-gruppo-uno.component.html',
-  styleUrls: ['../theme.css']
+  styleUrls: ['../theme.css'],
 })
-export class DashboardGruppoUnoComponent implements OnInit, AutomabileDashboardUno {
-
+export class DashboardGruppoUnoComponent
+  implements OnInit, AutomabileDashboardUno {
   automaD: AutomaDashboardUno;
-
 
   //variabili di visualizzazione
   eanEdit: boolean = false;
@@ -42,7 +50,7 @@ export class DashboardGruppoUnoComponent implements OnInit, AutomabileDashboardU
   ultimoElVis: boolean = false;
 
   //variabili
-  barcode: string = "";
+  barcode: string = '';
   prezzoR: number;
   prezzoE: number;
   descrizioneE: string;
@@ -50,12 +58,12 @@ export class DashboardGruppoUnoComponent implements OnInit, AutomabileDashboardU
   righeScontrino: RigaScontrino[];
   scontrino: Scontrino;
   blurVar: boolean = false;
-
+  lastBarcode: string;
+  listato: string[] = [];
 
   constructor(private http: HttpClient, private router: Router) {
     this.automaD = new AutomaDashboardUno(this);
   }
-
 
   //metodi Automabile
   goToScontrinoVuotoInitial() {
@@ -178,8 +186,7 @@ export class DashboardGruppoUnoComponent implements OnInit, AutomabileDashboardU
     this.ultimoElVis = false;
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   vaiAHome() {
     this.router.navigateByUrl('home-page');
@@ -193,33 +200,37 @@ export class DashboardGruppoUnoComponent implements OnInit, AutomabileDashboardU
       'http://localhost:8080/cerca-ean-1',
       dto
     );
-    oss.subscribe(r => {
+    oss.subscribe((r) => {
       this.scontrino = r.scontrino;
       this.righeScontrino = r.righeScontrino;
       this.barcode = r.barcode;
+      this.lastBarcode = r.barcode;
+      this.listato.push(this.lastBarcode);
       this.automaD.next(new EanEvent(this.barcode, this.scontrino));
       if (r.scontrino != null) {
         this.prezzoTot = r.scontrino.totale;
-        this.prezzoE = r.righeScontrino[r.righeScontrino.length - 1].prodotto.prezzo;
-        this.descrizioneE = r.righeScontrino[r.righeScontrino.length - 1].prodotto.descrizione;
+        this.prezzoE =
+          r.righeScontrino[r.righeScontrino.length - 1].prodotto.prezzo;
+        this.descrizioneE =
+          r.righeScontrino[r.righeScontrino.length - 1].prodotto.descrizione;
       }
-      this.barcode = "";
+      this.barcode = '';
     });
     this.prezzoRVis = false;
   }
 
   chiudiScontrino() {
-    console.log("timestamp :", this.scontrino.timeStamp);
-    console.log("numero scontrino : ", this.scontrino.numero);
-    console.log("righe scontrino : ", this.righeScontrino);
-    console.log("totale : ", this.scontrino.totale);
+    console.log('timestamp :', this.scontrino.timeStamp);
+    console.log('numero scontrino : ', this.scontrino.numero);
+    console.log('righe scontrino : ', this.righeScontrino);
+    console.log('totale : ', this.scontrino.totale);
     let dto: ScontrinoDto = new ScontrinoDto();
     dto.scontrino = this.scontrino;
     let oss: Observable<ScontrinoDto> = this.http.post<ScontrinoDto>(
       'http://localhost:8080/chiudi-scontrino-1',
       dto
     );
-    oss.subscribe(c => {
+    oss.subscribe((c) => {
       this.scontrino = c.scontrino;
       this.righeScontrino = [];
       this.prezzoTot = null;
@@ -236,42 +247,44 @@ export class DashboardGruppoUnoComponent implements OnInit, AutomabileDashboardU
       'http://localhost:8080/vedi-prezzo-1',
       dto
     );
-    oss.subscribe(p => {
-      this.prezzoR = p.prezzo
+    oss.subscribe((p) => {
+      this.prezzoR = p.prezzo;
       if (this.prezzoR != 0) {
         this.automaD.next(new EanEvent(this.barcode, this.scontrino));
-      }
-      else {
+      } else {
         this.prezzoR = null;
-        this.barcode = "";
+        this.barcode = '';
         this.automaD.next(new EanEvent(this.barcode, this.scontrino));
       }
     });
-
   }
 
   TastoVediPrezzo() {
     this.automaD.next(new VediPrezzoEvent());
     this.prezzoRVis = true;
     this.prezzoR = null;
-    this.barcode = "";
+    this.barcode = '';
   }
 
   stornaUltimo() {
-    let dto: ScontrinoDto = new ScontrinoDto();
+    let dto: StornaUltimoDto = new StornaUltimoDto();
     dto.scontrino = this.scontrino;
-    //dto.righeScontrino = this.righeScontrino;
+    dto.lastBarcode = this.lastBarcode;
     let oss: Observable<ScontrinoRigheDto> = this.http.post<ScontrinoRigheDto>(
       'http://localhost:8080/storna-ultimo-1',
       dto
-    )
-    oss.subscribe(s => {
+    );
+    oss.subscribe((s) => {
       this.scontrino = s.scontrino;
       this.righeScontrino = s.righeScontrino;
       this.prezzoTot = s.scontrino.totale;
       if (this.righeScontrino.length > 0) {
-        this.prezzoE = s.righeScontrino[s.righeScontrino.length - 1].prodotto.prezzo;
-        this.descrizioneE = s.righeScontrino[s.righeScontrino.length - 1].prodotto.descrizione;
+        this.prezzoE =
+          s.righeScontrino[s.righeScontrino.length - 1].prodotto.prezzo;
+        this.descrizioneE =
+          s.righeScontrino[s.righeScontrino.length - 1].prodotto.descrizione;
+        this.listato.splice(this.listato.length - 1);
+        this.lastBarcode = this.listato[this.listato.length - 1];
       }
     });
     this.automaD.next(new StornaEvent(this.righeScontrino.length));
@@ -290,15 +303,14 @@ export class DashboardGruppoUnoComponent implements OnInit, AutomabileDashboardU
       'http://localhost:8080/annulla-scontrino-1',
       dto
     );
-    oss.subscribe(s => {
-      this.scontrino = s.scontrino
+    oss.subscribe((s) => {
+      this.scontrino = s.scontrino;
       this.righeScontrino = [];
       this.prezzoTot = null;
       this.prezzoE = null;
       this.descrizioneE = null;
     });
     this.automaD.next(new ConfermaEvent());
-
   }
 
   annulla() {
