@@ -74,8 +74,8 @@ public class DashboardTreServiceImpl implements DashboardTreService {
     public Scontrino aggiungiRigaScontrino(Scontrino scontrino) {
         //Salva o aggiorna scontrino e le righeScontrino
         double totale = 0;
-        if (scontrino == null || scontrino.getId() == null) {
-            scontrino = new Scontrino();
+        if (scontrino.getId() == null) {
+            scontrino = new Scontrino(LocalDateTime.now(), scontrino.getNumero(), scontrino.getTotale());
             scontrino = scontrinoRepository.save(scontrino);
             System.out.println("scontrino: " + scontrino);
         }

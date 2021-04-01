@@ -24,7 +24,7 @@ export class DashboardGruppoTreComponent implements OnInit, AutomabileTre {
   barcode: string;
   // riportare l'ultimo elemento della tabella, solo descrizione e prezzo
   ultimoElemento: string;
-  prodotto: Prodotto;
+  prodotto: Prodotto = new Prodotto();
   righe: RigaScontrino[] = [];
   scontrino: Scontrino = new Scontrino();
   rigaScontrino: RigaScontrino;
@@ -111,12 +111,20 @@ export class DashboardGruppoTreComponent implements OnInit, AutomabileTre {
     let rigaNuova: RigaScontrino = new RigaScontrino();
     rigaNuova.prodotto = this.prodotto;
     rigaNuova.quantita = 1;
-    this.righe.push(rigaNuova);
-    this.scontrino.righe = this.righe;
+    console.log(this.prodotto.id);
+    console.log(rigaNuova);
+    let righeNuove: RigaScontrino[] = [];
+    righeNuove.push(rigaNuova);
+    console.log(righeNuove);
+    this.scontrino.righe = righeNuove;
+    console.log(this.scontrino.righe);
     dto.scontrino = this.scontrino;
+    console.log(this.prodotto);
+    console.log(this.scontrino)
     let oss: Observable<DtoScontrinoTre> = this.http.post<DtoScontrinoTre>
       ('http://localhost:8080/aggiungi-scontrino-tre', dto);
     oss.subscribe(t => {
+      this.scontrino.timeStamp = t.scontrino.timeStamp;
       this.scontrino = t.scontrino;
       this.righe = t.scontrino.righe;
       console.log(this.scontrino.totale)});
@@ -182,7 +190,6 @@ export class DashboardGruppoTreComponent implements OnInit, AutomabileTre {
   // Metodi richiamati internamente
   vediPrezzo() {
     //deve solo visualizzare il prezzo
-    this.prodotto = new Prodotto();
     let dto: CriterioRicercaDto = new CriterioRicercaDto();
     console.log("BARCODE: " + this.barcode);
     dto.criterio = this.barcode;
