@@ -53,7 +53,7 @@ public class DashboardQuattroServiceImpl implements DashboardQuattroService {
     }
 
     @Override
-    public RispostaEanDto inserisciEanAction(String ean, Scontrino scontrino) {
+    public RispostaEanDtoQuattro inserisciEanAction(String ean, Scontrino scontrino) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

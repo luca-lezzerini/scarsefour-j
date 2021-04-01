@@ -20,7 +20,7 @@ public interface DashboardQuattroService {
 
     RispostaEanDto annullaScontrinoAction(Scontrino scontrino);
 
-    RispostaEanDto inserisciEanAction(String ean, Scontrino scontrino);
+    RispostaEanDtoQuattro inserisciEanAction(String ean, Scontrino scontrino);
 
     RispostaEanDto stornaAction(String ean, Scontrino scontrino);
 

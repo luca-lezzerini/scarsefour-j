@@ -75,7 +75,7 @@ export class DashboardGruppoQuattroComponent implements OnInit, AutomabileGruppo
     throw new Error('Method not implemented.');
   }
 
-  inserisciEanAction() {
+  inserisciEan() {
     throw new Error('Method not implemented.');
   }
 
@@ -212,11 +212,11 @@ export class DashboardGruppoQuattroComponent implements OnInit, AutomabileGruppo
     this.automa.next(new ConfermaEvent());
   }
 
-  inserisciEan() {
+  inserisciEanAction() {
     let dto: RichiestaEanDto4 = new RichiestaEanDto4();
     dto.barcode = this.ean;
     dto.scontrino = this.scontrino;
-    let oss: Observable<RispostaEanDto4> = this.http.post<RispostaEanDto4>('http://localhost:8080/inserisci-ean-quattro', dto);
+    let oss: Observable<RispostaEanDto4> = this.http.post<RispostaEanDto4>("http://localhost:8080/inserisci-ean-quattro", dto);
     oss.subscribe(e => {
       if (e.rigaSuccesso) {
         this.scontrino = e.scontrino;
@@ -227,7 +227,7 @@ export class DashboardGruppoQuattroComponent implements OnInit, AutomabileGruppo
         this.errore = "ean inesistente";
       }
     });
-    this.automa.next(new EanEvent(this.ean, this.scontrino));
+   // this.automa.next(new EanEvent(this.ean, this.scontrino));
   }
 }
 

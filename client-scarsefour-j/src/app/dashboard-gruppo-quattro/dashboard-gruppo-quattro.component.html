@@ -1,6 +1,6 @@
 <h2>Dashboard Cassa 4</h2>
 
-<input type="text" placeholder="barcode" [(ngModel)]="ean" [disabled]="eanNonEditabile" (keydown.tab)="inserisciEan()"
+<input type="text" placeholder="barcode" [(ngModel)]="ean" [disabled]="eanNonEditabile" (keydown.tab)="inserisciEanAction()"
     *ngIf="barCodeNonVisibile">
 <p *ngIf="tastoTabMes"> Premere tasto tab per confermare codice prodotto</p>
 
