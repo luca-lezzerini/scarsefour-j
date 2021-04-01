@@ -112,10 +112,24 @@ public class DashboardQuattroServiceImpl implements DashboardQuattroService {
         // calcoliamo il totale
         double totale = 0;
         List<RigaScontrino> lista = scontrino.getRighe();
-        for (int i = 0; i < lista.size(); i++) {
-            RigaScontrino riga = lista.get(i);
-            totale += riga.getProdotto().getPrezzo();
-        }
+//        // metodo 1
+//        for (int i = 0; i < lista.size(); i++) {
+//            RigaScontrino riga = lista.get(i);
+//            totale += riga.getProdotto().getPrezzo();
+//        }
+//        // metodo 2
+//        for (RigaScontrino rigaScontrino : lista) {
+//            totale += rigaScontrino.getProdotto().getPrezzo();
+//        }
+
+        // metodo 3
+        totale = lista.stream()
+                .mapToDouble(r -> r.getProdotto().getPrezzo())
+                .sum();
+
+        // salvo il totale sullos contrino
+        scontrino.setTotale(totale);
+        scontrino = scontrinoRepository.save(scontrino);
 
         // ritorno DTO con esito, scontrino e righe
         return new RispostaEanDtoQuattro(esito, scontrino, scontrino.getRighe());
