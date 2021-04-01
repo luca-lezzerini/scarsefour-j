@@ -1,5 +1,6 @@
 package it.iad2.scarsefourserver.serviceimpl;
 
+import it.iad2.scarsefourserver.dto.AggiungiDto;
 import it.iad2.scarsefourserver.model.Prodotto;
 import it.iad2.scarsefourserver.service.DashboardDueService;
 
@@ -51,7 +52,7 @@ public class DashboardDueServiceImpl implements DashboardDueService {
     }
 
     @Override
-    public Scontrino aggiungi(String barcode, Scontrino scontrino) {
+    public AggiungiDto aggiungi(String barcode, Scontrino scontrino) {
         boolean esito;
         Prodotto prodotto = prodottoRepository.findByEanEquals(barcode);
         if (prodotto == null) {
@@ -63,7 +64,7 @@ public class DashboardDueServiceImpl implements DashboardDueService {
             rigaScontrinoRepository.save(riga);
             esito = true;
         }
-        return scontrino;
+        return new AggiungiDto(scontrino, esito);
 
     }
 

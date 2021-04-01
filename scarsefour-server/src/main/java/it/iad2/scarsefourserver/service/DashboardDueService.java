@@ -1,7 +1,6 @@
 package it.iad2.scarsefourserver.service;
 
-import it.iad2.scarsefourserver.model.RigaScontrino;
-import java.util.List;
+import it.iad2.scarsefourserver.dto.AggiungiDto;
 
 import it.iad2.scarsefourserver.model.Scontrino;
 
@@ -15,5 +14,5 @@ public interface DashboardDueService {
 
     Scontrino stornaUltimo(Scontrino scontrino);
 
-    Scontrino aggiungi(String barcode, Scontrino scontrino);
+    AggiungiDto aggiungi(String barcode, Scontrino scontrino);
 }
