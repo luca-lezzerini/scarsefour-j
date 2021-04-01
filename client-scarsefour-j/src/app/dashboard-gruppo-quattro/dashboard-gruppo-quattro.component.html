@@ -1,9 +1,8 @@
+<h2>Dashboard Cassa 4</h2>
 
-<body>
-    <h2>Dashboard Cassa 4</h2>
-    
-<input type="text" placeholder="barcode" [(ngModel)]="ean" [disabled]="eanNonEditabile" (keydown.tab)="inserisciEan()" *ngIf="barCodeNonVisibile">
-<p *ngIf = "tastoTabMes"> Premere tasto tab per confermare codice prodotto</p>
+<input type="text" placeholder="barcode" [(ngModel)]="ean" [disabled]="eanNonEditabile" (keydown.tab)="inserisciEan()"
+    *ngIf="barCodeNonVisibile">
+<p *ngIf="tastoTabMes"> Premere tasto tab per confermare codice prodotto</p>
 
 <br>
 <button ng-disabled="bottoneVediPrezzo" (click)="vediPrezzo()" *ngIf="vediPrezzoVisibleB">Vedi prezzo</button>
@@ -11,11 +10,14 @@
 <br>
 <p *ngIf="prezzoB">Prezzo: {{prezzo}}</p>
 <br>
-<button ng-disabled="bottoneStornaUltimo" (click)="stornaUltimo()" *ngIf="stornaB">Storna ultimo</button>
-<button ng-disabled="bottoneAnnullaScontrino" (click)="annullaScontrino()" *ngIf="annullaScontrinoB">Annulla scontrino</button>
+<p>{{errore}}</p>
 <br>
-<button ng-disabled="bottoneAnnulla"(click)="Annulla()" *ngIf="annullaB">Annulla</button>
-<button ng-disabled="bottoneConferma"(click)="Conferma()" *ngIf="confermaB">Conferma</button>
+<button ng-disabled="bottoneStornaUltimo" (click)="stornaUltimo()" *ngIf="stornaB">Storna ultimo</button>
+<button ng-disabled="bottoneAnnullaScontrino" (click)="annullaScontrino()" *ngIf="annullaScontrinoB">Annulla
+    scontrino</button>
+<br>
+<button ng-disabled="bottoneAnnulla" (click)="Annulla()" *ngIf="annullaB">Annulla</button>
+<button ng-disabled="bottoneConferma" (click)="Conferma()" *ngIf="confermaB">Conferma</button>
 <br>
 <p *ngIf="prezzoLabel">Ultimo elemento {{Descrizione}} {{prezzo}}
     Totale </p>
@@ -33,6 +35,3 @@
     </tr>
 </table>
 <p *ngIf="totaleScontrinoLabel">Totale:{{totale}}</p>
-
-
-</body>

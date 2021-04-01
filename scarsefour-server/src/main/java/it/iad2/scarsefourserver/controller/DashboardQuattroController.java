@@ -1,7 +1,9 @@
 package it.iad2.scarsefourserver.controller;
 
 import it.iad2.scarsefourserver.dto.CriterioRicercaDto;
+import it.iad2.scarsefourserver.dto.EsitoDtoQuattro;
 import it.iad2.scarsefourserver.dto.ProdottoDto;
+import it.iad2.scarsefourserver.dto.RispostaEanDtoQuattro;
 import it.iad2.scarsefourserver.service.DashboardQuattroService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -24,4 +26,9 @@ public class DashboardQuattroController {
 
     }
 
+    @RequestMapping("/verifica-ean-quattro")
+    @ResponseBody
+    public RispostaEanDtoQuattro verificaEanAction(@RequestBody CriterioRicercaDto dto) {
+        return dashboardquattro.verificaEanAction(dto.getCriterio());
+    }
 }
