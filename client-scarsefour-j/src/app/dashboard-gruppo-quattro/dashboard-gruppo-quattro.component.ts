@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ConfermaEvent } from '../automa/eventi';
+import { ScontrinoDto } from '../dashboard-gruppo-uno/dto-dashboard-uno/scontrino-dto';
 import { CriterioRicercaDto } from '../dto/criterio-ricerca-dto';
 import { ProdottoDto } from '../dto/prodotto-dto';
 import { Prodotto } from '../entità/prodotto';
@@ -72,7 +73,11 @@ export class DashboardGruppoQuattroComponent implements OnInit, AutomabileGruppo
     throw new Error('Method not implemented.');
   }
   annullaScontrinoAction() {
-    throw new Error('Method not implemented.');
+    let dto: ScontrinoDto=new ScontrinoDto();
+    dto.scontrino=this.scontrino;
+    let ox: Observable<ScontrinoDto> = this.http.post<ScontrinoDto>("http://localhost:8080/annulla-scontrino-quattro",dto);
+    ox.subscribe(a => this.scontrino=a.scontrino);
+
   }
 
   inserisciEan() {

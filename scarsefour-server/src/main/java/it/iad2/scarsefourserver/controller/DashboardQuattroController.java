@@ -6,6 +6,7 @@ import it.iad2.scarsefourserver.dto.ProdottoDto;
 import it.iad2.scarsefourserver.dto.RichiestaEanDto;
 import it.iad2.scarsefourserver.dto.RispostaEanDto;
 import it.iad2.scarsefourserver.dto.RispostaEanDtoQuattro;
+import it.iad2.scarsefourserver.dto.ScontrinoDto;
 import it.iad2.scarsefourserver.service.DashboardQuattroService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -31,6 +32,12 @@ public class DashboardQuattroController {
     @RequestMapping("/inserisci-ean-quattro")
     @ResponseBody
     public RispostaEanDtoQuattro inserisciEanAction(@RequestBody RichiestaEanDto dto) {
-        return dashboardquattro.inserisciEanAction(dto.getBarcode(),dto.getScontrino());
+        return dashboardquattro.inserisciEanAction(dto.getBarcode(), dto.getScontrino());
+    }
+
+    @RequestMapping("/annulla-scontrino-quattro")
+    @ResponseBody
+    public ScontrinoDto annullaScontrinoAction(@RequestBody ScontrinoDto dto) {
+        return dashboardquattro.annullaScontrinoAction(dto.getScontrino());
     }
 }

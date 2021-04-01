@@ -4,6 +4,7 @@ import it.iad2.scarsefourserver.dto.EsitoDtoQuattro;
 import it.iad2.scarsefourserver.dto.ProdottoDto;
 import it.iad2.scarsefourserver.dto.RispostaEanDto;
 import it.iad2.scarsefourserver.dto.RispostaEanDtoQuattro;
+import it.iad2.scarsefourserver.dto.ScontrinoDto;
 import it.iad2.scarsefourserver.model.Scontrino;
 
 /**
@@ -18,7 +19,7 @@ public interface DashboardQuattroService {
 
     RispostaEanDto stornaUltimoAction(String ean, Scontrino scontrino);
 
-    RispostaEanDto annullaScontrinoAction(Scontrino scontrino);
+    ScontrinoDto annullaScontrinoAction(Scontrino scontrino);
 
     RispostaEanDtoQuattro inserisciEanAction(String ean, Scontrino scontrino);
 

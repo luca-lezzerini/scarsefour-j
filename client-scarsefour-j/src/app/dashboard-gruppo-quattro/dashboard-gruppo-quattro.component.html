@@ -13,7 +13,7 @@
 <p>{{errore}}</p>
 <br>
 <button ng-disabled="bottoneStornaUltimo" (click)="stornaUltimo()" *ngIf="stornaB">Storna ultimo</button>
-<button ng-disabled="bottoneAnnullaScontrino" (click)="annullaScontrino()" *ngIf="annullaScontrinoB">Annulla
+<button ng-disabled="bottoneAnnullaScontrino" (click)="annullaScontrinoAction()" *ngIf="annullaScontrinoB">Annulla
     scontrino</button>
 <br>
 <button ng-disabled="bottoneAnnulla" (click)="Annulla()" *ngIf="annullaB">Annulla</button>
@@ -29,9 +29,9 @@
         <th> Prezzo </th>
     </tr>
     <tr *ngFor="let s of righeScontrino">
-        <td> quantità</td>
-        <td> descrizione</td>
-        <td>prezzo </td>
+        <td> {{s.quantita}}</td>
+        <td> {{s.prodotto.descrizione}}</td>
+        <td>{{s.prodotto.prezzo}} </td>
     </tr>
 </table>
 <p *ngIf="totaleScontrinoLabel">Totale:{{totale}}</p>

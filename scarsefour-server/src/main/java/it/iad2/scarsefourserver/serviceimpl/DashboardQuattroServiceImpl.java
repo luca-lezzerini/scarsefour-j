@@ -3,6 +3,7 @@ package it.iad2.scarsefourserver.serviceimpl;
 import it.iad2.scarsefourserver.dto.ProdottoDto;
 import it.iad2.scarsefourserver.dto.RispostaEanDto;
 import it.iad2.scarsefourserver.dto.RispostaEanDtoQuattro;
+import it.iad2.scarsefourserver.dto.ScontrinoDto;
 import it.iad2.scarsefourserver.model.Prodotto;
 import it.iad2.scarsefourserver.model.RigaScontrino;
 import it.iad2.scarsefourserver.model.Scontrino;
@@ -10,6 +11,7 @@ import it.iad2.scarsefourserver.repository.ProdottoRepository;
 import it.iad2.scarsefourserver.repository.RigaScontrinoRepository;
 import it.iad2.scarsefourserver.repository.ScontrinoRepository;
 import it.iad2.scarsefourserver.service.DashboardQuattroService;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,12 +50,23 @@ public class DashboardQuattroServiceImpl implements DashboardQuattroService {
     }
 
     @Override
-    public RispostaEanDto annullaScontrinoAction(Scontrino scontrino) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ScontrinoDto annullaScontrinoAction(Scontrino scontrino) {
+        // prendo dalla repository lo scontrino con Id del client
+        Scontrino scontrinoBis = scontrinoRepository.getOne(scontrino.getId());
+        // List<RigaScontrino> lista= scontrinoRepository.findById(scontrino.getId(),scontrino.getRighe());
+        //Creo una lista vuota di righe scontrino
+        List<RigaScontrino> listaRigaScontrino = new ArrayList<>();
+        //settiamo la lista vuota all'interno dello scontrino
+        scontrinoBis.setRighe(listaRigaScontrino);
+        //sovrascrivo lo scontrino con le righe vuote nella repository
+        scontrinoRepository.save(scontrinoBis);
+        //prendo dalla repository lo scontrino con l'Id e lo inserisco nel dto
+        scontrinoBis = scontrinoRepository.getOne(scontrinoBis.getId());
+        return new ScontrinoDto(scontrinoBis);
     }
 
     @Override
-    public RispostaEanDtoQuattro inserisciEanAction(String ean, Scontrino scontrino) {
+    public RispostaEanDtoQuattro verificaEanAction(String ean, Scontrino scontrino) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -63,7 +76,7 @@ public class DashboardQuattroServiceImpl implements DashboardQuattroService {
     }
 
     @Override
-    public RispostaEanDtoQuattro verificaEanAction(String ean, Scontrino scontrino) {
+    public RispostaEanDtoQuattro inserisciEanAction(String ean, Scontrino scontrino) {
         // prepara una variabile per ritornare l'esito (EAN trovato o meno)
         boolean esito;
         // ------ vede se lo scontrino esiste già su DB ---
