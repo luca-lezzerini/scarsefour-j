@@ -1,7 +1,8 @@
 import { RigaScontrino } from "../entità/riga-scontrino";
 import { Scontrino } from "../entità/scontrino";
 
-export class DtoScontrinoTre{
+export class DtoAggiungiEanRispostaTre{
     scontrino: Scontrino;
-    righeScontrino: RigaScontrino[] = [];
+    esito: boolean;
+    righe: RigaScontrino[] = [];
 }

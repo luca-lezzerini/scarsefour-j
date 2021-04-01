@@ -15,4 +15,5 @@ export interface AutomabileTre{
     aggiungiRigaScontrinoAction();
     annullaScontrinoAction();
     erroreEanAction();
+    vediPrezzoAction();
 }

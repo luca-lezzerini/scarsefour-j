@@ -103,7 +103,7 @@ public class DashboardTreServiceImpl implements DashboardTreService {
         return op.get();
     }
 
-    private Scontrino creaNuovoScontrinoVuoto() {
+    public Scontrino creaNuovoScontrinoVuoto() {
         // Creo un nuovo scontrino lo salvo e lo restituisco vuoto
         Scontrino scontrinoNuovo = new Scontrino(LocalDateTime.now(), 0, 0.0);
         scontrinoNuovo = scontrinoRepository.save(scontrinoNuovo);

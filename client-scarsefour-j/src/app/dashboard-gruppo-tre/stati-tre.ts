@@ -69,10 +69,11 @@ export class AnnullamentoScontrinoState implements StateTre {
 
 export class VediPrezzoState implements StateTre {
     constructor(public automa: AutomaTre) {
-        automa.gui.goToVediPrezzo();
+        automa.gui.goToVediPrezzo();       
     }
     next(e: EventTre): StateTre {
         if (e instanceof EanEvent) {
+            this.automa.gui.vediPrezzoAction();
             if (!e.scontrino && e.codiceEan) {
                 // caso scontrino vuoto e ean conosciuto
                 return new ScontrinoVuotoState(this.automa);
