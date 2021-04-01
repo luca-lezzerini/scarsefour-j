@@ -7,9 +7,9 @@ import { Prodotto } from '../entità/prodotto';
 import { RigaScontrino } from '../entità/riga-scontrino';
 import { Scontrino } from '../entità/scontrino';
 import { Automa2 } from './automa-gruppo-due';
-import {EanEvent, VediPrezzoEvent} from './eventi2';
+import { AnnullaEvent, AnnullaScontrinoEvent, ChiudiEvent, ConfermaEvent, EanEvent, VediPrezzoEvent } from './eventi2';
 import { AutomabileDue } from './state2';
-import {PrezzoDto} from '../dashboard-gruppo-uno/dto-dashboard-uno/prezzo-dto';
+import { PrezzoDto } from '../dashboard-gruppo-uno/dto-dashboard-uno/prezzo-dto';
 
 @Component({
   selector: 'app-dashboard-gruppo-due',
@@ -37,17 +37,7 @@ export class DashboardGruppoDueComponent implements OnInit, AutomabileDue {
   constructor(private http: HttpClient) {
     this.automa = new Automa2(this);
   }
-  chiudiScontrinoAction(): void {
-    throw new Error('Method not implemented.');
-  }
-  vediPrezzoAction(): void {
-    const dto: EanDto = new EanDto();
-    console.log('Codice: ' + this.barcode);
-    dto.barcode = this.barcode;
-    const oss: Observable<PrezzoDto> = this.http
-      .post<PrezzoDto>('http://localhost:8080/vedi-prezzo-due', dto);
-    oss.subscribe(t => this.prezzo = t.prezzo);
-  }
+
   goToScontrinoVuoto(): void {
     this.eanEditabile = true;
     this.vediPrezzoVisibile = true;
@@ -92,24 +82,28 @@ export class DashboardGruppoDueComponent implements OnInit, AutomabileDue {
   }
 
   annullaScontrino(): void {
-    const dto: ScontrinoDto = new ScontrinoDto();
-    dto.scontrino = this.scontrino;
-
+    this.automa.next(new AnnullaScontrinoEvent());
   }
 
   vediPrezzo(): void {
     this.automa.next(new VediPrezzoEvent());
   }
 
-  chiudiScontrino(): void { }
+  chiudiScontrino(): void {
+    this.automa.next(new ChiudiEvent());
+  }
 
   stornaUltimoAction(): void { }
 
-  annulla(): void { }
+  annulla(): void {
+    this.automa.next(new AnnullaEvent());
+  }
 
-  conferma(): void { }
+  conferma(): void {
+    this.automa.next(new ConfermaEvent());
+  }
 
-  EventoEan(): void{
+  EventoEan(): void {
     this.automa.next(new EanEvent());
   }
 
@@ -117,5 +111,17 @@ export class DashboardGruppoDueComponent implements OnInit, AutomabileDue {
   }
 
   annullaScontrinoAction(): void {
+  }
+  
+  chiudiScontrinoAction(): void {
+  }
+
+  vediPrezzoAction(): void {
+    const dto: EanDto = new EanDto();
+    console.log('Codice: ' + this.barcode);
+    dto.barcode = this.barcode;
+    const oss: Observable<PrezzoDto> = this.http
+      .post<PrezzoDto>('http://localhost:8080/vedi-prezzo-due', dto);
+    oss.subscribe(t => this.prezzo = t.prezzo);
   }
 }
