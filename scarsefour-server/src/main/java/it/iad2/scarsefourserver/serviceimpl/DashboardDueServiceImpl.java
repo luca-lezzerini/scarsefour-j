@@ -13,6 +13,9 @@ import it.iad2.scarsefourserver.repository.ProdottoRepository;
 import it.iad2.scarsefourserver.repository.RigaScontrinoRepository;
 import it.iad2.scarsefourserver.repository.ScontrinoRepository;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,17 +31,25 @@ public class DashboardDueServiceImpl implements DashboardDueService {
 
     @Override
     public Scontrino annullaScontrino(Scontrino scontrino) {
-        scontrinoRepository.delete(scontrino);
-        return new Scontrino();
+        for (int i = 0; i < scontrino.getRighe().size();){
+            stornaUltimo(scontrino);
+        }
+        return scontrino;
     }
 
     @Override
     public double vediPrezzo(String barcode) {
-        return prodottoRepository.findByEanEquals(barcode).getPrezzo();
+        boolean esitoRicerca = cercaProdotto(barcode);
+        if (esitoRicerca){
+            return prodottoRepository.findByEanEquals(barcode).getPrezzo();
+        }
+        return 0.0;
     }
 
     @Override
     public Scontrino chiudiScontrino(Scontrino scontrino) {
+        scontrino.setTimeStamp(LocalDateTime.now());
+        scontrino.setNumero(scontrinoRepository.cercaUltimoScontrino() + 1);
         scontrinoRepository.save(scontrino);
         //stampato
         return generaScontrino();
@@ -51,6 +62,9 @@ public class DashboardDueServiceImpl implements DashboardDueService {
         double totale = scontrino.getTotale();
         totale -= riga.getProdotto().getPrezzo();
         scontrino.setTotale(totale);
+        List<RigaScontrino> lista = scontrino.getRighe();
+        lista.remove(riga);
+        scontrino.setRighe(lista);
         rigaScontrinoRepository.deleteById(riga.getId());
         scontrinoRepository.save(scontrino);
         return scontrino;
@@ -69,12 +83,14 @@ public class DashboardDueServiceImpl implements DashboardDueService {
             double totale = scontrino.getTotale();
             totale += prodotto.getPrezzo();
             scontrino.setTotale(totale);
+            List<RigaScontrino> lista = scontrino.getRighe();
+            lista.add(riga);
+            scontrino.setRighe(lista);
             rigaScontrinoRepository.save(riga);
             scontrinoRepository.save(scontrino);
             esito = true;
         }
         return new AggiungiDto(scontrino, esito);
-
     }
 
     @Override
@@ -92,7 +108,7 @@ public class DashboardDueServiceImpl implements DashboardDueService {
     @Override
     public Scontrino generaScontrino() {
         Scontrino scontrino = new Scontrino();
-        scontrinoRepository.save(scontrino);
+        scontrino = scontrinoRepository.save(scontrino);
         return scontrino;
     }
 
