@@ -15,4 +15,8 @@ public interface DashboardDueService {
     Scontrino stornaUltimo(Scontrino scontrino);
 
     AggiungiDto aggiungi(String barcode, Scontrino scontrino);
+
+    boolean cercaProdotto(String barcode);
+
+    Scontrino generaScontrino();
 }

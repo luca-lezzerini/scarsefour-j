@@ -3,7 +3,7 @@
     <div class="headDash">
         <h3>DASHBOARD CASSA DUE</h3>
     </div>
-    <input class="inputBarcode" type="text" [disabled]="!eanEditabile" placeholder="barcode" [(ngModel)]="barcode" (blur)="EventoEan()">
+    <input class="inputBarcode" type="text" [disabled]="!eanEditabile" placeholder="barcode" [(ngModel)]="barcode" (blur)="eventoEan()">
     <br> <br>Prezzo:€ {{prezzo}}
     <button class="button" (click)="annullaScontrino()" *ngIf="annullaScontrinoVisibile" [disabled]="annullaScontrinoDisabled">Annulla scontrino
 </button>

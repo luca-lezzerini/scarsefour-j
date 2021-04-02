@@ -4,8 +4,6 @@ import it.iad2.scarsefourserver.dto.AggiungiDto;
 import it.iad2.scarsefourserver.model.Prodotto;
 import it.iad2.scarsefourserver.service.DashboardDueService;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +12,9 @@ import it.iad2.scarsefourserver.model.Scontrino;
 import it.iad2.scarsefourserver.repository.ProdottoRepository;
 import it.iad2.scarsefourserver.repository.RigaScontrinoRepository;
 import it.iad2.scarsefourserver.repository.ScontrinoRepository;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class DashboardDueServiceImpl implements DashboardDueService {
@@ -40,7 +41,7 @@ public class DashboardDueServiceImpl implements DashboardDueService {
     public Scontrino chiudiScontrino(Scontrino scontrino) {
         scontrinoRepository.save(scontrino);
         //stampato
-        return new Scontrino();
+        return generaScontrino();
 
     }
 
@@ -62,10 +63,30 @@ public class DashboardDueServiceImpl implements DashboardDueService {
             riga.setProdotto(prodotto);
             riga.setScontrino(scontrino);
             rigaScontrinoRepository.save(riga);
+            scontrinoRepository.save(scontrino);
             esito = true;
         }
         return new AggiungiDto(scontrino, esito);
 
+    }
+
+    @Override
+    public boolean cercaProdotto(String barcode) {
+        boolean esito;
+        Prodotto prodotto = prodottoRepository.findByEanEquals(barcode);
+        if (prodotto == null) {
+            esito = false;
+        } else {
+            esito = true;
+        }
+        return esito;
+    }
+
+    @Override
+    public Scontrino generaScontrino() {
+        Scontrino scontrino = new Scontrino();
+        scontrinoRepository.save(scontrino);
+        return scontrino;
     }
 
 }

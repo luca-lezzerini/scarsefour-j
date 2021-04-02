@@ -1,4 +1,4 @@
-import { RigaScontrino } from "./riga-scontrino";
+import { RigaScontrino } from './riga-scontrino';
 
 export class Scontrino{
     id: number;
