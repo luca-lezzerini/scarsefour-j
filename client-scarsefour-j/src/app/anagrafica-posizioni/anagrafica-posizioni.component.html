@@ -5,8 +5,8 @@
   </div>
   <button (click)="nuova()" *ngIf="buttonNuovaVisible" class="button">Nuova</button>
   <div *ngIf="formDivVisible">
-    <input type="text" [(ngModel)]="posizione.codice" [disabled]="campiNonEditabili" class="input">
-    <input type="text" [(ngModel)]="posizione.descrizione" [disabled]="campiNonEditabili" class="input">
+    <input type="text" placeholder="codice" [(ngModel)]="posizione.codice" [disabled]="campiNonEditabili" class="input">
+    <input type="text" placeholder="descrizione" [(ngModel)]="posizione.descrizione" [disabled]="campiNonEditabili" class="input">
     <br>
     <button (click)="modifica()" *ngIf="!confAnnVisible" class="button">Modifica</button>
     <button (click)="conferma()" *ngIf="confAnnVisible" class="button">Conferma</button>
@@ -14,7 +14,7 @@
     <button (click)="rimuovi()" *ngIf="!confAnnVisible" class="button">Rimuovi</button>
   </div>
   <br>
-  <input type="text" [(ngModel)]="criterio" *ngIf="searchVisible" class="inputSearch">
+  <input type="text" placeholder="cerca" [(ngModel)]="criterio" *ngIf="searchVisible" class="inputSearch">
   <button (click)="cerca()" *ngIf="searchVisible" class="button">Cerca</button>
   <br>
   <table *ngIf="searchVisible" class="scrolldown">
