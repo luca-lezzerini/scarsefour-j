@@ -92,29 +92,21 @@ public class DashboardTreServiceImpl implements DashboardTreService {
             // Recuperiamo il prodotto associato 
             Prodotto prod = ultimaRiga.getProdotto();
             // rimuovo la riga dallo scontrino...
-            scontrino.getRighe().remove(ultimaRiga);
+            scontrino.getRighe().removeIf(r -> r==ultimaRiga);
             scontrino = scontrinoRepository.save(scontrino);
             // ... la rimuovo dal prodotto ...
-            prod.getRighe().remove(ultimaRiga);
+            prod.getRighe().removeIf(r -> r==ultimaRiga);
             prodottoRepository.save(prod);
             // ... e la rimuovo dalle righeScontrino
-            listaRighe.remove(ultimaRiga);
+            listaRighe.removeIf(r -> r==ultimaRiga);
             // Cancello l'ultima riga inserita
             rigaScontrinoRepository.delete(ultimaRiga);
         } else {
             System.out.println("ERRORE! Scontrino vuoto!");
         }
         // Ricalcolo il totale
-        double totale = 0;
         List<RigaScontrino> righe = scontrino.getRighe();
-        System.out.println("righe" + righe.toString());
-        System.out.println(scontrino.getRighe().toString());
-        totale = righe.stream()
-                .mapToDouble(r -> r.getProdotto().getPrezzo())
-                .sum();
-        //prendere prodotto da scontrino e salvarlo
-        System.out.println("totale = " + totale);
-        scontrino.setTotale(totale);
+        scontrino.setTotale(calcolaTotale(righe));
         scontrino = scontrinoRepository.save(scontrino);
         System.out.println("scontrino salvato" + scontrino.getRighe().toString());
         return new ListaRigaScontrinoTreDto(listaRighe, scontrino);
@@ -163,24 +155,8 @@ public class DashboardTreServiceImpl implements DashboardTreService {
             prod = prodottoRepository.save(prod);
         }
         // Calcolo del totale
-        double totale = 0;
         List<RigaScontrino> righe = scontrino.getRighe();
-        System.out.println("righe" + righe.toString());
-        System.out.println(scontrino.getRighe().toString());
-        // Metodo 1 "Pigorini"
-//        for (RigaScontrino rigaScontrino : righe) {
-//            totale += rigaScontrino.getProdotto().getPrezzo();
-//            rigaScontrino.getProdotto();
-//            System.out.println("righe scontrino: " + rigaScontrino);
-//            rigaScontrinoRepository.save(rigaScontrino);
-//        }
-        // Metodo 2 "The Martian"
-        totale = righe.stream()
-                .mapToDouble(r -> r.getProdotto().getPrezzo())
-                .sum();
-        //prendere prodotto da scontrino e salvarlo
-        System.out.println("totale = " + totale);
-        scontrino.setTotale(totale);
+        scontrino.setTotale(calcolaTotale(righe));
         scontrino = scontrinoRepository.save(scontrino);
         System.out.println("scontrino salvato" + scontrino.getRighe().toString());
         AggiungiEanRispostaDto aggiungiEanRispostaDto = new AggiungiEanRispostaDto(scontrino, esito, righe);
@@ -195,11 +171,20 @@ public class DashboardTreServiceImpl implements DashboardTreService {
         return op.get();
     }
 
+    @Override
     public Scontrino creaNuovoScontrinoVuoto() {
         // Creo un nuovo scontrino lo salvo e lo restituisco vuoto
         Scontrino scontrinoNuovo = new Scontrino(LocalDateTime.now(), 0, 0.0);
         scontrinoNuovo = scontrinoRepository.save(scontrinoNuovo);
         return scontrinoNuovo;
+    }
+    
+    private Double calcolaTotale(List<RigaScontrino> righe){
+        double totale = 0;
+         totale = righe.stream()
+                .mapToDouble(r -> r.getProdotto().getPrezzo())
+                .sum();
+         return totale;
     }
 
 }
