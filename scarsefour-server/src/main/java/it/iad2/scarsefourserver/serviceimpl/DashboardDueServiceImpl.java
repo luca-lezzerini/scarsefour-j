@@ -48,7 +48,11 @@ public class DashboardDueServiceImpl implements DashboardDueService {
     @Override
     public Scontrino stornaUltimo(Scontrino scontrino) {
         RigaScontrino riga = scontrino.getRighe().get(scontrino.getRighe().size() - 1);
+        double totale = scontrino.getTotale();
+        totale -= riga.getProdotto().getPrezzo();
+        scontrino.setTotale(totale);
         rigaScontrinoRepository.deleteById(riga.getId());
+        scontrinoRepository.save(scontrino);
         return scontrino;
     }
 
@@ -62,6 +66,9 @@ public class DashboardDueServiceImpl implements DashboardDueService {
             RigaScontrino riga = new RigaScontrino();
             riga.setProdotto(prodotto);
             riga.setScontrino(scontrino);
+            double totale = scontrino.getTotale();
+            totale += prodotto.getPrezzo();
+            scontrino.setTotale(totale);
             rigaScontrinoRepository.save(riga);
             scontrinoRepository.save(scontrino);
             esito = true;
