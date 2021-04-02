@@ -28,6 +28,7 @@ export class DashboardGruppoDueComponent implements OnInit, AutomabileDue {
   prodotto: Prodotto = new Prodotto();
   esito: boolean;
   righeScontrino: RigaScontrino[] = [];
+  totale: number;
   // variabili booleane
   eanEditabile = false;
   vediPrezzoVisibile = false;
@@ -39,6 +40,7 @@ export class DashboardGruppoDueComponent implements OnInit, AutomabileDue {
   chiudiScontrinoVisibile = false;
   annullaConfermaDisabled = false;
   annullaScontrinoDisabled = false;
+  prezzoVisible = false;
 
   constructor(private http: HttpClient) {
     this.automa = new Automa2(this);
@@ -55,6 +57,7 @@ export class DashboardGruppoDueComponent implements OnInit, AutomabileDue {
     this.confermaVisibile = true;
     this.annullaConfermaDisabled = true;
     this.chiudiScontrinoVisibile = false;
+    this.prezzoVisible = true;
   }
 
   goToScontrinoNonVuoto(): void {
@@ -67,6 +70,7 @@ export class DashboardGruppoDueComponent implements OnInit, AutomabileDue {
     this.chiudiScontrinoVisibile = true;
     this.confermaVisibile = false;
     this.annullaVisibile = false;
+    this.prezzoVisible = false;
   }
 
   goToAnnullamentoScontrino(): void {
@@ -79,6 +83,7 @@ export class DashboardGruppoDueComponent implements OnInit, AutomabileDue {
     this.annullaScontrinoVisibile = false;
     this.chiudiScontrinoVisibile = false;
     this.annullaConfermaDisabled = false;
+    this.prezzoVisible = true;
   }
 
   goToVediPrezzo(): void {
@@ -90,6 +95,7 @@ export class DashboardGruppoDueComponent implements OnInit, AutomabileDue {
     this.confermaVisibile = false;
     this.annullaVisibile = false;
     this.chiudiScontrinoVisibile = false;
+    this.prezzoVisible = true;
   }
 
   ngOnInit(): void {
@@ -112,7 +118,10 @@ export class DashboardGruppoDueComponent implements OnInit, AutomabileDue {
     dto.scontrino = this.scontrino;
     const oss: Observable<ScontrinoDto> = this.http
       .post<ScontrinoDto>('http://localhost:8080/storna-ultimo-due', dto);
-    oss.subscribe(t => this.scontrino = t.scontrino);
+    oss.subscribe(t => {
+      this.scontrino = t.scontrino;
+    this.totale = t.scontrino.totale;
+  });
   }
 
   annulla(): void {
@@ -136,6 +145,7 @@ export class DashboardGruppoDueComponent implements OnInit, AutomabileDue {
     oss.subscribe(t => {
       this.scontrino = t.scontrino;
       this.esito = t.esito;
+    this.totale = t.scontrino.totale;
     });
   }
 
@@ -144,7 +154,10 @@ export class DashboardGruppoDueComponent implements OnInit, AutomabileDue {
     dto.scontrino = this.scontrino;
     const oss: Observable<ScontrinoDto> = this.http
       .post<ScontrinoDto>('http://localhost:8080/annulla-scontrino-due', dto);
-    oss.subscribe(t => this.scontrino = t.scontrino);
+    oss.subscribe(t =>{ 
+      this.scontrino = t.scontrino;
+      this.totale = 0;
+    });
   }
 
   chiudiScontrinoAction(): void {
@@ -155,6 +168,7 @@ export class DashboardGruppoDueComponent implements OnInit, AutomabileDue {
     oss.subscribe(t => {
      this.scontrino = t.scontrino;
      this.righeScontrino = t.scontrino.righe;
+     this.totale = 0;
     });
   }
 
@@ -184,6 +198,7 @@ export class DashboardGruppoDueComponent implements OnInit, AutomabileDue {
     oss.subscribe(t => {
       this.scontrino = t.scontrino;
       this.righeScontrino = [];
+     this.totale = 0;
     });
   }
 }
