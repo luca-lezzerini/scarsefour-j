@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { ConfermaEvent } from '../automa/eventi';
 import { ScontrinoDto } from '../dashboard-gruppo-uno/dto-dashboard-uno/scontrino-dto';
 import { CriterioRicercaDto } from '../dto/criterio-ricerca-dto';
 import { ProdottoDto } from '../dto/prodotto-dto';
@@ -10,7 +9,7 @@ import { Prodotto } from '../entità/prodotto';
 import { RigaScontrino } from '../entità/riga-scontrino';
 import { Scontrino } from '../entità/scontrino';
 import { AutomaGruppoQuattro } from './automa/automa-gruppo-quattro';
-import { AnnullaEvent, AnnullaScontrinoEvent, ChiudiEvent, EanEvent, StornaEvent, VediPrezzoEvent } from './automa/eventi-gruppo-quattro';
+import { AnnullaEvent, AnnullaScontrinoEvent, ChiudiEvent, ConfermaEvent, EanEvent, StornaEvent, VediPrezzoEvent } from './automa/eventi-gruppo-quattro';
 import { AutomabileGruppoQuattro } from './automa/state-gruppo-quattro';
 import { EsitoRicercaDto } from './dto/esito-ricerca-dto';
 import { RichiestaEanDto4 } from './dto/Richiesta-Ean-dto-4';
@@ -198,12 +197,13 @@ export class DashboardGruppoQuattroComponent implements OnInit, AutomabileGruppo
 
   }
   gotoAnnullamentoScontrino() {
-    this.barCodeNonVisibile = true;
+    this.messaggio="premere conferma o annulla";
+    this.barCodeNonVisibile = false;
     this.eanNonEditabile = false;
     this.vediPrezzoVisibleB = false;
     this.chiudiB = false;
     this.stornaB = false;
-    this.annullaScontrinoB = true;
+    this.annullaScontrinoB =false;
     this.annullaB = true;
     this.confermaB = true;
     this.prezzoB = false;
@@ -248,7 +248,7 @@ export class DashboardGruppoQuattroComponent implements OnInit, AutomabileGruppo
   conferma() {
     this.automa.next(new ConfermaEvent());
   }
-
+ 
   inserisciEanAction() {
     let dto: RichiestaEanDto4 = new RichiestaEanDto4();
     dto.barcode = this.ean;

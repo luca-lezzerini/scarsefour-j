@@ -1,32 +1,38 @@
 <body>
-<app-toolbar-menu></app-toolbar-menu>
-<div>
-  <h4>ANAGRAFICA CASSE</h4>
-</div>
-<button class="button" (click)="nuova()" *ngIf="buttonNuovaVisible">Nuova</button>
-<div *ngIf="formDivVisible">
-  Codice cassa: <input type="text" [(ngModel)]="cassa.codice" [disabled]="campiNonEditabili">
-  <br>
-  <button class="button" (click)="modifica()" *ngIf="!confAnnVisible">Modifica</button>
-  <button class="button" (click)="conferma()" *ngIf="confAnnVisible">Conferma</button>
-  <button class="button" (click)="annulla()" *ngIf="confAnnVisible">Annulla</button>
-  <button class="button" (click)="rimuovi()" *ngIf="!confAnnVisible">Rimuovi</button>
-</div>
-<br>
-<div *ngIf="searchVisible">
-  <input type="text" [(ngModel)]="searchCriterion">
-  <button class="button" (click)="cerca()">Cerca</button>
-  <br>
-  <table>
-    <tr>
-      <th>Codice</th>
-    </tr>
-    <tr *ngFor="let c of listaCasse">
-      <td>{{c.codice}}</td>
-      <td>
-        <button class="buttonSel" (click)="seleziona(c)">Seleziona</button>
-      </td>
-    </tr>
-  </table>
-</div>
+    <app-toolbar-menu></app-toolbar-menu>
+    <div>
+        <h4>ANAGRAFICA CASSE</h4>
+    </div>
+    <button class="button" (click)="nuova()" *ngIf="buttonNuovaVisible">Nuova</button>
+    <br>
+    <div *ngIf="formDivVisible">
+        Codice cassa: <input type="text" [(ngModel)]="cassa.codice" [disabled]="campiNonEditabili" class="input">
+        <br>
+        <button class="button" (click)="modifica()" *ngIf="!confAnnVisible">Modifica</button>
+        <button class="button" (click)="conferma()" *ngIf="confAnnVisible">Conferma</button>
+        <button class="button" (click)="annulla()" *ngIf="confAnnVisible">Annulla</button>
+        <button class="button" (click)="rimuovi()" *ngIf="!confAnnVisible">Rimuovi</button>
+    </div>
+    <br>
+    <hr>
+    <div *ngIf="searchVisible">
+        <input type="text" [(ngModel)]="searchCriterion" class="inputSearch">
+        <button class="button" (click)="cerca()">Cerca</button>
+        <br>
+        <br>
+        <table class="scrolldown">
+            <thead>
+                <tr>
+                    <th>Codice</th>
+                    <th>Gestisci</th>
+                </tr>
+            </thead>
+            <tr *ngFor="let c of listaCasse">
+                <td>{{c.codice}}</td>
+                <td>
+                    <button class="buttonSel" (click)="seleziona(c)">Seleziona</button>
+                </td>
+            </tr>
+        </table>
+    </div>
 </body>

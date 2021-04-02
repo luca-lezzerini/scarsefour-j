@@ -63,12 +63,23 @@ public class DashboardTreServiceImpl implements DashboardTreService {
     @Override
     public Scontrino annullaScontrino(Scontrino scontrino) {
         //Cancella righeScontrino
+        var sco = scontrinoRepository.findById(scontrino.getId());
+        if (sco.isEmpty()){
+            System.out.println("ERRORE: id scontrino non trovata. Creato scontrino vuoto");
+            scontrino = new Scontrino();
+            scontrino = scontrinoRepository.save(scontrino);
+        } else {
+            scontrino = sco.get();
+        }
         scontrino.getRighe().forEach(r -> {
             rigaScontrinoRepository.deleteById(r.getId());
         });
+        scontrino.getRighe().clear();
         //Cancello lo scontrino
-        scontrinoRepository.deleteById(scontrino.getId());
-        return creaNuovoScontrinoVuoto();
+        //scontrino.setRighe(new ArrayList<RigaScontrino>());
+        scontrino = scontrinoRepository.save(scontrino);
+        System.out.println("Annulla scontrino: righe scontrino nuovo: " + scontrino.getRighe());
+        return scontrino;
     }
 
     @Override

@@ -64,7 +64,7 @@ export class DashboardGruppoTreComponent implements OnInit, AutomabileTre {
     this.annullaScontrinoDisabled = true;
     this.annullaDisabled = true;
     this.confermaDisabled = true;
-    this.listaVisible = false;
+    this.listaVisible = true;
     this.messErroreVisible = true;
   }
 
