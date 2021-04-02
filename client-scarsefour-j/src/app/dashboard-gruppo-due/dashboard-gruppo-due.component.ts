@@ -120,7 +120,7 @@ export class DashboardGruppoDueComponent implements OnInit, AutomabileDue {
       .post<ScontrinoDto>('http://localhost:8080/storna-ultimo-due', dto);
     oss.subscribe(t => {
       this.scontrino = t.scontrino;
-    this.totale = t.scontrino.totale;
+      this.totale = t.scontrino.totale;
   });
   }
 
@@ -145,7 +145,7 @@ export class DashboardGruppoDueComponent implements OnInit, AutomabileDue {
     oss.subscribe(t => {
       this.scontrino = t.scontrino;
       this.esito = t.esito;
-    this.totale = t.scontrino.totale;
+      this.totale = t.scontrino.totale;
     });
   }
 
@@ -154,7 +154,7 @@ export class DashboardGruppoDueComponent implements OnInit, AutomabileDue {
     dto.scontrino = this.scontrino;
     const oss: Observable<ScontrinoDto> = this.http
       .post<ScontrinoDto>('http://localhost:8080/annulla-scontrino-due', dto);
-    oss.subscribe(t =>{ 
+    oss.subscribe(t => {
       this.scontrino = t.scontrino;
       this.totale = 0;
     });
@@ -198,7 +198,7 @@ export class DashboardGruppoDueComponent implements OnInit, AutomabileDue {
     oss.subscribe(t => {
       this.scontrino = t.scontrino;
       this.righeScontrino = [];
-     this.totale = 0;
+      this.totale = 0;
     });
   }
 }
