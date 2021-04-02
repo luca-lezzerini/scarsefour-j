@@ -25,5 +25,5 @@ public interface DashboardTreService {
     Scontrino aggiornaRighe(Scontrino scontrino);
     
     Scontrino creaNuovoScontrinoVuoto();
-
+    
 }

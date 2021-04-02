@@ -25,7 +25,8 @@ export class DashboardGruppoTreComponent implements OnInit, AutomabileTre {
 
   barcode: string;
   // riportare l'ultimo elemento della tabella, solo descrizione e prezzo
-  ultimoElemento: string;
+  descUE: string;
+  prezzoUE: number;
   prodotto: Prodotto = new Prodotto();
   righe: RigaScontrino[] = [];
   scontrino: Scontrino = new Scontrino();
@@ -120,7 +121,10 @@ export class DashboardGruppoTreComponent implements OnInit, AutomabileTre {
       console.log("Esito: " + t.esito);
       this.scontrino = t.scontrino;
       this.righe = t.righe
-      this.totale = t.scontrino.totale
+      this.totale = t.scontrino.totale;
+      let lastIndex: number = t.righe.length - 1;
+      this.descUE = t.righe[lastIndex].prodotto.descrizione;
+      this.prezzoUE = t.righe[lastIndex].prodotto.prezzo;
     });
     this.barcode = "";
   }
@@ -190,6 +194,9 @@ export class DashboardGruppoTreComponent implements OnInit, AutomabileTre {
       this.scontrino = t.scontrino;
       this.righe = t.righeScontrino;
       this.totale = t.scontrino.totale;
+      let lastIndex: number = t.righeScontrino.length - 1;
+      this.descUE = t.righeScontrino[lastIndex].prodotto.descrizione;
+      this.prezzoUE = t.righeScontrino[lastIndex].prodotto.prezzo;
     });
     //dopo aver stornato un prodotto se la lista è vuota torna a scontrino vuoto altrimenti a scontrino non vuoto
     if (this.righe.length == 0) {

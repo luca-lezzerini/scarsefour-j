@@ -64,7 +64,7 @@ public class DashboardTreServiceImpl implements DashboardTreService {
     public Scontrino annullaScontrino(Scontrino scontrino) {
         //Cancella righeScontrino
         var sco = scontrinoRepository.findById(scontrino.getId());
-        if (sco.isEmpty()){
+        if (sco.isEmpty()) {
             System.out.println("ERRORE: id scontrino non trovata. Creato scontrino vuoto");
             scontrino = new Scontrino();
             scontrino = scontrinoRepository.save(scontrino);
@@ -103,13 +103,13 @@ public class DashboardTreServiceImpl implements DashboardTreService {
             // Recuperiamo il prodotto associato 
             Prodotto prod = ultimaRiga.getProdotto();
             // rimuovo la riga dallo scontrino...
-            scontrino.getRighe().removeIf(r -> r==ultimaRiga);
+            scontrino.getRighe().removeIf(r -> r == ultimaRiga);
             scontrino = scontrinoRepository.save(scontrino);
             // ... la rimuovo dal prodotto ...
-            prod.getRighe().removeIf(r -> r==ultimaRiga);
+            prod.getRighe().removeIf(r -> r == ultimaRiga);
             prodottoRepository.save(prod);
             // ... e la rimuovo dalle righeScontrino
-            listaRighe.removeIf(r -> r==ultimaRiga);
+            listaRighe.removeIf(r -> r == ultimaRiga);
             // Cancello l'ultima riga inserita
             rigaScontrinoRepository.delete(ultimaRiga);
         } else {
@@ -189,13 +189,13 @@ public class DashboardTreServiceImpl implements DashboardTreService {
         scontrinoNuovo = scontrinoRepository.save(scontrinoNuovo);
         return scontrinoNuovo;
     }
-    
-    private Double calcolaTotale(List<RigaScontrino> righe){
+
+    private Double calcolaTotale(List<RigaScontrino> righe) {
         double totale = 0;
-         totale = righe.stream()
+        totale = righe.stream()
                 .mapToDouble(r -> r.getProdotto().getPrezzo())
                 .sum();
-         return totale;
+        return totale;
     }
 
 }
