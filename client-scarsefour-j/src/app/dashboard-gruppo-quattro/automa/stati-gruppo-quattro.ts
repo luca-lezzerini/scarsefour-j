@@ -58,7 +58,7 @@ export class ScontrinoNonVuotoState implements StateGruppoQuattro {
             //if (e.codiceEan == "conosciuto")
             
             // {
-                 this.automa.gui.verificaEanAction();
+                 //this.automa.gui.verificaEanAction();
                 return new ScontrinoNonVuotoState(this.automa);
             }
 
@@ -85,7 +85,7 @@ export class VediPrezzoState implements StateGruppoQuattro {
         if (e instanceof EanEvent) {
 
             if (e.scontrino != null ) {
-                this.automa.gui.verificaEanAction();
+               // this.automa.gui.verificaEanAction();
                 return new ScontrinoNonVuotoState(this.automa);
             }
            /* else if (e.scontrino != null && e.codiceEan == "conosciuto") {

@@ -25,7 +25,7 @@ export class DashboardGruppoQuattroComponent implements OnInit, AutomabileGruppo
 
   ean: string;
   Descrizione: string;
-  errore: string = "";
+  messaggio: string = "";
   prezzo: number;
   totale: string;
   scontrini: string;
@@ -48,6 +48,9 @@ export class DashboardGruppoQuattroComponent implements OnInit, AutomabileGruppo
   totaleScontrinoLabel: boolean;
   tastoTabMes: boolean;
   esito: boolean;
+  quantitaStampa:number;
+  descrizioneStampa:string;
+  prezzoStampa:number;
 
   bottoneVediPrezzo: boolean;
   bottoneStornaUltimo: boolean;
@@ -73,11 +76,16 @@ export class DashboardGruppoQuattroComponent implements OnInit, AutomabileGruppo
     throw new Error('Method not implemented.');
   }
   annullaScontrinoAction() {
-    let dto: ScontrinoDto=new ScontrinoDto();
-    dto.scontrino=this.scontrino;
-    let ox: Observable<ScontrinoDto> = this.http.post<ScontrinoDto>("http://localhost:8080/annulla-scontrino-quattro",dto);
-    ox.subscribe(a => this.scontrino=a.scontrino);
-
+    let dto: ScontrinoDto = new ScontrinoDto();
+    dto.scontrino = this.scontrino;
+    let ox: Observable<ScontrinoDto> = this.http.post<ScontrinoDto>("http://localhost:8080/annulla-scontrino-quattro", dto);
+    ox.subscribe(a => this.scontrino = a.scontrino);
+    //Mesaggio di conferma della rimozione
+    this.messaggio = "tutti prodotti dello scontrino rimossi"
+    //Azzeramento delle interpolazioni della tabella
+  this.quantitaStampa =0;
+  this.descrizioneStampa = "";
+  this.prezzoStampa = 0;
   }
 
   inserisciEan() {
@@ -229,10 +237,12 @@ export class DashboardGruppoQuattroComponent implements OnInit, AutomabileGruppo
         this.automa.next(new EanEvent(this.ean, this.scontrino));
       } else {
         // l'automa rimane nello stesso stato
-        this.errore = "ean inesistente";
+        this.messaggio = "ean inesistente";
       }
+      this.ean = ""
     });
-   // this.automa.next(new EanEvent(this.ean, this.scontrino));
+    //Puliamo l'input ean
+    // this.automa.next(new EanEvent(this.ean, this.scontrino));
   }
 }
 

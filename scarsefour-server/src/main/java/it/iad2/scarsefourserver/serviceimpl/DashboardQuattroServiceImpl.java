@@ -16,10 +16,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-/**
- *
- * @author Valerio
- */
 @Service
 public class DashboardQuattroServiceImpl implements DashboardQuattroService {
 
@@ -52,16 +48,27 @@ public class DashboardQuattroServiceImpl implements DashboardQuattroService {
     @Override
     public ScontrinoDto annullaScontrinoAction(Scontrino scontrino) {
         // prendo dalla repository lo scontrino con Id del client
-        Scontrino scontrinoBis = scontrinoRepository.getOne(scontrino.getId());
-        // List<RigaScontrino> lista= scontrinoRepository.findById(scontrino.getId(),scontrino.getRighe());
+        Scontrino scontrinoBis = scontrinoRepository.findByIdEquals(scontrino.getId());
+        //Creare lista con le righe dello scontrino da cancellare dopo che non ci saranno più in scontrino
+        List<RigaScontrino> righeDaCancellare = new ArrayList<>();
+        for (RigaScontrino rg : scontrino.getRighe()) {
+            righeDaCancellare.add(rg);
+        }
+        // List<RigaScontrino> lista= scontrinoRepository.(scontrino.getId(),scontrino.getRighe());
         //Creo una lista vuota di righe scontrino
         List<RigaScontrino> listaRigaScontrino = new ArrayList<>();
         //settiamo la lista vuota all'interno dello scontrino
         scontrinoBis.setRighe(listaRigaScontrino);
         //sovrascrivo lo scontrino con le righe vuote nella repository
         scontrinoRepository.save(scontrinoBis);
-        //prendo dalla repository lo scontrino con l'Id e lo inserisco nel dto
-        scontrinoBis = scontrinoRepository.getOne(scontrinoBis.getId());
+        // cancelliamo dalla repository rigaScontrino le righe dello scontrino
+        rigaScontrinoRepository.deleteInBatch(righeDaCancellare);
+    //prendiamo dalla repository lo scontrin azzerato e lo carichiamo dul dto di ritorno
+        //prendo dalla repository lo scontrino con l'Id 
+        scontrinoBis = scontrinoRepository.findByIdEquals(scontrinoBis.getId());
+        //Azzeramento del totale scontrino
+        scontrinoBis.setTotale(0.0);
+        // inserisco lo scontrino nel dto
         return new ScontrinoDto(scontrinoBis);
     }
 
@@ -139,7 +146,6 @@ public class DashboardQuattroServiceImpl implements DashboardQuattroService {
         totale = lista.stream()
                 .mapToDouble(r -> r.getProdotto().getPrezzo())
                 .sum();
-
         // salvo il totale sullos contrino
         scontrino.setTotale(totale);
         scontrino = scontrinoRepository.save(scontrino);

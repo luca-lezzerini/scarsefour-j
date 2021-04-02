@@ -10,7 +10,7 @@
 <br>
 <p *ngIf="prezzoB">Prezzo: {{prezzo}}</p>
 <br>
-<p>{{errore}}</p>
+<p>{{messaggio}}</p>
 <br>
 <button ng-disabled="bottoneStornaUltimo" (click)="stornaUltimo()" *ngIf="stornaB">Storna ultimo</button>
 <button ng-disabled="bottoneAnnullaScontrino" (click)="annullaScontrinoAction()" *ngIf="annullaScontrinoB">Annulla
@@ -29,6 +29,7 @@
         <th> Prezzo </th>
     </tr>
     <tr *ngFor="let s of righeScontrino">
+        <td> {{s.id}}</td>
         <td> {{s.quantita}}</td>
         <td> {{s.prodotto.descrizione}}</td>
         <td>{{s.prodotto.prezzo}} </td>
