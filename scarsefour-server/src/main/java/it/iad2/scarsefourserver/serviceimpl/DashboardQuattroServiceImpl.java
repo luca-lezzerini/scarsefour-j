@@ -52,14 +52,18 @@ public class DashboardQuattroServiceImpl implements DashboardQuattroService {
         //cancello le righe dello scontrino
         scontrinoBis.getRighe().forEach(r -> {rigaScontrinoRepository.deleteById(r.getId());
         });
-        //setto il totale dello scontrino a zero
-        
+        //cerco nuovamente lo scontrino
+        scontrinoBis = scontrinoRepository.findByIdEquals(scontrino.getId());
+        //
+        //setto il totale a zero
         scontrinoBis.setTotale(0.0);
         //salvo lo scontrino sul database
+        
         scontrinoRepository.save(scontrinoBis);
         
         return new ScontrinoDto(scontrinoBis);
     }
+        
 
     @Override
     public RispostaEanDtoQuattro verificaEanAction(String ean, Scontrino scontrino) {
