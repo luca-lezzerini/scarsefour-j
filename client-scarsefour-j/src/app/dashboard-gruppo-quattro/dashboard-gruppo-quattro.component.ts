@@ -27,7 +27,7 @@ export class DashboardGruppoQuattroComponent implements OnInit, AutomabileGruppo
   Descrizione: string;
   messaggio: string = "";
   prezzo: number;
-  totale: string;
+  totale: number;
   scontrini: string;
   automa: AutomaGruppoQuattro;
   scontrino: Scontrino;
@@ -70,10 +70,28 @@ export class DashboardGruppoQuattroComponent implements OnInit, AutomabileGruppo
     oss.subscribe(v => this.prezzo = v.prodotto.prezzo);
   }
   chiudiScontrinoAction() {
-    throw new Error('Method not implemented.');
+    //inviamo uno scontrino
+    let dto:ScontrinoDto = new ScontrinoDto();
+    dto.scontrino = this.scontrino;
+    //creiamo un osservabile
+    let oss:Observable<ScontrinoDto> = this.http.post<ScontrinoDto>("http://localhost:8080/chiudi-scontrino-quattro",dto);
+    oss.subscribe(s => {
+      this.scontrino = s.scontrino;
+      this.totale = s.scontrino.totale;
+    });
+
+    
   }
   stornaUltimoAction() {
-    throw new Error('Method not implemented.');
+    let dto:ScontrinoDto = new ScontrinoDto();
+    dto.scontrino = this.scontrino;
+    let oss:Observable<ScontrinoDto> = this.http.post<ScontrinoDto>("http://localhost:8080/storna-ultimo-quattro",dto);
+    oss.subscribe(s => {
+      this.scontrino = s.scontrino;
+      this.totale = s.scontrino.totale;
+    });
+      
+      
   }
   annullaScontrinoAction() {
     let dto: ScontrinoDto = new ScontrinoDto();
@@ -241,6 +259,7 @@ export class DashboardGruppoQuattroComponent implements OnInit, AutomabileGruppo
         this.scontrino = e.scontrino;
         this.righeScontrino = e.righeScontrino;
         this.automa.next(new EanEvent(this.ean, this.scontrino));
+        //dobbiamo inserire il totale???
       } else {
         // l'automa rimane nello stesso stato
         this.messaggio = "ean inesistente";
