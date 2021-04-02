@@ -67,7 +67,7 @@ public class Scontrino {
 
     public List<RigaScontrino> getRighe() {
         if (righe == null) {
-            righe = new ArrayList();
+            righe = new ArrayList<>();
         }
         return righe;
     }

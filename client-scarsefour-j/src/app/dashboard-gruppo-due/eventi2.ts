@@ -1,15 +1,22 @@
-import { EventDashboardDue } from "./event2";
+import { EventDashboardDue } from './event2';
 
 export class ConfermaEvent implements EventDashboardDue{}
 export class AnnullaEvent implements EventDashboardDue{}
 export class VediPrezzoEvent implements EventDashboardDue{}
 export class AnnullaScontrinoEvent implements EventDashboardDue{}
 export class EanEvent implements EventDashboardDue{
-    esito: Boolean;
-    numeroRighe: Number;
+    esito: boolean;
+    numeroRighe: number;
+    constructor(esito: boolean, numeroRighe: number) {
+      this.esito = esito;
+      this.numeroRighe = numeroRighe;
+    }
 }
 export class StornaUltimoEvent implements EventDashboardDue{
-    numeroRighe: Number;
+    numeroRighe: number;
+    constructor(numeroRighe: number) {
+      this.numeroRighe = numeroRighe;
+    }
 }
 export class ChiudiEvent implements EventDashboardDue{}
 export class AggiungiAction implements EventDashboardDue{}

@@ -1,4 +1,4 @@
-import { Prodotto } from "./prodotto";
+import { Prodotto } from './prodotto';
 
 export class RigaScontrino {
     id: number;

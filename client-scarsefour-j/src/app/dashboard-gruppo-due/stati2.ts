@@ -54,7 +54,7 @@ export class ScontrinoNonVuotoState implements StateDashboardDue {
                 return this.automa.stato;
             }
             else{
-                console.log('EAN sconosciuto!')
+                console.log('EAN sconosciuto!');
                 return this.automa.stato;
             }
         }
@@ -82,13 +82,13 @@ export class VediPrezzoState implements StateDashboardDue {
                 this.automa.gui.vediPrezzoAction();
                 return new ScontrinoVuotoState(this.automa);
             } else if (!e.esito && e.numeroRighe === 0){
-                console.log('EAN sconosciuto!')
+                console.log('EAN sconosciuto!');
                 return new ScontrinoVuotoState(this.automa);
             }else if (e.esito && e.numeroRighe > 0){
                 this.automa.gui.vediPrezzoAction();
                 return new ScontrinoNonVuotoState(this.automa);
             }else if (!e.esito && e.numeroRighe > 0){
-                console.log('EAN sconosciuto!')
+                console.log('EAN sconosciuto!');
                 return new ScontrinoNonVuotoState(this.automa);
             }
         }

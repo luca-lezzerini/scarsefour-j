@@ -10,7 +10,7 @@ import {Observable} from 'rxjs';
 import {ListaCasseDto} from '../dto/lista-casse-dto';
 import {CassaDto} from '../dto/cassa-dto';
 import {ModificaCassaDto} from '../dto/modifica-cassa-dto';
-import {CodiceCassaDto} from "../dto/codice-cassa-dto";
+import {CodiceCassaDto} from '../dto/codice-cassa-dto';
 
 
 @Component({
