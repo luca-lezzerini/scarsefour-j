@@ -1,6 +1,7 @@
 package it.iad2.scarsefourserver.service;
 
 import it.iad2.scarsefourserver.dto.AggiungiEanRispostaDto;
+import it.iad2.scarsefourserver.dto.ListaRigaScontrinoTreDto;
 import it.iad2.scarsefourserver.model.Prodotto;
 import it.iad2.scarsefourserver.model.RigaScontrino;
 import it.iad2.scarsefourserver.model.Scontrino;
@@ -17,7 +18,7 @@ public interface DashboardTreService {
 //    List<RigaScontrino> aggiungiRigaScontrino(Scontrino scontrino);
 //    List<RigaScontrino> aggiornaRighe(Scontrino scontrino);
 
-    Scontrino stornaUltimo(Scontrino scontrino);
+    ListaRigaScontrinoTreDto stornaUltimo(Scontrino scontrino);
 
     AggiungiEanRispostaDto aggiungiRigaScontrino(Scontrino scontrino, String ean);
 

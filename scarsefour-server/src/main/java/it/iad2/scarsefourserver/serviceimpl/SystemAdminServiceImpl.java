@@ -101,7 +101,7 @@ public class SystemAdminServiceImpl implements SystemAdminService {
         RigaScontrino rigaScontrino;
         for (int i = 0; i < 60; i++) {
             rigaScontrino = new RigaScontrino();
-            rigaScontrino.setQuantita(i);
+            rigaScontrino.setQuantita(1);
             rigaScontrinoRepository.save(rigaScontrino);
         }
 

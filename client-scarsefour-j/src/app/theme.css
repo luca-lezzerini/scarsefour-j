@@ -397,7 +397,8 @@ p.titoliHome {
 
 .wrapper {
     margin: 0 auto;
-    width: 960px;
+    /* width: 960px; */
+    width: 60%;
     background: #EFEFEF;
     float: left;
 }
@@ -410,7 +411,7 @@ p.titoliHome {
     position: relative;
     float: left;
     background: rgb(219, 121, 0);
-    width: 100px;
+    width: 120px;
     height: 300px;
     border-radius: 5px;
     -moz-border-radius: 5px;
@@ -437,12 +438,12 @@ p.titoliHome {
 }
 
 .logo {
-    position: absolute;
-    float: right;
+    /* position: absolute;
+    float: right; */
     /* bottom: 25px;
     right: 15px; */
-    /* font-size: 60px;
-    color: rgb(10, 165, 49); */
+    width: 40%;
+    float: right;
 }
 
 /* IMMAGINI SELF SLIDE */

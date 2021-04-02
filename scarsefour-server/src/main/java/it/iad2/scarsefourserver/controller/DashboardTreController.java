@@ -5,6 +5,7 @@ import it.iad2.scarsefourserver.dto.AggiungiEanRispostaDto;
 import it.iad2.scarsefourserver.service.DashboardTreService;
 import it.iad2.scarsefourserver.dto.ScontrinoTreDto;
 import it.iad2.scarsefourserver.dto.CriterioRicercaDto;
+import it.iad2.scarsefourserver.dto.ListaRigaScontrinoTreDto;
 import it.iad2.scarsefourserver.dto.ProdottoDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -40,8 +41,8 @@ public class DashboardTreController {
     
     @RequestMapping("/storna-ultimo-tre")
     @ResponseBody
-    public ScontrinoTreDto stornaUltimo(@RequestBody ScontrinoTreDto dto){
-        return new ScontrinoTreDto(dashBoardService.stornaUltimo(dto.getScontrino()));
+    public ListaRigaScontrinoTreDto stornaUltimo(@RequestBody ScontrinoTreDto dto){
+        return dashBoardService.stornaUltimo(dto.getScontrino());
     }
     
     @RequestMapping("/aggiungi-scontrino-tre")

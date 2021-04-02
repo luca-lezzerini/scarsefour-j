@@ -114,7 +114,6 @@ export class DashboardGruppoTreComponent implements OnInit, AutomabileTre {
     dto.scontrino = this.scontrino;
     dto.barcode = this.barcode;
     dto.righeScontrino = this.righe;
-
     let oss: Observable<DtoAggiungiEanRispostaTre> = this.http.post<DtoAggiungiEanRispostaTre>
       ('http://localhost:8080/aggiungi-scontrino-tre', dto);
     oss.subscribe(t => {
@@ -122,6 +121,7 @@ export class DashboardGruppoTreComponent implements OnInit, AutomabileTre {
       this.scontrino = t.scontrino;
       this.righe = t.righe
       this.totale = t.scontrino.totale});
+      this.barcode = "";  
   }
   
   annullaScontrinoAction(){
@@ -130,6 +130,7 @@ export class DashboardGruppoTreComponent implements OnInit, AutomabileTre {
     let oss: Observable<DtoScontrinoTre> = this.http.post<DtoScontrinoTre>
       ('http://localhost:8080/annulla-scontrino-tre', dto);
     oss.subscribe(t => this.scontrino = t.scontrino);
+    this.totale = 0;
   }
 
   vediPrezzoAction() {
@@ -175,6 +176,7 @@ export class DashboardGruppoTreComponent implements OnInit, AutomabileTre {
       ('http://localhost:8080/chiudi-scontrino-tre', dto);
     oss.subscribe(t => this.scontrino = t.scontrino);
     this.stato = this.automa.next(new ChiudiEvent());
+    this.totale = 0;
   }
 
   stornaUltimo() {

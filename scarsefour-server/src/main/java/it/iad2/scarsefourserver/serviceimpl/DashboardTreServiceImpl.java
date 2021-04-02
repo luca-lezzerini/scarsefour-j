@@ -1,6 +1,7 @@
 package it.iad2.scarsefourserver.serviceimpl;
 
 import it.iad2.scarsefourserver.dto.AggiungiEanRispostaDto;
+import it.iad2.scarsefourserver.dto.ListaRigaScontrinoTreDto;
 import it.iad2.scarsefourserver.repository.ProdottoRepositoryTre;
 import it.iad2.scarsefourserver.repository.RigaScontrinoRepositoryTre;
 import it.iad2.scarsefourserver.repository.ScontrinoRepositoryTre;
@@ -9,6 +10,7 @@ import it.iad2.scarsefourserver.model.Prodotto;
 import it.iad2.scarsefourserver.model.RigaScontrino;
 import it.iad2.scarsefourserver.model.Scontrino;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +46,13 @@ public class DashboardTreServiceImpl implements DashboardTreService {
             r.setScontrino(scontrino);
             rigaScontrinoRepository.save(r);
         });
+        //Setto la data
+        scontrino.setTimeStamp(LocalDateTime.now());
+        //Recupero numero progressivo e lo salvo 
+        Integer numero = scontrinoRepository.findFirstByNumeroIsNotNullOrderByNumeroDesc().getNumero();
+        scontrino.setNumero(numero + 1);
+        System.out.println("il numero più alto degli scontrini è.........." + numero);
+        System.out.println("il numero dello scontrino è.........." + scontrino.getNumero());
         //Salvo lo scontrino
         Scontrino salvato;
         salvato = scontrinoRepository.save(scontrino);
@@ -63,13 +72,52 @@ public class DashboardTreServiceImpl implements DashboardTreService {
     }
 
     @Override
-    public Scontrino stornaUltimo(Scontrino scontrino) {
-        // Cancello l'ultima riga inserita
-        if (!scontrino.getRighe().isEmpty()) {
-            RigaScontrino ultimaRiga = scontrino.getRighe().get(scontrino.getRighe().size() - 1);
-            rigaScontrinoRepository.deleteById(ultimaRiga.getId());
+    public ListaRigaScontrinoTreDto stornaUltimo(Scontrino scontrino) {
+        System.out.println("siamo in storna, lo scontrino è..." + scontrino);
+        // Recupero lo scontrino dal DB
+        var sco = scontrinoRepository.findById(scontrino.getId());
+        if (sco.isEmpty()) {
+            System.out.println("ERRORE: id scontrino non trovata. Creato scontrino vuoto");
+            scontrino = new Scontrino();
+            scontrino = scontrinoRepository.save(scontrino);
+        } else {
+            scontrino = sco.get();
         }
-        return aggiornaRighe(scontrino);
+        // Recuperiamo la lista di righe scontrino
+        List<RigaScontrino> listaRighe = scontrino.getRighe();
+        // Recuperiamo l'ultima riga
+        RigaScontrino ultimaRiga;
+        if (!listaRighe.isEmpty()) {
+            ultimaRiga = listaRighe.get(listaRighe.size() - 1);
+            // Recuperiamo il prodotto associato 
+            Prodotto prod = ultimaRiga.getProdotto();
+            // rimuovo la riga dallo scontrino...
+            scontrino.getRighe().remove(ultimaRiga);
+            scontrino = scontrinoRepository.save(scontrino);
+            // ... la rimuovo dal prodotto ...
+            prod.getRighe().remove(ultimaRiga);
+            prodottoRepository.save(prod);
+            // ... e la rimuovo dalle righeScontrino
+            listaRighe.remove(ultimaRiga);
+            // Cancello l'ultima riga inserita
+            rigaScontrinoRepository.delete(ultimaRiga);
+        } else {
+            System.out.println("ERRORE! Scontrino vuoto!");
+        }
+        // Ricalcolo il totale
+        double totale = 0;
+        List<RigaScontrino> righe = scontrino.getRighe();
+        System.out.println("righe" + righe.toString());
+        System.out.println(scontrino.getRighe().toString());
+        totale = righe.stream()
+                .mapToDouble(r -> r.getProdotto().getPrezzo())
+                .sum();
+        //prendere prodotto da scontrino e salvarlo
+        System.out.println("totale = " + totale);
+        scontrino.setTotale(totale);
+        scontrino = scontrinoRepository.save(scontrino);
+        System.out.println("scontrino salvato" + scontrino.getRighe().toString());
+        return new ListaRigaScontrinoTreDto(listaRighe, scontrino);
     }
 
     @Override
@@ -110,7 +158,6 @@ public class DashboardTreServiceImpl implements DashboardTreService {
             // ... la collego allo scontrino ...
             scontrino.getRighe().add(riga);
             scontrino = scontrinoRepository.save(scontrino);
-
             // ... e al prodotto ...
             prod.getRighe().add(riga);
             prod = prodottoRepository.save(prod);
