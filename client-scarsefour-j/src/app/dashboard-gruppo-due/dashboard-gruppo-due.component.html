@@ -28,18 +28,17 @@
 </button>
         </div>
         <br>
-        <div class="tab-1">
             <div class="elem">
                 <div *ngIf="listaVisibile">
                     <h2>Ultimo elemento {{ultimoElemento}}</h2>
                 </div>
             </div>
             <br>
-            <table *ngIf="listaVisibile">
+            <table *ngIf="listaVisibile"class="tab-1">
                 <tr>
-                    <th>quantita</th>
-                    <th>descrizione</th>
-                    <th>prezzo</th>
+                    <th>Quantita</th>
+                    <th>Descrizione</th>
+                    <th>Prezzo</th>
                 </tr>
                 <tr *ngFor="let r of righeScontrino">
                     <td>{{r.quantita}}</td>
@@ -47,7 +46,6 @@
                     <td>{{r.prodotto.prezzo}}</td>
                 </tr>
             </table>
-        </div>
         <div class="tab-2">
             <div class="tot">
                 <h2>Totale: {{totale}} €</h2>
