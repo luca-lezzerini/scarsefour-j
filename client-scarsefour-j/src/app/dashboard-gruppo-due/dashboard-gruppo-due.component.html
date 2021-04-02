@@ -12,7 +12,7 @@
         </div>
         <br><br>
         <div class="col-3">
-            <button class="button" (click)="chiudiScontrino()" *ngIf="chiudiScontrinoVisibile" id="butChiudiScontrino">Chiudi scontrino</button>
+            <button class="button" (click)="chiudiScontrino()" *ngIf="!chiudiScontrinoVisibile" [disabled]="!chiudiScontrinoDisable" id="butChiudiScontrino">Chiudi scontrino</button>
         </div>
         <div class="col-3">
             <button class="button" (click)="stornaUltimoAction()" *ngIf="stornaVisibile" id="butStorna">Storna ultimo</button>
