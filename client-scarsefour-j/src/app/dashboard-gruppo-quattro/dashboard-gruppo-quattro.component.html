@@ -1,39 +1,69 @@
-<h2>Dashboard Cassa 4</h2>
+<body>
+    <app-toolbar-menu></app-toolbar-menu>
+    <div class="headDash">
+        <h3>Dashboard Cassa 4</h3>
+    </div>
+    <div class="divvone">
+        <div class="col-3">
+            <input type="text" placeholder="barcode" [(ngModel)]="ean" [disabled]="eanNonEditabile"
+                (keydown.tab)="inserisciEan()" *ngIf="barCodeNonVisibile" class="inputBarcode">
+            <h4 *ngIf="tastoTabMes"> Premere tasto tab per confermare codice prodotto</h4>
+            <br>
+            <br>
+            <button [disabled]="bottoneVediPrezzo" (click)="vediPrezzo()" *ngIf="vediPrezzoVisibleB" class="button"
+                id="butVediPrezzo">Vedi
+                prezzo</button>
+        </div>
+        <div class="col-3">
 
-<input type="text" placeholder="barcode" [(ngModel)]="ean" [disabled]="eanNonEditabile" (keydown.tab)="inserisciEan()"
-    *ngIf="barCodeNonVisibile">
-<p *ngIf="tastoTabMes"> Premere tasto tab per confermare codice prodotto</p>
+            <button [disabled]="bottoneChiudiScontrino" (click)="chiudiScontrino()" *ngIf="chiudiB" class="button"
+                id="butChiudiScontrino">Chiudi
+                scontrino</button>
+            <br>
+            
+            <br>
+            <p>{{messaggio}}</p>
+            <br>
+            <button ng-disabled="bottoneStornaUltimo" (click)="stornaUltimo()" *ngIf="stornaB" class="button">Storna
+                ultimo</button>
+        </div>
+        <div class="col-3">
+            <button [disabled]="bottoneAnnullaScontrino" (click)="annullaScontrino()" *ngIf="annullaScontrinoB"
+                class="button" id="butAnnScontrino">Annulla
+                scontrino</button>
+            <br>
+            <br>
+            <button [disabled]="bottoneAnnulla" (click)="annulla()" *ngIf="annullaB" class="button"  id="butAnnulla">Annulla</button>
+            <br>
+            <br>
+            <button [disabled]="bottoneConferma" (click)="conferma()" *ngIf="confermaB"
+                class="button" id="butConferma">Conferma</button>
+            
+        </div>
+        <br>
+        <div class="elem">
 
-<br>
-<button ng-disabled="bottoneVediPrezzo" (click)="vediPrezzo()" *ngIf="vediPrezzoVisibleB">Vedi prezzo</button>
-<button ng-disabled="bottoneChiudiScontrino" (click)="chiudiScontrino()" *ngIf="chiudiB">Chiudi scontrino</button>
-<br>
-<p *ngIf="prezzoB">Prezzo: {{prezzo}}</p>
-<br>
-<p>{{messaggio}}</p>
-<br>
-<button ng-disabled="bottoneStornaUltimo" (click)="stornaUltimo()" *ngIf="stornaB">Storna ultimo</button>
-<button ng-disabled="bottoneAnnullaScontrino" (click)="annullaScontrino()" *ngIf="annullaScontrinoB">Annulla
-    scontrino</button>
-<br>
-<button ng-disabled="bottoneAnnulla" (click)="annulla()" *ngIf="annullaB">Annulla</button>
-<button ng-disabled="bottoneConferma" (click)="conferma()" *ngIf="confermaB">Conferma</button>
-<br>
-<p *ngIf="prezzoLabel">Ultimo elemento {{Descrizione}} {{prezzo}}
-    Totale </p>
-<br>
-<table *ngIf="lista">
-    <tr>
-        <th>id riga</th>
-        <th> Quantità</th>
-        <th> Descrizione</th>
-        <th> Prezzo </th>
-    </tr>
-    <tr *ngFor="let s of righeScontrino">
-        <td> {{s.id}}</td>
-        <td> {{s.quantita}}</td>
-        <td> {{s.prodotto.descrizione}}</td>
-        <td>{{s.prodotto.prezzo}} </td>
-    </tr>
-</table>
-<p *ngIf="totaleScontrinoLabel">Totale:{{totale}}</p>
+            <h2 *ngIf="prezzoLabel">Ultimo elemento {{descrizione}} {{prezzo}}</h2>
+        </div>
+
+        <br>
+        <table *ngIf="lista" class="tab-1">
+            <tr>
+                <th>id riga</th>
+                <th> Quantità</th>
+                <th> Descrizione</th>
+                <th> Prezzo </th>
+            </tr>
+            <tr *ngFor="let s of righeScontrino">
+                <td> {{s.id}}</td>
+                <td> {{s.quantita}}</td>
+                <td> {{s.prodotto.descrizione}}</td>
+                <td>{{s.prodotto.prezzo}} </td>
+            </tr>
+        </table>
+        <div class="tab-2">
+            <h2 *ngIf="prezzoB">Importo totale: {{scontrino.totale}}</h2>
+            <h2 *ngIf="totaleScontrinoLabel">Totale:{{totale}}</h2>
+        </div>
+    </div>
+</body>

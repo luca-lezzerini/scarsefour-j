@@ -23,7 +23,7 @@ import { RispostaEanDto4 } from './dto/Risposta-Ean-dto-4';
 export class DashboardGruppoQuattroComponent implements OnInit, AutomabileGruppoQuattro {
 
   ean: string;
-  Descrizione: string;
+  descrizione: string;
   messaggio: string = "";
   prezzo: number;
   totale: number;
@@ -144,7 +144,7 @@ export class DashboardGruppoQuattroComponent implements OnInit, AutomabileGruppo
     this.confermaB = true;
     this.prezzoB = false;
     this.lista = false;
-    this.prezzoLabel = false;
+    this.prezzoLabel = true;
     this.totaleScontrinoLabel = false;
     this.tastoTabMes = true;
 
@@ -177,6 +177,7 @@ export class DashboardGruppoQuattroComponent implements OnInit, AutomabileGruppo
 
   }
   gotoScontrinoNonVuoto() {
+    
     this.eanNonEditabile = false;
     this.vediPrezzoVisibleB = true;
     this.chiudiB = true;
@@ -258,16 +259,19 @@ export class DashboardGruppoQuattroComponent implements OnInit, AutomabileGruppo
       if (e.rigaSuccesso) {
         this.scontrino = e.scontrino;
         this.righeScontrino = e.righeScontrino;
+       //TODO this.descrizione = e.
+        //TODO this.prezzo = e.righeScontrino.
+
         this.automa.next(new EanEvent(this.ean, this.scontrino));
         //dobbiamo inserire il totale???
       } else {
         // l'automa rimane nello stesso stato
         this.messaggio = "ean inesistente";
       }
+      //Puliamo l'input ean
       this.ean = ""
     });
-    //Puliamo l'input ean
-    // this.automa.next(new EanEvent(this.ean, this.scontrino));
+    // this.automa.next(new EanEvent(this.ean, this.scontrino)); Errore nella versione precedente. I cambiamenti di stato li gestisce l'automa
   }
 }
 
