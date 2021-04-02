@@ -6,7 +6,7 @@ import { Prodotto } from '../entità/prodotto';
 import { RigaScontrino } from '../entità/riga-scontrino';
 import { Scontrino } from '../entità/scontrino';
 import { AutomaTre } from './automa-tre';
-import { AnnullaEvent, AnnullaScontrinoEvent, ChiudiEvent, ConfermaEvent, EanEvent, StornaUnoEvent, VediPrezzoEvent } from './eventi-tre';
+import { AnnullaEvent, AnnullaScontrinoEvent, ChiudiEvent, ConfermaEvent, EanEvent, StornaPiuEvent, StornaUnoEvent, VediPrezzoEvent } from './eventi-tre';
 import { AutomabileTre, StateTre } from './state-tre';
 import { ScontrinoNonVuotoState, ScontrinoVuotoState, VediPrezzoState } from './stati-tre';
 import { Observable } from 'rxjs';
@@ -64,8 +64,8 @@ export class DashboardGruppoTreComponent implements OnInit, AutomabileTre {
     this.annullaScontrinoDisabled = true;
     this.annullaDisabled = true;
     this.confermaDisabled = true;
-    this.listaVisible = true;
-    this.messErroreVisible= true;
+    this.listaVisible = false;
+    this.messErroreVisible = true;
   }
 
   goToScontrinoNonVuoto() {
@@ -78,7 +78,7 @@ export class DashboardGruppoTreComponent implements OnInit, AutomabileTre {
     this.annullaDisabled = true;
     this.confermaDisabled = true;
     this.listaVisible = false;
-    this.messErroreVisible= true;
+    this.messErroreVisible = true;
   }
 
   goToVediPrezzo() {
@@ -91,7 +91,7 @@ export class DashboardGruppoTreComponent implements OnInit, AutomabileTre {
     this.annullaDisabled = true;
     this.confermaDisabled = true;
     this.listaVisible = true;
-    this.messErroreVisible= true;
+    this.messErroreVisible = true;
   }
 
   goToAnnullamentoScontrino() {
@@ -100,15 +100,15 @@ export class DashboardGruppoTreComponent implements OnInit, AutomabileTre {
     this.chiudiDisabled = true;
     this.prezzoVisible = true;
     this.stornaVisible = true;
-    this.annullaScontrinoDisabled = false;
+    this.annullaScontrinoDisabled = true;
     this.annullaDisabled = false;
     this.confermaDisabled = false;
     this.listaVisible = true;
-    this.messErroreVisible= true;
+    this.messErroreVisible = true;
   }
 
   // Metodi Automabile Action
-  aggiungiRigaScontrinoAction(){
+  aggiungiRigaScontrinoAction() {
     // Creiamo DtoAggiungiEan da inviare al server
     let dto: DtoAggiungiEanTre = new DtoAggiungiEanTre();
     dto.scontrino = this.scontrino;
@@ -120,11 +120,12 @@ export class DashboardGruppoTreComponent implements OnInit, AutomabileTre {
       console.log("Esito: " + t.esito);
       this.scontrino = t.scontrino;
       this.righe = t.righe
-      this.totale = t.scontrino.totale});
-      this.barcode = "";  
+      this.totale = t.scontrino.totale
+    });
+    this.barcode = "";
   }
-  
-  annullaScontrinoAction(){
+
+  annullaScontrinoAction() {
     let dto: DtoScontrinoTre = new DtoScontrinoTre();
     dto.scontrino = this.scontrino;
     let oss: Observable<DtoScontrinoTre> = this.http.post<DtoScontrinoTre>
@@ -147,15 +148,15 @@ export class DashboardGruppoTreComponent implements OnInit, AutomabileTre {
       this.prodotto.descrizione = t.prodotto.descrizione;
       console.log(this.prodotto.descrizione);
       this.prezzoProdotto = this.prodotto.prezzo;
-      if (this.prodotto.descrizione==null) {
+      if (this.prodotto.descrizione == null) {
         this.erroreEanAction();
         console.log("ERRORE!");
       }
     });
   }
 
-  erroreEanAction(){
-    this.messErroreVisible=false;
+  erroreEanAction() {
+    this.messErroreVisible = false;
     this.prezzoVisible = true;
   }
 
@@ -165,7 +166,7 @@ export class DashboardGruppoTreComponent implements OnInit, AutomabileTre {
     this.stato = this.automa.next(new EanEvent(this.barcode, this.scontrino));
   }
 
-  attivaVediPrezzo(){
+  attivaVediPrezzo() {
     this.stato = this.automa.next(new VediPrezzoEvent());
   }
 
@@ -177,6 +178,7 @@ export class DashboardGruppoTreComponent implements OnInit, AutomabileTre {
     oss.subscribe(t => this.scontrino = t.scontrino);
     this.stato = this.automa.next(new ChiudiEvent());
     this.totale = 0;
+    this.righe = [];
   }
 
   stornaUltimo() {
@@ -186,8 +188,15 @@ export class DashboardGruppoTreComponent implements OnInit, AutomabileTre {
       ('http://localhost:8080/storna-ultimo-tre', dto);
     oss.subscribe(t => {
       this.scontrino = t.scontrino;
-      this.righe = t.scontrino.righe});
-    this.stato = this.automa.next(new StornaUnoEvent());
+      this.righe = t.righeScontrino;
+      this.totale = t.scontrino.totale;
+    });
+    //dopo aver stornato un prodotto se la lista è vuota torna a scontrino vuoto altrimenti a scontrino non vuoto
+    if (this.righe.length == 0) {
+      this.stato = this.automa.next(new StornaUnoEvent());
+    } else {
+      this.stato = this.automa.next(new StornaPiuEvent());
+    }
   }
 
   annullaScontrino() {
@@ -200,14 +209,15 @@ export class DashboardGruppoTreComponent implements OnInit, AutomabileTre {
 
   conferma() {
     this.stato = this.automa.next(new ConfermaEvent());
+    this.righe = [];
   }
 
   // Metodi richiamati internamente
-  aggiornaRighe(){
+  aggiornaRighe() {
     let dto: DtoScontrinoTre = new DtoScontrinoTre();
     dto.scontrino = this.scontrino;
     let oss: Observable<DtoScontrinoTre> = this.http.post<DtoScontrinoTre>
-    ('http://localhost:8080/aggiorna-righe-tre', dto);
+      ('http://localhost:8080/aggiorna-righe-tre', dto);
     oss.subscribe(r => this.righe = r.scontrino.righe);
   }
 }
