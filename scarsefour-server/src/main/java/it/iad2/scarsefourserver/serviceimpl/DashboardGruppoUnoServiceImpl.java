@@ -133,14 +133,6 @@ public class DashboardGruppoUnoServiceImpl implements DashboardGruppoUnoService 
             }
         }
         return new ScontrinoRigheDto(scontrino, listaRighe);
-//        List<RigaScontrino> listaRighe = scontrinoRepository.findById(scontrino.getId()).get().getRighe();
-//        RigaScontrino ultimaRiga = listaRighe.get(listaRighe.size() - 1);
-//        rigaScontrinoRepository.delete(ultimaRiga);
-//        scontrino.setTotale(scontrino.getTotale() - ultimaRiga.getProdotto().getPrezzo());
-//        scontrinoRepository.findById(scontrino.getId()).get().getRighe().remove(ultimaRiga);
-//        listaRighe = scontrinoRepository.findById(scontrino.getId()).get().getRighe();
-//        scontrinoRepository.save(scontrino);
-//        return new ScontrinoRigheDto(scontrino, listaRighe);
     }
 
     @Override
