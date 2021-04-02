@@ -21,19 +21,6 @@ h2 {
     text-align: top;
 }
 
-/*
-h3 {
-    font-family: Verdana, Arial, Helvetica, sans-serif;
-    font-size: 30px;
-    font-weight: bold;
-    margin: 0;
-    padding-left: 50px;
-    padding-right: 30px;
-    padding-top: 15px;
-    padding-bottom: 15px;
-    float: right;
-}*/
-
 /* IMPAGINAZIONE DASHBOARD */
 
 .headDash {
@@ -48,16 +35,6 @@ h3 {
     content: "";
     clear: both;
     display: table;
-}
-
-[class*="elem"] {
-    float: left;
-    padding: 0px;
-}
-
-.elem::after {
-    width: 50%;
-    text-align: start;   
 }
 
 [class*="col-"] {
@@ -239,18 +216,18 @@ hr {
 }
 
 table {
-    width: 100%;
 }
 
 table.scrolldown {
-    width: 98%;
+    width: 100%;
     /* border-collapse: collapse; */
     border-spacing: 0;
     border: 2px solid black;
-    position: absolute;
+    /* position: absolute;
     bottom: 10px;
     right: 10px;
-    left: 10px;
+    left: 10px; */
+    float: left;
 }
 
 /* To display the block as level element */
@@ -271,6 +248,58 @@ table.scrolldown tbody {
     /* Set vertical scroll */
     overflow-y: auto;
     /* Hide the horizontal scroll */
+    overflow-x: hidden;
+}
+
+tbody {
+}
+
+tbody td {
+    width: 500px;
+}
+
+td, th {
+    text-align: center;
+}
+
+thead th {
+    background-color: #333;
+    color: white;
+}
+
+tr:nth-child(odd) {
+    background-color: #ff9e44;
+}
+
+tr:nth-child(even) {}
+
+[class*="tab-"] {
+    float: left;
+    padding: 15px;
+}
+
+/* TABELLA DASHBOARD */
+
+.tab-1 {
+    width: 70%;
+    border-spacing: 0;
+    border: 1px solid black;
+    float: left;
+}
+
+.tab-1 tbody, .tab-1 thead {
+    display: block;
+}
+
+thead tr th {
+    height: 40px;
+    line-height: 40px;
+    width: 500px;
+}
+
+.tab-1 tbody {
+    height: 300px;
+    overflow-y: auto;
     overflow-x: hidden;
 }
 
@@ -298,31 +327,44 @@ tr:nth-child(odd) {
 
 tr:nth-child(even) {}
 
-[class*="tab-"] {
+/* .tab-1::after{
+    width: 65%;
     float: left;
     padding: 15px;
-}
+    border: 1px solid blue;
+} */
 
-.tab-1::after{
-    width: 65%;
-}
-
-.tab-2::after {
+/* .tab-2::after {
     width: 35%;
-}
+} */
 
-#tabDash {
+/* #tabDash {
     position: absolute;
     padding-bottom: 240px;
     width: 65%;
+} */
+
+/* TOTALE DASH */
+.tab-2 {
+    /* position: absolute; */
+    float: right;
+    font-size: 35px;
+    width: 30%;
+    height: 50%;
+    text-align: right;
 }
 
-.tot {
-    position: absolute;
-    font-size: 35px;
-    width: 65%;
-    height: 80%;
-    text-align: right;
+/* ELEMENTO DASH */
+
+[class*="elem"] {
+    float: left;
+    width: 100%;
+    padding: 15px;
+}
+
+.elem::after {
+    width: 50%;
+    text-align: start;   
 }
 
 /* TOOLBAR MENU */

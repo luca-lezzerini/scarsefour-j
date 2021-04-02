@@ -35,11 +35,11 @@
             <br>
             <button (click)=conferma() [disabled]="confermaDisabled" class="button" id="butConferma">Conferma</button>
         </div>
-        <div class="tab-1">
-            <div class="elem">
-                <h2>Ultimo elemento {{ultimoElemento}}</h2>
-            </div>
-            <table *ngIf="!listaVisible" class="scrolldown" id="tabDash">
+        <div class="elem">
+            <h2>Ultimo elemento {{ultimoElemento}}</h2>
+        </div>
+        <div>
+            <table *ngIf="!listaVisible" class="tab-1">
                 <tr>
                     <th>Quantità</th>
                     <th>Descrizione</th>
@@ -53,9 +53,7 @@
             </table>
         </div>
         <div class="tab-2">
-            <div class="tot">
-                <h2>Totale: {{totale}} €</h2>
-            </div>
+            <h2>Totale: {{totale}} €</h2>
         </div>
     </div>
 </body>
