@@ -33,7 +33,7 @@ export class ScontrinoNonVuotoState implements StateGruppoQuattro {
     }
     next(e: Event): StateGruppoQuattro {
         if (e instanceof AnnullaScontrinoEvent) {
-           // this.automa.gui.annullaScontrinoAction();
+            // this.automa.gui.annullaScontrinoAction();
             return new AnnullamentoScontrinoState(this.automa);
         }
         if (e instanceof ChiudiEvent) {
@@ -56,24 +56,24 @@ export class ScontrinoNonVuotoState implements StateGruppoQuattro {
         }
         if (e instanceof EanEvent) {
             //if (e.codiceEan == "conosciuto")
-            
+
             // {
-                 //this.automa.gui.verificaEanAction();
-                return new ScontrinoNonVuotoState(this.automa);
-            }
+            //this.automa.gui.verificaEanAction();
+            return new ScontrinoNonVuotoState(this.automa);
+        }
 
-            /*if (e.codiceEan == "sconosciuto") {
-                return new ScontrinoNonVuotoState(this.automa);
-            }
-            if (e instanceof VediPrezzoEvent) {
-                return new VediPrezzoState(this.automa);
-            }*/
+        /*if (e.codiceEan == "sconosciuto") {
+            return new ScontrinoNonVuotoState(this.automa);
+        }
+        if (e instanceof VediPrezzoEvent) {
+            return new VediPrezzoState(this.automa);
+        }*/
 
-            else {
-                console.log('Ricevuto evento inatteso');
-            }
+        else {
+            console.log('Ricevuto evento inatteso');
         }
     }
+}
 
 
 export class VediPrezzoState implements StateGruppoQuattro {
@@ -84,23 +84,23 @@ export class VediPrezzoState implements StateGruppoQuattro {
     next(e: Event): StateGruppoQuattro {
         if (e instanceof EanEvent) {
 
-            if (e.scontrino != null ) {
-               // this.automa.gui.verificaEanAction();
+            if (e.scontrino != null) {
+                // this.automa.gui.verificaEanAction();
                 return new ScontrinoNonVuotoState(this.automa);
             }
-           /* else if (e.scontrino != null && e.codiceEan == "conosciuto") {
-                return new ScontrinoNonVuotoState(this.automa);
-           }*/
-            
+            /* else if (e.scontrino != null && e.codiceEan == "conosciuto") {
+                 return new ScontrinoNonVuotoState(this.automa);
+            }*/
+
 
             else if (e.scontrino == null)// && e.codiceEan == "sconosciuto")
-             {
+            {
                 this.automa.gui.verificaEanAction();
                 return new ScontrinoVuotoState(this.automa);
             }
-           /* else if (e.scontrino == null && e.codiceEan == "conosciuto") {
-                return new ScontrinoVuotoState(this.automa);
-            }*/
+            /* else if (e.scontrino == null && e.codiceEan == "conosciuto") {
+                 return new ScontrinoVuotoState(this.automa);
+             }*/
         }
         else {
             console.log('Ricevuto evento inatteso');
@@ -113,13 +113,16 @@ export class AnnullamentoScontrinoState implements StateGruppoQuattro {
     constructor(public automa: AutomaGruppoQuattro) {
         automa.gui.gotoAnnullamentoScontrino();
     }
-    next(e: EventGruppoQuattro):StateGruppoQuattro {
+    next(e: EventGruppoQuattro): StateGruppoQuattro {
         if (e instanceof AnnullaEvent) {
             return new ScontrinoNonVuotoState(this.automa);
         }
-        if (e instanceof ConfermaEvent) {
+        else if (e instanceof ConfermaEvent) {
             this.automa.gui.annullaScontrinoAction();
             return new ScontrinoVuotoState(this.automa);
+        }
+        else {
+            console.log('Ricevuto evento inatteso', e);
         }
     }
 }
