@@ -198,12 +198,13 @@ export class DashboardGruppoQuattroComponent implements OnInit, AutomabileGruppo
 
   }
   gotoAnnullamentoScontrino() {
-    this.barCodeNonVisibile = true;
+    this.messaggio="premere conferma o annulla";
+    this.barCodeNonVisibile = false;
     this.eanNonEditabile = false;
     this.vediPrezzoVisibleB = false;
     this.chiudiB = false;
     this.stornaB = false;
-    this.annullaScontrinoB = true;
+    this.annullaScontrinoB =false;
     this.annullaB = true;
     this.confermaB = true;
     this.prezzoB = false;
@@ -248,7 +249,7 @@ export class DashboardGruppoQuattroComponent implements OnInit, AutomabileGruppo
   conferma() {
     this.automa.next(new ConfermaEvent());
   }
-
+ 
   inserisciEanAction() {
     let dto: RichiestaEanDto4 = new RichiestaEanDto4();
     dto.barcode = this.ean;

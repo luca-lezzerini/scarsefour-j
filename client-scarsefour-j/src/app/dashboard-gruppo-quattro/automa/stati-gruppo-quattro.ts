@@ -33,7 +33,7 @@ export class ScontrinoNonVuotoState implements StateGruppoQuattro {
     }
     next(e: Event): StateGruppoQuattro {
         if (e instanceof AnnullaScontrinoEvent) {
-            this.automa.gui.annullaScontrinoAction();
+           // this.automa.gui.annullaScontrinoAction();
             return new AnnullamentoScontrinoState(this.automa);
         }
         if (e instanceof ChiudiEvent) {
@@ -113,7 +113,7 @@ export class AnnullamentoScontrinoState implements StateGruppoQuattro {
     constructor(public automa: AutomaGruppoQuattro) {
         automa.gui.gotoAnnullamentoScontrino();
     }
-    next(e: EventGruppoQuattro) {
+    next(e: EventGruppoQuattro):StateGruppoQuattro {
         if (e instanceof AnnullaEvent) {
             return new ScontrinoNonVuotoState(this.automa);
         }
