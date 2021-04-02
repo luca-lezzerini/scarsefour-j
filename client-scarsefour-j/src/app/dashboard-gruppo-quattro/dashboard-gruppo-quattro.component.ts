@@ -79,17 +79,23 @@ export class DashboardGruppoQuattroComponent implements OnInit, AutomabileGruppo
     let dto: ScontrinoDto = new ScontrinoDto();
     dto.scontrino = this.scontrino;
     let ox: Observable<ScontrinoDto> = this.http.post<ScontrinoDto>("http://localhost:8080/annulla-scontrino-quattro", dto);
-    ox.subscribe(a => this.scontrino = a.scontrino);
+    ox.subscribe(a => {this.scontrino = a.scontrino;
+      this.righeScontrino = [];
+     }); 
+      
+    
     //Mesaggio di conferma della rimozione
     this.messaggio = "tutti prodotti dello scontrino rimossi"
     //Azzeramento delle interpolazioni della tabella
-  this.quantitaStampa =0;
-  this.descrizioneStampa = "";
-  this.prezzoStampa = 0;
+  //this.quantitaStampa =0;
+  //this.descrizioneStampa = "";
+  //this.prezzoStampa = 0;
+  this.scontrino.id
+  
   }
 
   inserisciEan() {
-    throw new Error('Method not implemented.');
+    this.inserisciEanAction();
   }
 
   stornaAction() {
@@ -216,12 +222,12 @@ export class DashboardGruppoQuattroComponent implements OnInit, AutomabileGruppo
 
   }
 
-  Annulla() {
+  annulla() {
     this.automa.next(new AnnullaEvent());
 
   }
 
-  Conferma() {
+  conferma() {
     this.automa.next(new ConfermaEvent());
   }
 

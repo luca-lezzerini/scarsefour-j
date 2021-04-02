@@ -14,7 +14,7 @@ export class ScontrinoVuotoState implements StateGruppoQuattro {
         }
         if (e instanceof EanEvent) {
             if (e.codiceEan) {
-                this.automa.gui.inserisciEanAction();
+                //this.automa.gui.inserisciEanAction();
                 return new ScontrinoNonVuotoState(this.automa);
             }
             else {

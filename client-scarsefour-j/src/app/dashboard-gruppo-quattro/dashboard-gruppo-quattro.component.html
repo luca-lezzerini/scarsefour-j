@@ -1,6 +1,6 @@
 <h2>Dashboard Cassa 4</h2>
 
-<input type="text" placeholder="barcode" [(ngModel)]="ean" [disabled]="eanNonEditabile" (keydown.tab)="inserisciEanAction()"
+<input type="text" placeholder="barcode" [(ngModel)]="ean" [disabled]="eanNonEditabile" (keydown.tab)="inserisciEan()"
     *ngIf="barCodeNonVisibile">
 <p *ngIf="tastoTabMes"> Premere tasto tab per confermare codice prodotto</p>
 
@@ -16,8 +16,8 @@
 <button ng-disabled="bottoneAnnullaScontrino" (click)="annullaScontrinoAction()" *ngIf="annullaScontrinoB">Annulla
     scontrino</button>
 <br>
-<button ng-disabled="bottoneAnnulla" (click)="Annulla()" *ngIf="annullaB">Annulla</button>
-<button ng-disabled="bottoneConferma" (click)="Conferma()" *ngIf="confermaB">Conferma</button>
+<button ng-disabled="bottoneAnnulla" (click)="annulla()" *ngIf="annullaB">Annulla</button>
+<button ng-disabled="bottoneConferma" (click)="conferma()" *ngIf="confermaB">Conferma</button>
 <br>
 <p *ngIf="prezzoLabel">Ultimo elemento {{Descrizione}} {{prezzo}}
     Totale </p>
