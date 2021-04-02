@@ -125,35 +125,59 @@ public class DashboardGruppoUnoServiceImpl implements DashboardGruppoUnoService 
         return 0;
     }
 
+    //metodo con operatori funzionali
     @Override
     public ScontrinoRigheDto stornaUltimo1(Scontrino scontrino, String lastBarcode) {
-        //seleziono tutte le righe dello scontrino 
         List<RigaScontrino> listaRighe = scontrinoRepository.findById(scontrino.getId()).get().getRighe();
-        //scorro tutta la lista
-        for (RigaScontrino riga : listaRighe) {
-            // verifico se il prodotto della lista che sto scorrendo corrispondesse all'ultimo prodotto da cancellare
-            if (riga.getProdotto().getEan().equals(lastBarcode)) {
-                // se corrisponde sottraggo l'imporo del prodotto dal totale
-                scontrino.setTotale(scontrino.getTotale() - riga.getProdotto().getPrezzo());
-                // se il prodotto ha più di un elemento decremento solo la quantità e aggiorno la tabella RigaScontrino
-                if (riga.getQuantita() > 1) {
-                    riga.setQuantita(riga.getQuantita() - 1);
-                    rigaScontrinoRepository.save(riga);
-                } else {
-                    //cancello il prodotto  
-                    rigaScontrinoRepository.delete(riga);
-                    listaRighe.remove(riga);
-                    scontrino.setRighe(listaRighe);
-                }
-                scontrinoRepository.save(scontrino);
-                break;
-            }
-        }
+        listaRighe.stream()
+                .filter(f -> f.getProdotto().getEan().equals(lastBarcode) && f.getQuantita() == 1)
+                .forEach(r -> {
+                    scontrino.setTotale(scontrino.getTotale() - r.getProdotto().getPrezzo());
+                    rigaScontrinoRepository.delete(r);
+                });
+        listaRighe
+                .removeIf((f) -> f.getProdotto().getEan().equals(lastBarcode) && f.getQuantita() == 1);
+        listaRighe.stream()
+                .filter(f -> f.getProdotto().getEan().equals(lastBarcode) && f.getQuantita() > 1)
+                .forEach(r -> {
+                    scontrino.setTotale(scontrino.getTotale() - r.getProdotto().getPrezzo());
+                    r.setQuantita(r.getQuantita() - 1);
+                    rigaScontrinoRepository.save(r);
+                });
+        scontrino.setRighe(listaRighe);
+        scontrinoRepository.save(scontrino);
+        
         return new ScontrinoRigheDto(scontrino, listaRighe);
     }
 
-    @Override
-    public Scontrino annullaScontrino1(Scontrino scontrino) {
+    //Prima versione del metodo 
+//        //seleziono tutte le righe dello scontrino 
+//        List<RigaScontrino> listaRighe = scontrinoRepository.findById(scontrino.getId()).get().getRighe();
+//        //scorro tutta la lista
+//        for (RigaScontrino riga : listaRighe) {
+//            // verifico se il prodotto della lista che sto scorrendo corrispondesse all'ultimo prodotto da cancellare
+//            if (riga.getProdotto().getEan().equals(lastBarcode)) {
+//                // se corrisponde sottraggo l'imporo del prodotto dal totale
+//                scontrino.setTotale(scontrino.getTotale() - riga.getProdotto().getPrezzo());
+//                // se il prodotto ha più di un elemento decremento solo la quantità e aggiorno la tabella RigaScontrino
+//                if (riga.getQuantita() > 1) {
+//                    riga.setQuantita(riga.getQuantita() - 1);
+//                    rigaScontrinoRepository.save(riga);
+//                } else {
+//                    //cancello il prodotto  
+//                    rigaScontrinoRepository.delete(riga);
+//                    listaRighe.remove(riga);
+//                    scontrino.setRighe(listaRighe);
+//                }
+//                scontrinoRepository.save(scontrino);
+//                break;
+//            }
+//        }
+//        return new ScontrinoRigheDto(scontrino, listaRighe);
+//}
+
+@Override
+public Scontrino annullaScontrino1(Scontrino scontrino) {
         //seleziono tutte le righe dello scontrino da cancellare che andrò a cancellare dalla tabella RigaScontrino
         List<RigaScontrino> listaRighe = scontrinoRepository.findById(scontrino.getId()).get().getRighe();
         listaRighe.forEach(x -> {
