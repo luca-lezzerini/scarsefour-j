@@ -9,19 +9,22 @@ public class RispostaEanDtoQuattro {
     private Boolean rigaSuccesso = true;
     private Scontrino scontrino;
     private List<RigaScontrino> righeScontrino;
+    private RigaScontrino ultimaRiga;
 
     public RispostaEanDtoQuattro() {
     }
 
-    public RispostaEanDtoQuattro(Scontrino scontrino, List<RigaScontrino> righeScontrino) {
+    public RispostaEanDtoQuattro(Scontrino scontrino, List<RigaScontrino> righeScontrino ) {
         this.scontrino = scontrino;
         this.righeScontrino = righeScontrino;
     }
 
-    public RispostaEanDtoQuattro(Boolean rigaSuccesso, Scontrino scontrino, List<RigaScontrino> righeScontrino) {
+    public RispostaEanDtoQuattro(Boolean rigaSuccesso, Scontrino scontrino, List<RigaScontrino> righeScontrino, RigaScontrino ultimaRiga) {
         this.rigaSuccesso = rigaSuccesso;
         this.scontrino = scontrino;
         this.righeScontrino = righeScontrino;
+        this.ultimaRiga = ultimaRiga;
+        
     }
 
     public Boolean getRigaSuccesso() {
@@ -48,9 +51,19 @@ public class RispostaEanDtoQuattro {
         this.righeScontrino = righeScontrino;
     }
 
+    public RigaScontrino getUltimaRiga() {
+        return ultimaRiga;
+    }
+
+    public void setUltimaRiga(RigaScontrino ultimaRiga) {
+        this.ultimaRiga = ultimaRiga;
+    }
+
     @Override
     public String toString() {
-        return "RispostaEanDtoQuattro{" + "rigaSuccesso=" + rigaSuccesso + ", scontrino=" + scontrino + ", righeScontrino=" + righeScontrino + '}';
+        return "RispostaEanDtoQuattro{" + "rigaSuccesso=" + rigaSuccesso + ", scontrino=" + scontrino + ", righeScontrino=" + righeScontrino + ", ultimaRiga=" + ultimaRiga + '}';
     }
+
+    
 
 }

@@ -49,21 +49,24 @@ public class DashboardQuattroServiceImpl implements DashboardQuattroService {
     public ScontrinoDto annullaScontrinoAction(Scontrino scontrino) {
         // prendo dalla repository lo scontrino con Id del client
         Scontrino scontrinoBis = scontrinoRepository.findByIdEquals(scontrino.getId());
-        //cancello le righe dello scontrino
-        scontrinoBis.getRighe().forEach(r -> {rigaScontrinoRepository.deleteById(r.getId());
-        });
-        //cerco nuovamente lo scontrino
-        scontrinoBis = scontrinoRepository.findByIdEquals(scontrino.getId());
-        //
+
         //setto il totale a zero
         scontrinoBis.setTotale(0.0);
         //salvo lo scontrino sul database
-        
         scontrinoRepository.save(scontrinoBis);
-        
+        //cancello le righe dello scontrino dalla repository Righe Scontrino
+        scontrinoBis.getRighe().forEach(r -> {
+            rigaScontrinoRepository.deleteById(r.getId());
+        });
+        //Si cancellano le righe dello scontrino
+        List<RigaScontrino> listaRighe = new ArrayList<>();
+        scontrinoBis.setRighe(listaRighe);
+        //Si salva lo scontrino con le righe azzerate
+        scontrinoRepository.save(scontrinoBis);
+        //scontrinoBis = scontrinoRepository.findByIdEquals(scontrinoBis.getId());
+
         return new ScontrinoDto(scontrinoBis);
     }
-        
 
     @Override
     public RispostaEanDtoQuattro verificaEanAction(String ean, Scontrino scontrino) {
@@ -79,6 +82,8 @@ public class DashboardQuattroServiceImpl implements DashboardQuattroService {
     public RispostaEanDtoQuattro inserisciEanAction(String ean, Scontrino scontrino) {
         // prepara una variabile per ritornare l'esito (EAN trovato o meno)
         boolean esito;
+        RigaScontrino ultimaRiga = new RigaScontrino();
+
         // ------ vede se lo scontrino esiste già su DB ---
         // non esiste? (ossia il client me lo manda vuoto?)
         if (scontrino == null || scontrino.getId() == null) {
@@ -109,18 +114,24 @@ public class DashboardQuattroServiceImpl implements DashboardQuattroService {
         } else {
             // si, allora aggiungo una riga e esito positivo
             esito = true;
+            RigaScontrino ulrimaRiga = new RigaScontrino();
             // aggiungo la riga allo scontrino
             RigaScontrino rs = new RigaScontrino();
             rs.setProdotto(prodotto);
             rs.setQuantita(1);
             rs.setScontrino(scontrino);
             rs = rigaScontrinoRepository.save(rs);
+            //Valorizziamo ultimaRiga con l'ultima riga inserita
+            ultimaRiga = rs;
             // aggiorno relazione lato prodotto
             prodotto.getRighe().add(rs);
             prodotto = prodottoRepository.save(prodotto);
+            //Si salva l'ultima riga dello scontrino
+
             // aggiungo relazione lato scontrino
             scontrino.getRighe().add(rs);
             scontrino = scontrinoRepository.save(scontrino);
+
         }
         // calcoliamo il totale
         double totale = 0;
@@ -144,6 +155,6 @@ public class DashboardQuattroServiceImpl implements DashboardQuattroService {
         scontrino = scontrinoRepository.save(scontrino);
 
         // ritorno DTO con esito, scontrino e righe
-        return new RispostaEanDtoQuattro(esito, scontrino, scontrino.getRighe());
+        return new RispostaEanDtoQuattro(esito, scontrino, scontrino.getRighe(), ultimaRiga);
     }
 }

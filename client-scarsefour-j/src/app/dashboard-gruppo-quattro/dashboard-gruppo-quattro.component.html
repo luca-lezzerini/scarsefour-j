@@ -22,7 +22,7 @@
             <br>
             
             <br>
-            <p>{{messaggio}}</p>
+            <div><h3>{{messaggio}}</h3></div>
             <br>
             <button ng-disabled="bottoneStornaUltimo" (click)="stornaUltimo()" *ngIf="stornaB" class="button">Storna
                 ultimo</button>
@@ -41,9 +41,10 @@
             
         </div>
         <br>
-        <div class="elem">
+        <div class="elem" *ngIf="prezzoLabel">
 
-            <h2 *ngIf="prezzoLabel">Ultimo elemento {{descrizione}} {{prezzo}}</h2>
+           <span><h3>Ultimo  inserimento:</h3></span> 
+            <div> <h4>Descizione: {{ultimaRigaScontrino.prodotto.descrizione}} prezzo:  {{ultimaRigaScontrino.prodotto.prezzo}}€</h4></div>
         </div>
 
         <br>

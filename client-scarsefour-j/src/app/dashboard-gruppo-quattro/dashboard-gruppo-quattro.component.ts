@@ -21,7 +21,7 @@ import { RispostaEanDto4 } from './dto/Risposta-Ean-dto-4';
   styleUrls: ['../theme.css']
 })
 export class DashboardGruppoQuattroComponent implements OnInit, AutomabileGruppoQuattro {
-
+  //Proprietà
   ean: string;
   descrizione: string;
   messaggio: string = "";
@@ -32,7 +32,8 @@ export class DashboardGruppoQuattroComponent implements OnInit, AutomabileGruppo
   scontrino: Scontrino;
   prodotto: Prodotto;
   righeScontrino: RigaScontrino[];
-
+  ultimaRigaScontrino: RigaScontrino;
+  //Elementi dell'interfaccia grafica
   barCodeNonVisibile: boolean;
   eanNonEditabile: boolean;
   vediPrezzoVisibleB: boolean;
@@ -47,10 +48,10 @@ export class DashboardGruppoQuattroComponent implements OnInit, AutomabileGruppo
   totaleScontrinoLabel: boolean;
   tastoTabMes: boolean;
   esito: boolean;
-  quantitaStampa:number;
-  descrizioneStampa:string;
-  prezzoStampa:number;
-
+  quantitaStampa: number;
+  descrizioneStampa: string;
+  prezzoStampa: number;
+  //elementi dell'interfaccia grafica disattivabili
   bottoneVediPrezzo: boolean;
   bottoneStornaUltimo: boolean;
   bottoneAnnullaScontrino: boolean;
@@ -58,81 +59,14 @@ export class DashboardGruppoQuattroComponent implements OnInit, AutomabileGruppo
   bottoneConferma: boolean;
   bottoneChiudiScontrino: boolean;
 
-
-
   constructor(private http: HttpClient, private router: Router) {
   }
-  vediPrezzoAction() {
-    let dto: CriterioRicercaDto = new CriterioRicercaDto();
-    dto.criterio = this.ean;
-    let oss: Observable<ProdottoDto> = this.http.post<ProdottoDto>("http://localhost:8080/vedi-prezzo-quattro", dto);
-    oss.subscribe(v => this.prezzo = v.prodotto.prezzo);
-  }
-  chiudiScontrinoAction() {
-    //inviamo uno scontrino
-    let dto:ScontrinoDto = new ScontrinoDto();
-    dto.scontrino = this.scontrino;
-    //creiamo un osservabile
-    let oss:Observable<ScontrinoDto> = this.http.post<ScontrinoDto>("http://localhost:8080/chiudi-scontrino-quattro",dto);
-    oss.subscribe(s => {
-      this.scontrino = s.scontrino;
-      this.totale = s.scontrino.totale;
-    });
-
-    
-  }
-  stornaUltimoAction() {
-    let dto:ScontrinoDto = new ScontrinoDto();
-    dto.scontrino = this.scontrino;
-    let oss:Observable<ScontrinoDto> = this.http.post<ScontrinoDto>("http://localhost:8080/storna-ultimo-quattro",dto);
-    oss.subscribe(s => {
-      this.scontrino = s.scontrino;
-      this.totale = s.scontrino.totale;
-    });
-      
-      
-  }
-  annullaScontrinoAction() {
-    let dto: ScontrinoDto = new ScontrinoDto();
-    dto.scontrino = this.scontrino;
-    let ox: Observable<ScontrinoDto> = this.http.post<ScontrinoDto>("http://localhost:8080/annulla-scontrino-quattro", dto);
-    ox.subscribe(a => {this.scontrino = a.scontrino;
-      this.righeScontrino = [];
-     }); 
-      
-    
-    //Mesaggio di conferma della rimozione
-    this.messaggio = "tutti prodotti dello scontrino rimossi"
-    //Azzeramento delle interpolazioni della tabella
-  //this.quantitaStampa =0;
-  //this.descrizioneStampa = "";
-  //this.prezzoStampa = 0;
-  this.scontrino.id
-  
-  }
-
-  inserisciEan() {
-    this.inserisciEanAction();
-  }
-
-  stornaAction() {
-
-    throw new Error('Method not implemented.');
-
-  }
-
-  verificaEanAction() {
-    let dto: CriterioRicercaDto = new CriterioRicercaDto();
-    dto.criterio = this.ean;
-    let oss: Observable<EsitoRicercaDto> = this.http.post<EsitoRicercaDto>("http://localhost:8080/verifica-ean-quattro", dto);
-    oss.subscribe(v => this.esito = v.esito);
-  }
-
 
   ngOnInit(): void {
     this.automa = new AutomaGruppoQuattro(this);
   }
 
+  //Metodi che definiscono l'interfaccia grafica
   goToScontrinoVuoto() {
     this.barCodeNonVisibile = true;
     this.eanNonEditabile = false;
@@ -144,7 +78,7 @@ export class DashboardGruppoQuattroComponent implements OnInit, AutomabileGruppo
     this.confermaB = true;
     this.prezzoB = false;
     this.lista = false;
-    this.prezzoLabel = true;
+    this.prezzoLabel = false;
     this.totaleScontrinoLabel = false;
     this.tastoTabMes = true;
 
@@ -177,7 +111,7 @@ export class DashboardGruppoQuattroComponent implements OnInit, AutomabileGruppo
 
   }
   gotoScontrinoNonVuoto() {
-    
+
     this.eanNonEditabile = false;
     this.vediPrezzoVisibleB = true;
     this.chiudiB = true;
@@ -191,20 +125,20 @@ export class DashboardGruppoQuattroComponent implements OnInit, AutomabileGruppo
 
     this.bottoneVediPrezzo = true;
     this.bottoneStornaUltimo = true;
-    this.bottoneAnnullaScontrino = true;
+    this.bottoneAnnullaScontrino = false;
     this.bottoneAnnulla = true;
     this.bottoneConferma = true;
     this.bottoneChiudiScontrino = true;
 
   }
   gotoAnnullamentoScontrino() {
-    this.messaggio="premere conferma o annulla";
+    this.messaggio = "premere conferma o annulla";
     this.barCodeNonVisibile = false;
     this.eanNonEditabile = false;
     this.vediPrezzoVisibleB = false;
     this.chiudiB = false;
     this.stornaB = false;
-    this.annullaScontrinoB =false;
+    this.annullaScontrinoB = false;
     this.annullaB = true;
     this.confermaB = true;
     this.prezzoB = false;
@@ -214,10 +148,99 @@ export class DashboardGruppoQuattroComponent implements OnInit, AutomabileGruppo
     this.bottoneVediPrezzo = true;
     this.bottoneStornaUltimo = true;
     this.bottoneAnnullaScontrino = true;
-    this.bottoneAnnulla = true;
-    this.bottoneConferma = true;
+    this.bottoneAnnulla = false;
+    this.bottoneConferma = false;
     this.bottoneChiudiScontrino = true;
 
+  }
+  //Metodi che effettuano una chiamata al server
+  vediPrezzoAction() {
+    let dto: CriterioRicercaDto = new CriterioRicercaDto();
+    dto.criterio = this.ean;
+    let oss: Observable<ProdottoDto> = this.http.post<ProdottoDto>("http://localhost:8080/vedi-prezzo-quattro", dto);
+    oss.subscribe(v => this.prezzo = v.prodotto.prezzo);
+  }
+  chiudiScontrinoAction() {
+    //inviamo uno scontrino
+    let dto: ScontrinoDto = new ScontrinoDto();
+    dto.scontrino = this.scontrino;
+    //creiamo un osservabile
+    let oss: Observable<ScontrinoDto> = this.http.post<ScontrinoDto>("http://localhost:8080/chiudi-scontrino-quattro", dto);
+    oss.subscribe(s => {
+      this.scontrino = s.scontrino;
+      this.totale = s.scontrino.totale;
+    });
+
+
+  }
+  stornaUltimoAction() {
+    let dto: ScontrinoDto = new ScontrinoDto();
+    dto.scontrino = this.scontrino;
+    let oss: Observable<ScontrinoDto> = this.http.post<ScontrinoDto>("http://localhost:8080/storna-ultimo-quattro", dto);
+    oss.subscribe(s => {
+      this.scontrino = s.scontrino;
+      this.totale = s.scontrino.totale;
+    });
+
+
+  }
+  annullaScontrinoAction() {
+    let dto: ScontrinoDto = new ScontrinoDto();
+    dto.scontrino = this.scontrino;
+    let ox: Observable<ScontrinoDto> = this.http.post<ScontrinoDto>("http://localhost:8080/annulla-scontrino-quattro", dto);
+    ox.subscribe(a => {
+      this.scontrino = a.scontrino;
+      this.righeScontrino = [];
+    });
+    //Mesaggio di conferma della rimozione
+    this.messaggio = "tutti prodotti dello scontrino rimossi"
+
+    this.scontrino.id
+  }
+
+  inserisciEanAction() {
+    let dto: RichiestaEanDto4 = new RichiestaEanDto4();
+    dto.barcode = this.ean;
+    dto.scontrino = this.scontrino;
+    let oss: Observable<RispostaEanDto4> = this.http.post<RispostaEanDto4>("http://localhost:8080/inserisci-ean-quattro", dto);
+    oss.subscribe(e => {
+      if (e.rigaSuccesso) {
+        this.messaggio = "Prodotto aggiunto";
+        this.scontrino = e.scontrino;
+        this.righeScontrino = e.righeScontrino;
+        this.ultimaRigaScontrino = e.ultimaRiga;
+        this.prezzoLabel = true;
+        //TODO this.descrizione = e.
+        //TODO this.prezzo = e.righeScontrino.
+        this.automa.next(new EanEvent(this.ean, this.scontrino));
+        //dobbiamo inserire il totale???
+      } else {
+        // l'automa rimane nello stesso stato
+        this.messaggio = "ean inesistente";
+      }
+      //Puliamo l'input ean
+      this.ean = ""
+    });
+    // this.automa.next(new EanEvent(this.ean, this.scontrino)); Errore nella versione precedente. I cambiamenti di stato li gestisce l'automa
+  }
+
+  stornaAction() {
+
+    throw new Error('Method not implemented.');
+
+  }
+
+  verificaEanAction() {
+    let dto: CriterioRicercaDto = new CriterioRicercaDto();
+    dto.criterio = this.ean;
+    let oss: Observable<EsitoRicercaDto> = this.http.post<EsitoRicercaDto>("http://localhost:8080/verifica-ean-quattro", dto);
+    oss.subscribe(v => this.esito = v.esito);
+  }
+
+//Metodi che attivano il cambiamento di stato 
+
+  inserisciEan() {
+    this.inserisciEanAction();
   }
 
   vediPrezzo() {
@@ -249,30 +272,7 @@ export class DashboardGruppoQuattroComponent implements OnInit, AutomabileGruppo
   conferma() {
     this.automa.next(new ConfermaEvent());
   }
- 
-  inserisciEanAction() {
-    let dto: RichiestaEanDto4 = new RichiestaEanDto4();
-    dto.barcode = this.ean;
-    dto.scontrino = this.scontrino;
-    let oss: Observable<RispostaEanDto4> = this.http.post<RispostaEanDto4>("http://localhost:8080/inserisci-ean-quattro", dto);
-    oss.subscribe(e => {
-      if (e.rigaSuccesso) {
-        this.scontrino = e.scontrino;
-        this.righeScontrino = e.righeScontrino;
-       //TODO this.descrizione = e.
-        //TODO this.prezzo = e.righeScontrino.
 
-        this.automa.next(new EanEvent(this.ean, this.scontrino));
-        //dobbiamo inserire il totale???
-      } else {
-        // l'automa rimane nello stesso stato
-        this.messaggio = "ean inesistente";
-      }
-      //Puliamo l'input ean
-      this.ean = ""
-    });
-    // this.automa.next(new EanEvent(this.ean, this.scontrino)); Errore nella versione precedente. I cambiamenti di stato li gestisce l'automa
-  }
 }
 
 

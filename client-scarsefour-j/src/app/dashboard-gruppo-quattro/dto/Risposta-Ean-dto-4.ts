@@ -5,4 +5,5 @@ export class RispostaEanDto4 {
     rigaSuccesso: boolean = false;
     scontrino:Scontrino;
     righeScontrino: RigaScontrino[];
+    ultimaRiga: RigaScontrino;
 }
