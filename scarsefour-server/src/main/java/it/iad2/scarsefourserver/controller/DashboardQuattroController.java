@@ -40,4 +40,9 @@ public class DashboardQuattroController {
     public ScontrinoDto annullaScontrinoAction(@RequestBody ScontrinoDto dto) {
         return dashboardquattro.annullaScontrinoAction(dto.getScontrino());
     }
+    @RequestMapping("/storna-ultimo-quattro")
+    @ResponseBody
+    public ScontrinoDto stornaUltimoAction(@RequestBody ScontrinoDto dto) {
+        return dashboardquattro.stornaUltimoAction(dto.getScontrino());
+    }
 }

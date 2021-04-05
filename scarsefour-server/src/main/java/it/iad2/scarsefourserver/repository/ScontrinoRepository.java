@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface ScontrinoRepository extends JpaRepository<Scontrino, Long> {
     Scontrino findByIdEquals(Long id);
-
+    
     @Query("select max (numero) from Scontrino")
     int cercaUltimoScontrino();
 }

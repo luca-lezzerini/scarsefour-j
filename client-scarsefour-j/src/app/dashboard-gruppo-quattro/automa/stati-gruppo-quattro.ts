@@ -47,8 +47,8 @@ export class ScontrinoNonVuotoState implements StateGruppoQuattro {
             }
 
 
-            if (e.element > 1) {
-                this.automa.gui.stornaAction();
+            else if (e.element >1) {
+                this.automa.gui.stornaUltimoAction();
 
                 return new ScontrinoNonVuotoState(this.automa);
 
@@ -116,10 +116,12 @@ export class AnnullamentoScontrinoState implements StateGruppoQuattro {
     next(e: EventGruppoQuattro): StateGruppoQuattro {
         if (e instanceof AnnullaEvent) {
             return new ScontrinoNonVuotoState(this.automa);
-        } else if (e instanceof ConfermaEvent) {
+        }
+        else if (e instanceof ConfermaEvent) {
             this.automa.gui.annullaScontrinoAction();
             return new ScontrinoVuotoState(this.automa);
-        } else {
+        }
+        else {
             console.log('Ricevuto evento inatteso', e);
         }
     }

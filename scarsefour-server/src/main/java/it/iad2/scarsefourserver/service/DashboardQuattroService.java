@@ -1,10 +1,10 @@
 package it.iad2.scarsefourserver.service;
 
-import it.iad2.scarsefourserver.dto.EsitoDtoQuattro;
 import it.iad2.scarsefourserver.dto.ProdottoDto;
 import it.iad2.scarsefourserver.dto.RispostaEanDto;
 import it.iad2.scarsefourserver.dto.RispostaEanDtoQuattro;
 import it.iad2.scarsefourserver.dto.ScontrinoDto;
+import it.iad2.scarsefourserver.model.RigaScontrino;
 import it.iad2.scarsefourserver.model.Scontrino;
 
 /**
@@ -17,7 +17,7 @@ public interface DashboardQuattroService {
 
     RispostaEanDto chiudiScontrinoAction(Scontrino scontrino);
 
-    RispostaEanDto stornaUltimoAction(String ean, Scontrino scontrino);
+    ScontrinoDto stornaUltimoAction(Scontrino scontrino);
 
     ScontrinoDto annullaScontrinoAction(Scontrino scontrino);
 

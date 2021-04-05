@@ -14,6 +14,7 @@ import { AutomabileGruppoQuattro } from './automa/state-gruppo-quattro';
 import { EsitoRicercaDto } from './dto/esito-ricerca-dto';
 import { RichiestaEanDto4 } from './dto/Richiesta-Ean-dto-4';
 import { RispostaEanDto4 } from './dto/Risposta-Ean-dto-4';
+import { UltimaRigaDto } from './dto/ultima-riga-dto';
 
 @Component({
   selector: 'app-dashboard-gruppo-quattro',
@@ -31,7 +32,7 @@ export class DashboardGruppoQuattroComponent implements OnInit, AutomabileGruppo
   automa: AutomaGruppoQuattro;
   scontrino: Scontrino;
   prodotto: Prodotto;
-  righeScontrino: RigaScontrino[];
+  righeScontrino: RigaScontrino[] = [];
   ultimaRigaScontrino: RigaScontrino;
   //Elementi dell'interfaccia grafica
   barCodeNonVisibile: boolean;
@@ -60,10 +61,12 @@ export class DashboardGruppoQuattroComponent implements OnInit, AutomabileGruppo
   bottoneChiudiScontrino: boolean;
 
   constructor(private http: HttpClient, private router: Router) {
+   
   }
 
   ngOnInit(): void {
     this.automa = new AutomaGruppoQuattro(this);
+    
   }
 
   //Metodi che definiscono l'interfaccia grafica
@@ -174,12 +177,14 @@ export class DashboardGruppoQuattroComponent implements OnInit, AutomabileGruppo
 
   }
   stornaUltimoAction() {
-    let dto: ScontrinoDto = new ScontrinoDto();
+    let dto:ScontrinoDto = new ScontrinoDto();
     dto.scontrino = this.scontrino;
     let oss: Observable<ScontrinoDto> = this.http.post<ScontrinoDto>("http://localhost:8080/storna-ultimo-quattro", dto);
     oss.subscribe(s => {
       this.scontrino = s.scontrino;
+      this.righeScontrino = s.scontrino.righe;
       this.totale = s.scontrino.totale;
+      
     });
 
 
@@ -210,10 +215,9 @@ export class DashboardGruppoQuattroComponent implements OnInit, AutomabileGruppo
         this.righeScontrino = e.righeScontrino;
         this.ultimaRigaScontrino = e.ultimaRiga;
         this.prezzoLabel = true;
-        //TODO this.descrizione = e.
-        //TODO this.prezzo = e.righeScontrino.
+        
         this.automa.next(new EanEvent(this.ean, this.scontrino));
-        //dobbiamo inserire il totale???
+        
       } else {
         // l'automa rimane nello stesso stato
         this.messaggio = "ean inesistente";
@@ -221,7 +225,6 @@ export class DashboardGruppoQuattroComponent implements OnInit, AutomabileGruppo
       //Puliamo l'input ean
       this.ean = ""
     });
-    // this.automa.next(new EanEvent(this.ean, this.scontrino)); Errore nella versione precedente. I cambiamenti di stato li gestisce l'automa
   }
 
   stornaAction() {
@@ -255,7 +258,7 @@ export class DashboardGruppoQuattroComponent implements OnInit, AutomabileGruppo
 
   stornaUltimo() {
 
-    this.automa.next(new StornaEvent(1));
+    this.automa.next(new StornaEvent(this.righeScontrino.length));
 
   }
 

@@ -40,10 +40,6 @@ public class DashboardQuattroServiceImpl implements DashboardQuattroService {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public RispostaEanDto stornaUltimoAction(String ean, Scontrino scontrino) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     @Override
     public ScontrinoDto annullaScontrinoAction(Scontrino scontrino) {
@@ -67,7 +63,8 @@ public class DashboardQuattroServiceImpl implements DashboardQuattroService {
 
         return new ScontrinoDto(scontrinoBis);
     }
-
+    
+    
     @Override
     public RispostaEanDtoQuattro verificaEanAction(String ean, Scontrino scontrino) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -157,4 +154,26 @@ public class DashboardQuattroServiceImpl implements DashboardQuattroService {
         // ritorno DTO con esito, scontrino e righe
         return new RispostaEanDtoQuattro(esito, scontrino, scontrino.getRighe(), ultimaRiga);
     }
+
+    @Override
+    public ScontrinoDto stornaUltimoAction(Scontrino scontrino) {
+        //Si prende lo scontrino aggiornato dalla repository
+        scontrino = scontrinoRepository.findByIdEquals(scontrino.getId());
+        //Si crea una lista con le righe dello scontrino
+        List<RigaScontrino>listaSenzaUltimo = scontrino.getRighe();
+        //Si rimuove dalla lista l'ultimo elemento della collezione
+        //Si setta la lista righe dello scontrino con la nuova lista
+        RigaScontrino rigaDaRimuovere = listaSenzaUltimo.get(listaSenzaUltimo.size()-1);
+       
+        rigaDaRimuovere = listaSenzaUltimo.remove(listaSenzaUltimo.size()-1);
+        scontrino.setRighe(listaSenzaUltimo);
+        //Si salva lo scontrino nella repo
+        scontrino = scontrinoRepository.save(scontrino);
+         //Si rimuove l'ultima riga dalla repo RigheScontrino
+        rigaScontrinoRepository.deleteById(rigaDaRimuovere.getId());
+        return new ScontrinoDto(scontrino);
+        
+    }
 }
+
+    
