@@ -1,4 +1,4 @@
-tocTab[tocTab.length] = new Array("0.4:1", "", "Concetti", "EARoot/EA4/EA142.htm", "176.png", "19", "0", "", "Package diagram0","{4DA2ABF6-C290-42ce-89F1-1417EC9C04B2}");
-tocTab[tocTab.length] = new Array("0.4.1", "1", "Gestione casse", "EARoot/EA4/EA1/EA150.htm", "4.png", "", "", "{B9072B66-4010-40d2-9C27-C06229F90762}", "Package");
-tocTab[tocTab.length] = new Array("0.4.2", "1", "Gestione scaffali vendita", "EARoot/EA4/EA2/EA157.htm", "4.png", "", "", "{C8269A87-D308-416d-A636-062A6E50F095}", "Package");
-tocTab[tocTab.length] = new Array("0.4.3", "1", "Gestione sconti", "EARoot/EA4/EA3/EA164.htm", "4.png", "", "", "{A10CC543-0255-4626-B2D6-8BB6593767B1}", "Package");
+tocTab[tocTab.length] = new Array("0.4:1", "", "Concetti", "EARoot/EA4/EA144.htm", "176.png", "19", "0", "", "Package diagram0","{4DA2ABF6-C290-42ce-89F1-1417EC9C04B2}");
+tocTab[tocTab.length] = new Array("0.4.1", "1", "Gestione casse", "EARoot/EA4/EA1/EA152.htm", "4.png", "", "", "{B9072B66-4010-40d2-9C27-C06229F90762}", "Package");
+tocTab[tocTab.length] = new Array("0.4.2", "1", "Gestione scaffali vendita", "EARoot/EA4/EA2/EA159.htm", "4.png", "", "", "{C8269A87-D308-416d-A636-062A6E50F095}", "Package");
+tocTab[tocTab.length] = new Array("0.4.3", "1", "Gestione sconti", "EARoot/EA4/EA3/EA166.htm", "4.png", "", "", "{A10CC543-0255-4626-B2D6-8BB6593767B1}", "Package");

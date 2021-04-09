@@ -1,6 +1,8 @@
 tocTab[tocTab.length] = new Array("0.3.5:1", "", "Gestione scaffali vendita", "EARoot/EA3/EA5/EA125.htm", "180.png", "26", "0", "", "Use Case diagram0","{613A9ABA-443C-4262-8625-73149632E5CA}");
-tocTab[tocTab.length] = new Array("0.3.5:2", "", "Carica merce in posizione", "EARoot/EA3/EA5/EA128.htm", "7.png", "E242", "0", "", "UseCase0","{95518719-39AD-4f1f-8AD8-EBFEEB548A25}");
-tocTab[tocTab.length] = new Array("0.3.5:3", "", "Scarica merce in posizione", "EARoot/EA3/EA5/EA129.htm", "7.png", "E243", "0", "", "UseCase0","{88714EF0-78A2-48c9-ACC7-DE0DD2D23B6A}");
-tocTab[tocTab.length] = new Array("0.3.5:4", "", "Segnala scarsità in posizione", "EARoot/EA3/EA5/EA130.htm", "7.png", "E244", "0", "", "UseCase0","{7B9AA3AE-F483-4786-9A71-70595100F125}");
-tocTab[tocTab.length] = new Array("0.3.5:5", "", "Visualizza giacenza in posizione", "EARoot/EA3/EA5/EA132.htm", "7.png", "E241", "0", "", "UseCase0","{468AA07C-C05E-4804-8294-3F37A145A860}");
-tocTab[tocTab.length] = new Array("0.3.5.1", "1", "Versione 1", "EARoot/EA3/EA5/EA1/EA135.htm", "4.png", "", "", "{D33B708C-617F-4bc1-B702-BC0F3F18889F}", "Package");
+tocTab[tocTab.length] = new Array("0.3.5:2", "", "Associa prodotto a scaffale", "EARoot/EA3/EA5/EA128.htm", "7.png", "E2238", "0", "", "UseCase0","{010EA26B-3F3C-477b-89D1-09912D53AE4C}");
+tocTab[tocTab.length] = new Array("0.3.5:3", "", "Carica merce in posizione", "EARoot/EA3/EA5/EA129.htm", "7.png", "E242", "0", "", "UseCase0","{95518719-39AD-4f1f-8AD8-EBFEEB548A25}");
+tocTab[tocTab.length] = new Array("0.3.5:4", "", "Disassocia Prodotto a scaffale", "EARoot/EA3/EA5/EA130.htm", "7.png", "E2239", "0", "", "UseCase0","{05AAC7D5-F003-4337-B743-179D9A45E639}");
+tocTab[tocTab.length] = new Array("0.3.5:5", "", "Scarica merce in posizione", "EARoot/EA3/EA5/EA131.htm", "7.png", "E243", "0", "", "UseCase0","{88714EF0-78A2-48c9-ACC7-DE0DD2D23B6A}");
+tocTab[tocTab.length] = new Array("0.3.5:6", "", "Segnala scarsità in posizione", "EARoot/EA3/EA5/EA132.htm", "7.png", "E244", "0", "", "UseCase0","{7B9AA3AE-F483-4786-9A71-70595100F125}");
+tocTab[tocTab.length] = new Array("0.3.5:7", "", "Visualizza giacenza in posizione", "EARoot/EA3/EA5/EA134.htm", "7.png", "E241", "0", "", "UseCase0","{468AA07C-C05E-4804-8294-3F37A145A860}");
+tocTab[tocTab.length] = new Array("0.3.5.1", "1", "Versione 1", "EARoot/EA3/EA5/EA1/EA137.htm", "4.png", "", "", "{D33B708C-617F-4bc1-B702-BC0F3F18889F}", "Package");

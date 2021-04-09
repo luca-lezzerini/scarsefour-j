@@ -1,11 +1,11 @@
 tocTab[tocTab.length] = new Array("0.1.3:1", "", "Gestione cassa", "EARoot/EA1/EA3/EA61.htm", "183.png", "38", "0", "", "Statechart diagram0","{C8D1DBF0-273A-4b28-B560-7A5D25B8000D}");
-tocTab[tocTab.length] = new Array("0.1.3:2", "", "annulla", "EARoot/EA1/EA3/EA64.htm", "198.png", "E335", "0", "", "Trigger0","{E94F890C-0B81-4ad4-B0A6-E4AFFC66D9A6}");
-tocTab[tocTab.length] = new Array("0.1.3:3", "", "annulla", "EARoot/EA1/EA3/EA65.htm", "198.png", "E333", "0", "", "Trigger0","{9CD2125F-2286-4a11-9224-5DB311F04EE1}");
+tocTab[tocTab.length] = new Array("0.1.3:2", "", "annulla", "EARoot/EA1/EA3/EA64.htm", "198.png", "E333", "0", "", "Trigger0","{9CD2125F-2286-4a11-9224-5DB311F04EE1}");
+tocTab[tocTab.length] = new Array("0.1.3:3", "", "annulla", "EARoot/EA1/EA3/EA65.htm", "198.png", "E335", "0", "", "Trigger0","{E94F890C-0B81-4ad4-B0A6-E4AFFC66D9A6}");
 tocTab[tocTab.length] = new Array("0.1.3:4", "", "chiudi", "EARoot/EA1/EA3/EA66.htm", "198.png", "E330", "0", "", "Trigger0","{7FF67F22-A670-49e4-A53E-BEBFA2C17066}");
 tocTab[tocTab.length] = new Array("0.1.3:5", "", "conferma", "EARoot/EA1/EA3/EA67.htm", "198.png", "E334", "0", "", "Trigger0","{FE878807-BA30-4f4b-B583-713AA86262F4}");
 tocTab[tocTab.length] = new Array("0.1.3:6", "", "Conferma Annullamento", "EARoot/EA1/EA3/EA68.htm", "20.png", "E332", "0", "", "State0","{37F866D9-B39A-4462-B87E-5257ACFF19AB}");
-tocTab[tocTab.length] = new Array("0.1.3:7", "", "EAN", "EARoot/EA1/EA3/EA69.htm", "198.png", "E329", "0", "", "Trigger0","{5F3D1B8B-381C-499f-BF3F-405984FBC4AA}");
-tocTab[tocTab.length] = new Array("0.1.3:8", "", "EAN", "EARoot/EA1/EA3/EA70.htm", "198.png", "E338", "0", "", "Trigger0","{0AF2D485-9025-4b11-A37A-7720F3E68A09}");
+tocTab[tocTab.length] = new Array("0.1.3:7", "", "EAN", "EARoot/EA1/EA3/EA69.htm", "198.png", "E338", "0", "", "Trigger0","{0AF2D485-9025-4b11-A37A-7720F3E68A09}");
+tocTab[tocTab.length] = new Array("0.1.3:8", "", "EAN", "EARoot/EA1/EA3/EA70.htm", "198.png", "E329", "0", "", "Trigger0","{5F3D1B8B-381C-499f-BF3F-405984FBC4AA}");
 tocTab[tocTab.length] = new Array("0.1.3:9", "", "Initial", "EARoot/EA1/EA3/EA71.htm", "68.png", "E327", "0", "", "StateNode0","{DD17D8BF-43D3-4b7b-B899-C1F81F2B5734}");
 tocTab[tocTab.length] = new Array("0.1.3:10", "", "Scontrino", "EARoot/EA1/EA3/EA72.htm", "20.png", "E328", "0", "", "State0","{A56F6789-F5F8-41be-922C-15DA27EE738B}");
 tocTab[tocTab.length] = new Array("0.1.3:11", "", "storno", "EARoot/EA1/EA3/EA73.htm", "198.png", "E331", "0", "", "Trigger0","{30CAB751-010A-4d37-8C52-299954DF85E4}");
