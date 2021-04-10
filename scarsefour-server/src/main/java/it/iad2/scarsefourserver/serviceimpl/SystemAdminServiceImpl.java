@@ -15,6 +15,7 @@ import it.iad2.scarsefourserver.repository.ProdottoRepository;
 import it.iad2.scarsefourserver.repository.RigaScontrinoRepository;
 import it.iad2.scarsefourserver.repository.ScontoRepository;
 import it.iad2.scarsefourserver.repository.ScontrinoRepository;
+import it.iad2.scarsefourserver.repository.SkuScaffaleRepository;
 import it.iad2.scarsefourserver.service.SystemAdminService;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -47,10 +48,14 @@ public class SystemAdminServiceImpl implements SystemAdminService {
 
     @Autowired
     RigaScontrinoRepository rigaScontrinoRepository;
+    
+    @Autowired
+    SkuScaffaleRepository skuScaffaleRepository;
 
     @Override
     public void generaDatiTest() {
         //Cancellazione dati dei db
+        movScaffaleRepository.deleteAllInBatch();
         scontoRepository.deleteAllInBatch();
         rigaScontrinoRepository.deleteAllInBatch();
         cassaRepository.deleteAllInBatch();
@@ -58,6 +63,7 @@ public class SystemAdminServiceImpl implements SystemAdminService {
         scontrinoRepository.deleteAllInBatch();
         posizioneScaffaleRepository.deleteAllInBatch();
         prodottoRepository.deleteAllInBatch();
+        skuScaffaleRepository.deleteAllInBatch();
 
         //Popolamento dati prodotto e posizioneScaffale
         Prodotto prodotto;
@@ -140,15 +146,15 @@ public class SystemAdminServiceImpl implements SystemAdminService {
         associaProdottoSconto();
         
         //Creazione di record prodoti senza vincoli di foreign key
-        for (int i = 0; i < 50; i++) {
-            prodotto = new Prodotto("xean" + i, "xcodice" + i, "xcancellabile" + i, i, 5, 10, i);
-            prodottoRepository.save(prodotto);
-        }
-        //Creazione di record sconti senza vincoli di foreign key
-        for (int i = 0; i < 10; i++) {
-            sconto = new Sconto(LocalDateTime.now().plusDays(i), LocalDateTime.now().plusDays(i + 5), i, "cancellabile" + i, "codice" + i);
-            scontoRepository.save(sconto);
-        }
+//        for (int i = 0; i < 50; i++) {
+//            prodotto = new Prodotto("xean" + i, "xcodice" + i, "xcancellabile" + i, i, 5, 10, i);
+//            prodottoRepository.save(prodotto);
+//        }
+//        //Creazione di record sconti senza vincoli di foreign key
+//        for (int i = 0; i < 10; i++) {
+//            sconto = new Sconto(LocalDateTime.now().plusDays(i), LocalDateTime.now().plusDays(i + 5), i, "cancellabile" + i, "codice" + i);
+//            scontoRepository.save(sconto);
+//        }
     }
 
     void associaProdottoPosizioneScaffale(Prodotto p, PosizioneScaffale ps) {
