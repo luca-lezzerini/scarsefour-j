@@ -21,21 +21,21 @@ public class AnagraficaCasseController {
 
     @RequestMapping("/crea-nuova-cassa")
     @ResponseBody
-    public ListaCasseDto CreaNuovaCassa(@RequestBody CodiceCassaDto dto) {
+    public ListaCasseDto creaNuovaCassa(@RequestBody CodiceCassaDto dto) {
         ListaCasseDto dtoR = new ListaCasseDto(anagraficaCasseService.nuovaCassa(dto.getCodice()));
         return dtoR;
     }
 
     @RequestMapping("/cerca-cassa")
     @ResponseBody
-    public ListaCasseDto CercaCassa(@RequestBody CriterioRicercaDto dto) {
+    public ListaCasseDto cercaCassa(@RequestBody CriterioRicercaDto dto) {
         ListaCasseDto dtoR = new ListaCasseDto(anagraficaCasseService.cercaCassa(dto.getCriterio()));
         return dtoR;
     }
 
     @RequestMapping("/modifica-cassa")
     @ResponseBody
-    public ListaCasseDto ModificaCassa(@RequestBody ModificaCassaDto dto) {
+    public ListaCasseDto modificaCassa(@RequestBody ModificaCassaDto dto) {
         ListaCasseDto dtoR = new ListaCasseDto(anagraficaCasseService.modificaCassa(dto.getCassa(), dto.getNuovoCodice()));
         return dtoR;
     }

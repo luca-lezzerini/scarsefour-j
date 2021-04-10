@@ -70,7 +70,7 @@ public class SystemAdminServiceImpl implements SystemAdminService {
             posizioneScaffaleRepository.save(posizioneScaffale);
 
             //Associo Prodotto a posizioneScaffale
-            AssociaProdottoPosizioneScaffale(prodotto, posizioneScaffale);
+            associaProdottoPosizioneScaffale(prodotto, posizioneScaffale);
         }
         //Popolamento dati cassa
         Cassa cassa;
@@ -120,9 +120,9 @@ public class SystemAdminServiceImpl implements SystemAdminService {
             Prodotto p = prodotti.get(i);
             for (int j = i * 10; j < n; j++) {
                 List<RigaScontrino> subListRiga = rigaScontrini.subList(j, n);
-                AssociaProdottoRigaScontrino(p, subListRiga);
+                associaProdottoRigaScontrino(p, subListRiga);
                 Scontrino s = scontrini.get(i);
-                AssociaRigaScontrinoScontrino(s, subListRiga);
+                associaRigaScontrinoScontrino(s, subListRiga);
             }
             n += 10;
             if (n > rigaScontrini.size()) {
@@ -131,13 +131,13 @@ public class SystemAdminServiceImpl implements SystemAdminService {
         }
 
         //Associa Cassa con Scontrino
-        AssociaCassaScontrino();
+        associaCassaScontrino();
 
         //Associa Cassiera con Scontrino
-        AssociaCassieraScontrino();
+        associaCassieraScontrino();
 
         //Associa Prodotto con Sconto
-        AssociaProdottoSconto();
+        associaProdottoSconto();
         
         //Creazione di record prodoti senza vincoli di foreign key
         for (int i = 0; i < 50; i++) {
@@ -151,7 +151,7 @@ public class SystemAdminServiceImpl implements SystemAdminService {
         }
     }
 
-    void AssociaProdottoPosizioneScaffale(Prodotto p, PosizioneScaffale ps) {
+    void associaProdottoPosizioneScaffale(Prodotto p, PosizioneScaffale ps) {
         //OneToOne
         p.setPosizioneScaffale(ps);
         prodottoRepository.save(p);
@@ -160,7 +160,7 @@ public class SystemAdminServiceImpl implements SystemAdminService {
         posizioneScaffaleRepository.save(ps);
     }
 
-    void AssociaProdottoSconto() {
+    void associaProdottoSconto() {
         //ManyToMany
         List<Prodotto> prodotti = prodottoRepository.findAll();
         List<Sconto> sconti = scontoRepository.findAll();
@@ -185,7 +185,7 @@ public class SystemAdminServiceImpl implements SystemAdminService {
         });
     }
 
-    void AssociaProdottoRigaScontrino(Prodotto p, List<RigaScontrino> rigaScontrini) {
+    void associaProdottoRigaScontrino(Prodotto p, List<RigaScontrino> rigaScontrini) {
         //OneToMany
         //prodotti.forEach(p -> {
         System.out.println("PRODOTTO: " + p.getCodice());
@@ -200,7 +200,7 @@ public class SystemAdminServiceImpl implements SystemAdminService {
         //});
     }
 
-    void AssociaRigaScontrinoScontrino(Scontrino s, List<RigaScontrino> rigaScontrini) {
+    void associaRigaScontrinoScontrino(Scontrino s, List<RigaScontrino> rigaScontrini) {
         //OneToMany
         //scontrino.forEach(s -> {
         List<RigaScontrino> lriga = s.getRighe();
@@ -213,7 +213,7 @@ public class SystemAdminServiceImpl implements SystemAdminService {
         //});
     }
 
-    void AssociaCassaScontrino() {
+    void associaCassaScontrino() {
 //        List<Cassa> casse = cassaRepository.findAll();
 //        List<Scontrino> scontrini = scontrinoRepository.findAll();
 //        
@@ -226,7 +226,7 @@ public class SystemAdminServiceImpl implements SystemAdminService {
 //        }
     }
 
-    void AssociaCassieraScontrino() {
+    void associaCassieraScontrino() {
         //TODO
     }
 }
