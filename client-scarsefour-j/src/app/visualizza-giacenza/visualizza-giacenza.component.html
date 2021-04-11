@@ -3,11 +3,9 @@
     <div class="headDash">
         <h3>VISUALIZZA GIACENZA IN POSIZIONE</h3>
     </div>
-    <div *ngIf="divPosizioniVisible">
-    <table *ngIf="tablePosizioniVisible" class="scrolldown">
+    <div>
+    <table class="scrolldown">
         <thead>
-            <TH COLSPAN="2"><BR><H3>TABELLA POSIZIONI</H3>
-            </TH>
           <tr>
             <th>Posizioni</th>
             <th></th>
@@ -34,15 +32,11 @@
               </tr>
             </thead>
             <tbody>
-                <tr>
-              <!-- <tr *ngFor="let r of prodotti">
-                <td>{{r.codice}}</td>
-                <td>{{r.descrizione}}</td> -->
-                <!-- <td>{{r.giacenzaAttuale}}</td>
-                <td>{{p.giacenzaMinima}}</td> -->
-                <td>
-                  <button (click)="seleziona(p)" class="buttonSel">Seleziona</button>
-                </td>
+              <tr *ngFor="let s of sku">
+                <td>{{s.prodotto.codice}}</td>
+                <td>{{s.prodotto.descrizione}}</td>
+                <td>{{s.giacenza}}}</td>
+                <td>{{s.scortaMinima}}</td>
               </tr>
             </tbody>
           </table>
