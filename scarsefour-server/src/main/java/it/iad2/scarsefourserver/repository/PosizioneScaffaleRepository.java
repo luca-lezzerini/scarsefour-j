@@ -18,7 +18,7 @@ public interface PosizioneScaffaleRepository extends JpaRepository<PosizioneScaf
             value = "select p.descrizione, p.codice, sku.giacenza, sku.scorta_minima"
             + " from prodotto p"
             + " join sku_scaffale sku on p.sku_scaffale_id =sku.id"
-            + " join posizione_scaffale ps on ps.sku_scaffale_id=sku.id AND ps.prodotto_id=p.id"
+            + " join posizione_scaffale ps on p.sku_scaffale_id = sku.id"
             + " where ps.id=?1",
             nativeQuery = true)
     List<Prodotto> visualizzaGiacenzaProdotti(Long id);

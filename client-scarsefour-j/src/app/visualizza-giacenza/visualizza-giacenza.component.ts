@@ -48,6 +48,9 @@ export class VisualizzaGiacenzaComponent implements OnInit {
        oss.subscribe(p =>{
          this.prodotti=p.listaProdotti;
        });
+
+       this.formDivVisible = true;
+       this.formVisible = true;
    }
 
 }
