@@ -6,12 +6,14 @@
 package it.iad2.scarsefourserver.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 /**
@@ -31,9 +33,14 @@ public class PosizioneScaffale {
     private String descrizione;
 
     @JsonIgnore
-    @OneToOne(cascade= CascadeType.REMOVE)
+    @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(referencedColumnName = "id")
     private Prodotto prodotto;
+
+    @JsonIgnoreProperties(value = "posizioneScaffale", allowGetters = true, allowSetters = true)
+    @ManyToOne(cascade = CascadeType.REMOVE)
+    @JoinColumn(referencedColumnName = "id")
+    private SkuScaffale skuScaffale;
 
     public PosizioneScaffale() {
     }
@@ -73,6 +80,14 @@ public class PosizioneScaffale {
 
     public void setDescrizione(String descrizione) {
         this.descrizione = descrizione;
+    }
+
+    public SkuScaffale getSkuScaffale() {
+        return skuScaffale;
+    }
+
+    public void setSkuScaffale(SkuScaffale skuScaffale) {
+        this.skuScaffale = skuScaffale;
     }
 
     @Override

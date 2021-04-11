@@ -1,4 +1,4 @@
- package it.iad2.scarsefourserver.model;
+package it.iad2.scarsefourserver.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -11,6 +11,7 @@ import javax.persistence.ManyToMany;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -37,18 +38,23 @@ public class Prodotto {
     private int lottoRiordino;
 
     @JsonIgnore
-    @OneToOne(cascade= CascadeType.REMOVE, mappedBy="prodotto")
+    @OneToOne(cascade = CascadeType.REMOVE, mappedBy = "prodotto")
     private PosizioneScaffale posizioneScaffale;
 
     @JsonIgnore
-    @OneToMany(cascade= CascadeType.REMOVE, mappedBy="prodotto")
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "prodotto")
     private List<RigaScontrino> righe;
 
     @JsonIgnoreProperties(value = "prodotto", allowGetters = true, allowSetters = true)
-    @ManyToMany(cascade= CascadeType.REMOVE)
+    @ManyToMany(cascade = CascadeType.REMOVE)
     @JoinColumn(referencedColumnName = "id")
     private List<Sconto> sconti;
 
+    @JsonIgnoreProperties(value = "prodotto", allowGetters = true, allowSetters = true)
+    @ManyToOne(cascade = CascadeType.REMOVE)
+    @JoinColumn(referencedColumnName = "id")
+    private SkuScaffale skuScaffale; 
+            
     public PosizioneScaffale getPosizioneScaffale() {
         return posizioneScaffale;
     }
@@ -154,6 +160,14 @@ public class Prodotto {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public SkuScaffale getSkuScaffale() {
+        return skuScaffale;
+    }
+
+    public void setSkuScaffale(SkuScaffale skuScaffale) {
+        this.skuScaffale = skuScaffale;
     }
 
     @Override
