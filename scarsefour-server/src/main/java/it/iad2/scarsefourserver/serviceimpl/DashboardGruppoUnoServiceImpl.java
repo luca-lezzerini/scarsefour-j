@@ -108,8 +108,9 @@ public class DashboardGruppoUnoServiceImpl implements DashboardGruppoUnoService 
 
     @Override
     public Scontrino chiudiScontrino1(Scontrino scontrino) {
-        //chiudo lo scontrino assegnandogli un numero progressivo continuativo
+        //chiudo lo scontrino assegnandogli un numero progressivo continuativo e la data
         scontrino.setNumero(scontrinoRepository.findAll().size() + 1);
+        scontrino.setTimeStamp(LocalDateTime.now());
         //aggiorno il database 
         scontrinoRepository.save(scontrino);
         return null;
