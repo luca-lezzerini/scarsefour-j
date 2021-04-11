@@ -40,14 +40,14 @@ export class VisualizzaGiacenzaComponent implements OnInit {
       oss.subscribe((c) => (this.posizioni = c.listaPosizioni));
   }
 
-  // visualizzaGiacenza() { 
-  //   let dto : PosizioneScaffaleDto = new PosizioneScaffaleDto();
-  //   dto.posizione = this.posizione;
-  //   let oss: Observable<ListaProdottiDto> = this.http.get<ListaProdottiDto>(
-  //     'http://localhost:8080/visualizza-giacenza');
-  //     oss.subscribe(p =>{
-  //       this.prodotti=p.listaProdotti;
-  //     });
-  // }
+   visualizzaGiacenza(p: PosizioneScaffale) { 
+     let dto : PosizioneScaffaleDto = new PosizioneScaffaleDto();
+     dto.posizione = p;
+     let oss: Observable<ListaProdottiDto> = this.http.post<ListaProdottiDto>(
+       'http://localhost:8080/visualizza-giacenza', dto);
+       oss.subscribe(p =>{
+         this.prodotti=p.listaProdotti;
+       });
+   }
 
 }
