@@ -37,9 +37,9 @@ public class Prodotto {
     @Column
     private int lottoRiordino;
 
-    @JsonIgnore
-    @OneToOne(cascade = CascadeType.REMOVE, mappedBy = "prodotto")
-    private PosizioneScaffale posizioneScaffale;
+//    @JsonIgnore
+//    @OneToOne(cascade = CascadeType.REMOVE, mappedBy = "prodotto")
+//    private PosizioneScaffale posizioneScaffale;
 
     @JsonIgnore
     @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "prodotto")
@@ -55,13 +55,13 @@ public class Prodotto {
     @JoinColumn(referencedColumnName = "id")
     private SkuScaffale skuScaffale; 
             
-    public PosizioneScaffale getPosizioneScaffale() {
-        return posizioneScaffale;
-    }
-
-    public void setPosizioneScaffale(PosizioneScaffale posizioneScaffale) {
-        this.posizioneScaffale = posizioneScaffale;
-    }
+//    public PosizioneScaffale getPosizioneScaffale() {
+//        return posizioneScaffale;
+//    }
+//
+//    public void setPosizioneScaffale(PosizioneScaffale posizioneScaffale) {
+//        this.posizioneScaffale = posizioneScaffale;
+//    }
 
     public List<Sconto> getSconti() {
         if (sconti == null) {

@@ -7,6 +7,7 @@ import it.iad2.scarsefourserver.model.Prodotto;
 import it.iad2.scarsefourserver.model.RigaScontrino;
 import it.iad2.scarsefourserver.model.Sconto;
 import it.iad2.scarsefourserver.model.Scontrino;
+import it.iad2.scarsefourserver.model.SkuScaffale;
 import it.iad2.scarsefourserver.repository.CassaRepository;
 import it.iad2.scarsefourserver.repository.CassiereRepository;
 import it.iad2.scarsefourserver.repository.MovimentiScaffaleRepository;
@@ -76,8 +77,16 @@ public class SystemAdminServiceImpl implements SystemAdminService {
             posizioneScaffaleRepository.save(posizioneScaffale);
 
             //Associo Prodotto a posizioneScaffale
-            associaProdottoPosizioneScaffale(prodotto, posizioneScaffale);
+            //associaProdottoPosizioneScaffale(prodotto, posizioneScaffale);
         }
+        
+        //Popolo dati Sku
+        SkuScaffale sku;
+        for (int i = 0; i < 100; i++) {
+            sku = new SkuScaffale(i + 5, 5);
+            skuScaffaleRepository.save(sku);
+        }
+        
         //Popolamento dati cassa
         Cassa cassa;
         for (int i = 0; i < 20; i++) {
@@ -135,7 +144,40 @@ public class SystemAdminServiceImpl implements SystemAdminService {
                 break;
             }
         }
-
+        
+        //Seleziono i primi 50 prodotti
+        List<Prodotto> prodSku = prodottoRepository.findAll().subList(0, 50);
+        //seleziono gli sku
+        List<SkuScaffale> listaSku = skuScaffaleRepository.findAll();
+        //associo sku a prodotti 
+        int x = 10;
+        for (int i = 0; i < listaSku.size(); i++) {
+            SkuScaffale skuScaffale = listaSku.get(i);
+            for (int j = i * 10; j < x; j++) {
+                Prodotto p = prodSku.get(i);
+                associaSkuProdotto(skuScaffale, prodSku);
+            }
+            x += 10;
+            if (x > prodSku.size()) {
+                break;
+            }
+        }
+        
+        //seleziono le prime 50 posizioni scaffale
+        List<PosizioneScaffale> posizioni = posizioneScaffaleRepository.findAll().subList(0, 50);
+        //associo sku a posizioni 
+        int y = 10;
+        for (int i = 0; i < listaSku.size(); i++) {
+            SkuScaffale skuScaffale = listaSku.get(i);
+            for (int j = i * 10; j < y; j++) {
+                PosizioneScaffale p = posizioni.get(i);
+                associaSkuPosizioneScaffale(skuScaffale, posizioni);
+            }
+            y += 10;
+            if (y > posizioni.size()) {
+                break;
+            }
+        }
         //Associa Cassa con Scontrino
         associaCassaScontrino();
 
@@ -157,14 +199,14 @@ public class SystemAdminServiceImpl implements SystemAdminService {
 //        }
     }
 
-    void associaProdottoPosizioneScaffale(Prodotto p, PosizioneScaffale ps) {
-        //OneToOne
-        p.setPosizioneScaffale(ps);
-        prodottoRepository.save(p);
-
-        ps.setProdotto(p);
-        posizioneScaffaleRepository.save(ps);
-    }
+//    void associaProdottoPosizioneScaffale(Prodotto p, PosizioneScaffale ps) {
+//        //OneToOne
+//        p.setPosizioneScaffale(ps);
+//        prodottoRepository.save(p);
+//
+//        ps.setProdotto(p);
+//        posizioneScaffaleRepository.save(ps);
+//    }
 
     void associaProdottoSconto() {
         //ManyToMany
@@ -217,6 +259,28 @@ public class SystemAdminServiceImpl implements SystemAdminService {
         });
         scontrinoRepository.save(s);
         //});
+    }
+    
+    void associaSkuProdotto(SkuScaffale sku, List<Prodotto> listaProdotti) {
+        //OneToMany
+        List<Prodotto> prodotti = sku.getProdotti();
+        listaProdotti.forEach(r -> {
+            prodotti.add(r);
+            r.setSkuScaffale(sku);
+            prodottoRepository.save(r);
+        });
+        skuScaffaleRepository.save(sku);
+    }
+   
+    void associaSkuPosizioneScaffale(SkuScaffale sku, List<PosizioneScaffale> listaPosizioni) {
+        //OneToMany
+        List<PosizioneScaffale> posizioni = sku.getPosizioneScaffale();
+        listaPosizioni.forEach(r -> {
+            posizioni.add(r);
+            r.setSkuScaffale(sku);
+            posizioneScaffaleRepository.save(r);
+        });
+        skuScaffaleRepository.save(sku);
     }
 
     void associaCassaScontrino() {

@@ -32,10 +32,10 @@ public class PosizioneScaffale {
     @Column
     private String descrizione;
 
-    @JsonIgnore
-    @OneToOne(cascade = CascadeType.REMOVE)
-    @JoinColumn(referencedColumnName = "id")
-    private Prodotto prodotto;
+//    @JsonIgnore
+//    @OneToOne(cascade = CascadeType.REMOVE)
+//    @JoinColumn(referencedColumnName = "id")
+//    private Prodotto prodotto;
 
     @JsonIgnoreProperties(value = "posizioneScaffale", allowGetters = true, allowSetters = true)
     @ManyToOne(cascade = CascadeType.REMOVE)
@@ -54,13 +54,13 @@ public class PosizioneScaffale {
         return id;
     }
 
-    public Prodotto getProdotto() {
-        return prodotto;
-    }
-
-    public void setProdotto(Prodotto prodotto) {
-        this.prodotto = prodotto;
-    }
+//    public Prodotto getProdotto() {
+//        return prodotto;
+//    }
+//
+//    public void setProdotto(Prodotto prodotto) {
+//        this.prodotto = prodotto;
+//    }
 
     public void setId(Long id) {
         this.id = id;
