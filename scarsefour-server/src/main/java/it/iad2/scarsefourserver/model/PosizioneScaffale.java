@@ -6,15 +6,14 @@
 package it.iad2.scarsefourserver.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -36,11 +35,9 @@ public class PosizioneScaffale {
 //    @OneToOne(cascade = CascadeType.REMOVE)
 //    @JoinColumn(referencedColumnName = "id")
 //    private Prodotto prodotto;
-
-    @JsonIgnoreProperties(value = "posizioneScaffale", allowGetters = true, allowSetters = true)
-    @ManyToOne(cascade = CascadeType.REMOVE)
-    @JoinColumn(referencedColumnName = "id")
-    private SkuScaffale skuScaffale;
+    @JsonIgnore
+    @OneToMany(mappedBy = "posizioneScaffale", cascade = CascadeType.REMOVE)
+    private List<SkuScaffale> listaSku;
 
     public PosizioneScaffale() {
     }
@@ -61,7 +58,6 @@ public class PosizioneScaffale {
 //    public void setProdotto(Prodotto prodotto) {
 //        this.prodotto = prodotto;
 //    }
-
     public void setId(Long id) {
         this.id = id;
     }
@@ -82,12 +78,15 @@ public class PosizioneScaffale {
         this.descrizione = descrizione;
     }
 
-    public SkuScaffale getSkuScaffale() {
-        return skuScaffale;
+    public List<SkuScaffale> getListaSku() {
+        if (listaSku == null) {
+            listaSku = new ArrayList<>();
+        }
+        return listaSku;
     }
 
-    public void setSkuScaffale(SkuScaffale skuScaffale) {
-        this.skuScaffale = skuScaffale;
+    public void setListaSku(List<SkuScaffale> listaSku) {
+        this.listaSku = listaSku;
     }
 
     @Override
