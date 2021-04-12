@@ -153,8 +153,10 @@ public class SystemAdminServiceImpl implements SystemAdminService {
         int x = 10;
         for (int i = 0; i < listaSku.size(); i++) {
             SkuScaffale skuScaffale = listaSku.get(i);
+            System.out.println("SCAFFALE SKU: " + skuScaffale.getId());
             for (int j = i * 10; j < x; j++) {
-                Prodotto p = prodSku.get(i);
+                Prodotto p = prodSku.get(j);
+                System.out.println("PRODOTTO SKU: " + p.getCodice());
                 associaSkuProdotto(skuScaffale, prodSku);
             }
             x += 10;
@@ -170,7 +172,7 @@ public class SystemAdminServiceImpl implements SystemAdminService {
         for (int i = 0; i < listaSku.size(); i++) {
             SkuScaffale skuScaffale = listaSku.get(i);
             for (int j = i * 10; j < y; j++) {
-                PosizioneScaffale p = posizioni.get(i);
+                PosizioneScaffale p = posizioni.get(j);
                 associaSkuPosizioneScaffale(skuScaffale, posizioni);
             }
             y += 10;
