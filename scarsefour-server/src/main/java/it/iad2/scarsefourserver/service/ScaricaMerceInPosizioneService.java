@@ -4,5 +4,6 @@ import it.iad2.scarsefourserver.model.Prodotto;
 import java.util.List;
 
 public interface ScaricaMerceInPosizioneService {
-    List<Prodotto> mostraProdottiScaffale();
+
+    List<Prodotto> mostraProdottiScaffale(Long id);
 }
