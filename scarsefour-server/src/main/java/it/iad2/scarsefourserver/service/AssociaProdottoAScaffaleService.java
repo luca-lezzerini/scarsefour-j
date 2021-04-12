@@ -6,6 +6,5 @@ public interface AssociaProdottoAScaffaleService {
 
      ListaProdottiDto cercaProdottiNonAssociati();
      
-
     }
 

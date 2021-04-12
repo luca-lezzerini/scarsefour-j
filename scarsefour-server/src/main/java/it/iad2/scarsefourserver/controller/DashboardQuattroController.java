@@ -45,4 +45,5 @@ public class DashboardQuattroController {
     public ScontrinoDto stornaUltimoAction(@RequestBody ScontrinoDto dto) {
         return dashboardquattro.stornaUltimoAction(dto.getScontrino());
     }
+    
 }
