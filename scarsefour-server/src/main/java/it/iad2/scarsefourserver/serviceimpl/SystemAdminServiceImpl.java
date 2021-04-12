@@ -80,12 +80,6 @@ public class SystemAdminServiceImpl implements SystemAdminService {
             //associaProdottoPosizioneScaffale(prodotto, posizioneScaffale);
         }
 
-        //Popolo dati Sku
-//        SkuScaffale sku;
-//        for (int i = 0; i < 100; i++) {
-//            sku = new SkuScaffale(i + 5, 5);
-//            skuScaffaleRepository.save(sku);
-//        }
         //Popolamento dati cassa
         Cassa cassa;
         for (int i = 0; i < 20; i++) {
@@ -152,10 +146,10 @@ public class SystemAdminServiceImpl implements SystemAdminService {
         for (int i = 0; i < 10; i++) {
             SkuScaffale skuScaffale = new SkuScaffale(i + 5, 10);
             skuScaffale = skuScaffaleRepository.save(skuScaffale);
-            Prodotto p = prodSku.get(i);
+            var p = prodSku.get(i);
             skuScaffale.setProdotto(p);
             p.getListaSku().add(skuScaffale);
-            PosizioneScaffale ps = posizioni.get(i);
+            var ps = posizioni.get(i);
             skuScaffale.setPosizioneScaffale(ps);
             ps.getListaSku().add(skuScaffale);
             skuScaffale = skuScaffaleRepository.save(skuScaffale);
@@ -185,14 +179,6 @@ public class SystemAdminServiceImpl implements SystemAdminService {
 //        }
     }
 
-//    void associaProdottoPosizioneScaffale(Prodotto p, PosizioneScaffale ps) {
-//        //OneToOne
-//        p.setPosizioneScaffale(ps);
-//        prodottoRepository.save(p);
-//
-//        ps.setProdotto(p);
-//        posizioneScaffaleRepository.save(ps);
-//    }
     void associaProdottoSconto() {
         //ManyToMany
         List<Prodotto> prodotti = prodottoRepository.findAll();
@@ -244,28 +230,6 @@ public class SystemAdminServiceImpl implements SystemAdminService {
         });
         scontrinoRepository.save(s);
         //});
-    }
-
-    void associaSkuProdotto(List<SkuScaffale> listaSku, Prodotto prodotto) {
-        //OneToMany
-        List<SkuScaffale> sku = prodotto.getListaSku();
-        listaSku.forEach(r -> {
-            sku.add(r);
-            r.setProdotto(prodotto);
-            skuScaffaleRepository.save(r);
-        });
-        prodottoRepository.save(prodotto);
-    }
-
-    void associaSkuPosizioneScaffale(List<SkuScaffale> listaSku, PosizioneScaffale posizione) {
-        //OneToMany
-        List<SkuScaffale> sku = posizione.getListaSku();
-        listaSku.forEach(r -> {
-            sku.add(r);
-            r.setPosizioneScaffale(posizione);
-            skuScaffaleRepository.save(r);
-        });
-        posizioneScaffaleRepository.save(posizione);
     }
 
     void associaCassaScontrino() {
