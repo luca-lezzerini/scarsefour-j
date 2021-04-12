@@ -1,6 +1,6 @@
 package it.iad2.scarsefourserver.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -8,7 +8,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -27,13 +28,15 @@ public class SkuScaffale {
     @Column
     private int scortaMinima;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "skuScaffale", cascade = CascadeType.REMOVE)
-    private List<Prodotto> prodotti;
+    @JsonIgnoreProperties(value = "listaSku",allowGetters = true,allowSetters = true)
+    @ManyToOne(cascade = CascadeType.REMOVE)
+    @JoinColumn(referencedColumnName = "id")
+    private Prodotto prodotto;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "skuScaffale", cascade = CascadeType.REMOVE)
-    private List<PosizioneScaffale> posizioneScaffale;
+    @JsonIgnoreProperties(value = "listaSku",allowGetters = true,allowSetters = true)
+    @ManyToOne(cascade = CascadeType.REMOVE)
+    @JoinColumn(referencedColumnName = "id")
+    private PosizioneScaffale posizioneScaffale;
 
     public SkuScaffale() {
     }
@@ -67,25 +70,19 @@ public class SkuScaffale {
         this.scortaMinima = scortaMinima;
     }
 
-    public List<Prodotto> getProdotti() {
-        if (prodotti == null) {
-            prodotti = new ArrayList<>();
-        }
-        return prodotti;
+    public Prodotto getProdotto() {
+        return prodotto;
     }
 
-    public void setProdotti(List<Prodotto> prodotti) {
-        this.prodotti = prodotti;
+    public void setProdotto(Prodotto prodotto) {
+        this.prodotto = prodotto;
     }
 
-    public List<PosizioneScaffale> getPosizioneScaffale() {
-        if (posizioneScaffale == null) {
-            posizioneScaffale = new ArrayList<>();
-        }
+    public PosizioneScaffale getPosizioneScaffale() {
         return posizioneScaffale;
     }
 
-    public void setPosizioneScaffale(List<PosizioneScaffale> posizioneScaffale) {
+    public void setPosizioneScaffale(PosizioneScaffale posizioneScaffale) {
         this.posizioneScaffale = posizioneScaffale;
     }
 

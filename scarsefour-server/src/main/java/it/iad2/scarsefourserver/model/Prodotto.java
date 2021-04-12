@@ -11,9 +11,7 @@ import javax.persistence.ManyToMany;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 @Entity
 public class Prodotto {
@@ -40,7 +38,6 @@ public class Prodotto {
 //    @JsonIgnore
 //    @OneToOne(cascade = CascadeType.REMOVE, mappedBy = "prodotto")
 //    private PosizioneScaffale posizioneScaffale;
-
     @JsonIgnore
     @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "prodotto")
     private List<RigaScontrino> righe;
@@ -50,11 +47,10 @@ public class Prodotto {
     @JoinColumn(referencedColumnName = "id")
     private List<Sconto> sconti;
 
-    @JsonIgnoreProperties(value = "prodotto", allowGetters = true, allowSetters = true)
-    @ManyToOne(cascade = CascadeType.REMOVE)
-    @JoinColumn(referencedColumnName = "id")
-    private SkuScaffale skuScaffale; 
-            
+    @JsonIgnore
+    @OneToMany(mappedBy = "prodotto", cascade = CascadeType.REMOVE)
+    private List<SkuScaffale> listaSku;
+
 //    public PosizioneScaffale getPosizioneScaffale() {
 //        return posizioneScaffale;
 //    }
@@ -62,7 +58,6 @@ public class Prodotto {
 //    public void setPosizioneScaffale(PosizioneScaffale posizioneScaffale) {
 //        this.posizioneScaffale = posizioneScaffale;
 //    }
-
     public List<Sconto> getSconti() {
         if (sconti == null) {
             sconti = new ArrayList();
@@ -162,12 +157,15 @@ public class Prodotto {
         this.id = id;
     }
 
-    public SkuScaffale getSkuScaffale() {
-        return skuScaffale;
+    public List<SkuScaffale> getListaSku() {
+        if (listaSku == null) {
+            listaSku = new ArrayList<>();
+        }
+        return listaSku;
     }
 
-    public void setSkuScaffale(SkuScaffale skuScaffale) {
-        this.skuScaffale = skuScaffale;
+    public void setListaSku(List<SkuScaffale> listaSku) {
+        this.listaSku = listaSku;
     }
 
     @Override
