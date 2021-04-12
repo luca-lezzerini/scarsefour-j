@@ -440,7 +440,7 @@ p.titoliHome {
 .wrapper {
     margin: 0 auto;
     /* width: 960px; */
-    width: 60%;
+    width: 75%;
     background: #EFEFEF;
     float: left;
 }
@@ -472,6 +472,10 @@ p.titoliHome {
     background: rgb(10, 165, 49);
 }
 
+.rotateObj h2.active2 {
+    background: rgb(10, 165, 49);
+}
+
 .rotateObj .content {
     float: left;
     width: 230px;
@@ -484,8 +488,9 @@ p.titoliHome {
     float: right; */
     /* bottom: 25px;
     right: 15px; */
-    width: 40%;
+    width: 25%;
     float: right;
+    height: auto;
 }
 
 /* IMMAGINI SELF SLIDE */
