@@ -19,7 +19,7 @@ public class AssociaProdottoAScaffaleController {
     @RequestMapping("/associa-prodotto-scaffale")
     @ResponseBody
     public ListaProdottiDto associaProdottoScaffale() {
-        return new ListaProdottiDto(associaProdottoAScaffaleService.cercaProdottiNonAssociati());
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 
     }
 }
