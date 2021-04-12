@@ -1,7 +1,7 @@
 import { EventGruppoQuattro } from "./event-gruppo-quattro";
 
 export interface StateGruppoQuattro {
-next(event: EventGruppoQuattro)
+next(event: EventGruppoQuattro): StateGruppoQuattro;
 
 }
 
