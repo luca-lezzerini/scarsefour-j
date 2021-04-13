@@ -11,6 +11,8 @@ import { DashboardGruppoUnoComponent } from './dashboard-gruppo-uno/dashboard-gr
 import { HomePageComponent } from './home-page/home-page.component';
 import {AnagraficaCasseComponent} from './anagrafica-casse/anagrafica-casse.component';
 import { VisualizzaGiacenzaComponent } from './visualizza-giacenza/visualizza-giacenza.component';
+import { ScaricaMerceComponent } from './scarica-merce/scarica-merce.component';
+
 
 const routes: Routes = [
  { path: 'anagrafica-casse', component: AnagraficaCasseComponent},
@@ -23,6 +25,7 @@ const routes: Routes = [
  { path: 'dashboard-gruppo-due', component: DashboardGruppoDueComponent},
  { path: 'dashboard-gruppo-quattro', component: DashboardGruppoQuattroComponent},
  { path: 'visualizza-giacenza', component: VisualizzaGiacenzaComponent},
+ { path: 'scarica-merce', component: ScaricaMerceComponent},
  { path: 'home-page', component: HomePageComponent},
  { path: '', redirectTo: '/home-page', pathMatch: 'full'}
 

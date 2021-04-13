@@ -18,6 +18,7 @@ import { ToolbarMenuComponent } from './toolbar-menu/toolbar-menu.component';
 import {AnagraficaCasseComponent} from './anagrafica-casse/anagrafica-casse.component';
 import { VisualizzaGiacenzaComponent } from './visualizza-giacenza/visualizza-giacenza.component';
 import { AssociaProdottoAScaffaleComponent } from './associa-prodotto-a-scaffale/associa-prodotto-a-scaffale.component';
+import { ScaricaMerceComponent } from './scarica-merce/scarica-merce.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { AssociaProdottoAScaffaleComponent } from './associa-prodotto-a-scaffale
     AnagraficaCasseComponent,
     VisualizzaGiacenzaComponent,
     AssociaProdottoAScaffaleComponent,
+    ScaricaMerceComponent,
   ],
   imports: [
     BrowserModule,

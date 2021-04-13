@@ -1,0 +1,21 @@
+<div>
+<input type="text" placeholder="scaffale..." [(ngModel)]="inserisciScaffale">
+<button (click)= "cercaScaffale()">Cerca</button>
+</div>
+<br>
+Prodotti su scaffale:
+<br>
+<div>
+<table>
+   <tr>
+       <th>Codice prodotto</th>
+       <th>Descrizione prodotto</th>
+       <th>Seleziona</th>
+   </tr>
+   <tr *ngFor= "let p of prodotti">
+       <td>{{p.codice}}</td>
+       <td>{{p.descrizione}}</td>
+       <td><button (click)= "selezionaProdotto()">Seleziona</button></td>
+   </tr> 
+</table>
+</div>
