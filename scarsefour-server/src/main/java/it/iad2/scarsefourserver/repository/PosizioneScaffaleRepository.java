@@ -1,7 +1,7 @@
 package it.iad2.scarsefourserver.repository;
 
+import it.iad2.scarsefourserver.model.Giacenza;
 import it.iad2.scarsefourserver.model.PosizioneScaffale;
-import it.iad2.scarsefourserver.model.Prodotto;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -15,12 +15,14 @@ public interface PosizioneScaffaleRepository extends JpaRepository<PosizioneScaf
     List<PosizioneScaffale> findByCodiceContains(String c);
 
     @Query(
-            value = "select p.descrizione, p.codice, sku.giacenza, sku.scorta_minima"
-            + " from prodotto p"
-            + " join sku_scaffale sku on p.sku_scaffale_id =sku.id"
-            + " join posizione_scaffale ps on p.sku_scaffale_id = sku.id"
-            + " where ps.id=?1",
-            nativeQuery = true)
-    List<Prodotto> visualizzaGiacenzaProdotti(Long id);
+//            "SELECT p.codice, p.descrizione, s.giacenza, s.scortaMinima FROM SkuScaffale s"
+//            + " JOIN s.prodotto p"
+//            + " JOIN s.posizioneScaffale ps"
+//            + " WHERE ps.id = ?1"
+            "SELECT p,s FROM SkuScaffale s"
+            + " JOIN s.prodotto p"
+            + " JOIN s.posizioneScaffale ps"
+            + " WHERE ps.id = ?1")
+    List<Object[]> visualizzaGiacenzaProdotti(Long id);
 
 }

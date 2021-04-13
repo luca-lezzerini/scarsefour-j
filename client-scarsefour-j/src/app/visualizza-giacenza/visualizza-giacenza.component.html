@@ -32,11 +32,11 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let s of sku">
-                <td>{{s.prodotto.codice}}</td>
-                <td>{{s.prodotto.descrizione}}</td>
-                <td>{{s.giacenza}}}</td>
-                <td>{{s.scortaMinima}}</td>
+              <tr *ngFor="let g of listaGiacenza">
+                <td>{{g.codice}}</td>
+                <td>{{g.descrizione}}</td>
+                <td>{{g.giacenza}}}</td>
+                <td>{{g.scortaMinima}}</td>
               </tr>
             </tbody>
           </table>

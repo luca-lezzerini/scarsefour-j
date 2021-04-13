@@ -1,7 +1,7 @@
 package it.iad2.scarsefourserver.serviceimpl;
 
+import it.iad2.scarsefourserver.dto.ListaGiacenzaDto;
 import it.iad2.scarsefourserver.dto.ListaPosizioneScaffaleDto;
-import it.iad2.scarsefourserver.dto.ListaProdottiDto;
 import it.iad2.scarsefourserver.dto.PosizioneScaffaleDto;
 import it.iad2.scarsefourserver.repository.PosizioneScaffaleRepository;
 import it.iad2.scarsefourserver.service.VisualizzaGiacenzaService;
@@ -20,8 +20,9 @@ public class VisualizzaGiacenzaServiceImpl implements VisualizzaGiacenzaService 
     }
 
     @Override
-    public ListaProdottiDto visualizzaGiacenza(PosizioneScaffaleDto dto) {
-        return new ListaProdottiDto(posizioneScaffaleRepository.visualizzaGiacenzaProdotti(dto.getPosizione().getId()));
+    public ListaGiacenzaDto visualizzaGiacenza(PosizioneScaffaleDto dto) {
+        //return new ListaGiacenzaDto(posizioneScaffaleRepository.visualizzaGiacenzaProdotti(dto.getPosizione().getId()));
+        return null;
     }
 
 }

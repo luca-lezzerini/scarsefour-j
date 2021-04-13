@@ -7,6 +7,8 @@ import { HttpClient } from '@angular/common/http';
 import { PosizioneScaffaleDto } from '../dto/posizione-scaffale-dto';
 import { ListaProdottiDto } from '../dto/lista-prodotti-dto';
 import { Prodotto } from '../entità/prodotto';
+import { ListaGiacenzaDto } from '../dto/lista-giacenza-dto';
+import { Giacenza } from '../entità/giacenza';
 
 @Component({
   selector: 'app-visualizza-giacenza',
@@ -16,8 +18,7 @@ import { Prodotto } from '../entità/prodotto';
 export class VisualizzaGiacenzaComponent implements OnInit {
 
   posizioni: PosizioneScaffale[] = [];
-  sku: SkuScaffale[] = [];
-  prodotti: Prodotto[] = [];
+  listaGiacenza: Giacenza[] = [];
   posizione: PosizioneScaffale;
 
   //variabili di visibilità
@@ -43,10 +44,10 @@ export class VisualizzaGiacenzaComponent implements OnInit {
    visualizzaGiacenza(p: PosizioneScaffale) { 
      let dto : PosizioneScaffaleDto = new PosizioneScaffaleDto();
      dto.posizione = p;
-     let oss: Observable<ListaProdottiDto> = this.http.post<ListaProdottiDto>(
+     let oss: Observable<ListaGiacenzaDto> = this.http.post<ListaGiacenzaDto>(
        'http://localhost:8080/visualizza-giacenza', dto);
        oss.subscribe(p =>{
-         this.prodotti=p.listaProdotti;
+         this.listaGiacenza=p.listaGiacenza;
        });
 
        this.formDivVisible = true;
