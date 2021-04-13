@@ -62,9 +62,9 @@ public class SystemAdminServiceImpl implements SystemAdminService {
         cassaRepository.deleteAllInBatch();
         cassieraRepository.deleteAllInBatch();
         scontrinoRepository.deleteAllInBatch();
+        skuScaffaleRepository.deleteAllInBatch();
         posizioneScaffaleRepository.deleteAllInBatch();
         prodottoRepository.deleteAllInBatch();
-        skuScaffaleRepository.deleteAllInBatch();
 
         //Popolamento dati prodotto e posizioneScaffale
         Prodotto prodotto;

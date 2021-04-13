@@ -440,7 +440,7 @@ p.titoliHome {
 .wrapper {
     margin: 0 auto;
     /* width: 960px; */
-    width: 75%;
+    width: 100%;
     background: #EFEFEF;
     float: left;
 }
@@ -484,22 +484,19 @@ p.titoliHome {
 }
 
 .logo {
-    /* position: absolute;
-    float: right; */
-    /* bottom: 25px;
-    right: 15px; */
-    width: 25%;
+   position: relative;
+    width: 35%;
     float: right;
-    height: auto;
 }
 
 /* IMMAGINI SELF SLIDE */
 
 .fling-minislide {
-    width: 100%;
+    width: 65%;
     min-height: 330px;
     overflow: hidden;
     position: relative;
+    float: left;
 }
 
 .fling-minislide img {
