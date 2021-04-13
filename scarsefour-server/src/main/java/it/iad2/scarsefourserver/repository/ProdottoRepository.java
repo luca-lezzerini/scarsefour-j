@@ -14,7 +14,7 @@ public interface ProdottoRepository extends JpaRepository<Prodotto, Long> {
     @Query("select p from Prodotto p"
             + " left join p.listaSku s"
             + " left join s.posizioneScaffale z"
-            + " where z.id =:idPosizione"
+           // + " where z.id =:idPosizione"
     )
             List<Prodotto> trovaProdottiSuScaffale(@Param("idPosizione") Long idPos);
             

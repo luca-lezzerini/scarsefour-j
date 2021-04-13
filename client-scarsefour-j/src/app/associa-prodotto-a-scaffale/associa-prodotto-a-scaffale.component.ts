@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { ListaPosizioneScaffaleDto } from '../dto/lista-posizione-scaffale-dto';
 import { ListaProdottiDto } from '../dto/lista-prodotti-dto';
 import { PosizioneScaffaleDto } from '../dto/posizione-scaffale-dto';
+import { ProdottoPosizioneDto } from '../dto/prodotto-posizione-dto';
 import { PosizioneScaffale } from '../entità/posizione-scaffale';
 import { Prodotto } from '../entità/prodotto';
 
@@ -49,6 +50,13 @@ export class AssociaProdottoAScaffaleComponent implements OnInit {
   }
 
   associa(p) {
+    let dto: ProdottoPosizioneDto = new ProdottoPosizioneDto();
+    dto.posizione = this.posizioneScaffale
+    this.prodotto = p;
+    dto.prodotto = this.prodotto;
+    
+    let ox:Observable<PosizioneScaffaleDto> = this.http.post<PosizioneScaffaleDto>("http://localhost:8080/associa-prodotto-scaffale", dto );
+    ox.subscribe(x => this.posizioneScaffale = x.posizione);
 
   }
 }

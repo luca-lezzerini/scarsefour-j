@@ -19,11 +19,12 @@
 <button (click)="cercaProdottiNonAssociati()">Cerca prodotti non associati</button>
 <table>
     <tr>
-        <th>Posizione</th>
+        <th>Prodotti</th>
     </tr>
     <tr *ngFor="let p of prodotti">
         <td>{{p.codice}}</td>
         <td>{{p.descrizione}}</td>
+        <td>{{p.prezzo}}</td>
         <td> <button (click)="associa(p)">Associa prodotto a scaffale</button></td>
     </tr>
 </table>
