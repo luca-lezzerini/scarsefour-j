@@ -216,6 +216,7 @@ hr {
 }
 
 table {
+    overflow: scroll;
 }
 
 table.scrolldown {
@@ -227,7 +228,8 @@ table.scrolldown {
     bottom: 10px;
     right: 10px;
     left: 10px; */
-    float: left;
+    /* float: left; */
+    height: 150px;
 }
 
 /* To display the block as level element */

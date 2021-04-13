@@ -6,7 +6,8 @@
   <button (click)="nuova()" *ngIf="buttonNuovaVisible" class="button">Nuova</button>
   <div *ngIf="formDivVisible">
     <input type="text" placeholder="codice" [(ngModel)]="posizione.codice" [disabled]="campiNonEditabili" class="input">
-    <input type="text" placeholder="descrizione" [(ngModel)]="posizione.descrizione" [disabled]="campiNonEditabili" class="input">
+    <input type="text" placeholder="descrizione" [(ngModel)]="posizione.descrizione" [disabled]="campiNonEditabili"
+      class="input">
     <br>
     <button (click)="modifica()" *ngIf="!confAnnVisible" class="button">Modifica</button>
     <button (click)="conferma()" *ngIf="confAnnVisible" class="button">Conferma</button>
