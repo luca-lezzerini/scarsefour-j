@@ -12,6 +12,7 @@ import { HomePageComponent } from './home-page/home-page.component';
 import {AnagraficaCasseComponent} from './anagrafica-casse/anagrafica-casse.component';
 import { VisualizzaGiacenzaComponent } from './visualizza-giacenza/visualizza-giacenza.component';
 import { ScaricaMerceComponent } from './scarica-merce/scarica-merce.component';
+import { CaricaMerceComponent } from './carica-merce/carica-merce.component';
 
 
 const routes: Routes = [
@@ -26,6 +27,7 @@ const routes: Routes = [
  { path: 'dashboard-gruppo-quattro', component: DashboardGruppoQuattroComponent},
  { path: 'visualizza-giacenza', component: VisualizzaGiacenzaComponent},
  { path: 'scarica-merce', component: ScaricaMerceComponent},
+ { path: 'carica-merce', component: CaricaMerceComponent},
  { path: 'home-page', component: HomePageComponent},
  { path: '', redirectTo: '/home-page', pathMatch: 'full'}
 

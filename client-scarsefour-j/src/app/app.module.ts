@@ -19,6 +19,7 @@ import {AnagraficaCasseComponent} from './anagrafica-casse/anagrafica-casse.comp
 import { VisualizzaGiacenzaComponent } from './visualizza-giacenza/visualizza-giacenza.component';
 import { AssociaProdottoAScaffaleComponent } from './associa-prodotto-a-scaffale/associa-prodotto-a-scaffale.component';
 import { ScaricaMerceComponent } from './scarica-merce/scarica-merce.component';
+import { CaricaMerceComponent } from './carica-merce/carica-merce.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { ScaricaMerceComponent } from './scarica-merce/scarica-merce.component';
     VisualizzaGiacenzaComponent,
     AssociaProdottoAScaffaleComponent,
     ScaricaMerceComponent,
+    CaricaMerceComponent,
   ],
   imports: [
     BrowserModule,
