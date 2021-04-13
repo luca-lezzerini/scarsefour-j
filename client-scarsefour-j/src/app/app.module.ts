@@ -17,6 +17,7 @@ import { DashboardGruppoDueComponent } from './dashboard-gruppo-due/dashboard-gr
 import { ToolbarMenuComponent } from './toolbar-menu/toolbar-menu.component';
 import {AnagraficaCasseComponent} from './anagrafica-casse/anagrafica-casse.component';
 import { VisualizzaGiacenzaComponent } from './visualizza-giacenza/visualizza-giacenza.component';
+import { AssociaProdottoAScaffaleComponent } from './associa-prodotto-a-scaffale/associa-prodotto-a-scaffale.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { VisualizzaGiacenzaComponent } from './visualizza-giacenza/visualizza-gi
     ToolbarMenuComponent,
     AnagraficaCasseComponent,
     VisualizzaGiacenzaComponent,
+    AssociaProdottoAScaffaleComponent,
   ],
   imports: [
     BrowserModule,
