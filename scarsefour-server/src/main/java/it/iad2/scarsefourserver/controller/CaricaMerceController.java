@@ -22,8 +22,8 @@ public class CaricaMerceController {
     @RequestMapping("/carica-merce")
     @ResponseBody
     public ListaProdottiDto caricaMerce() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        //return caricaMerceService.caricaMerce();
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new ListaProdottiDto(caricaMerceService.caricaMerce());
     }    
 }
 

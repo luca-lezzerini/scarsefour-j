@@ -1,8 +1,9 @@
 package it.iad2.scarsefourserver.service;
 
-import it.iad2.scarsefourserver.dto.ListaProdottiDto;
+import it.iad2.scarsefourserver.model.Prodotto;
+import java.util.List;
 
 public interface CaricaMerceService {
-    ListaProdottiDto caricaMerce();
+    List<Prodotto> caricaMerce();
     
 }
