@@ -39,4 +39,11 @@ public class AssociaProdottoAScaffaleServiceImpl implements AssociaProdottoAScaf
 
     }
 
+    @Override
+    public ListaPosizioneScaffaleDto selezionaPosizioni() {
+        List<PosizioneScaffale> lista = new ArrayList<>();
+        lista = posizioneScaffaleRepository.findAll();
+        return new ListaPosizioneScaffaleDto(lista);
+    }
+
 }
