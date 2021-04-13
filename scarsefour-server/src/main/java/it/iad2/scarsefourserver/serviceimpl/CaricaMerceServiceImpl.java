@@ -1,5 +1,7 @@
 package it.iad2.scarsefourserver.serviceimpl;
 
+import it.iad2.scarsefourserver.dto.CaricaMerceDto;
+import it.iad2.scarsefourserver.dto.EsitoDtoDue;
 import it.iad2.scarsefourserver.model.Prodotto;
 import it.iad2.scarsefourserver.repository.CaricaMerceRepository;
 import it.iad2.scarsefourserver.service.CaricaMerceService;
@@ -14,10 +16,18 @@ public class CaricaMerceServiceImpl implements CaricaMerceService{
     CaricaMerceRepository caricaMerceRepository;
     
     @Override
-    public List<Prodotto> caricaMerce() {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        long idPos = 1;
-        return caricaMerceRepository.selezionaProdottiInPosizioneScaffale(idPos);
+    public List<Prodotto> caricaProdottiScaffale(Long id) {
+        System.out.println("sono in carica prodotti service impl");
+        System.out.println("id : " + id);
+        return caricaMerceRepository.selezionaProdottiInPosizioneScaffale(id);
     }
+
+    @Override
+    public boolean caricaMerce(CaricaMerceDto dto) {
+        //caricaMerceRepository.selezionaSkuScaffale(, Long.MIN_VALUE)
+        
+        return true;
+    }
+    
     
 }

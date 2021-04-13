@@ -1,6 +1,55 @@
 <body>
-    <app-toolbar-menu></app-toolbar-menu>
-    <div>
-        <h1 class="headAnagrafica">CARICA MERCE</h1>
-    </div>
+  <app-toolbar-menu></app-toolbar-menu>
+  <div>
+    <h1 class="headAnagrafica">CARICA MERCE</h1>
+  </div>
+  <table class="scrolldown">
+    <thead>
+      <tr>
+        <th>Codice</th>
+        <th>Descrizione</th>
+        <th>Selezione</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let ps of listaPosizioni; index as i">
+        <td>{{ps.codice}}</td>
+        <td>{{ps.descrizione}}</td>
+        <td><button class="buttonSel" (click)="selezionaPS(ps)">Seleziona</button></td>
+      </tr>
+    </tbody>
+  </table>
+  <br>
+  <table *ngIf="tabellaProdottiVisibile" class="scrolldown">
+    <thead>
+      <tr>
+        <th>Codice</th>
+        <th>Descrizione</th>
+        <th>Ean</th>
+        <th>Prezzo</th>
+        <th>Scorta minima scaffale</th>
+        <th>Scorta minima magazzino</th>
+        <th>Lotto riordino</th>
+        <th>Seleziona</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of listaProdotti">
+        <td>{{p.codice}}</td>
+        <td>{{p.descrizione}}</td>
+        <td>{{p.ean}}</td>
+        <td>{{p.prezzo}}</td>
+        <td>{{p.scortaMinScaffaleDefault}}</td>
+        <td>{{p.scortaMinMagazzinoDefault}}</td>
+        <td>{{p.lottoRiordino}}</td>
+        <td><button (click)="selezionaProdotto(p)" class="button">Seleziona</button></td>
+      </tr>
+    </tbody>
+  </table>
+  <br>
+  <div *ngIf="divAggiungiQuantita">
+    <input  class="input" type="number" [(ngModel)]="quantita" placeholder="Quantita da aggiungere allo scaffale">
+    <button (click)="caricaMerce(quantita)" class="button">Carica</button>
+    {{esito}}
+  </div>
 </body>
