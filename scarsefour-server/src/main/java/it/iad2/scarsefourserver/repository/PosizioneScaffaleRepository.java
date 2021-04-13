@@ -24,5 +24,10 @@ public interface PosizioneScaffaleRepository extends JpaRepository<PosizioneScaf
             + " JOIN s.posizioneScaffale ps"
             + " WHERE ps.id = ?1")
     List<Object[]> visualizzaGiacenzaProdotti(Long id);
+    
+    
+    
+    
+    
 
 }

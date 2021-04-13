@@ -11,9 +11,9 @@ import { DashboardGruppoUnoComponent } from './dashboard-gruppo-uno/dashboard-gr
 import { HomePageComponent } from './home-page/home-page.component';
 import {AnagraficaCasseComponent} from './anagrafica-casse/anagrafica-casse.component';
 import { VisualizzaGiacenzaComponent } from './visualizza-giacenza/visualizza-giacenza.component';
+import { AssociaProdottoAScaffaleComponent } from './associa-prodotto-a-scaffale/associa-prodotto-a-scaffale.component';
 import { ScaricaMerceComponent } from './scarica-merce/scarica-merce.component';
 import { CaricaMerceComponent } from './carica-merce/carica-merce.component';
-
 
 const routes: Routes = [
  { path: 'anagrafica-casse', component: AnagraficaCasseComponent},
@@ -25,6 +25,7 @@ const routes: Routes = [
  { path: 'dashboard-gruppo-uno', component: DashboardGruppoUnoComponent},
  { path: 'dashboard-gruppo-due', component: DashboardGruppoDueComponent},
  { path: 'dashboard-gruppo-quattro', component: DashboardGruppoQuattroComponent},
+ { path: 'associa-prodotto-a-scaffale', component: AssociaProdottoAScaffaleComponent},
  { path: 'visualizza-giacenza', component: VisualizzaGiacenzaComponent},
  { path: 'scarica-merce', component: ScaricaMerceComponent},
  { path: 'carica-merce', component: CaricaMerceComponent},
