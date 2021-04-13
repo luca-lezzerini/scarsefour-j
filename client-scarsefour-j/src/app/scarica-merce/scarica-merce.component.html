@@ -1,12 +1,13 @@
 <div>
-    <input type="text" placeholder="scaffale..." [(ngModel)]="inserisciScaffale">
-    <button (click)="cercaScaffale()">Cerca</button>
+    <input type="text" placeholder="Inserisci" [(ngModel)]="inserisciScaffale" class="input">
+    <button (click)="cercaScaffale()" class= "button">Cerca</button>
 </div>
 <br>
-Prodotti su scaffale:
+<br>
+<h3>Prodotti su scaffale:</h3>
 <br>
 <div>
-    <table>
+    <table class="scrolldown">
         <tr>
             <th>Codice prodotto</th>
             <th>Descrizione prodotto</th>
