@@ -1,6 +1,7 @@
 package it.iad2.scarsefourserver.controller;
 
 import it.iad2.scarsefourserver.dto.CaricaMerceDto;
+import it.iad2.scarsefourserver.dto.CriterioRicercaDto;
 import it.iad2.scarsefourserver.dto.EsitoDtoDue;
 import it.iad2.scarsefourserver.dto.IdPosizioneScaffaleDto;
 import it.iad2.scarsefourserver.dto.ListaPosizioneScaffaleDto;
@@ -27,6 +28,12 @@ public class CaricaMerceController {
 
     @Autowired
     AnagraficaPosizioneScaffaleService anagraficaPosizioniScaffaleService;
+    
+    @RequestMapping("/cerca-posizioni")
+    public ListaPosizioneScaffaleDto cercaPosizioni(@RequestBody CriterioRicercaDto dto) {
+        System.out.println("sono in cerca-posizioni");
+        return new ListaPosizioneScaffaleDto(caricaMerceService.cercaPosizioni(dto.getCriterio()));
+    }
 
     @RequestMapping("/carica-posizioni")
     @ResponseBody
@@ -45,5 +52,4 @@ public class CaricaMerceController {
         System.out.println("sono in carica merce");
         return new EsitoDtoDue(caricaMerceService.caricaMerce(dto));
     }
-
 }

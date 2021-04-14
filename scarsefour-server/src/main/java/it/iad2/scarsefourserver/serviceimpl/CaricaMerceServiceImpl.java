@@ -1,10 +1,9 @@
 package it.iad2.scarsefourserver.serviceimpl;
 
 import it.iad2.scarsefourserver.dto.CaricaMerceDto;
-import it.iad2.scarsefourserver.dto.EsitoDtoDue;
 import it.iad2.scarsefourserver.model.MovimentiScaffale;
+import it.iad2.scarsefourserver.model.PosizioneScaffale;
 import it.iad2.scarsefourserver.model.Prodotto;
-import it.iad2.scarsefourserver.model.SkuScaffale;
 import it.iad2.scarsefourserver.repository.CaricaMerceRepository;
 import it.iad2.scarsefourserver.repository.MovimentiScaffaleRepository;
 import it.iad2.scarsefourserver.repository.SkuScaffaleRepository;
@@ -24,6 +23,11 @@ public class CaricaMerceServiceImpl implements CaricaMerceService {
     @Autowired
     MovimentiScaffaleRepository movimentiScaffaleRepository;
 
+    @Override
+    public List<PosizioneScaffale> cercaPosizioni(String criterio) {
+        return caricaMerceRepository.cercaLikeDescrizione(criterio);
+    }
+    
     @Override
     public List<Prodotto> caricaProdottiScaffale(Long id) {
         System.out.println("sono in carica prodotti - service impl");

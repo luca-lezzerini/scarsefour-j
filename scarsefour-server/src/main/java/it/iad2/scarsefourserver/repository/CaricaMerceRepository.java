@@ -1,14 +1,16 @@
 package it.iad2.scarsefourserver.repository;
 
-import it.iad2.scarsefourserver.model.Cassiere;
+import it.iad2.scarsefourserver.model.PosizioneScaffale;
 import it.iad2.scarsefourserver.model.Prodotto;
-import it.iad2.scarsefourserver.model.SkuScaffale;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface CaricaMerceRepository extends JpaRepository<Prodotto, Long> {
+    
+    @Query("select ps from PosizioneScaffale ps where ps.descrizione like :criterio%")
+    List<PosizioneScaffale> cercaLikeDescrizione(@Param("criterio") String criterio);
 
     @Query(
             value = "select p from Prodotto p"
