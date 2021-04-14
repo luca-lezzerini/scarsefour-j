@@ -2,6 +2,8 @@ package it.iad2.scarsefourserver.serviceimpl;
 
 import it.iad2.scarsefourserver.dto.ListaPosizioneScaffaleDto;
 import it.iad2.scarsefourserver.dto.ListaProdottiDto;
+import it.iad2.scarsefourserver.dto.PosizioneScaffaleDto;
+import it.iad2.scarsefourserver.dto.ProdottoPosizioneDto;
 import it.iad2.scarsefourserver.model.PosizioneScaffale;
 import it.iad2.scarsefourserver.model.Prodotto;
 import it.iad2.scarsefourserver.repository.PosizioneScaffaleRepository;
@@ -37,6 +39,18 @@ public class AssociaProdottoAScaffaleServiceImpl implements AssociaProdottoAScaf
         lista = prodottoRepository.trovaProdottiSuScaffale(id);
         return new ListaProdottiDto(lista);
 
+    }
+
+    @Override
+    public ListaPosizioneScaffaleDto selezionaPosizioni() {
+        List<PosizioneScaffale> lista = new ArrayList<>();
+        lista = posizioneScaffaleRepository.findAll();
+        return new ListaPosizioneScaffaleDto(lista);
+    }
+
+    @Override
+    public PosizioneScaffaleDto associaProdottoScaffale(ProdottoPosizioneDto dto) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
