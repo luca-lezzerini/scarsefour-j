@@ -1,13 +1,15 @@
+
 import { EventScarica } from "./eventScarica";
 import { AutomabileScarica, StateScarica } from "./stateScarica";
+import { RicercaScaricaState } from "./statiScarica";
 
 export class AutomaScarica implements StateScarica {
     stato: StateScarica;
     gui: AutomabileScarica;
 
-    constructor(automabile: AutomaScarica){
-       // this.gui = automabile;
-        //this.stato = 
+    constructor(automabile: AutomabileScarica){
+       this.gui = automabile;
+       this.stato= new RicercaScaricaState(this);
     }
 
     next(event: EventScarica): StateScarica {

@@ -19,5 +19,4 @@ stato : StateDashboardDue;
         console.log("siamo passati nello stato ", this.stato);
         return this.stato;
     }
-
 }
