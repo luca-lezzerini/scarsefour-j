@@ -26,19 +26,7 @@ public class VisualizzaGiacenzaServiceImpl implements VisualizzaGiacenzaService 
 
     @Override
     public ListaGiacenzaDto visualizzaGiacenza(PosizioneScaffaleDto dto) {
-        List<Object[]> listaObj = posizioneScaffaleRepository.visualizzaGiacenzaProdotti(dto.getPosizione().getId());
-        List<Giacenza> listaGiacenza = new ArrayList<>();
-        for (Object o[] : listaObj) {
-            Prodotto p = (Prodotto) o[0];
-            SkuScaffale s = (SkuScaffale) o[1];
-            Giacenza g = new Giacenza();
-            g.setCodice(p.getCodice());
-            g.setDescrizione(p.getDescrizione());
-            g.setGiacenza(s.getGiacenza());
-            g.setScortaMinima(s.getScortaMinima());
-            listaGiacenza.add(g);
-        }
-        //return new ListaGiacenzaDto(posizioneScaffaleRepository.visualizzaGiacenzaProdotti(dto.getPosizione().getId()));
+        List<Giacenza> listaGiacenza = posizioneScaffaleRepository.visualizzaGiacenzaProdotti(dto.getPosizione().getId());
         return new ListaGiacenzaDto(listaGiacenza);
     }
 
