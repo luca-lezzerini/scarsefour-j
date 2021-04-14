@@ -16,12 +16,11 @@ public interface CaricaMerceRepository extends JpaRepository<Prodotto, Long> {
             + " left join k.posizioneScaffale ps"
             + " where ps.id=:idPos")
     List<Prodotto> selezionaProdottiInPosizioneScaffale(@Param("idPos") Long id);
-    
+
 //    @Query(
-//            value = "select k from Sku_scaffalek"
+//            value = "select k from Sku_Scaffale k"            
 //            + " where k.posizione_scaffale_id = :idPosizioneScaffale"
 //            + " and k.prodotto_id = :idProdotto")
 //    SkuScaffale selezionaSkuScaffale(@Param("idPosizioneScaffale") Long id1, @Param("idProdotto") Long id2);
 
 }
-
