@@ -1,0 +1,12 @@
+tocTab[tocTab.length] = new Array("0.1.4:1", "", "Scaricamento Merce da Scaffale", "EARoot/EA1/EA4/EA77.htm", "183.png", "257", "0", "", "Statechart diagram0","{D8F48D85-6A52-46c5-A1EC-75EF4B252F98}");
+tocTab[tocTab.length] = new Array("0.1.4:2", "", "Initial", "EARoot/EA1/EA4/EA80.htm", "68.png", "E2274", "0", "", "StateNode0","{82F4AD1B-D593-49a3-9E6F-212CD83D94B0}");
+tocTab[tocTab.length] = new Array("0.1.4:3", "", "Posizione Selezionata", "EARoot/EA1/EA4/EA81.htm", "20.png", "E2277", "0", "", "State0","{8D85B9CC-AF74-43ea-86F8-35BB0EA75D25}");
+tocTab[tocTab.length] = new Array("0.1.4:4", "", "Prodotto Selezionato", "EARoot/EA1/EA4/EA82.htm", "20.png", "E2280", "0", "", "State0","{5BCAC41B-0B4D-4963-ACDE-869B00C10EF5}");
+tocTab[tocTab.length] = new Array("0.1.4:5", "", "Ricerca", "EARoot/EA1/EA4/EA83.htm", "20.png", "E2275", "0", "", "State0","{3FC5C985-D988-4bdc-9592-2E9D4B3C09B4}");
+tocTab[tocTab.length] = new Array("0.1.4:6", "", "scarica", "EARoot/EA1/EA4/EA84.htm", "198.png", "E2282", "0", "", "Trigger0","{9B633287-8FEA-4a88-B71A-67B109A2E981}");
+tocTab[tocTab.length] = new Array("0.1.4:7", "", "seleziona posizione", "EARoot/EA1/EA4/EA85.htm", "198.png", "E2278", "0", "", "Trigger0","{D77B61F4-C0DA-435a-9C34-00A7B4994F85}");
+tocTab[tocTab.length] = new Array("0.1.4:8", "", "seleziona prodotto", "EARoot/EA1/EA4/EA86.htm", "198.png", "E2281", "0", "", "Trigger0","{D0D852F5-344D-4391-96E1-E1CBA357D915}");
+tocTab[tocTab.length] = new Array("0.1.4:9", "", "seleziona prodotto", "EARoot/EA1/EA4/EA87.htm", "198.png", "E2284", "0", "", "Trigger0","{05BFA6DD-D505-40c8-9315-3A36CC6A9B63}");
+tocTab[tocTab.length] = new Array("0.1.4:10", "", "trova", "EARoot/EA1/EA4/EA88.htm", "198.png", "E2276", "0", "", "Trigger0","{15E6A09D-8718-4432-9B62-EF449D6507E3}");
+tocTab[tocTab.length] = new Array("0.1.4:11", "", "trova", "EARoot/EA1/EA4/EA89.htm", "198.png", "E2279", "0", "", "Trigger0","{6BACDE5F-F71C-4085-B1D1-15FAFCC60741}");
+tocTab[tocTab.length] = new Array("0.1.4:12", "", "trova", "EARoot/EA1/EA4/EA90.htm", "198.png", "E2283", "0", "", "Trigger0","{2B3F0486-04B7-4b3f-A4AF-8AFCE8EE0355}");

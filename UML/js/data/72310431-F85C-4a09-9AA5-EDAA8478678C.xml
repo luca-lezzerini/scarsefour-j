@@ -1,6 +1,6 @@
-tocTab[tocTab.length] = new Array("0.3.3:1", "", "Gestione Anagrafiche", "EARoot/EA3/EA3/EA107.htm", "180.png", "28", "0", "", "Use Case diagram0","{5F06F825-BA6B-43be-BD47-C81BAB3447B6}");
-tocTab[tocTab.length] = new Array("0.3.3:2", "", "Anagrafica Casse", "EARoot/EA3/EA3/EA110.htm", "7.png", "E323", "0", "", "UseCase0","{49BC5119-02BA-466d-9E16-D881E0B147A0}");
-tocTab[tocTab.length] = new Array("0.3.3:3", "", "Anagrafica Cassiere", "EARoot/EA3/EA3/EA111.htm", "7.png", "E321", "0", "", "UseCase0","{52BA2169-1A5D-4094-890B-3FE5AC4B5188}");
-tocTab[tocTab.length] = new Array("0.3.3:4", "", "Anagrafica posizioni", "EARoot/EA3/EA3/EA112.htm", "7.png", "E249", "0", "", "UseCase0","{2113A36C-E2A6-4131-BAF8-FFAAD8341139}");
-tocTab[tocTab.length] = new Array("0.3.3:5", "", "Anagrafica prodotti", "EARoot/EA3/EA3/EA114.htm", "7.png", "E250", "0", "", "UseCase0","{1AC2043A-D87F-49c6-9F93-83FE38848BD3}");
-tocTab[tocTab.length] = new Array("0.3.3:6", "", "Anagrafica Sconti", "EARoot/EA3/EA3/EA115.htm", "7.png", "E1150", "0", "", "UseCase0","{C50ACB43-B5EF-4221-8829-550C38F30D4A}");
+tocTab[tocTab.length] = new Array("0.3.3:1", "", "Gestione Anagrafiche", "EARoot/EA3/EA3/EA122.htm", "180.png", "28", "0", "", "Use Case diagram0","{5F06F825-BA6B-43be-BD47-C81BAB3447B6}");
+tocTab[tocTab.length] = new Array("0.3.3:2", "", "Anagrafica Casse", "EARoot/EA3/EA3/EA125.htm", "7.png", "E323", "0", "", "UseCase0","{49BC5119-02BA-466d-9E16-D881E0B147A0}");
+tocTab[tocTab.length] = new Array("0.3.3:3", "", "Anagrafica Cassiere", "EARoot/EA3/EA3/EA126.htm", "7.png", "E321", "0", "", "UseCase0","{52BA2169-1A5D-4094-890B-3FE5AC4B5188}");
+tocTab[tocTab.length] = new Array("0.3.3:4", "", "Anagrafica posizioni", "EARoot/EA3/EA3/EA127.htm", "7.png", "E249", "0", "", "UseCase0","{2113A36C-E2A6-4131-BAF8-FFAAD8341139}");
+tocTab[tocTab.length] = new Array("0.3.3:5", "", "Anagrafica prodotti", "EARoot/EA3/EA3/EA129.htm", "7.png", "E250", "0", "", "UseCase0","{1AC2043A-D87F-49c6-9F93-83FE38848BD3}");
+tocTab[tocTab.length] = new Array("0.3.3:6", "", "Anagrafica Sconti", "EARoot/EA3/EA3/EA130.htm", "7.png", "E1150", "0", "", "UseCase0","{C50ACB43-B5EF-4221-8829-550C38F30D4A}");
