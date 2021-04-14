@@ -7,28 +7,23 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-
 @Repository
 public interface ProdottoRepository extends JpaRepository<Prodotto, Long> {
 
     @Query("select p from Prodotto p"
             + " left join p.listaSku s"
             + " left join s.posizioneScaffale z"
-           // + " where z.id =:idPosizione"
+            + " where z.id !=:idPosizione"
     )
-            List<Prodotto> trovaProdottiSuScaffale(@Param("idPosizione") Long idPos);
-            
+    List<Prodotto> trovaProdottiSuScaffale(@Param("idPosizione") Long idPos);
 
-    
     Prodotto findByEanEquals(String c);
 
     Prodotto findByCodice(String c);
 
-    @Query("select p from Prodotto p" +
-            " left join p.listaSku k" +
-            " left join k.posizioneScaffale z" +
-            " where z.id =:id")
+    @Query("select p from Prodotto p"
+            + " left join p.listaSku k"
+            + " left join k.posizioneScaffale z"
+            + " where z.id =:id")
     List<Prodotto> mostraProdottiScaffale(@Param("id") Long id);
 }
-
-

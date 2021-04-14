@@ -10,7 +10,7 @@ public interface AssociaProdottoAScaffaleService {
 
      
     ListaProdottiDto cercaProdottiNonAssociati(PosizioneScaffale posizioneScaffale);
-    ListaPosizioneScaffaleDto selezionaPosizioni();
+    ListaPosizioneScaffaleDto selezionaPosizioni(String critrio);
     PosizioneScaffaleDto associaProdottoScaffale(ProdottoPosizioneDto dto);
     }
 

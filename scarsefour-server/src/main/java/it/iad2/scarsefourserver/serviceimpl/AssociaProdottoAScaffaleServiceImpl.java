@@ -6,6 +6,7 @@ import it.iad2.scarsefourserver.dto.PosizioneScaffaleDto;
 import it.iad2.scarsefourserver.dto.ProdottoPosizioneDto;
 import it.iad2.scarsefourserver.model.PosizioneScaffale;
 import it.iad2.scarsefourserver.model.Prodotto;
+import it.iad2.scarsefourserver.model.SkuScaffale;
 import it.iad2.scarsefourserver.repository.PosizioneScaffaleRepository;
 import it.iad2.scarsefourserver.repository.ProdottoRepository;
 import it.iad2.scarsefourserver.repository.SkuScaffaleRepository;
@@ -28,6 +29,7 @@ public class AssociaProdottoAScaffaleServiceImpl implements AssociaProdottoAScaf
     PosizioneScaffaleRepository posizioneScaffaleRepository;
 
     public ListaPosizioneScaffaleDto cercaPosizione(Long id) {
+
         List<PosizioneScaffale> lista = new ArrayList<PosizioneScaffale>();
         return new ListaPosizioneScaffaleDto(lista);
     }
@@ -42,15 +44,32 @@ public class AssociaProdottoAScaffaleServiceImpl implements AssociaProdottoAScaf
     }
 
     @Override
-    public ListaPosizioneScaffaleDto selezionaPosizioni() {
+    public ListaPosizioneScaffaleDto selezionaPosizioni(String criterio) {
         List<PosizioneScaffale> lista = new ArrayList<>();
-        lista = posizioneScaffaleRepository.findAll();
+        if (criterio == "") {
+            lista = posizioneScaffaleRepository.findAll();
+        } else {
+            lista = posizioneScaffaleRepository.findByCodiceContains(criterio);
+        }
         return new ListaPosizioneScaffaleDto(lista);
     }
 
     @Override
     public PosizioneScaffaleDto associaProdottoScaffale(ProdottoPosizioneDto dto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Prodotto prodotto = dto.getProdotto();
+        PosizioneScaffale posizione = dto.getPosizioneScaffale();
+        SkuScaffale sks = new SkuScaffale();
+        sks.setProdotto(prodotto);
+        sks.setPosizioneScaffale(posizione);
+        skuScaffaleRepository.save(sks);
+        List<SkuScaffale> skLista = prodotto.getListaSku();
+        skLista.add(sks);
+        prodotto.setListaSku(skLista);
+        prodottoRepository.save(prodotto);
+//        skLista = posizione.getListaSku();
+//        posizione.setListaSku(skLista);
+//        posizioneScaffaleRepository.save(posizione);
+        return new PosizioneScaffaleDto(posizione);
     }
 
 }

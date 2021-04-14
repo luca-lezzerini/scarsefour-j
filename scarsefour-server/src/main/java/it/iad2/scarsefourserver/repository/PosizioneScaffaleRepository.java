@@ -13,6 +13,7 @@ import org.springframework.data.jpa.repository.Query;
 public interface PosizioneScaffaleRepository extends JpaRepository<PosizioneScaffale, Long> {
 
     List<PosizioneScaffale> findByCodiceContains(String c);
+    
 
     @Query(
             "SELECT new it.iad2.scarsefourserver.model.Giacenza"

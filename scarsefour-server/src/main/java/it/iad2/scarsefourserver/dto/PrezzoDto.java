@@ -18,4 +18,5 @@ public class PrezzoDto {
     public void setPrezzo(double prezzo) {
         this.prezzo = prezzo;
     }
+    
 }

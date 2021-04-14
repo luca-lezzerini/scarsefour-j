@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { CriterioRicercaDto } from '../dto/criterio-ricerca-dto';
 import { ListaPosizioneScaffaleDto } from '../dto/lista-posizione-scaffale-dto';
 import { ListaProdottiDto } from '../dto/lista-prodotti-dto';
 import { PosizioneScaffaleDto } from '../dto/posizione-scaffale-dto';
@@ -20,7 +21,7 @@ export class AssociaProdottoAScaffaleComponent implements OnInit {
   posizioni: PosizioneScaffale[] = [];
   posizioneScaffale: PosizioneScaffale=new PosizioneScaffale();
   prodotti: Prodotto[] = [];
-  
+  code:string="";
 
   constructor(private http: HttpClient) { }
 
@@ -29,7 +30,9 @@ export class AssociaProdottoAScaffaleComponent implements OnInit {
 
 
   cercaPosizioneScaffale() {
-    let obs: Observable<ListaPosizioneScaffaleDto> = this.http.get<ListaPosizioneScaffaleDto>("http://localhost:8080/seleziona-posizioni");
+    let dto: CriterioRicercaDto = new CriterioRicercaDto();
+    dto.criterio = this.code;
+    let obs: Observable<ListaPosizioneScaffaleDto> = this.http.post<ListaPosizioneScaffaleDto>("http://localhost:8080/seleziona-posizioni", dto);
     obs.subscribe(p => this.posizioni = p.listaPosizioni);
   }
 

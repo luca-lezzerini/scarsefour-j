@@ -1,5 +1,6 @@
 package it.iad2.scarsefourserver.controller;
 
+import it.iad2.scarsefourserver.dto.CriterioRicercaDto;
 import it.iad2.scarsefourserver.dto.ListaPosizioneScaffaleDto;
 import it.iad2.scarsefourserver.dto.ListaProdottiDto;
 import it.iad2.scarsefourserver.dto.PosizioneScaffaleDto;
@@ -28,8 +29,8 @@ public class AssociaProdottoAScaffaleController {
 
     @RequestMapping("/seleziona-posizioni")
     @ResponseBody
-    public ListaPosizioneScaffaleDto selezionaPosizioni() {
-        return associaProdottoAScaffaleService.selezionaPosizioni();
+    public ListaPosizioneScaffaleDto selezionaPosizioni(@RequestBody CriterioRicercaDto dto) {
+        return associaProdottoAScaffaleService.selezionaPosizioni(dto.getCriterio());
     }
 
     @RequestMapping("/cerca-prodotti-non-associati")
