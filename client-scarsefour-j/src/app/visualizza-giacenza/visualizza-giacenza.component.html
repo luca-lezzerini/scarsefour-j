@@ -4,6 +4,10 @@
         <h1 class="headAnagrafica">VISUALIZZA GIACENZA IN POSIZIONE</h1>
     </div>
     <div>
+      <input type="text" placeholder="codice" [(ngModel)]="criterio" class="input">
+      <button (click)="cerca()" class="button">Cerca</button>
+    </div>
+    <div *ngIf="divPosizioniVisible">
     <table class="scrolldown">
         <thead>
           <tr>

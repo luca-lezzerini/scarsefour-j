@@ -9,6 +9,7 @@ import { ListaProdottiDto } from '../dto/lista-prodotti-dto';
 import { Prodotto } from '../entità/prodotto';
 import { ListaGiacenzaDto } from '../dto/lista-giacenza-dto';
 import { Giacenza } from '../entità/giacenza';
+import { CriterioRicercaDto } from '../dto/criterio-ricerca-dto';
 
 @Component({
   selector: 'app-visualizza-giacenza',
@@ -20,10 +21,11 @@ export class VisualizzaGiacenzaComponent implements OnInit {
   posizioni: PosizioneScaffale[] = [];
   listaGiacenza: Giacenza[] = [];
   posizione: PosizioneScaffale;
+  criterio: string;
 
   //variabili di visibilità
   // tablePosizioniVisible: boolean = false;
-  // divPosizioniVisible: boolean = false;
+  divPosizioniVisible: boolean = false;
   formDivVisible: boolean;
   formVisible: boolean;
 
@@ -52,6 +54,14 @@ export class VisualizzaGiacenzaComponent implements OnInit {
 
        this.formDivVisible = true;
        this.formVisible = true;
+   }
+
+   cerca(){
+    let dto: CriterioRicercaDto = new CriterioRicercaDto();
+    dto.criterio = this.criterio;
+    let oss: Observable<ListaPosizioneScaffaleDto> = this.http.post<ListaPosizioneScaffaleDto>('http://localhost:8080/ricerca-posizioni', dto);
+    oss.subscribe(r => this.posizioni = r.listaPosizioni);
+    this.divPosizioniVisible = true;
    }
 
 }
