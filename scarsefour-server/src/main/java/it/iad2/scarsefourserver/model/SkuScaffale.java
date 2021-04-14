@@ -1,5 +1,6 @@
 package it.iad2.scarsefourserver.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -28,15 +30,19 @@ public class SkuScaffale {
     @Column
     private int scortaMinima;
 
-    @JsonIgnoreProperties(value = "listaSku",allowGetters = true,allowSetters = true)
+    @JsonIgnoreProperties(value = "listaSku", allowGetters = true, allowSetters = true)
     @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(referencedColumnName = "id")
     private Prodotto prodotto;
 
-    @JsonIgnoreProperties(value = "listaSku",allowGetters = true,allowSetters = true)
+    @JsonIgnoreProperties(value = "listaSku", allowGetters = true, allowSetters = true)
     @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(referencedColumnName = "id")
     private PosizioneScaffale posizioneScaffale;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "skuScaffale", cascade = CascadeType.REMOVE)
+    private List<MovimentiScaffale> listaMovimentiScaffale;
 
     public SkuScaffale() {
     }

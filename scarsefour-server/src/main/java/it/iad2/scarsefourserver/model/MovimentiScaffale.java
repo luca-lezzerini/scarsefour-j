@@ -1,24 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package it.iad2.scarsefourserver.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.time.LocalDateTime;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-/**
- *
- * @author utente
- */
 @Entity
 public class MovimentiScaffale {
 
@@ -32,16 +27,23 @@ public class MovimentiScaffale {
     @Column
     private LocalDateTime timestamp;
 
-    public MovimentiScaffale(int quantita, LocalDateTime timestamp) {
+    @Column
+    private String tipo;
+
+    @JsonIgnoreProperties(value = "listaMovimentiScaffale", allowGetters = true, allowSetters = true)
+    @ManyToOne
+    private SkuScaffale skuScaffale;
+
+    public MovimentiScaffale(int quantita, LocalDateTime timestamp, String tipo) {
         this.quantita = quantita;
         this.timestamp = timestamp;
+        this.tipo = tipo;
     }
-    
+
     /*@JsonIgnoreProperties(value = "movimentiScaffale", allowGetters = true, allowSetters = true)
     @OneToOne
     @JoinColumn(referencedColumnName = "id")
     private RigaScontrino rigaScontrino;*/
-
     public MovimentiScaffale() {
     }
 
@@ -52,7 +54,6 @@ public class MovimentiScaffale {
     public void setRigaScontrino(RigaScontrino rigaScontrino) {
         this.rigaScontrino = rigaScontrino;
     }*/
-
     public Long getId() {
         return id;
     }
@@ -77,9 +78,17 @@ public class MovimentiScaffale {
         this.timestamp = timestamp;
     }
 
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
     @Override
     public String toString() {
-        return "MovimentiScaffale{" + "id=" + id + ", quantita=" + quantita + ", timestamp=" + timestamp + '}';
+        return "MovimentiScaffale{" + "id=" + id + ", quantita=" + quantita + ", timestamp=" + timestamp + "tipo" + tipo + '}';
     }
 
 }
