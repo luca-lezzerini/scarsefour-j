@@ -18,22 +18,24 @@
   <input type="text" placeholder="cerca" [(ngModel)]="criterio" *ngIf="searchVisible" class="inputSearch">
   <button (click)="cerca()" *ngIf="searchVisible" class="button">Cerca</button>
   <br>
-  <table *ngIf="searchVisible" class="scrolldown">
-    <thead>
-      <tr>
-        <th>Codice</th>
-        <th>Descrizione</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let p of posizioni">
-        <td>{{p.codice}}</td>
-        <td>{{p.descrizione}}</td>
-        <td>
-          <button (click)="seleziona(p)" class="buttonSel">Seleziona</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="scrolldown">
+    <table *ngIf="searchVisible">
+      <thead>
+        <tr>
+          <th>Codice</th>
+          <th>Descrizione</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let p of posizioni">
+          <td>{{p.codice}}</td>
+          <td>{{p.descrizione}}</td>
+          <td>
+            <button (click)="seleziona(p)" class="buttonSel">Seleziona</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </body>

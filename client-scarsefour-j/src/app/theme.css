@@ -215,42 +215,41 @@ hr {
     width: 75%;
 }
 
-table {
-    overflow: scroll;
+.scrolldown {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    border: 1px solid black;
+    border-style: solid;
+    width: 100%;
+    height: 250px;
+    background-color: #ffffff;
+}
+
+/* table {
 }
 
 table.scrolldown {
     width: 100%;
-    /* border-collapse: collapse; */
     border-spacing: 0;
     border: 2px solid black;
-    /* position: absolute;
-    bottom: 10px;
-    right: 10px;
-    left: 10px; */
-    /* float: left; */
-    height: 150px;
+    height: 300px;
+    table-layout: fixed;
 }
-
-/* To display the block as level element */
 
 table.scrolldown tbody, table.scrolldown thead {
-    /* display: block; */
-}
-
-thead tr th {
-    height: 40px;
-    line-height: 40px;
-    width: 500px;
+    display: block;
 }
 
 table.scrolldown tbody {
-    /* Set the height of table body */
     height: 300px;
-    /* Set vertical scroll */
     overflow-y: auto;
-    /* Hide the horizontal scroll */
     overflow-x: hidden;
+} */
+
+/* thead tr th {
+    height: 40px;
+    line-height: 40px;
+    width: 500px;
 }
 
 tbody {
@@ -273,14 +272,14 @@ tr:nth-child(odd) {
     background-color: #ff9e44;
 }
 
-tr:nth-child(even) {}
+tr:nth-child(even) {} */
+
+/* TABELLA DASHBOARD */
 
 [class*="tab-"] {
     float: left;
     padding: 15px;
 }
-
-/* TABELLA DASHBOARD */
 
 .tab-1 {
     width: 70%;
@@ -296,7 +295,7 @@ tr:nth-child(even) {}
 thead tr th {
     height: 40px;
     line-height: 40px;
-    width: 500px;
+    width: 800px;
 }
 
 .tab-1 tbody {
@@ -310,12 +309,13 @@ tbody {
 }
 
 tbody td {
-    width: 500px;
     border-right: 2px solid black;
+    border-bottom: 2px solid black;
 }
 
 td, th {
     text-align: center;
+    width: 800px;
 }
 
 thead th {
@@ -325,9 +325,12 @@ thead th {
 
 tr:nth-child(odd) {
     background-color: #ff9e44;
+    height: 45px;
 }
 
-tr:nth-child(even) {}
+tr:nth-child(even) {
+    height: 45px;
+}
 
 /* .tab-1::after{
     width: 65%;
@@ -366,7 +369,7 @@ tr:nth-child(even) {}
 
 .elem::after {
     width: 50%;
-    text-align: start;   
+    text-align: start;
 }
 
 /* TOOLBAR MENU */

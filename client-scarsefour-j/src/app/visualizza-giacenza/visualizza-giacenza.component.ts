@@ -25,7 +25,6 @@ export class VisualizzaGiacenzaComponent implements OnInit {
 
   //variabili di visibilità
   // tablePosizioniVisible: boolean = false;
-  divPosizioniVisible: boolean = false;
   formDivVisible: boolean;
   formVisible: boolean;
 
@@ -61,7 +60,6 @@ export class VisualizzaGiacenzaComponent implements OnInit {
     dto.criterio = this.criterio;
     let oss: Observable<ListaPosizioneScaffaleDto> = this.http.post<ListaPosizioneScaffaleDto>('http://localhost:8080/ricerca-posizioni', dto);
     oss.subscribe(r => this.posizioni = r.listaPosizioni);
-    this.divPosizioniVisible = true;
    }
 
 }
