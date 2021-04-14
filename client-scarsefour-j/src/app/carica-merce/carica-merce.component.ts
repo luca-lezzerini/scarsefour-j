@@ -9,14 +9,14 @@ import { ListaProdottiDto } from '../dto/lista-prodotti-dto';
 import { PosizioneScaffaleDto } from '../dto/posizione-scaffale-dto';
 import { PosizioneScaffale } from '../entità/posizione-scaffale';
 import { Prodotto } from '../entità/prodotto';
+import { CriterioRicercaDto } from '../dto/criterio-ricerca-dto';
 
 @Component({
   selector: 'app-carica-merce',
   templateUrl: './carica-merce.component.html',
-  styleUrls: ['../theme.css']
+  styleUrls: ['../theme.css'],
 })
 export class CaricaMerceComponent implements OnInit {
-
   listaPosizioni: PosizioneScaffale[] = [];
   listaProdotti: Prodotto[] = [];
   tabellaProdottiVisibile: boolean = false;
@@ -24,19 +24,16 @@ export class CaricaMerceComponent implements OnInit {
   quantita: number;
   prodottoSel: Prodotto;
   posizioneScaffaleSel: PosizioneScaffale;
-  esito : string;
-
-
+  esito: string;
+  criterio: string;
+  
   constructor(private http: HttpClient) {
     this.caricaPosizioni();
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
-  seleziona(pos: PosizioneScaffale) {
-
-  }
+  seleziona(pos: PosizioneScaffale) {}
 
   caricaPosizioni() {
     console.log('sono in carica posizioni');
@@ -45,7 +42,21 @@ export class CaricaMerceComponent implements OnInit {
     );
 
     oss.subscribe((p) => {
-      console.log("ritorno dal server carica posizioni : ", p.listaPosizioni);
+      console.log('ritorno dal server carica posizioni : ', p.listaPosizioni);
+      this.listaPosizioni = p.listaPosizioni;
+    });
+  }
+
+  cercaPosizione(criterio: string) {
+    let dto: CriterioRicercaDto = new CriterioRicercaDto();
+    dto.criterio=this.criterio;
+    console.log('sono in cerca prodotti');
+    let oss: Observable<ListaPosizioneScaffaleDto> = this.http.post<ListaPosizioneScaffaleDto>(
+      'http://localhost:8080/cerca-posizioni',
+      dto
+    );
+    oss.subscribe((p) => {
+      console.log('ritorno dal server cerca posizione : ', p.listaPosizioni);
       this.listaPosizioni = p.listaPosizioni;
     });
   }
@@ -58,9 +69,11 @@ export class CaricaMerceComponent implements OnInit {
     let dto: IdPosizioneScaffaleDto = new IdPosizioneScaffaleDto();
     dto.id = ps.id;
     let oss: Observable<ListaProdottiDto> = this.http.post<ListaProdottiDto>(
-      'http://localhost:8080/carica-prodotti', dto);
-    oss.subscribe(p => {
-      console.log("ritorno dal server carica prodotti : ", p.listaProdotti);
+      'http://localhost:8080/carica-prodotti',
+      dto
+    );
+    oss.subscribe((p) => {
+      console.log('ritorno dal server carica prodotti : ', p.listaProdotti);
       this.listaProdotti = p.listaProdotti;
       this.tabellaProdottiVisibile = true;
     });
@@ -77,18 +90,17 @@ export class CaricaMerceComponent implements OnInit {
     dto.posizioneScaffale = this.posizioneScaffaleSel;
     dto.quantita = quantita;
     let oss: Observable<EsitoDtoDue> = this.http.post<EsitoDtoDue>(
-      'http://localhost:8080/carica-merce', dto);
-    oss.subscribe(p => {
+      'http://localhost:8080/carica-merce',
+      dto
+    );
+    oss.subscribe((p) => {
       if (p.esito) {
-        console.log("Merce caricata correttamente");
-        this.esito = "Merce caricata correttamente";
-
+        console.log('Merce caricata correttamente');
+        this.esito = 'Merce caricata correttamente';
       } else {
-        console.log("Elaborazione terminata con errori");
-        this.esito = "EElaborazione terminata con errori"
+        console.log('Elaborazione terminata con errori');
+        this.esito = 'EElaborazione terminata con errori';
       }
     });
-
-
   }
 }

@@ -5,37 +5,45 @@
     </div>
     <button class="button" id="rightfloat" (click)="nuova()" *ngIf="buttonNuovaVisible"
         Title="inserisci nuovo cassiere">Nuova</button>
+    <br>
     <div *ngIf="formDivVisible">
+        <label>Inserisci nuovo cassiere</label>
+        <br>
         <input class="input" type="text" [(ngModel)]="cassiere.nome" placeholder="Nome" [disabled]="campiNonEditabili">
         <input class="input" type="text" [(ngModel)]="cassiere.cognome" placeholder="Cognome"
             [disabled]="campiNonEditabili">
         <input class="input" type="text" [(ngModel)]="cassiere.codiceFiscale" placeholder="Codice Fiscale"
             [disabled]="campiNonEditabili">
-        <br>
+        <br><br>
         <button class="button" (click)="modifica()" *ngIf="!confAnnVisible">Modifica</button>
         <button class="button" (click)="conferma()" *ngIf="confAnnVisible">Conferma</button>
         <button class="button" (click)="annulla()" *ngIf="confAnnVisible">Annulla</button>
         <button class="button" (click)="rimuovi()" *ngIf="!confAnnVisible">Rimuovi</button>
     </div>
     <br>
-    <input class="inputSearch" type="text" [(ngModel)]="searchCriterion" *ngIf="searchVisible">
-    <button class="button" (click)="cerca()" *ngIf="searchVisible">Cerca</button>
-    <table class="scrolldown" *ngIf="searchVisible">
-        <thead>
-            <tr>
-                <th>Nome</th>
-                <th>Cognome</th>
-                <th>Codice Fiscale</th>
-                <th>Selezione</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let c of cassieri; index as i">
-                <td>{{c.nome}}</td>
-                <td>{{c.cognome}}</td>
-                <td>{{c.codiceFiscale}}</td>
-                <td><button class="buttonSel" (click)="seleziona(c)">Seleziona</button></td>
-            </tr>
-        </tbody>
-    </table>
+    <div>
+        <input class="inputSearch" type="text" [(ngModel)]="searchCriterion" *ngIf="searchVisible">
+        <button class="button" (click)="cerca()" *ngIf="searchVisible">Cerca</button>
+    </div>
+    <br>
+    <div class="scrodiv" *ngIf="searchVisible">
+        <table class="scrolldown">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Cognome</th>
+                    <th>Codice Fiscale</th>
+                    <th>Selezione</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let c of cassieri; index as i">
+                    <td>{{c.nome}}</td>
+                    <td>{{c.cognome}}</td>
+                    <td>{{c.codiceFiscale}}</td>
+                    <td><button class="buttonSel" (click)="seleziona(c)">Seleziona</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </body>
