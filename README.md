@@ -1,9 +1,6 @@
 # scarsefour-j
 
-Gruppo 1: Aulicino https://meet.google.com/oic-qtaa-wgj
-
-Gruppo 1 bis : https://meet.google.com/vyw-ppjf-ezt
-
+Gruppo 1: Aulicino https://meet.google.com/oic-qtaa-wgj + https://meet.google.com/puo-iesb-rvo
 
 Gruppo 2: Salvatori https://meet.google.com/vfn-vogq-ktm + https://meet.google.com/yoo-xfaq-sbe
 
