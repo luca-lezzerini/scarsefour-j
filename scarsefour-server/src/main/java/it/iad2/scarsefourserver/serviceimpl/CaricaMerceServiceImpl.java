@@ -12,6 +12,8 @@ import it.iad2.scarsefourserver.service.CaricaMerceService;
 import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -52,10 +54,15 @@ public class CaricaMerceServiceImpl implements CaricaMerceService {
         MovimentiScaffale ms = new MovimentiScaffale();
         ms.setQuantita(dto.getQuantita());
         ms.setTimestamp(LocalDateTime.now());
-        ms.setTipo("carico");       
+        ms.setTipo("carico");  
+        //DA FARE....gestire su movimentoScaffale(sku_scaffale_id) fk con skuscaffale
         movimentiScaffaleRepository.save(ms);
         
         return caricaProdottiScaffale(dto.getId_Pos());
     }
 
+    @Override
+    public Page<PosizioneScaffale> elementiPaginati(int numPage, int elemPage) {
+        return caricaMerceRepository.trovaTuttiPaginati(PageRequest.of(numPage, elemPage));
+    }
 }

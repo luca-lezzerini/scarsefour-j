@@ -5,6 +5,8 @@ import it.iad2.scarsefourserver.model.Prodotto;
 import it.iad2.scarsefourserver.model.ProdottoGiacenza;
 import it.iad2.scarsefourserver.model.SkuScaffale;
 import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -25,5 +27,8 @@ public interface CaricaMerceRepository extends JpaRepository<Prodotto, Long> {
 
     @Query("select ss from SkuScaffale ss where ss.id = :idSS")
     SkuScaffale selezionaSkuScaffaleById(@Param("idSS") Long id_sku);
+    
+    @Query("select p from PosizioneScaffale p")
+    Page<PosizioneScaffale> trovaTuttiPaginati(Pageable p);
     
     }

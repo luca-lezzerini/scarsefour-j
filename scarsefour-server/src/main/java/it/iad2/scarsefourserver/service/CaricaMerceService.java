@@ -5,6 +5,7 @@ import it.iad2.scarsefourserver.model.PosizioneScaffale;
 import it.iad2.scarsefourserver.model.Prodotto;
 import it.iad2.scarsefourserver.model.ProdottoGiacenza;
 import java.util.List;
+import org.springframework.data.domain.Page;
 
 public interface CaricaMerceService {
     
@@ -13,5 +14,7 @@ public interface CaricaMerceService {
     List<ProdottoGiacenza> caricaProdottiScaffale(Long id);
     
     List<ProdottoGiacenza> caricaMerce(CaricaMerceDto dto);
+    
+    Page<PosizioneScaffale> elementiPaginati(int numPage, int elemPage);
 
 }

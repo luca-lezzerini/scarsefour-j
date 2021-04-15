@@ -2,10 +2,11 @@ package it.iad2.scarsefourserver.controller;
 
 import it.iad2.scarsefourserver.dto.CaricaMerceDto;
 import it.iad2.scarsefourserver.dto.CriterioRicercaDto;
-import it.iad2.scarsefourserver.dto.EsitoDtoDue;
+import it.iad2.scarsefourserver.dto.DatiPageDto;
 import it.iad2.scarsefourserver.dto.IdPosizioneScaffaleDto;
 import it.iad2.scarsefourserver.dto.ListaPosizioneScaffaleDto;
 import it.iad2.scarsefourserver.dto.ListaProdottiGiacenzaDto;
+import it.iad2.scarsefourserver.dto.PageDto;
 import it.iad2.scarsefourserver.service.AnagraficaPosizioneScaffaleService;
 import it.iad2.scarsefourserver.service.CaricaMerceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,5 +52,10 @@ public class CaricaMerceController {
     public ListaProdottiGiacenzaDto caricaMerce(@RequestBody CaricaMerceDto dto) {
         System.out.println("sono in carica merce");
         return new ListaProdottiGiacenzaDto(caricaMerceService.caricaMerce(dto));
+    }
+    @RequestMapping("/carica-posizioni-paginati")
+    @ResponseBody
+    public PageDto elementiPaginati(@RequestBody DatiPageDto dto){
+        return new PageDto(caricaMerceService.elementiPaginati(dto.getNumPag(),dto.getElemPag()));
     }
 }
