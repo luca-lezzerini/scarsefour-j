@@ -20,6 +20,7 @@ import { VisualizzaGiacenzaComponent } from './visualizza-giacenza/visualizza-gi
 import { AssociaProdottoAScaffaleComponent } from './associa-prodotto-a-scaffale/associa-prodotto-a-scaffale.component';
 import { ScaricaMerceComponent } from './scarica-merce/scarica-merce.component';
 import { CaricaMerceComponent } from './carica-merce/carica-merce.component';
+import { PaginationComponent } from './pagination/pagination.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { CaricaMerceComponent } from './carica-merce/carica-merce.component';
     AssociaProdottoAScaffaleComponent,
     ScaricaMerceComponent,
     CaricaMerceComponent,
+    PaginationComponent
   ],
   imports: [
     BrowserModule,
