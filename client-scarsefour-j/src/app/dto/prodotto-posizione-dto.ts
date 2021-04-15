@@ -3,5 +3,5 @@ import { Prodotto } from "../entità/prodotto";
 
 export class ProdottoPosizioneDto{
     prodotto:Prodotto;
-    posizione:PosizioneScaffale;
+    posizioneScaffale:PosizioneScaffale;
 }

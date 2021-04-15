@@ -5,6 +5,7 @@ import it.iad2.scarsefourserver.model.PosizioneScaffale;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 /**
  *
@@ -24,4 +25,9 @@ public interface PosizioneScaffaleRepository extends JpaRepository<PosizioneScaf
     List<Giacenza> visualizzaGiacenzaProdotti(Long id);
 
     PosizioneScaffale findByCodiceEquals(String codice);
+    
+    @Query("SELECT p FROM PosizioneScaffale p WHERE p.codice Like %:codice% ")
+    List<PosizioneScaffale> contieneCode(@Param("codice")String criterio);
+    
+   
 }

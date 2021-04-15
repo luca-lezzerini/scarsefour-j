@@ -48,8 +48,9 @@ public class AssociaProdottoAScaffaleServiceImpl implements AssociaProdottoAScaf
         List<PosizioneScaffale> lista = new ArrayList<>();
         if (criterio == "") {
             lista = posizioneScaffaleRepository.findAll();
-        } else {
-            lista = posizioneScaffaleRepository.findByCodiceContains(criterio);
+        }
+        if (criterio.contains(criterio)) {
+            lista = posizioneScaffaleRepository.contieneCode(criterio);
         }
         return new ListaPosizioneScaffaleDto(lista);
     }
@@ -61,14 +62,14 @@ public class AssociaProdottoAScaffaleServiceImpl implements AssociaProdottoAScaf
         SkuScaffale sks = new SkuScaffale();
         sks.setProdotto(prodotto);
         sks.setPosizioneScaffale(posizione);
-        skuScaffaleRepository.save(sks);
+        sks = skuScaffaleRepository.save(sks);
         List<SkuScaffale> skLista = prodotto.getListaSku();
         skLista.add(sks);
-        prodotto.setListaSku(skLista);
-        prodottoRepository.save(prodotto);
-//        skLista = posizione.getListaSku();
-//        posizione.setListaSku(skLista);
-//        posizioneScaffaleRepository.save(posizione);
+        prodotto = prodottoRepository.save(prodotto);
+        List<SkuScaffale> skLista2 = posizione.getListaSku();
+        skLista2.add(sks);
+        posizione = posizioneScaffaleRepository.save(posizione);
+
         return new PosizioneScaffaleDto(posizione);
     }
 

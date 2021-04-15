@@ -54,7 +54,7 @@ export class AssociaProdottoAScaffaleComponent implements OnInit {
 
   associa(p) {
     let dto: ProdottoPosizioneDto = new ProdottoPosizioneDto();
-    dto.posizione = this.posizioneScaffale
+    dto.posizioneScaffale = this.posizioneScaffale
     this.prodotto = p;
     dto.prodotto = this.prodotto;
     
