@@ -4,60 +4,56 @@
     <h1 class="headAnagrafica">CARICA MERCE</h1>
   </div>
   <div>
-    <input class="inputSearch" type="text" [(ngModel)]="criterio"/>
+    <input class="inputSearch" type="text" [(ngModel)]="criterio" title="descrizione scaffale" />
     <button class="button" (click)="cercaPosizione(criterio)">Cerca</button>
   </div>
   <br>
-  <div class="scrodiv">
-    <table class="scrolldown">
+  <div class="scrolldown">
+    <table>
       <thead>
         <tr>
-          <th>Codice</th>
+          <th>Codice Scaffale</th>
           <th>Descrizione</th>
-          <th>Selezione</th>
+          <th>Seleziona</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let ps of listaPosizioni; index as i">
           <td>{{ps.codice}}</td>
           <td>{{ps.descrizione}}</td>
-          <td><button class="buttonSel" (click)="selezionaPS(ps)">Seleziona</button></td>
+          <td><button class="buttonSel" (click)="caricaProdotti(ps)">Seleziona</button></td>
         </tr>
       </tbody>
     </table>
   </div>
   <br>
-  <div *ngIf="tabellaProdottiVisibile" class="scrodiv">
-    <table  class="scrolldown">
+  <div *ngIf="divTabellaProdottiVisibile" class="scrolldown">
+    <p>CODICE SCAFFALE: {{codiceScaffaleSel}}   DESCRIZIONE: {{descrizioneScaffaleSel}}</p>
+    <br> 
+    <table>
       <thead>
-        <tr>
-          <th>Codice</th>
+        <tr>          
+          <th>Codice Prodotto</th>
           <th>Descrizione</th>
-          <th>Ean</th>
-          <th>Prezzo</th>
-          <th>Scorta minima scaffale</th>
-          <th>Scorta minima magazzino</th>
-          <th>Lotto riordino</th>
-          <th>Seleziona</th>
+          <th>Giacenza Attuale</th> 
+          <th>Seleziona</th>         
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let p of listaProdotti">
+        <tr *ngFor="let p of listaProdottiGiacenza">          
           <td>{{p.codice}}</td>
           <td>{{p.descrizione}}</td>
-          <td>{{p.ean}}</td>
-          <td>{{p.prezzo}}</td>
-          <td>{{p.scortaMinScaffaleDefault}}</td>
-          <td>{{p.scortaMinMagazzinoDefault}}</td>
-          <td>{{p.lottoRiordino}}</td>
-          <td><button (click)="selezionaProdotto(p)" class="button">Seleziona</button></td>
+          <td>{{p.giacenza}}</td>
+          <td><button (click)="prodottoSelezionato(p)" class="button">Seleziona</button></td>
         </tr>
       </tbody>
     </table>
   </div>
   <br>
-  <div *ngIf="divAggiungiQuantita">
-    <input class="input" type="number" [(ngModel)]="quantita" placeholder="Quantita da aggiungere allo scaffale">
+  <div *ngIf="divAggiungiQuantitaVisibile" class="tab-1">
+    <p>CODICE PRODOTTO: {{codiceProdottoSel}}   DESCRIZIONE: {{descrProdottoSel}}   GIACENZA ATTUALE: {{giacenzaAttualeProdottoSel}}</p>
+    <br>    
+    <input  class="input" type="number" [(ngModel)]="quantita" title="Quantita da aggiungere">
     <button (click)="caricaMerce(quantita)" class="button">Carica</button>
     {{esito}}
   </div>

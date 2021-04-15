@@ -8,8 +8,10 @@ import { ListaPosizioneScaffaleDto } from '../dto/lista-posizione-scaffale-dto';
 import { ListaProdottiDto } from '../dto/lista-prodotti-dto';
 import { PosizioneScaffaleDto } from '../dto/posizione-scaffale-dto';
 import { PosizioneScaffale } from '../entità/posizione-scaffale';
-import { Prodotto } from '../entità/prodotto';
 import { CriterioRicercaDto } from '../dto/criterio-ricerca-dto';
+import { ProdottoGiacenza } from '../entità/prodotto-giacenza';
+import { Prodotto } from '../entità/prodotto';
+import { ListaProdottiGiacenzaDto } from '../dto/lista-prodotti-giacenza-dto';
 
 @Component({
   selector: 'app-carica-merce',
@@ -18,22 +20,28 @@ import { CriterioRicercaDto } from '../dto/criterio-ricerca-dto';
 })
 export class CaricaMerceComponent implements OnInit {
   listaPosizioni: PosizioneScaffale[] = [];
-  listaProdotti: Prodotto[] = [];
-  tabellaProdottiVisibile: boolean = false;
-  divAggiungiQuantita: boolean = false;
+  listaProdottiGiacenza: ProdottoGiacenza[] = [];
+
+  divTabellaProdottiVisibile: boolean = false;
+  divAggiungiQuantitaVisibile: boolean = false;
+
   quantita: number;
-  prodottoSel: Prodotto;
-  posizioneScaffaleSel: PosizioneScaffale;
-  esito: string;
+
+  id_Sku: number;
+  id_Pos: number;
+  codiceProdottoSel: string;
+  descrProdottoSel: string;
+  giacenzaAttualeProdottoSel: number;
+  codiceScaffaleSel: string;
+  descrizioneScaffaleSel: string;
+
   criterio: string;
   
   constructor(private http: HttpClient) {
     this.caricaPosizioni();
   }
 
-  ngOnInit(): void {}
-
-  seleziona(pos: PosizioneScaffale) {}
+  ngOnInit(): void { }
 
   caricaPosizioni() {
     console.log('sono in carica posizioni');
@@ -49,7 +57,7 @@ export class CaricaMerceComponent implements OnInit {
 
   cercaPosizione(criterio: string) {
     let dto: CriterioRicercaDto = new CriterioRicercaDto();
-    dto.criterio=this.criterio;
+    dto.criterio = this.criterio;
     console.log('sono in cerca prodotti');
     let oss: Observable<ListaPosizioneScaffaleDto> = this.http.post<ListaPosizioneScaffaleDto>(
       'http://localhost:8080/cerca-posizioni',
@@ -61,46 +69,53 @@ export class CaricaMerceComponent implements OnInit {
     });
   }
 
-  //  oss.subscribe(r => this.posizioni = r.listaPosizioni);
-
-  selezionaPS(ps: PosizioneScaffale) {
-    this.posizioneScaffaleSel = ps;
+  caricaProdotti(ps: PosizioneScaffale) {
+    
+    this.divTabellaProdottiVisibile = false;
+    this.divAggiungiQuantitaVisibile = false;
+    this.id_Pos = ps.id;
     console.log('sono in carica prodotti');
     let dto: IdPosizioneScaffaleDto = new IdPosizioneScaffaleDto();
     dto.id = ps.id;
-    let oss: Observable<ListaProdottiDto> = this.http.post<ListaProdottiDto>(
+    let oss: Observable<ListaProdottiGiacenzaDto> = this.http.post<ListaProdottiGiacenzaDto>(
       'http://localhost:8080/carica-prodotti',
       dto
     );
     oss.subscribe((p) => {
-      console.log('ritorno dal server carica prodotti : ', p.listaProdotti);
-      this.listaProdotti = p.listaProdotti;
-      this.tabellaProdottiVisibile = true;
+      this.listaProdottiGiacenza = p.listaProdottiGiacenza;
+      console.log('------ritorno dal server carica prodotti : ', this.listaProdottiGiacenza);
+      // visualizzo lo scaffale selezionato
+    this.codiceScaffaleSel = ps.codice;
+    this.descrizioneScaffaleSel = ps.descrizione;
+      this.divTabellaProdottiVisibile = true;
     });
   }
 
-  selezionaProdotto(p: Prodotto) {
-    this.prodottoSel = p;
-    this.divAggiungiQuantita = true;
+  prodottoSelezionato(p: ProdottoGiacenza) {
+    this.id_Sku = p.id_Sku;
+    this.codiceProdottoSel = p.codice;
+    this.descrProdottoSel = p.descrizione;
+    this.giacenzaAttualeProdottoSel = p.giacenza;
+    this.divAggiungiQuantitaVisibile = true;
   }
 
   caricaMerce(quantita: number) {
     let dto: CaricaMerceDto = new CaricaMerceDto();
-    dto.prodotto = this.prodottoSel;
-    dto.posizioneScaffale = this.posizioneScaffaleSel;
+    dto.id_Pos = this.id_Pos;
+    dto.id_Sku = this.id_Sku;
     dto.quantita = quantita;
-    let oss: Observable<EsitoDtoDue> = this.http.post<EsitoDtoDue>(
+
+    console.log("caricaMerceDto : " + CaricaMerceDto);
+    
+    let oss: Observable<ListaProdottiGiacenzaDto> = this.http.post<ListaProdottiGiacenzaDto>(
       'http://localhost:8080/carica-merce',
       dto
     );
     oss.subscribe((p) => {
-      if (p.esito) {
-        console.log('Merce caricata correttamente');
-        this.esito = 'Merce caricata correttamente';
-      } else {
-        console.log('Elaborazione terminata con errori');
-        this.esito = 'EElaborazione terminata con errori';
-      }
+      this.listaProdottiGiacenza = p.listaProdottiGiacenza;
+      console.log('------ritorno dal server carica Merce : ', this.listaProdottiGiacenza);            
     });
+    this.quantita = null;
+    this.divAggiungiQuantitaVisibile = false;
   }
 }

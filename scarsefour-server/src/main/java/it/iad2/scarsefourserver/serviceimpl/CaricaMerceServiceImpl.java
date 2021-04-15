@@ -3,7 +3,8 @@ package it.iad2.scarsefourserver.serviceimpl;
 import it.iad2.scarsefourserver.dto.CaricaMerceDto;
 import it.iad2.scarsefourserver.model.MovimentiScaffale;
 import it.iad2.scarsefourserver.model.PosizioneScaffale;
-import it.iad2.scarsefourserver.model.Prodotto;
+import it.iad2.scarsefourserver.model.ProdottoGiacenza;
+import it.iad2.scarsefourserver.model.SkuScaffale;
 import it.iad2.scarsefourserver.repository.CaricaMerceRepository;
 import it.iad2.scarsefourserver.repository.MovimentiScaffaleRepository;
 import it.iad2.scarsefourserver.repository.SkuScaffaleRepository;
@@ -18,40 +19,43 @@ public class CaricaMerceServiceImpl implements CaricaMerceService {
 
     @Autowired
     CaricaMerceRepository caricaMerceRepository;
-    @Autowired
-    SkuScaffaleRepository skuScaffaleRepository;
+    
     @Autowired
     MovimentiScaffaleRepository movimentiScaffaleRepository;
-
+    
+    @Autowired
+    SkuScaffaleRepository skuScaffaleRepository;
+    
     @Override
     public List<PosizioneScaffale> cercaPosizioni(String criterio) {
         return caricaMerceRepository.cercaLikeDescrizione(criterio);
     }
     
     @Override
-    public List<Prodotto> caricaProdottiScaffale(Long id) {
-        System.out.println("sono in carica prodotti - service impl");
-        System.out.println("id : " + id);
-        return caricaMerceRepository.selezionaProdottiInPosizioneScaffale(id);
+    public List<ProdottoGiacenza> caricaProdottiScaffale(Long id) {
+        return caricaMerceRepository.selezionaProdottiGiacenzaByIdPos(id);
     }
 
     @Override
-    public boolean caricaMerce(CaricaMerceDto dto) {
+    public List<ProdottoGiacenza> caricaMerce(CaricaMerceDto dto) {
         System.out.println("sono in carica merce - service impl");
+        System.out.println("dto.getId_Pos : " + dto.getId_Pos());
+        System.out.println("dto.getId_Sku : " + dto.getId_Sku());
+        System.out.println("dto.getQuantita : " + dto.getQuantita());
 
-//        //in base alla posizione scaffale e al prodotto, seleziono SkuScaffale e aggiorno la giacenza
-//        SkuScaffale ss = caricaMerceRepository.selezionaSkuScaffale(dto.getPosizioneScaffale().getId(), dto.getProdotto().getId());
-//        ss.setGiacenza(ss.getGiacenza() + dto.getQuantita());
-//        skuScaffaleRepository.save(ss);
+        //Seleziono il record di skuScaffale in base all'id passato dal client e aggiorno la giacenza
+          SkuScaffale ss = caricaMerceRepository.selezionaSkuScaffaleById(dto.getId_Sku());
+          ss.setGiacenza(ss.getGiacenza() + dto.getQuantita());
+          skuScaffaleRepository.save(ss);
 
         //Inserisco un movimento magazzino di carico con la quantità caricata
         MovimentiScaffale ms = new MovimentiScaffale();
         ms.setQuantita(dto.getQuantita());
         ms.setTimestamp(LocalDateTime.now());
-        //ms.setTipo("carico");
+        ms.setTipo("carico");       
         movimentiScaffaleRepository.save(ms);
-
-        return true;
+        
+        return caricaProdottiScaffale(dto.getId_Pos());
     }
 
 }
