@@ -15,14 +15,13 @@ public interface PosizioneScaffaleRepository extends JpaRepository<PosizioneScaf
 
     List<PosizioneScaffale> findByCodiceContains(String c);
     
-
     @Query(
             "SELECT new it.iad2.scarsefourserver.model.Giacenza"
             + " (p.codice, p.descrizione, s.giacenza, s.scortaMinima) FROM SkuScaffale s"
             + " JOIN s.prodotto p"
             + " JOIN s.posizioneScaffale ps"
-            + " WHERE ps.id = ?1")
-    List<Giacenza> visualizzaGiacenzaProdotti(Long id);
+            + " WHERE ps.id = :id")
+    List<Giacenza> visualizzaGiacenzaProdotti(@Param("id") Long id);
 
     PosizioneScaffale findByCodiceEquals(String codice);
     
