@@ -25,6 +25,18 @@
       </tbody>
     </table>
   </div>
+  <app-pagination
+          (next)="goToNext($event)"
+          (prev)="goToPrevious($event)"
+          (first)="goToFirst($event)"
+          (last)="goToLast($event)"
+          (numPaginaO) = "caricaPosizioniPaginati($event)"
+          (pagSize) ="setElemPag($event)"
+          [numPaginaV] = numPaginaV
+          [totalPages]=totalPages
+          [elemPag]=elemPag>
+  </app-pagination>
+  <br>
   <div *ngIf="formDivVisible" class="scrolldown">
       <table *ngIf="formVisible">
           <thead>
