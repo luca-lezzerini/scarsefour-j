@@ -1,10 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { EsitoDtoDue } from '../dto/esito-dto-due';
+import { CriterioRicercaDto } from '../dto/criterio-ricerca-dto';
 import { PosizioneScaffaleDto } from '../dto/posizione-scaffale-dto';
 import { PosizioneScaffale } from '../entità/posizione-scaffale';
 import { Prodotto } from '../entità/prodotto';
+import { AutomaScarica } from './automa-scarica-merce/automaScarica';
+import { TrovaEvent } from './automa-scarica-merce/eventiScarica';
 
 @Component({
   selector: 'app-scarica-merce',
@@ -13,11 +15,11 @@ import { Prodotto } from '../entità/prodotto';
 })
 
 export class ScaricaMerceComponent implements OnInit {
-  inserisciScaffale: string;
+  criterioRicerca: string;
   prodotti: Prodotto[] = [];
-
   posizione: PosizioneScaffale;
-  esito: boolean;
+  automa: AutomaScarica;
+
 
   constructor(private http: HttpClient) { }
 
@@ -25,13 +27,13 @@ export class ScaricaMerceComponent implements OnInit {
   }
   
   cercaScaffale():void {
-    const dto: PosizioneScaffaleDto = new PosizioneScaffaleDto();
-    dto.posizione = this.posizione;
-    const oss: Observable<EsitoDtoDue> = this.http
-    .post<EsitoDtoDue>('http://localhost:8080/cerca-posizione-scaffale', dto);
+    const dto: CriterioRicercaDto = new CriterioRicercaDto();
+    dto.criterio = this.criterioRicerca;
+    const oss: Observable<PosizioneScaffaleDto> = this.http
+    .post<PosizioneScaffaleDto>('http://localhost:8080/cerca-posizione-scaffale', dto);
     oss.subscribe(p => {
-      this.esito = p.esito;
-      //ci vuole un cambiamento di stato????
+      this.posizione = p.posizione;
+      this.automa.next(new TrovaEvent(this.posizione));
     });
   }
 
