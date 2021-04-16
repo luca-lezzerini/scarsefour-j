@@ -3,7 +3,11 @@ package it.iad2.scarsefourserver.service;
 import it.iad2.scarsefourserver.dto.ListaGiacenzaDto;
 import it.iad2.scarsefourserver.dto.ListaPosizioneScaffaleDto;
 import it.iad2.scarsefourserver.dto.ListaProdottiDto;
+import it.iad2.scarsefourserver.dto.PageDto;
+import it.iad2.scarsefourserver.dto.PaginazioneDto;
 import it.iad2.scarsefourserver.dto.PosizioneScaffaleDto;
+import it.iad2.scarsefourserver.model.PosizioneScaffale;
+import org.springframework.data.domain.Page;
 
 public interface VisualizzaGiacenzaService {
 
@@ -24,5 +28,7 @@ public interface VisualizzaGiacenzaService {
      * @see ListaGiacenzaDto
      */
     ListaGiacenzaDto visualizzaGiacenza(PosizioneScaffaleDto dto);
+    
+    Page<PosizioneScaffale> trovaPaginatiConCriterio(PaginazioneDto dto);
 
 }

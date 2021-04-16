@@ -2,6 +2,8 @@ package it.iad2.scarsefourserver.controller;
 
 import it.iad2.scarsefourserver.dto.ListaGiacenzaDto;
 import it.iad2.scarsefourserver.dto.ListaPosizioneScaffaleDto;
+import it.iad2.scarsefourserver.dto.PageDto;
+import it.iad2.scarsefourserver.dto.PaginazioneDto;
 import it.iad2.scarsefourserver.dto.PosizioneScaffaleDto;
 import it.iad2.scarsefourserver.service.VisualizzaGiacenzaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,5 +30,11 @@ public class VisualizzaGiacenzaController {
     @ResponseBody
     public ListaGiacenzaDto visualizzaGiacenza(@RequestBody PosizioneScaffaleDto dto) {
         return visualizzaGiacenzaService.visualizzaGiacenza(dto);
+    }
+    
+    @RequestMapping("/carica-paginazione-posizioni")
+    @ResponseBody
+    public PageDto trovaPaginatiConCriterio(@RequestBody PaginazioneDto dto) {
+        return new PageDto(visualizzaGiacenzaService.trovaPaginatiConCriterio(dto));
     }
 }
